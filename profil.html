@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Pendiri - Nuqthah Learning Center</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logobaru.png">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F4A3A',
+                        secondary: '#C69A45',
+                        accent: '#F9F7F2',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        heading: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #F9F7F2;
+            color: #1F2A24;
+            scroll-behavior: smooth;
+        }
+
+        /* Fade-up animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Accordion transition logic */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out, opacity 0.2s ease-in;
+            opacity: 0;
+        }
+
+        .accordion-content.open {
+            max-height: 1000px;
+            /* Large enough to fit content */
+            opacity: 1;
+        }
+
+        /* Hover arrow animation */
+        .arrow-animate {
+            transition: transform 0.3s ease;
+        }
+
+        .btn-selengkapnya:hover .arrow-animate {
+            transform: translateX(5px);
+        }
+
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #0F4A3A;
+            border-radius: 10px;
+        }
+
+        /* Fix for Grid.js responsiveness */
+        .gridjs-wrapper {
+            border-radius: 0.75rem !important;
+            box-shadow: none !important;
+        }
+
+        .gridjs-table {
+            width: 100% !important;
+        }
+    </style>
+</head>
+
+<body class="overflow-x-hidden">
+
+
+
+
+    <!-- nav begin -->
+    <nav class="sticky top-0 z-50 bg-[#F9F7F2]/90 backdrop-blur-md border-b border-primary/10">
+        <div class="max-w-[1100px] mx-auto px-6 py-4 flex justify-between items-center">
+            <!-- Left Side: Kembali Button -->
+            <a href="index.html" <button onclick="javascript:history.back()"
+                class="group flex items-center gap-2 text-primary font-medium hover:text-secondary transition-colors duration-300 focus:outline-none"
+                aria-label="Kembali ke halaman sebelumnya">
+                <i class="fas fa-arrow-left transition-transform group-hover:-translate-x-1"></i>
+                <span class="text-sm md:text-base">Kembali</span>
+                </button> </a>
+
+            <!-- Right Side: Brand/Logo -->
+            <div class="flex items-center gap-3">
+                <img src="assets/logobaru.png" alt="Nuqthah Logo"
+                    class="h-10 w-auto object-contain rounded shadow-sm border border-[#0F4A3A]/5">
+                <span class="font-heading font-bold text-[#0F4A3A] tracking-tight text-xl">
+                    Profil Asaatidz
+                </span>
+            </div>
+        </div>
+    </nav>
+    <!-- nav end -->
+
+    <!-- Main Container -->
+    <main class="max-w-[1100px] mx-auto px-6 py-16">
+
+        <!-- Header Section -->
+        <header class="mb-20 text-center md:text-left reveal">
+            <h1 class="text-4xl md:text-6xl font-heading font-bold text-primary mb-6 leading-tight">
+                Asaatidz Nuqthah Learning Center
+            </h1>
+            <p class="text-base md:text-xl text-[#1F2A24] leading-relaxed text-justify">
+                Nuqthah Learning Center hadir berkat semangat, kerja sama, dan dedikasi para pendirinya dalam
+                menghadirkan ruang belajar yang bermanfaat bagi para penuntut ilmu. Di tengah perjalanan sebagai
+                mahasiswa Al-Azhar, mereka memilih untuk berbagi ilmu dan membangun sebuah ikhtiar yang diharapkan
+                menjadi jalan kebaikan bagi banyak orang.
+
+                Kami mengucapkan Jazakumullāhu khayran katsīrā atas setiap waktu, tenaga, dan pemikiran yang telah
+                dicurahkan. Semoga Allah SWT menerima seluruh amal kebaikan ini sebagai amal jariyah yang terus
+                mengalir, serta senantiasa memberkahi langkah dan perjuangan dalam menebarkan ilmu yang bermanfaat.
+            </p>
+        </header>
+
+        <!-- Profile List Section -->
+        <section class="space-y-0">
+
+            <!-- Profile 1: Ahmad Fauzi -->
+            <div class="profile-item reveal border-t border-primary/10 pt-16 pb-0">
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <!-- Image -->
+                    <div class="flex items-center gap-6 md:block">
+                        <div
+                            class="w-[140px] h-[140px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-2 border-secondary shadow-xl flex-shrink-0 transition-transform duration-500 hover:scale-105">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-quiet-river-4104/317ef990_2465591338_5fa7d15ff7_b.jpg"
+                                alt="Ahmad Fauzi" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:hidden">
+                            <h2 class="text-2xl font-heading font-bold text-primary">Ust M Jalaluddin Assuyuty, Lc,Dipl.
+                            </h2>
+                            <p class="italic text-secondary font-medium">Mahasiswa Senior Universitas Al-Azhar</p>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div class="flex-1">
+                        <div class="hidden md:block mb-4">
+                            <h2 class="text-3xl font-heading font-bold text-primary">Ust M Jalaluddin Assuyuty, Lc,Dipl.
+                            </h2>
+                            <p class="italic text-lg text-secondary mt-1 font-medium">Mahasiswa Senior Universitas
+                                Al-Azhar</p>
+                        </div>
+
+                        <p class="text-[#1F2A24] mb-8 leading-relaxed text-justify">
+                            Mahasiswa Fakultas Ushuluddin, Jurusan Akidah Filsafat, Universitas Al-Azhar Kairo.
+                            Inisiator Berdirinya Nuqthah Learning Center sekaligus Pembina Nuqthah Learning Center
+                        </p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <li class="flex items-center gap-3"><i class="fas fa-university text-primary w-5"></i>
+                                <span>Fakultas: Ushuluddin</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-scroll text-primary w-5"></i>
+                                <span>Spesialisasi: Akidah Filsafat</span>
+                            </li>
+                        </ul>
+
+                        <button onclick="toggleAccordion('founder1')"
+                            class="btn-selengkapnya text-primary font-bold flex items-center gap-2 group hover:text-secondary transition-colors">
+                            Selengkapnya <span class="arrow-animate text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Accordion Detail -->
+                <div id="founder1"
+                    class="accordion-content mt-8 bg-white/40 rounded-2xl p-8 border border-primary/5 shadow-inner">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Latar Belakang</h4>
+                            <p class="text-sm leading-relaxed text-gray-700">Telah mengkhatamkan beberapa kitab tafsir
+                                mu'tabar di bawah bimbingan para Masyayikh Al-Azhar. Berfokus pada integrasi pesan-pesan
+                                Al-Quran dalam kehidupan modern.</p>
+                            <h4
+                                class="font-heading font-bold text-primary mt-6 mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Visi Pembelajaran</h4>
+                            <p class="text-sm italic text-gray-600">"Tafsir bukan sekadar memahami makna, tapi
+                                menghidupkan makna tersebut dalam setiap langkah kehidupan."</p>
+                        </div>
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Pencapaian</h4>
+                            <p class="text-sm text-gray-700">Penyusun framework "Tafsir Terarah" untuk tingkat pemula di
+                                Nuqthah Learning Center.</p>
+                            <div class="flex gap-4 mt-8">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-instagram"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Profile 2: Muhammad Rizky -->
+            <div class="profile-item reveal border-t border-primary/10 pt-16 pb-4">
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="flex items-center gap-6 md:block">
+                        <div
+                            class="w-[140px] h-[140px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-2 border-secondary shadow-xl flex-shrink-0 transition-transform duration-500 hover:scale-105">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-quiet-river-4104/14c301bb_3878262411_863bbb4fb8_c.jpg"
+                                alt="Muhammad Rizky" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:hidden">
+                            <h2 class="text-2xl font-heading font-bold text-primary">Ust Heru Chairul Anwar, Lc,Dipl.
+                            </h2>
+                            <p class="italic text-secondary font-medium">Mahasiswa Senior Universitas Al-Azhar</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="hidden md:block mb-4">
+                            <h2 class="text-3xl font-heading font-bold text-primary">Ust Heru Chairul Anwar, Lc,Dipl.
+                            </h2>
+                            <p class="italic text-lg text-secondary mt-1 font-medium">Mahasiswa Senior Universitas
+                                Al-Azhar
+                            </p>
+                        </div>
+
+                        <p class="text-[#1F2A24] mb-8 leading-relaxed text-justify">
+                            Mahasiswa Fakultas Syariah Islamiyah, Universitas Al-Azhar Kairo sekaligus Pembina Nuqthah
+                            Learning Center
+                        </p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <li class="flex items-center gap-3"><i class="fas fa-balance-scale text-primary w-5"></i>
+                                <span>Fakultas: Syariah Islamiyah</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-scroll text-primary w-5"></i>
+                                <span>Spesialisasi: Ushul Fikih</span>
+                            </li>
+                        </ul>
+
+                        <button onclick="toggleAccordion('founder2')"
+                            class="btn-selengkapnya text-primary font-bold flex items-center gap-2 group hover:text-secondary transition-colors">
+                            Selengkapnya <span class="arrow-animate text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="founder2"
+                    class="accordion-content mt-8 bg-white/40 rounded-2xl p-8 border border-primary/5 shadow-inner">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Keahlian Khusus</h4>
+                            <p class="text-sm leading-relaxed text-gray-700">Mampu membedah struktur 'Illat dan Qiyas
+                                dalam hukum Islam. Aktif memberikan tutorial syariah bagi mahasiswa baru di Kairo.</p>
+                            <h4
+                                class="font-heading font-bold text-primary mt-6 mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Motto</h4>
+                            <p class="text-sm italic text-gray-600">"Memahami syariat adalah tentang kejernihan logika
+                                dan ketulusan niat."</p>
+                        </div>
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Proyek Saat Ini</h4>
+                            <p class="text-sm text-gray-700">Mengembangkan modul interaktif Fathul Qorib bagi pelajar
+                                pemula.</p>
+                            <div class="flex gap-4 mt-8">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-facebook-f"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Profile 3: Lutfi Hakim -->
+            <div class="profile-item reveal border-t border-primary/10 pt-16 pb-4">
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="flex items-center gap-6 md:block">
+                        <div
+                            class="w-[140px] h-[140px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-2 border-secondary shadow-xl flex-shrink-0 transition-transform duration-500 hover:scale-105">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-quiet-river-4104/7611f7ce_4885681811_6317b81846_b.jpg"
+                                alt="Lutfi Hakim" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:hidden">
+                            <h2 class="text-2xl font-heading font-bold text-primary">Ust Ridwan Mishbah, Lc,Dipl.</h2>
+                            <p class="italic text-secondary font-medium">Mahasiswa Senior Universitas Al-Azhar</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="hidden md:block mb-4">
+                            <h2 class="text-3xl font-heading font-bold text-primary">Ust Ridwan Mishbah, Lc,Dipl.</h2>
+                            <p class="italic text-lg text-secondary mt-1 font-medium">Mahasiswa Senior Universitas
+                                Al-Azhar
+                            </p>
+                        </div>
+
+                        <p class="text-[#1F2A24] mb-8 leading-relaxed text-justify">
+                            Mahasiswa Fakultas Syariah Islamiyah, Universitas Al-Azhar Kairo Sekaligus Ketua Umum
+                            Nuqthah Learning Center
+                        </p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <li class="flex items-center gap-3"><i class="fas fa-language text-primary w-5"></i>
+                                <span>Fakultas: Bahasa Arab (Lughawiyah)</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-spell-check text-primary w-5"></i>
+                                <span>Pakar: Nahwu, Sharaf, & Balaghah</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-book-reader text-primary w-5"></i>
+                                <span>Peran: Metodologi Dasar Keilmuan</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-pen-nib text-primary w-5"></i>
+                                <span>Keahlian: Analisis I'rob Teks Klasik</span>
+                            </li>
+                        </ul>
+
+                        <button onclick="toggleAccordion('founder3')"
+                            class="btn-selengkapnya text-primary font-bold flex items-center gap-2 group hover:text-secondary transition-colors">
+                            Selengkapnya <span class="arrow-animate text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="founder3"
+                    class="accordion-content mt-8 bg-white/40 rounded-2xl p-8 border border-primary/5 shadow-inner">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Metodologi Pengajaran</h4>
+                            <p class="text-sm leading-relaxed text-gray-700">Mengembangkan sistem "Pola Bahasa Nuqthah"
+                                yang membantu siswa mengenali struktur kalimat Arab hanya dalam hitungan menit.</p>
+                            <h4
+                                class="font-heading font-bold text-primary mt-6 mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Filosofi</h4>
+                            <p class="text-sm italic text-gray-600">"Bahasa Arab adalah kunci utama gudang ilmu Islam;
+                                tanpa kuncinya, kita takkan pernah masuk."</p>
+                        </div>
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Kontribusi</h4>
+                            <p class="text-sm text-gray-700">Penulis buku "Ringkasan Matan Jurumiyah: Versi Praktis
+                                Nuqthah".</p>
+                            <div class="flex gap-4 mt-8">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-youtube"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Profile 4: Abdullah Siddiq -->
+            <div class="profile-item reveal border-t border-primary/10 pt-16 pb-4">
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="flex items-center gap-6 md:block">
+                        <div
+                            class="w-[140px] h-[140px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-2 border-secondary shadow-xl flex-shrink-0 transition-transform duration-500 hover:scale-105">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-quiet-river-4104/3eabef3b_8128530176_aec9281434_b.jpg"
+                                alt="Abdullah Siddiq" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:hidden">
+                            <h2 class="text-2xl font-heading font-bold text-primary">Ust Bangun Tirto Utomo, Lc,Dipl.
+                            </h2>
+                            <p class="italic text-secondary font-medium">Mahasiswa Senior Universitas Al-Azhar.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="hidden md:block mb-4">
+                            <h2 class="text-3xl font-heading font-bold text-primary">Ust Bangun Tirto Utomo, Lc,Dipl.
+                            </h2>
+                            <p class="italic text-lg text-secondary mt-1 font-medium">MMahasiswa Senior Universitas
+                                Al-Azhar.</p>
+                        </div>
+
+                        <p class="text-[#1F2A24] mb-8 leading-relaxed text-justify">
+                            Mahasiswa Fakultas Dirasat Islamiyah, Universitas Al-Azhar Kairo. Memiliki latar belakang
+                            kuat dalam tata kelola institusi pendidikan dan pemberdayaan masyarakat.
+                        </p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <li class="flex items-center gap-3"><i class="fas fa-briefcase text-primary w-5"></i>
+                                <span>Fakultas: Dirasat Islamiyah</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-users-cog text-primary w-5"></i>
+                                <span>Fokus: Manajemen & Pengabdian</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-cogs text-primary w-5"></i>
+                                <span>Peran: Efisiensi Operasional</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i
+                                    class="fas fa-hand-holding-heart text-primary w-5"></i> <span>Keahlian: Pengembangan
+                                    Karakter Pelajar</span></li>
+                        </ul>
+
+                        <button onclick="toggleAccordion('founder4')"
+                            class="btn-selengkapnya text-primary font-bold flex items-center gap-2 group hover:text-secondary transition-colors">
+                            Selengkapnya <span class="arrow-animate text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="founder4"
+                    class="accordion-content mt-8 bg-white/40 rounded-2xl p-8 border border-primary/5 shadow-inner">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Manajemen Lembaga</h4>
+                            <p class="text-sm leading-relaxed text-gray-700">Mengatur ekosistem belajar yang kondusif di
+                                Nuqthah, memastikan setiap pengajar dan siswa mendapatkan pengalaman terbaik.</p>
+                            <h4
+                                class="font-heading font-bold text-primary mt-6 mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Visi Operasional</h4>
+                            <p class="text-sm italic text-gray-600">"Pendidikan yang baik berawal dari manajemen yang
+                                tertata rapi dan penuh integritas."</p>
+                        </div>
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Peran Strategis</h4>
+                            <p class="text-sm text-gray-700">Menjembatani kolaborasi antara alumni Al-Azhar dengan
+                                berbagai lembaga pendidikan di Indonesia.</p>
+                            <div class="flex gap-4 mt-8">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-linkedin-in"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Profile 5: Zaki Mubarak -->
+            <div class="profile-item reveal border-t border-primary/10 pt-16 pb-4">
+                <div class="flex flex-col md:flex-row items-start gap-8 md:gap-12">
+                    <div class="flex items-center gap-6 md:block">
+                        <div
+                            class="w-[140px] h-[140px] md:w-[220px] md:h-[220px] rounded-full overflow-hidden border-2 border-secondary shadow-xl flex-shrink-0 transition-transform duration-500 hover:scale-105">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-quiet-river-4104/c88b284d_14275832885_4c3cb5f89c_c.jpg"
+                                alt="Zaki Mubarak" class="w-full h-full object-cover">
+                        </div>
+                        <div class="md:hidden">
+                            <h2 class="text-2xl font-heading font-bold text-primary">Ust Alfian Qotrunnada</h2>
+                            <p class="italic text-secondary font-medium">Mahasiswa Universitas Al-Azhar</p>
+                        </div>
+                    </div>
+
+                    <div class="flex-1">
+                        <div class="hidden md:block mb-4">
+                            <h2 class="text-3xl font-heading font-bold text-primary">Ust Alfian Qotrunnada</h2>
+                            <p class="italic text-lg text-secondary mt-1 font-medium">Mahasiswa Universitas Al-Azhar</p>
+                        </div>
+
+                        <p class="text-[#1F2A24] mb-8 leading-relaxed text-justify">
+                            Mahasiswa Fakultas Ushuluddin, Jurusan Hadits, Universitas Al-Azhar Kairo. Mahir dalam
+                            dialek Amiyah Mesir baik secara akademis maupun sosial, serta piawai dalam studi Hadits
+                            Nabawi.
+                        </p>
+
+                        <ul class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+                            <li class="flex items-center gap-3"><i class="fas fa-scroll text-primary w-5"></i>
+                                <span>Fakultas: Ushuluddin (Hadits)</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-comments text-primary w-5"></i>
+                                <span>Pakar: Dialek Amiyah Mesir</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-users text-primary w-5"></i>
+                                <span>Peran: Komunikasi & Budaya Mesir</span>
+                            </li>
+                            <li class="flex items-center gap-3"><i class="fas fa-book text-primary w-5"></i>
+                                <span>Keahlian: Ulumul Hadits & Tahqiq Matan</span>
+                            </li>
+                        </ul>
+
+                        <button onclick="toggleAccordion('founder5')"
+                            class="btn-selengkapnya text-primary font-bold flex items-center gap-2 group hover:text-secondary transition-colors">
+                            Selengkapnya <span class="arrow-animate text-xl">→</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div id="founder5"
+                    class="accordion-content mt-8 bg-white/40 rounded-2xl p-8 border border-primary/5 shadow-inner">
+                    <div class="grid md:grid-cols-2 gap-10">
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Keahlian Bahasa</h4>
+                            <p class="text-sm leading-relaxed text-gray-700">Membantu mahasiswa Indonesia untuk
+                                beradaptasi dengan budaya dan dialek Mesir guna menunjang keberhasilan studi mereka di
+                                Al-Azhar.</p>
+                            <h4
+                                class="font-heading font-bold text-primary mt-6 mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Pesan</h4>
+                            <p class="text-sm italic text-gray-600">"Hadits adalah petunjuk, dan memahami konteks budaya
+                                pengucapnya adalah kunci akurasi makna."</p>
+                        </div>
+                        <div>
+                            <h4
+                                class="font-heading font-bold text-primary mb-3 border-b-2 border-secondary/30 inline-block pb-1">
+                                Inovasi Konten</h4>
+                            <p class="text-sm text-gray-700">Pencetus seri video "Amiyah for Students" yang viral di
+                                kalangan calon mahasiswa Mesir.</p>
+                            <div class="flex gap-4 mt-8">
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-tiktok"></i></a>
+                                <a href="#"
+                                    class="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center text-primary hover:bg-primary hover:text-white transition-all"><i
+                                        class="fab fa-instagram"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <!-- CTA Section -->
+        <section class="mt-32 bg-primary rounded-3xl p-12 text-center reveal overflow-hidden relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full -mr-32 -mt-32"></div>
+            <div class="absolute bottom-0 left-0 w-64 h-64 bg-secondary/10 rounded-full -ml-32 -mb-32"></div>
+
+            <h3 class="text-3xl md:text-4xl font-heading font-bold text-white mb-6 relative z-10">
+                Belajar Langsung dari Mereka yang Memahami Manhaj
+            </h3>
+            <p class="text-white/80 text-lg mb-10 max-w-2xl mx-auto relative z-10">
+                Dapatkan bimbingan intensif untuk persiapan ujian, pemahaman kitab turats, hingga kemampuan bahasa Arab
+                standar Al-Azhar.
+            </p>
+            <div class="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
+                <a href="/index.html"
+                    class="px-8 py-4 bg-secondary text-white font-bold rounded-xl hover:bg-white hover:text-primary transition-all shadow-lg transform hover:-translate-y-1">
+                    Daftar Program
+                </a>
+                <a href="https://wa.me/6285185409887"
+                    class="px-8 py-4 bg-white/10 text-white font-bold rounded-xl hover:bg-white/20 transition-all backdrop-blur-sm">
+                    Tanya Admin (WhatsApp)
+                </a>
+            </div>
+
+        </section>
+
+        <!-- Footer -->
+        <footer class="mt-32 pt-12 border-t border-primary/10 text-center">
+            <div class="flex flex-col items-center gap-4 mb-8">
+                <div
+                    class="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-white text-xl font-bold">
+                    N</div>
+                <h4 class="font-heading font-bold text-primary text-xl tracking-tight">Nuqthah Learning Center</h4>
+            </div>
+            <div class="flex justify-center gap-8 mb-8 text-gray-500 text-sm">
+                <a href="#" class="hover:text-primary">Tentang Kami</a>
+                <a href="#" class="hover:text-primary">Kebijakan Privasi</a>
+                <a href="#" class="hover:text-primary">Syarat & Ketentuan</a>
+            </div>
+            <p class="text-sm text-gray-400">&copy; 2024 Nuqthah Learning Center. All rights reserved.</p>
+            <div
+                class="mt-4 flex items-center justify-center gap-2 text-[10px] text-gray-400 font-bold uppercase tracking-widest">
+                <span>Integrated Solutions</span>
+                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+
+            </div>
+        </footer>
+
+    </main>
+
+
+
+    <!-- Scripts Section -->
+    <script>
+        // Intersection Observer for fade-up animations
+        function initReveal() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.1 });
+
+            document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+        }
+
+        // Accordion functionality
+        function toggleAccordion(id) {
+            const content = document.getElementById(id);
+            const isOpen = content.classList.contains('open');
+
+            // Optional: Close others
+            // document.querySelectorAll('.accordion-content').forEach(el => {
+            //     if (el.id !== id) el.classList.remove('open');
+            // });
+
+            if (isOpen) {
+                content.classList.remove('open');
+            } else {
+                content.classList.add('open');
+            }
+        }
+
+        // ApexCharts Initialization
+        function initCharts() {
+            const options = {
+                series: [{
+                    name: 'Dominasi Keahlian',
+                    data: [95, 90, 88, 85, 92, 80]
+                }],
+                chart: {
+                    height: 380,
+                    type: 'radar',
+                    toolbar: { show: false },
+                    dropShadow: {
+                        enabled: true,
+                        blur: 1,
+                        left: 1,
+                        top: 1
+                    }
+                },
+                title: {
+                    text: 'Distribusi Fokus Akademik (%)',
+                    align: 'center',
+                    style: {
+                        color: '#0F4A3A',
+                        fontSize: '16px',
+                        fontFamily: 'Poppins'
+                    }
+                },
+                colors: ['#0F4A3A'],
+                fill: {
+                    opacity: 0.4,
+                    colors: ['#C69A45']
+                },
+                stroke: {
+                    show: true,
+                    width: 2,
+                    colors: ['#0F4A3A'],
+                    dashArray: 0
+                },
+                markers: {
+                    size: 4,
+                    hover: { size: 7 }
+                },
+                xaxis: {
+                    categories: ['Tafsir', 'Fikih', 'Linguistik', 'Hadits', 'Amiyah', 'Manajemen'],
+                    labels: {
+                        style: {
+                            colors: ['#6B7280'],
+                            fontSize: '12px',
+                            fontFamily: 'Inter'
+                        }
+                    }
+                },
+                yaxis: {
+                    show: false
+                }
+            };
+
+            const chart = new ApexCharts(document.querySelector("#skillsChart"), options);
+            chart.render();
+        }
+
+        // Grid.js Table Initialization
+        function initGridTable() {
+            new gridjs.Grid({
+                columns: [
+                    { name: 'Nama', width: '40%' },
+                    {
+                        name: 'Fokus',
+                        formatter: (cell) => gridjs.h('span', { className: 'text-primary font-bold' }, cell)
+                    }
+                ],
+                data: [
+                    ['Ahmad Fauzi', 'Tafsir'],
+                    ['Muhammad Rizky', 'Fikih'],
+                    ['Lutfi Hakim', 'Linguistik'],
+                    ['Abdullah Siddiq', 'Manajemen'],
+                    ['Zaki Mubarak', 'Amiyah/Hadits']
+                ],
+                style: {
+                    table: { 'font-size': '12px', 'width': '100%' },
+                    th: { 'background-color': '#0F4A3A', 'color': 'white', 'padding': '12px' },
+                    td: { 'padding': '12px', 'border-bottom': '1px solid #f3f4f6' }
+                }
+            }).render(document.getElementById("tableContainer"));
+        }
+
+        // Handle window resize for chart responsiveness
+        let resizeTimer;
+        window.addEventListener('resize', () => {
+            clearTimeout(resizeTimer);
+            resizeTimer = setTimeout(() => {
+                const chartEl = document.querySelector("#skillsChart");
+                chartEl.innerHTML = '';
+                initCharts();
+            }, 250);
+        });
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', () => {
+            initReveal();
+            initCharts();
+            initGridTable();
+        });
+    </script>
+
+
+</body>
+
+</html>

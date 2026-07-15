@@ -1,0 +1,1785 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <base href="/lp-ai/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuqthah Learning - Pusat Pembelajaran Ilmu Syar'i</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logobaru.png">
+
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&amp;family=Poppins:wght@400;600;700&amp;display=swap"
+        rel="stylesheet">
+
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E5E4E',
+                        accent: '#C9A227',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-out forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(8px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .course-card {
+            box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.08), 0 4px 10px -5px rgba(0, 0, 0, 0.04) !important;
+        }
+
+        .card-hover {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-hover:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 35px -5px rgba(0, 0, 0, 0.15) !important;
+        }
+
+        .card-title-min-h {
+            min-height: 2.5rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        #materimu-drawer {
+            z-index: 80000 !important;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        #drawer-overlay {
+            z-index: 79999 !important;
+        }
+
+        nav.main-nav {
+            z-index: 70000 !important;
+        }
+
+        .modal-fade-in {
+            animation: modalFadeIn 0.3s ease-out forwards;
+        }
+
+        @keyframes modalFadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        .sticky-cat {
+            top: 48px;
+        }
+
+        @media (min-width: 768px) {
+            .sticky-cat {
+                top: 64px;
+            }
+        }
+
+        #category-tabs {
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .modal-container {
+            z-index: 9999999 !important;
+        }
+
+        .modal-overlay {
+            z-index: 9999998 !important;
+        }
+    </style>
+</head>
+
+<body class="bg-white text-gray-900 overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav
+        class="main-nav fixed top-0 left-0 right-0 w-full bg-primary text-white shadow-lg px-4 md:px-6 h-12 md:h-16 flex items-center justify-between">
+        <a href="/index.html" class="flex items-center gap-2 md:gap-3 hover:opacity-90 transition-opacity duration-300">
+
+            <div class="w-8 h-8 md:w-10 md:h-10 rounded-full bg-white p-0.5 overflow-hidden">
+                <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
+                    alt="Logo Nuqthah" class="w-full h-full object-cover rounded-full">
+            </div>
+
+            <span class="font-bold text-sm md:text-base hidden sm:inline">
+                Nuqthah Learning Center
+            </span>
+
+            <span class="font-bold text-sm sm:hidden">
+                Nuqthah Learning
+            </span>
+
+        </a>
+
+        <div class="flex items-center gap-2 md:gap-3">
+            <button onclick="openLoginModal(event)"
+                class="bg-accent text-white px-4 py-1.5 rounded-lg font-bold text-xs md:text-sm hover:bg-opacity-90 transition-all">Login</button>
+            <button id="materimu-toggle-btn"
+                class="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-colors relative">
+                <i class="far fa-bookmark"></i>
+                <span class="text-xs md:text-sm font-medium">Materimu</span>
+                <span id="materimu-badge"
+                    class="absolute -top-1 -right-1 bg-accent text-white text-[10px] w-5 h-5 flex items-center justify-center rounded-full border border-primary leading-none">0</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Drawer Overlay -->
+    <div id="drawer-overlay"
+        class="fixed inset-0 bg-black/60 transition-opacity duration-300 opacity-0 pointer-events-none"></div>
+
+    <!-- Materimu Drawer -->
+    <div id="materimu-drawer"
+        class="fixed inset-y-0 right-0 w-full max-w-[320px] md:max-w-[400px] bg-white shadow-2xl transition-transform duration-300 flex flex-col translate-x-full">
+        <div class="p-5 border-b border-gray-100 flex items-center justify-between bg-primary text-white">
+            <div class="flex items-center gap-3">
+                <h2 class="text-lg font-bold">Materimu</h2>
+                <span id="drawer-count-badge"
+                    class="bg-accent px-2.5 py-0.5 rounded-full text-[10px] font-bold uppercase">0</span>
+            </div>
+            <div class="flex items-center gap-2">
+                <button id="open-guide-btn"
+                    class="text-[10px] font-bold uppercase tracking-widest text-white/70 hover:text-white px-2 py-1 border border-white/20 rounded-md">Panduan</button>
+                <button id="close-drawer"
+                    class="w-8 h-8 flex items-center justify-center rounded-full hover:bg-white/10"><i
+                        class="fas fa-times"></i></button>
+            </div>
+        </div>
+
+        <!-- Manual Add -->
+        <div class="border-b border-gray-100 bg-gray-50/80">
+            <button id="toggle-manual-form"
+                class="w-full px-5 py-4 flex items-center justify-between text-xs font-bold text-primary uppercase">
+                <div class="flex items-center gap-2"><i class="fas fa-link text-accent"></i><span>Tambah Materi dari
+                        Link</span></div>
+                <i id="manual-chevron" class="fas fa-chevron-down transition-transform rotate-180"></i>
+            </button>
+            <div id="manual-form-container" class="px-5 pb-5 space-y-3 hidden">
+                <input type="text" id="manual-name" placeholder="Nama Materi"
+                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+                <input type="url" id="manual-link" placeholder="Link Produk / Akses"
+                    class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
+                <button id="save-manual-btn"
+                    class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-lg shadow-sm">Simpan ke
+                    Materimu</button>
+            </div>
+        </div>
+
+        <div id="drawer-content" class="flex-grow overflow-y-auto p-4 space-y-4">
+            <div id="drawer-empty" class="h-full flex flex-col items-center justify-center text-center p-8 opacity-40">
+                <i class="far fa-bookmark text-5xl mb-4 text-primary"></i>
+                <p class="text-sm font-medium">Belum ada materi yang disimpan.</p>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-100 bg-gray-50">
+            <button id="clear-all-btn"
+                class="w-full py-3 text-xs text-gray-400 hover:text-red-600 transition-colors font-semibold uppercase tracking-widest flex items-center justify-center gap-2">
+                <i class="far fa-trash-can"></i> Kosongkan Daftar
+            </button>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="mt-12 md:mt-16 pt-8 pb-4 px-6 text-center relative bg-white overflow-hidden">
+        <div class="absolute -top-32 -right-32 w-80 h-80 bg-primary opacity-[0.03] rounded-full blur-[80px]"></div>
+        <div class="absolute -top-32 -left-32 w-80 h-80 bg-accent opacity-[0.03] rounded-full blur-[80px]"></div>
+        <div class="fade-in relative z-10 max-w-screen-md mx-auto">
+            <h1 class="text-2xl md:text-4xl font-bold text-primary tracking-tight mb-2">Berfikir • Berdzikir • Berhasil
+            </h1>
+            <p class="text-accent text-base md:text-lg tracking-[0.2em] font-bold uppercase opacity-90">#SemuaBisaMumtaz
+            </p>
+            <div class="flex justify-center mt-2">
+                <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-accent/20 to-transparent rounded-full">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Filter Navigation -->
+    <nav id="katalog"
+        class="sticky sticky-cat z-[50] bg-white/95 backdrop-blur-md border-b border-gray-100 overflow-x-hidden">
+        <div class="max-w-screen-xl mx-auto px-6">
+            <div class="flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar gap-4 py-4"
+                id="category-tabs">
+                <button onclick="changeCategory('syariah')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium bg-primary text-white"
+                    data-category="syariah">Bimbel Syariah</button>
+                <button onclick="changeCategory('ushul')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    data-category="ushul">Bimbel Ushul</button>
+                <button onclick="changeCategory('tafaqquh')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    data-category="tafaqquh">Tafaqquh</button>
+                <button onclick="changeCategory('tashil')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    data-category="tashil">Ta'shil</button>
+                <button onclick="changeCategory('amiyah')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    data-category="amiyah">Amiyah Mesir</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Sub-Filter Bar (Non-Sticky) -->
+    <div class="bg-gray-50/50 border-b border-gray-100 py-3 z-[49]">
+        <div class="max-w-screen-xl mx-auto px-6 overflow-x-auto hide-scrollbar flex items-center justify-start md:justify-center gap-3"
+            id="sub-filter-container">
+            <!-- Sub-filters are injected by JS -->
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-screen-xl mx-auto px-4 md:px-6 py-8 min-h-[60vh] overflow-hidden">
+        <!-- #course-grid begin -->
+        <div id="course-grid"
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-24 overflow-hidden">
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL SAYARIAH
+             =================================================================================================
+             =================================================================================================-->
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL SYARIAH: TK 1 
+             =================================================================================================
+             =================================================================================================-->
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-fiqih-syafii-nashi" data-category="syariah" data-subfilter="Tk 1"
+                style="display: flex;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/98d356cd_fiqih sayfii nashi s tk1.png"
+                        alt="Fiqih Syafi'i Nashi"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-fiqih-syafii-nashi')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Fiqih Syafi'i Nashi
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 100.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-fiqih-syafii-maudhui" data-category="syariah" data-subfilter="Tk 1"
+                style="display: flex;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d51372c8_fiqih sayafii maudhu'i s tk1.png"
+                        alt="Fiqih Syafi'i Maudhu'i"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-fiqih-syafii-maudhui')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Fiqih Syafi'i
+                        Maudhu'i</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 100.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-fiqih-muqoron" data-category="syariah" data-subfilter="Tk 1" style="display: flex;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/92c39c5e_fiqih muqoron s tk1.png"
+                        alt="Fiqih Muqoron"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-fiqih-muqoron')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Fiqih Muqoron</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 120.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-ushul-fiqih-nashi" data-category="syariah" data-subfilter="Tk 1"
+                style="display: flex;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/c2ee8c34_ushul fiqih nashi tk1.png"
+                        alt="Ushul Fiqih Nashi"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-ushul-fiqih-nashi')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Ushul Fiqih Nashi
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 100.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-qodoya" data-category="syariah" data-subfilter="Tk 1" style="display: flex;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/abeab27a_qodoya s tk1.png"
+                        alt="Qodoya Fiqhiyah"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-qodoya')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Qodoya Fiqhiyah
+                        Mu'ashirah</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 125.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-qoul-sadid" data-category="syariah" data-subfilter="Tk 1" style="display: flex;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ad6de1d3_tauhid s tk 1.png"
+                        alt="Qoul Sadid Tk 1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-qoul-sadid')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Qoul Sadid Tk1</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>10 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL SYARIAH: TK 2
+             =================================================================================================
+             =================================================================================================-->
+
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk2-qoul-sadid" data-category="syariah" data-subfilter="Tk 2" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/9511ec78_qoul sadid s tk 2.png"
+                        alt="Qoul Sadid Tk 2"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 2</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk2-qoul-sadid')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Qoul Sadid Tk2</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 110.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL SYARIAH: TK 3
+             =================================================================================================
+             =================================================================================================-->
+
+
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk3-tafsir" data-category="syariah" data-subfilter="Tk 3" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
+                        alt="Tafsir Ayat Ahkam"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 3</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk3-tafsir')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tafsir Ayat Ahkam
+                        Tk3</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>15 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 150.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk3-haditst-k3" data-category="syariah" data-subfilter="Tk 3" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
+                        alt="hadits"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 3</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk3-haditst-k3')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">hadits
+                        Tk3</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>15 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 150.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL USHUL
+             =================================================================================================
+             =================================================================================================-->
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL USHUL: TK 1 
+             =================================================================================================
+             =================================================================================================-->
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-mantiq" data-category="ushul" data-subfilter="Tk 1" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
+                        alt="Ilmu Mantiq Tk 1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-mantiq')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Ilmu Mantiq</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 120.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL USHUL: TK 2 
+             =================================================================================================
+             =================================================================================================-->
+
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk2-mantiq" data-category="ushul" data-subfilter="Tk 2" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
+                        alt="Ilmu Mantiq Tk 2"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 2</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk2-mantiq')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Ilmu Mantiq</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 120.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             BIMBEL USHUL: TK 3
+             =================================================================================================
+             =================================================================================================-->
+
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk3-mantiq" data-category="ushul" data-subfilter="Tk 3" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
+                        alt="Ilmu Mantiq Tk 3"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tk 3</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk3-mantiq')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Ilmu Mantiq</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 120.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TAFAQQUH
+             =================================================================================================
+             =================================================================================================-->
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TAFAQQUH: FIQIH 
+             =================================================================================================
+             =================================================================================================-->
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-tf-fiqih-Bughyatul-bahits" data-category="tafaqquh" data-subfilter="Fiqih"
+                style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="/assets/tafaqquh/usttirto.jpeg" alt="Bughyatul Bahits"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Fiqih</div>
+                    <button onclick="saveToMaterimu('nlc-tf-fiqih-Bughyatul-bahits')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Bughyatul Bahits
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Ust Bangun Tirto
+                                Utomo, Lc, Dipl.</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>15 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 130.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="https://nuqthah.myr.id/course/kitab-bughyatul-bahits-mandzumah-arrahabiyyah"
+                            onclick="handleDaftar(event, 'https://nuqthah.myr.id/course/kitab-bughyatul-bahits-mandzumah-arrahabiyyah')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TAFAQQUH: USHUL FIQIH 
+             =================================================================================================
+             =================================================================================================-->
+
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-tf-ushul-safina" data-category="tafaqquh" data-subfilter="Ushul Fiqh"
+                style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/e13ace89_1fbca26cbca02457b3cd4bbafb69ff25.jpg"
+                        alt="Safinatun Naja Ushul Fiqh"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Ushul Fiqh</div>
+                    <button onclick="saveToMaterimu('nlc-tf-ushul-safina')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Safinatun Naja</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TAFAQQUH: TAUHID 
+             =================================================================================================
+             =================================================================================================-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-tf-tauhid-safina" data-category="tafaqquh" data-subfilter="Tauhid" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/e13ace89_1fbca26cbca02457b3cd4bbafb69ff25.jpg"
+                        alt="Safinatun Naja Tauhid"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Tauhid</div>
+                    <button onclick="saveToMaterimu('nlc-tf-tauhid-safina')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Safinatun Naja</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TA'SHIL
+             =================================================================================================
+             =================================================================================================-->
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TA'SHIL: NAHWU 
+             =================================================================================================
+             =================================================================================================-->
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-ts-nahwu-jurumiyah" data-category="tashil" data-subfilter="Nahwu" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d4a551a9_ddf431ef40f18d1073092b38d95dc55e.jpg"
+                        alt="Jurumiyah Nahwu"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Nahwu</div>
+                    <button onclick="saveToMaterimu('nlc-ts-nahwu-jurumiyah')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Jurumiyah Nahwu</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 80.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TA'SHIL: SHARAF 
+             =================================================================================================
+             =================================================================================================-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-ts-sharaf-jurumiyah" data-category="tashil" data-subfilter="Sharaf" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d4a551a9_ddf431ef40f18d1073092b38d95dc55e.jpg"
+                        alt="Jurumiyah Sharaf"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Sharaf</div>
+                    <button onclick="saveToMaterimu('nlc-ts-sharaf-jurumiyah')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Jurumiyah Sharaf
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 80.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TA'SHIL: BALAGHAH
+             =================================================================================================
+             =================================================================================================-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-ts-balaghah-jurumiyah" data-category="tashil" data-subfilter="Balaghah"
+                style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d4a551a9_ddf431ef40f18d1073092b38d95dc55e.jpg"
+                        alt="Jurumiyah Balaghah"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Balaghah</div>
+                    <button onclick="saveToMaterimu('nlc-ts-balaghah-jurumiyah')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Jurumiyah Balaghah
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 80.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             TA'SHIL: MANTIQ
+             =================================================================================================
+             =================================================================================================-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-ts-mantiq-jurumiyah" data-category="tashil" data-subfilter="Mantiq" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d4a551a9_ddf431ef40f18d1073092b38d95dc55e.jpg"
+                        alt="Jurumiyah Mantiq"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Mantiq</div>
+                    <button onclick="saveToMaterimu('nlc-ts-mantiq-jurumiyah')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Jurumiyah Mantiq
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 80.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             AMIYAH MESIR
+             =================================================================================================
+             =================================================================================================-->
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             AMIYAH MESIR: DASAR 
+             =================================================================================================
+             =================================================================================================-->
+
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-am-dasar-safina" data-category="amiyah" data-subfilter="Dasar" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/e13ace89_1fbca26cbca02457b3cd4bbafb69ff25.jpg"
+                        alt="Amiyah Mesir Dasar"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Dasar</div>
+                    <button onclick="saveToMaterimu('nlc-am-dasar-safina')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Amiyah Mesir Dasar
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             AMIYAH MESIR: MENENGAH
+             =================================================================================================
+             =================================================================================================-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-am-menengah-safina" data-category="amiyah" data-subfilter="Menengah"
+                style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/e13ace89_1fbca26cbca02457b3cd4bbafb69ff25.jpg"
+                        alt="Amiyah Mesir Menengah"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Menengah</div>
+                    <button onclick="saveToMaterimu('nlc-am-menengah-safina')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Amiyah Mesir
+                        Menengah</h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- =============================================================================================
+             ==================================================================================================
+             AMIYAH MESIR: LANJUT 
+             =================================================================================================
+             =================================================================================================-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-am-lanjut-safina" data-category="amiyah" data-subfilter="Lanjut" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/e13ace89_1fbca26cbca02457b3cd4bbafb69ff25.jpg"
+                        alt="Amiyah Mesir Lanjut"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        Lanjut</div>
+                    <button onclick="saveToMaterimu('nlc-am-lanjut-safina')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Amiyah Mesir Lanjut
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <!-- #course-grid end -->
+    </main>
+
+    <footer class="bg-white border-t border-gray-100 pt-16 pb-12 overflow-hidden relative">
+        <div class="max-w-screen-xl mx-auto px-6 relative z-10">
+            <div class="max-w-md mx-auto bg-white p-8 rounded-3xl shadow-sm border border-gray-100 text-center mb-16">
+                <div
+                    class="w-16 h-16 bg-primary/5 text-primary rounded-full flex items-center justify-center mx-auto mb-4">
+                    <i class="fas fa-shield-halved text-2xl"></i>
+                </div>
+                <h4 class="text-xl font-bold text-gray-800 mb-2">Secure Payment</h4>
+                <p class="text-gray-500 mb-4 text-sm">Seluruh transaksi diproses secara aman menggunakan enkripsi
+                    standar industri melalui Mayar.</p>
+                <div class="inline-flex items-center gap-2 px-4 py-1.5 bg-gray-50 rounded-full border border-gray-100">
+                    <span
+                        class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest leading-none">Pembayaran
+                        via Mayar</span>
+                </div>
+            </div>
+            <div
+                class="flex flex-col md:flex-row justify-between items-center gap-6 text-gray-400 text-sm border-t border-gray-50 pt-8">
+                <div class="font-medium text-xs">© 2026 Nuqthah Learning Center.</div>
+                <div class="flex gap-4 items-center text-xs">
+                    <a href="#" class="hover:text-primary transition-colors">Syarat &amp; Ketentuan</a>
+                    <a href="#" class="hover:text-primary transition-colors">Kebijakan Privasi</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Button - Bottom Left -->
+    <a href="https://wa.me/6285185409887" target="_blank"
+        class="fixed bottom-4 left-6 z-40 bg-green-500 text-white w-14 h-14 rounded-full flex items-center justify-center shadow-xl hover:bg-green-600 transition-all duration-300 hover:scale-110">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+
+    <!-- Modals -->
+    <div id="guide-modal" class="fixed inset-0 flex items-center justify-center p-4 hidden modal-container">
+        <div id="guide-modal-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm modal-overlay"></div>
+        <div class="relative bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl modal-fade-in"
+            style="z-index: 9999999;">
+            <div class="bg-primary p-6 text-white text-center">
+                <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-graduation-cap text-3xl text-accent"></i>
+                </div>
+                <h2 class="text-xl font-bold">Selamat Datang!</h2>
+                <p class="text-xs opacity-80 mt-1 uppercase tracking-widest font-medium">Panduan Memulai Belajar</p>
+            </div>
+            <div class="p-6 space-y-6">
+                <div class="flex gap-4">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/5 text-primary flex items-center justify-center font-bold text-sm border border-primary/10">
+                        1</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800">Pilih Materi</h4>
+                        <p class="text-xs text-gray-500 mt-0.5">Filter berdasarkan program yang Anda minati di menu
+                            katalog.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/5 text-primary flex items-center justify-center font-bold text-sm border border-primary/10">
+                        2</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800">Simpan ke Materimu</h4>
+                        <p class="text-xs text-gray-500 mt-0.5">Klik tombol <i class="fas fa-plus"></i> untuk menyimpan
+                            materi yang Anda incar.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4">
+                    <div
+                        class="flex-shrink-0 w-8 h-8 rounded-full bg-primary/5 text-primary flex items-center justify-center font-bold text-sm border border-primary/10">
+                        3</div>
+                    <div>
+                        <h4 class="text-sm font-bold text-gray-800">Daftar &amp; Belajar</h4>
+                        <p class="text-xs text-gray-500 mt-0.5">Selesaikan pendaftaran melalui Mayar untuk akses instan
+                            via Aplikasi.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="p-6 pt-0">
+                <button id="close-guide-modal"
+                    class="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 transition-all">
+                    Mulai Menjelajah
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="unavailable-modal" class="fixed inset-0 flex items-center justify-center p-4 modal-container hidden">
+        <div id="unavailable-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm modal-overlay"></div>
+        <div class="relative bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl modal-fade-in p-8 text-center"
+            style="z-index: 9999999;">
+            <div
+                class="w-16 h-16 bg-amber-50 text-amber-500 rounded-full flex items-center justify-center mx-auto mb-4">
+                <i class="fas fa-hourglass-half text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-bold text-gray-800 mb-2">Materi Belum Dibuka</h3>
+            <p class="text-sm text-gray-500 mb-6">Materi untuk program ini sedang dalam tahap penyusunan dan penyesuaian
+                kurikulum. Pendaftaran akan dibuka setelah proses persiapan selesai. Silakan cek halaman ini secara
+                berkala atau hubungi admin untuk informasi terbaru.</p>
+            <button id="close-unavailable-btn"
+                class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-opacity-90 transition-all">
+                Baiklah
+            </button>
+        </div>
+    </div>
+
+    <div id="login-guide-modal" class="fixed inset-0 flex items-center justify-center p-4 modal-container hidden">
+        <div id="login-modal-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm modal-overlay"></div>
+        <div class="relative bg-white w-full max-w-md rounded-3xl overflow-hidden shadow-2xl modal-fade-in"
+            style="z-index: 9999999;">
+            <div class="bg-primary p-6 text-white text-center">
+                <div class="w-16 h-16 bg-white/10 rounded-full flex items-center justify-center mx-auto mb-3">
+                    <i class="fas fa-circle-info text-3xl text-accent"></i>
+                </div>
+                <h2 class="text-xl font-bold">Sebelum Login</h2>
+                <p class="text-xs opacity-80 mt-1 uppercase tracking-widest font-medium">Informasi Penting Akses Materi
+                </p>
+            </div>
+            <div class="p-6">
+                <p class="text-sm text-gray-600 leading-relaxed text-center mb-6">
+                    Sebelum login, pastikan kamu sudah membeli materi atau produk yang ingin dipelajari. Jika pembelian
+                    sudah berhasil, silakan login menggunakan akun yang digunakan saat melakukan pembelian. Setelah
+                    login, sistem akan mengirimkan link akses materi ke email yang terdaftar. Selanjutnya, salin (copy)
+                    link tersebut, lalu buka menu Materimu dan gunakan fitur "Tambah Materi dari Link" untuk menambahkan
+                    materi ke akunmu. Dengan begitu, semua materi yang telah dibeli akan tersimpan dan lebih mudah
+                    diakses kapan saja. Selamat belajar dan semoga sukses! 📚✨
+                </p>
+                <div class="space-y-3">
+                    <a href="https://nuqthah.myr.id/portal"
+                        class="w-full py-3 bg-primary text-white font-bold rounded-xl shadow-lg hover:bg-opacity-90 transition-all flex items-center justify-center">
+                        Lanjut Login
+                    </a>
+                    <button onclick="hideModal('login-guide-modal')"
+                        class="w-full py-3 bg-white text-primary border border-primary/20 font-bold rounded-xl hover:bg-gray-50 transition-all">
+                        Pilih Materi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- 1. BRIDGE INITIALIZATION & DATA ONLY CHECK ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const isBridgeMode = urlParams.get('mode') === 'bridge';
+
+        // Load data immediately
+        let savedMaterials = [];
+        try {
+            savedMaterials = JSON.parse(localStorage.getItem('savedMaterials')) || [];
+        } catch (e) {
+            console.error('Error loading materials:', e);
+        }
+
+        // Communication Bridge Setup
+        window.nuqthahChannel = new BroadcastChannel('nuqthah_sync');
+
+        // Handle incoming queries from main site
+        window.addEventListener('message', (event) => {
+            if (event.data?.type === 'GET_MATERIMU_COUNT') {
+                const count = savedMaterials.length;
+                if (event.source) {
+                    event.source.postMessage({
+                        type: 'MATERIMU_COUNT_RESPONSE',
+                        count: count
+                    }, event.origin || '*');
+                }
+            }
+        });
+
+        // Broadcast that this bridge is ready
+        window.nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: savedMaterials.length });
+
+        // Exit early if bridge mode is active (no UI needed)
+        if (isBridgeMode) {
+            console.log("Nuqthah Bridge: Running in background data-only mode.");
+            window.saveToMaterimu = () => { };
+            window.removeFromMaterimu = () => { };
+            window.updateMaterimuUI = () => { };
+        }
+
+        // --- 2. FULL UI INITIALIZATION (SKIP IF BRIDGE) ---
+        if (!isBridgeMode) {
+            const PROGRAMS = {
+                syariah: { label: 'Bimbel Syariah', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'bs' },
+                ushul: { label: 'Bimbel Ushul', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'us' },
+                tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'], prefix: 'tf' },
+                tashil: { label: "Ta'shil", subs: ['Nahwu', 'Sharaf', 'Balaghah', 'Mantiq'], prefix: 'ts' },
+                amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'], prefix: 'am' }
+            };
+
+            let currentCategory = 'syariah';
+            let currentSubFilter = 'Semua';
+
+            window.openLoginModal = function (event) {
+                if (event) event.preventDefault();
+                showModal('login-guide-modal');
+            };
+
+            window.changeCategory = function (categoryKey) {
+                if (!PROGRAMS[categoryKey]) return;
+
+                currentCategory = categoryKey;
+                currentSubFilter = 'Semua';
+
+                document.querySelectorAll('.nav-tab').forEach(tab => {
+                    const isActive = tab.getAttribute('data-category') === categoryKey;
+                    tab.className = `nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium ${isActive ? 'bg-primary text-white' : 'text-gray-600'}`;
+                });
+
+                renderSubFilters();
+                applyFilters();
+
+                const activeTab = document.querySelector(`.nav-tab[data-category="${categoryKey}"]`);
+                const container = document.getElementById('category-tabs');
+                if (activeTab && container) {
+                    const scrollLeft = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
+                    container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+                }
+
+                const url = new URL(window.location.href);
+                url.searchParams.set('cat', categoryKey);
+                window.history.replaceState({}, '', url.pathname + url.search);
+            };
+
+            function renderSubFilters() {
+                const container = document.getElementById('sub-filter-container');
+                if (!container) return;
+
+                const subs = PROGRAMS[currentCategory].subs;
+                const filters = ['Semua', ...subs];
+
+                container.innerHTML = '';
+                filters.forEach(filter => {
+                    const btn = document.createElement('button');
+                    btn.textContent = filter;
+                    btn.className = `px-4 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border transition-all ${currentSubFilter === filter ? 'bg-accent text-white border-accent' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/40'}`;
+                    btn.onclick = (e) => {
+                        e.preventDefault();
+                        currentSubFilter = filter;
+                        renderSubFilters();
+                        applyFilters();
+                    };
+                    container.appendChild(btn);
+                });
+            }
+
+            function applyFilters() {
+                const cards = document.querySelectorAll('.course-card');
+                cards.forEach(card => {
+                    const matchesCat = card.getAttribute('data-category') === currentCategory;
+                    const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') === currentSubFilter;
+                    card.style.display = (matchesCat && matchesSub) ? 'flex' : 'none';
+                });
+            }
+
+            window.showModal = function (id) {
+                const m = document.getElementById(id);
+                if (m) {
+                    m.classList.remove('hidden');
+                    document.body.style.overflow = 'hidden';
+                }
+            };
+
+            window.hideModal = function (id) {
+                const m = document.getElementById(id);
+                if (m) {
+                    m.classList.add('hidden');
+                    document.body.style.overflow = '';
+                }
+            };
+
+            window.toggleDrawer = function () {
+                const drawer = document.getElementById('materimu-drawer');
+                const overlay = document.getElementById('drawer-overlay');
+                if (!drawer || !overlay) return;
+                drawer.classList.toggle('translate-x-full');
+                overlay.classList.toggle('opacity-0');
+                overlay.classList.toggle('pointer-events-none');
+            };
+
+            window.saveToMaterimu = function (id) {
+                if (savedMaterials.find(m => m.id === id)) {
+                    toggleDrawer();
+                    return;
+                }
+
+                const card = document.querySelector(`.course-card[data-id="${id}"]`);
+                if (card) {
+                    const name = card.querySelector('h3').innerText.trim();
+                    const thumb = card.querySelector('img').src;
+                    const url = card.querySelector('a').getAttribute('href');
+
+                    savedMaterials.push({ id, name, url, thumb });
+                    localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
+                    updateMaterimuUI();
+                    toggleDrawer();
+                }
+            };
+
+            window.removeFromMaterimu = function (id) {
+                savedMaterials = savedMaterials.filter(m => m.id !== id);
+                localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
+                updateMaterimuUI();
+            };
+
+            window.updateMaterimuUI = function () {
+                const drawerBadge = document.getElementById('materimu-badge');
+                const drawerCountBadge = document.getElementById('drawer-count-badge');
+                const drawerContent = document.getElementById('drawer-content');
+                const emptyState = document.getElementById('drawer-empty');
+
+                const count = savedMaterials.length;
+                if (drawerBadge) drawerBadge.textContent = count;
+                if (drawerCountBadge) drawerCountBadge.textContent = count;
+
+                if (window.nuqthahChannel) {
+                    window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
+                }
+
+                if (drawerContent) {
+                    if (emptyState) emptyState.style.display = count > 0 ? 'none' : 'flex';
+                    drawerContent.querySelectorAll('.saved-item').forEach(item => item.remove());
+
+                    savedMaterials.forEach(item => {
+                        const itemDiv = document.createElement('div');
+                        itemDiv.className = 'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
+                        itemDiv.innerHTML = `
+                        <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
+                            <img src="${item.thumb}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="flex-grow flex flex-col justify-between py-0.5">
+                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight">${item.name}</h4>
+                            <div class="flex items-center gap-2 mt-2">
+                                <button onclick="handleDaftar(event, '${item.url}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
+                                <button onclick="removeFromMaterimu('${item.id}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
+                                    <i class="far fa-trash-can"></i>
+                                </button>
+                            </div>
+                        </div>
+                    `;
+                        drawerContent.appendChild(itemDiv);
+                    });
+                }
+            };
+
+            window.handleDaftar = function (e, url) {
+                if (e) e.preventDefault();
+                if (!url || url === '#' || url === '' || url === 'javascript:void(0)') {
+                    showModal('unavailable-modal');
+                } else {
+                    window.open(url, '_self');
+                }
+            };
+
+            window.addEventListener('DOMContentLoaded', () => {
+                const params = new URLSearchParams(window.location.search);
+                const sidebarParam = params.get('sidebar');
+                const catParam = params.get('cat');
+                const loginParam = params.get('login');
+
+                let initialCat = 'syariah';
+                if (catParam && PROGRAMS[catParam]) initialCat = catParam;
+
+                changeCategory(initialCat);
+                updateMaterimuUI();
+
+                // Event bindings
+                document.getElementById('materimu-toggle-btn').onclick = toggleDrawer;
+                document.getElementById('close-drawer').onclick = toggleDrawer;
+                document.getElementById('drawer-overlay').onclick = toggleDrawer;
+                document.getElementById('close-guide-modal').onclick = () => hideModal('guide-modal');
+                document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
+                document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
+                document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
+
+                const saveManual = document.getElementById('save-manual-btn');
+                if (saveManual) {
+                    saveManual.onclick = () => {
+                        const nameInput = document.getElementById('manual-name');
+                        const urlInput = document.getElementById('manual-link');
+                        const name = nameInput.value.trim();
+                        const url = urlInput.value.trim();
+                        if (!name || !url) return;
+                        savedMaterials.push({
+                            id: 'man-' + Date.now(),
+                            name,
+                            url,
+                            thumb: 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png'
+                        });
+                        localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
+                        updateMaterimuUI();
+                        nameInput.value = '';
+                        urlInput.value = '';
+                        document.getElementById('manual-form-container').classList.add('hidden');
+                    };
+                }
+
+                const toggleManual = document.getElementById('toggle-manual-form');
+                if (toggleManual) {
+                    toggleManual.onclick = () => {
+                        document.getElementById('manual-form-container').classList.toggle('hidden');
+                        document.getElementById('manual-chevron').classList.toggle('rotate-180');
+                    };
+                }
+
+                const clearAll = document.getElementById('clear-all-btn');
+                if (clearAll) {
+                    clearAll.onclick = () => {
+                        if (confirm('Kosongkan daftar materi Anda?')) {
+                            savedMaterials = [];
+                            localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
+                            updateMaterimuUI();
+                        }
+                    };
+                }
+
+                // Deep link: Login
+                if (loginParam === 'true') {
+                    setTimeout(() => openLoginModal(), 500);
+                }
+
+                // Deep link: Sidebar
+                if (sidebarParam === 'materimu') {
+                    setTimeout(toggleDrawer, 300);
+                }
+
+                if (!localStorage.getItem('guideShown')) {
+                    setTimeout(() => showModal('guide-modal'), 1500);
+                    localStorage.setItem('guideShown', 'true');
+                }
+            });
+        }
+    </script>
+
+    <script>
+        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "wbrH-IPTjw2Y9XKpocaKT"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+    </script>
+
+</body>
+
+</html>

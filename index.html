@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id" class="h-full overflow-hidden">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuqthah Learning Center - Platform Pembelajaran Online</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logofix.png">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- CDNs -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0F4A3A',
+                        secondary: '#C9A227',
+                        cream: '#F8F5EE',
+                        textDark: '#1F2A24',
+                    },
+                    fontFamily: {
+                        serif: ['Cormorant Garamond', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    borderRadius: {
+                        'btn': '16px',
+                        'card': '14px',
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        :root {
+            --viewport-height: 100vh;
+
+            --primary: #0F4A3A;
+            --secondary: #C9A227;
+            --cream: #F8F5EE;
+            --text: #1F2A24;
+        }
+
+        html,
+        body {
+            height: 100%;
+            height: 100dvh;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+
+            background: var(--cream);
+            color: var(--text);
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* ==========================
+   Animation
+========================== */
+
+        .fade-in {
+            opacity: 0;
+            animation: fadeIn .9s ease forwards;
+        }
+
+        @keyframes fadeIn {
+
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+        }
+
+        /* ==========================
+   Logo
+========================== */
+
+        .logo-glow-radial {
+
+            background:
+                radial-gradient(circle,
+                    rgba(15, 74, 58, .08) 0%,
+                    rgba(15, 74, 58, 0) 70%);
+
+        }
+
+        .dynamic-logo {
+
+            height: 30vh;
+            min-height: 110px;
+            max-height: 260px;
+
+        }
+
+        /* ==========================
+   Main Layout
+========================== */
+
+        .main-content {
+
+            width: 100%;
+            max-width: 1100px;
+
+            margin: auto;
+
+            padding-inline: 24px;
+
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+
+            gap: 2rem;
+
+        }
+
+        /* ==========================
+   Tagline
+========================== */
+
+        .tagline-text {
+
+            color: var(--primary);
+
+            font-weight: 700;
+
+            text-transform: uppercase;
+
+            letter-spacing: .28em;
+
+            font-size: clamp(.95rem, .8rem + .5vw, 1.35rem);
+
+        }
+
+        /* ==========================
+   SOCIAL
+========================== */
+
+        .social-icons {
+
+            display: flex;
+
+            gap: 28px;
+
+            margin-top: 18px;
+
+        }
+
+        .social-icons a {
+
+            color: var(--primary);
+
+            font-size: 1.4rem;
+
+            transition: .25s;
+
+        }
+
+        .social-icons a:hover {
+
+            color: var(--secondary);
+
+        }
+
+        /* ==========================
+   WELCOME TEXT
+========================== */
+
+        .welcome-text {
+
+            max-width: 920px;
+
+            margin: auto;
+
+            text-align: center;
+
+            color: var(--text);
+
+            font-size: clamp(1.15rem, 1rem + .7vw, 1.65rem);
+
+            line-height: 1.85;
+
+            font-weight: 400;
+
+        }
+
+        /* ==========================
+   CTA
+========================== */
+
+        .cta-btn {
+
+            transition: .3s;
+
+        }
+
+        .cta-btn:hover {
+
+            transform: translateY(-2px);
+
+        }
+
+        /* ==========================
+   Sidebar
+========================== */
+
+        #sidebar {
+
+            transition:
+                transform .35s ease;
+
+        }
+
+        .sidebar-open #sidebar {
+
+            transform: translateX(0);
+
+        }
+
+        .sidebar-open #sidebar-overlay {
+
+            opacity: 1;
+
+            pointer-events: auto;
+
+        }
+
+        /* ==========================
+   Scrollbar
+========================== */
+
+        ::-webkit-scrollbar {
+
+            width: 4px;
+
+        }
+
+        ::-webkit-scrollbar-thumb {
+
+            background: rgba(15, 74, 58, .25);
+
+            border-radius: 20px;
+
+        }
+
+        /* ==========================
+   Laptop
+========================== */
+
+        @media(max-width:1200px) {
+
+            .main-content {
+
+                max-width: 950px;
+
+            }
+
+        }
+
+        /* ==========================
+   Tablet
+========================== */
+
+        @media(max-width:992px) {
+
+            .dynamic-logo {
+
+                height: 24vh;
+
+            }
+
+            .main-content {
+
+                gap: 1.7rem;
+
+            }
+
+            .welcome-text {
+
+                font-size: 1.2rem;
+
+                line-height: 1.8;
+
+            }
+
+        }
+
+        /* ==========================
+   Mobile
+========================== */
+
+        @media (max-width:768px) {
+
+            .dynamic-logo {
+                height: 20vh;
+            }
+
+            .tagline-text {
+                font-size: 1rem;
+                letter-spacing: .16em;
+            }
+
+            .social-icons {
+                gap: 22px;
+                margin-top: 20px;
+            }
+
+            .welcome-text {
+                max-width: 100%;
+                font-size: 1.28rem;
+                /* ±20.5px */
+                line-height: 1.9;
+                padding-inline: 18px;
+            }
+
+            .main-content {
+                gap: 1.7rem;
+                padding-inline: 24px;
+            }
+
+            .cta-btn {
+                font-size: 1rem;
+                padding: 16px 28px;
+            }
+
+        }
+
+        /* ==========================
+   Small Mobile
+========================== */
+
+        @media (max-width:480px) {
+
+            .dynamic-logo {
+                height: 19vh;
+            }
+
+            .tagline-text {
+                font-size: .9rem;
+                letter-spacing: .12em;
+            }
+
+            .social-icons a {
+                font-size: 1.35rem;
+            }
+
+            .welcome-text {
+                max-width: 100%;
+                font-size: 1.18rem;
+                /* ±19px */
+                line-height: 1.8;
+                padding-inline: 20px;
+            }
+
+            .main-content {
+                gap: 1.5rem;
+                padding-inline: 20px;
+            }
+
+            .cta-btn {
+                width: 100%;
+                max-width: 320px;
+                font-size: 1rem;
+                padding: 15px 24px;
+            }
+
+        }
+    </style>
+</head>
+
+<body class="relative h-[100dvh] w-full overflow-hidden flex flex-col items-center">
+
+    <!-- Background Pattern -->
+    <div class="fixed inset-0 opacity-[0.03] pointer-events-none z-0 overflow-hidden">
+        <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/30e377a1_islamic-geometric-pattern-abstract-green-teal-gradient-decorative-background-vector.jpg"
+            alt="" class="w-full h-full object-cover">
+    </div>
+
+    <!-- Hamburger Menu Toggle -->
+    <button id="menu-toggle"
+        class="fixed top-4 right-4 md:top-6 md:right-6 z-40 p-3 text-primary hover:text-secondary transition-colors duration-300 focus:outline-none"
+        aria-label="Buka Menu">
+        <i class="fas fa-bars text-xl md:text-2xl"></i>
+    </button>
+
+    <!-- Sidebar Overlay -->
+    <div id="sidebar-overlay"
+        class="fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none transition-opacity duration-400"></div>
+
+    <!-- Sidebar -->
+    <aside id="sidebar"
+        class="fixed top-0 right-0 h-full w-72 md:w-80 bg-cream text-primary z-50 transform translate-x-full shadow-2xl flex flex-col border-l border-primary/5 overflow-hidden">
+        <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/f4996a95_islamic-art-1565749.jpg"
+                alt="" class="w-full h-full object-cover">
+        </div>
+
+        <div
+            class="relative p-6 flex justify-between items-center border-b border-primary/10 bg-white/30 backdrop-blur-sm">
+            <span class="font-serif text-2xl text-primary font-bold tracking-tight">Menu Utama</span>
+            <button id="close-sidebar"
+                class="text-primary hover:text-secondary transition-colors p-2 focus:outline-none"
+                aria-label="Tutup Menu">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+        </div>
+
+        <nav class="relative flex-grow py-6 px-6 space-y-2 overflow-y-auto">
+            <a href="knowledge/knowledge.html"
+                class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+                <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+                    <i class="fas fa-circle-info text-xs"></i>
+                </div>
+                <span class="text-base font-semibold">Tentang Kami</span>
+            </a>
+            <a href="profil.html"
+                class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+                <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+                    <i class="fas fa-book-bookmark text-xs"></i>
+                </div>
+                <span class="text-base font-semibold">Profil Asaatidz</span>
+            </a>
+            <a href="tentangprogram.html"
+                class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+                <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+                    <i class="fas fa-graduation-cap text-xs"></i>
+                </div>
+                <span class="text-base font-semibold">Tentang Program</span>
+            </a>
+            <a href="#"
+                class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+                <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+                    <i class="fas fa-headset text-xs"></i>
+                </div>
+                <span class="text-base font-semibold">Daftar Jadi Pengajar</span>
+            </a>
+        </nav>
+
+        <div class="relative p-6 border-t border-primary/10 text-center bg-white/20 backdrop-blur-sm">
+            <img src="assets/logofix.png" alt="Nuqthah Logo" class="h-10 mx-auto object-contain mb-3">
+            <p class="text-[10px] text-primary/60 font-bold tracking-widest uppercase">Nuqthah Learning Center</p>
+        </div>
+    </aside>
+
+    <!-- Main Content Wrapper (Centered Cohesive Unit) -->
+    <main
+        class="main-content relative z-10 w-full h-full max-w-4xl mx-auto px-6 flex flex-col justify-center items-center">
+
+        <!-- TOP: Header (Tight Spacing) -->
+        <header class="fade-in flex flex-col items-center text-center w-full flex-shrink-0"
+            style="animation-delay: 0.1s;">
+            <div class="relative logo-glow-radial rounded-full p-1 md:p-2 mb-1">
+                <img src="assets/logofix.png" alt="Nuqthah Learning Center Logo"
+                    class="dynamic-logo w-auto object-contain mx-auto drop-shadow-lg">
+            </div>
+
+            <h1
+                class="tagline-text text-primary font-bold text-sm md:text-lg lg:text-xl tracking-[0.25em] md:tracking-[0.35em] font-sans uppercase">
+                Berfikir • Berdzikir • Berhasil
+            </h1>
+
+            <div class="social-icons mt-3 md:mt-4 flex items-center justify-center gap-5 md:gap-7">
+                <a href="https://wa.me/6285185409887" target="_blank"
+                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl"
+                    aria-label="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://www.instagram.com/nuqthah.learning/" target="_blank"
+                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl"
+                    aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.youtube.com/@nuqthahlearning" target="_blank"
+                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl" aria-label="YouTube">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- MIDDLE: Welcome Message (Prominent & Centered) -->
+        <section class="fade-in flex flex-col justify-center text-center max-w-2xl px-2 my-2 md:my-4"
+            style="animation-delay: 0.3s;">
+            <p
+                class="welcome-text text-textDark text-sm md:text-base lg:text-lg font-normal leading-relaxed md:leading-loose">
+                Selamat datang dan selamat belajar di <span class="font-bold text-primary">Nuqthah Learning
+                    Center</span>.
+                Semoga belajarmu menjadi lebih mudah bersama kami. Cari materimu sekarang dan capai nilai terbaikmu
+                mulai dari sini.
+            </p>
+        </section>
+
+        <!-- BOTTOM: Actions (Raised for Cohesion) -->
+        <footer class="fade-in flex flex-col items-center w-full flex-shrink-0" style="animation-delay: 0.5s;">
+            <div class="flex flex-col items-center w-full space-y-2">
+                <a href="materi.html"
+                    class="cta-btn bg-primary text-white px-8 py-3.5 md:px-12 md:py-4 rounded-btn font-semibold text-sm md:text-lg transition-all duration-300 shadow-lg hover:shadow-primary/20 active:scale-95 w-full sm:w-auto min-w-[220px] md:min-w-[280px] flex items-center justify-center gap-3 group relative overflow-hidden">
+                    <span class="relative z-10">Cari Materi</span>
+                    <i
+                        class="fas fa-search text-xs md:text-base opacity-80 z-10 transition-transform group-hover:scale-110"></i>
+                    <div
+                        class="absolute inset-0 bg-secondary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+                    </div>
+                </a>
+
+                <!-- Mandatory Mayar Watermark -->
+                <div class="flex items-center gap-1.5 py-0.5">
+                    <i class="fas fa-shield-halved text-[10px] text-primary/40"></i>
+                    <p class="text-[10px] md:text-xs text-primary/60 font-medium tracking-wide">
+                        Semua transaksi aman menggunakan Enkripsi Mayar
+                    </p>
+                </div>
+            </div>
+
+
+        </footer>
+
+    </main>
+
+
+    <!-- Scripts -->
+    <script>
+        const menuToggle = document.getElementById('menu-toggle');
+        const closeSidebar = document.getElementById('close-sidebar');
+        const sidebarOverlay = document.getElementById('sidebar-overlay');
+        const bodyElement = document.body;
+
+        function toggleSidebar() {
+            bodyElement.classList.toggle('sidebar-open');
+        }
+
+        menuToggle.addEventListener('click', toggleSidebar);
+        closeSidebar.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        // Escape to close
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && bodyElement.classList.contains('sidebar-open')) {
+                toggleSidebar();
+            }
+        });
+
+        // Search CTA Simulation
+        document.getElementById('searchCta').addEventListener('click', function (e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            const originalClass = icon.className;
+
+            icon.className = 'fas fa-spinner fa-spin text-xs md:text-base z-10';
+            this.classList.add('pointer-events-none', 'opacity-90');
+
+            setTimeout(() => {
+                alert('Mengarahkan ke Katalog Materi Nuqthah Learning Center...');
+                icon.className = originalClass;
+                this.classList.remove('pointer-events-none', 'opacity-90');
+            }, 800);
+        });
+
+        // Responsive Height Fix
+        const setVh = () => {
+            let vh = window.innerHeight * 0.01;
+            document.documentElement.style.setProperty('--vh', `${vh}px`);
+        };
+        window.addEventListener('resize', setVh);
+        setVh();
+    </script>
+
+</body>
+
+</html>
