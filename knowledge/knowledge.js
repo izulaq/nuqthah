@@ -141,19 +141,59 @@ window.addEventListener("scroll", activateMenu);
 window.addEventListener("load", activateMenu);
 
 /* ==========================================================
-AUTO OPEN DETAILS
+DETAILS ACCORDION
 ========================================================== */
 
 document.querySelectorAll("summary").forEach((summary) => {
-  summary.addEventListener("click", function () {
-    const current = this.parentElement;
 
-    document.querySelectorAll("details[open]").forEach((item) => {
-      if (item !== current) {
-        item.removeAttribute("open");
-      }
+    summary.addEventListener("click", function (e) {
+
+        e.preventDefault();
+
+        const current = this.parentElement;
+
+        const isOpen = current.hasAttribute("open");
+
+        // Tutup semua details lainnya
+        document.querySelectorAll("details").forEach((item) => {
+
+            if (item !== current) {
+                item.removeAttribute("open");
+            }
+
+        });
+
+        // Toggle current
+        if (isOpen) {
+
+            current.removeAttribute("open");
+
+        } else {
+
+            current.setAttribute("open", "");
+
+            // Tunggu animasi layout selesai
+            requestAnimationFrame(() => {
+
+                const top =
+                    current.getBoundingClientRect().top +
+                    window.pageYOffset -
+                    90;
+
+                window.scrollTo({
+
+                    top: top,
+
+                    behavior: "smooth"
+
+                });
+
+            });
+
+        }
+
     });
-  });
+
 });
 
 /* ==========================================================
