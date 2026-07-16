@@ -1,0 +1,880 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pendaftaran Pengajar - Nuqthah Learning Center</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/logofix.png">
+    <meta name="description"
+        content="Bergabunglah sebagai pengajar di Nuqthah Learning Center dan bagikan ilmu Anda kepada mahasiswa Al-Azhar secara online.">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Grid.js CSS -->
+    <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .bg-primary {
+            background-color: #234B36;
+        }
+
+        .text-primary {
+            color: #234B36;
+        }
+
+        .border-primary {
+            border-color: #234B36;
+        }
+
+        .hover-bg-primary:hover {
+            background-color: #1a3a2a;
+        }
+
+        .custom-checkbox:checked {
+            background-color: #234B36;
+            border-color: #234B36;
+        }
+
+        .transition-all-300 {
+            transition: all 0.3s ease;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(rgba(35, 75, 54, 0.85), rgba(35, 75, 54, 0.95));
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        input:disabled,
+        select:disabled,
+        button:disabled {
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <a href="index.html" class="flex items-center space-x-2 text-primary hover:opacity-80 transition"
+                        aria-label="Kembali ke Beranda">
+
+                        <div class="w-10 h-10 rounded-lg flex items-center justify-center">
+                            <i class="fas fa-chevron-left"></i>
+                        </div>
+
+                        <span class="text-xl font-bold tracking-tight">
+                            Pendaftaran Pengajar
+                        </span>
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="#hero" class="text-sm font-medium hover:text-primary transition">Beranda</a>
+                    <a href="#benefits" class="text-sm font-medium hover:text-primary transition">Keuntungan</a>
+                    <a href="#flow" class="text-sm font-medium hover:text-primary transition">Alur</a>
+                    <a href="#registration"
+                        class="px-5 py-2 bg-primary text-white text-sm font-medium rounded-full hover:bg-opacity-90 transition shadow-lg shadow-green-900/20">Daftar
+                        Sekarang</a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-button" class="text-primary p-2">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4 space-y-4 shadow-xl">
+            <a href="#hero" class="block text-sm font-medium py-2">Beranda</a>
+            <a href="#benefits" class="block text-sm font-medium py-2">Keuntungan</a>
+            <a href="#flow" class="block text-sm font-medium py-2">Alur</a>
+            <a href="#registration"
+                class="block px-5 py-3 bg-primary text-white text-center rounded-lg font-medium">Daftar Sekarang</a>
+        </div>
+    </nav>
+
+
+
+    <!-- Why Join Section -->
+    <section id="benefits" class="py-24 bg-white">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Mengapa Mengajar di Nuqthah?</h2>
+                <div class="h-1.5 w-24 bg-green-200 mx-auto rounded-full"></div>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
+                <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition-all-300 group">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all-300">
+                        <i class="fas fa-brain text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Skill-Based</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Asah kemampuan mengajar dan perdalam
+                        materi keilmuan secara intensif.</p>
+                </div>
+                <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition-all-300 group">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all-300">
+                        <i class="fas fa-wallet text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Transparent Revenue</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Sistem bagi hasil yang adil,
+                        transparan, dan pembukuan yang jelas setiap bulan.</p>
+                </div>
+                <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition-all-300 group">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all-300">
+                        <i class="fas fa-clock text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Fleksibilitas</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Atur jadwal mengajar Anda sendiri
+                        sesuai dengan ketersediaan waktu luang.</p>
+                </div>
+                <div class="p-8 bg-gray-50 rounded-3xl border border-gray-100 hover:shadow-xl transition-all-300 group">
+                    <div
+                        class="w-14 h-14 bg-green-100 rounded-2xl flex items-center justify-center text-primary mb-6 group-hover:bg-primary group-hover:text-white transition-all-300">
+                        <i class="fas fa-hand-holding-heart text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Kontribusi Nyata</h3>
+                    <p class="text-gray-600 text-sm md:text-base leading-relaxed">Bantu sesama mahasiswa Al-Azhar dalam
+                        memahami literatur klasik dan modern.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recruitment Flow -->
+    <section id="flow" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Alur Pendaftaran</h2>
+                <p class="text-gray-600">Proses seleksi yang profesional dan terintegrasi.</p>
+            </div>
+
+            <div class="relative">
+                <div class="hidden lg:block absolute top-1/2 left-0 w-full h-0.5 bg-green-200 -translate-y-1/2"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+                    <div class="bg-white p-8 rounded-3xl shadow-sm text-center relative">
+                        <div
+                            class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                            1</div>
+                        <h4 class="font-bold text-lg mb-2">Isi Formulir</h4>
+                        <p class="text-sm text-gray-500">Lengkapi data diri dan pilihan program yang ingin diampu.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm text-center relative">
+                        <div
+                            class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                            2</div>
+                        <h4 class="font-bold text-lg mb-2">Seleksi Berkas</h4>
+                        <p class="text-sm text-gray-500">Admin akan mereview kualifikasi dan portofolio Anda.</p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm text-center relative">
+                        <div
+                            class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                            3</div>
+                        <h4 class="font-bold text-lg mb-2">Wawancara</h4>
+                        <p class="text-sm text-gray-500">Sesi diskusi mendalam mengenai metode dan penguasaan materi.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-3xl shadow-sm text-center relative">
+                        <div
+                            class="w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center mx-auto mb-6 text-xl font-bold">
+                            4</div>
+                        <h4 class="font-bold text-lg mb-2">Resmi Bergabung</h4>
+                        <p class="text-sm text-gray-500">Orientasi pengajar dan mulai jadwal kelas perdana Anda.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Qualifications -->
+    <section id="qualifications" class="py-24 bg-white overflow-hidden">
+        <div class="max-w-3xl mx-auto px-4 md:px-0">
+            <div
+                class="bg-gray-50 p-6 sm:p-8 md:p-12 rounded-[2rem] border-2 border-dashed border-green-200 mx-auto w-full">
+                <h3 class="text-xl md:text-2xl font-bold text-primary mb-8 text-center">Persyaratan Minimal</h3>
+                <ul class="space-y-4 mb-10 text-sm md:text-base">
+                    <li class="flex items-start space-x-3">
+                        <div
+                            class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-gray-700">Mahasiswa/Alumni Universitas Al-Azhar (diutamakan).</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <div
+                            class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-gray-700">Memiliki IPK minimal Jayyid Jiddan (atau setara).</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <div
+                            class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-gray-700">Menguasai materi bidang yang akan diampu secara mendalam.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <div
+                            class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-gray-700">Mampu mengoperasikan Zoom, Google Meet, dan perangkat
+                            presentasi.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <div
+                            class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-gray-700">Memiliki kemampuan komunikasi dan retorika yang baik.</span>
+                    </li>
+                    <li class="flex items-start space-x-3">
+                        <div
+                            class="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-green-500 flex items-center justify-center text-white text-[10px]">
+                            <i class="fas fa-check"></i>
+                        </div>
+                        <span class="text-gray-700">Berkomitmen menjaga nama baik lembaga.</span>
+                    </li>
+                </ul>
+
+                <div class="flex items-center space-x-3 p-4 bg-green-50 rounded-xl border border-green-100">
+                    <input type="checkbox" id="agree-terms"
+                        class="w-5 h-5 rounded border-gray-300 text-primary focus:ring-primary">
+                    <label for="agree-terms"
+                        class="text-xs sm:text-sm font-medium text-primary cursor-pointer select-none">
+                        Saya telah membaca seluruh persyaratan dan siap mengikuti prosedur yang berlaku.
+                    </label>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Form Section -->
+    <section id="registration"
+        class="py-24 bg-gray-50 transition-all duration-500 opacity-50 pointer-events-none filter grayscale">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100">
+                <!-- Progress Bar -->
+                <div class="h-2 bg-gray-100 w-full overflow-hidden">
+                    <div id="progress-bar" class="h-full bg-primary w-1/3 transition-all duration-500"></div>
+                </div>
+
+                <div class="p-6 md:p-12">
+                    <div
+                        class="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 md:mb-10 gap-4">
+                        <h2 class="text-2xl md:text-3xl font-bold text-primary">Formulir Pendaftaran</h2>
+                        <div
+                            class="text-sm font-semibold text-gray-400 bg-gray-50 px-3 py-1 rounded-full border border-gray-100">
+                            Tahap <span id="current-step-display">1</span>/3</div>
+                    </div>
+
+                    <form id="teacher-form" class="space-y-6 md:space-y-8">
+                        <!-- Step 1: Personal Data -->
+                        <div id="step-1" class="space-y-6 step-content">
+                            <h3 class="text-lg md:text-xl font-semibold border-l-4 border-primary pl-4 mb-6">Data
+                                Pribadi</h3>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Nama Lengkap</label>
+                                    <input type="text" name="name" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base"
+                                        placeholder="Masukkan nama sesuai KTP/Paspor">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">WhatsApp</label>
+                                    <input type="tel" name="whatsapp" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base"
+                                        placeholder="0812xxxx">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Email Aktif</label>
+                                    <input type="email" name="email" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base"
+                                        placeholder="example@email.com">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Universitas</label>
+                                    <input type="text" name="university" value="Al-Azhar University"
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 bg-gray-50 text-sm md:text-base cursor-not-allowed"
+                                        readonly>
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Fakultas</label>
+                                    <input type="text" name="faculty" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base"
+                                        placeholder="Syariah Islamiyah / Ushuluddin / dll">
+                                </div>
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Semester/Tahun Lulus</label>
+                                    <input type="text" name="semester" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base"
+                                        placeholder="Semester 5 / Lulus 2023">
+                                </div>
+                                <div class="md:col-span-2 space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Domisili Saat Ini</label>
+                                    <input type="text" name="domicile" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base"
+                                        placeholder="Kairo, Mesir / Jakarta, Indonesia">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Program Selection -->
+                        <div id="step-2" class="hidden space-y-6 step-content">
+                            <h3 class="text-lg md:text-xl font-semibold border-l-4 border-primary pl-4 mb-6">Pilihan
+                                Program Pengajaran</h3>
+
+                            <div class="space-y-6">
+                                <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Pilih Program Utama</label>
+                                    <select id="main-program" name="main_program" required
+                                        class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-primary focus:ring-2 focus:ring-primary/10 outline-none transition text-sm md:text-base">
+                                        <option value="">-- Pilih Program --</option>
+                                        <option value="bimbel">Bimbel Fakultas (Mubasyir/Tasmis)</option>
+                                        <option value="tafaqquh">Program Tafaqquh/Ta'shil</option>
+                                        <option value="amiyah">Bahasa Amiyah Mesir</option>
+                                    </select>
+                                </div>
+
+                                <!-- Dynamic Sub-fields for Bimbel -->
+                                <div id="bimbel-fields"
+                                    class="sub-field-group hidden space-y-4 p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                        <div class="space-y-2">
+                                            <label class="text-[10px] font-bold uppercase text-gray-400">Pilih
+                                                Fakultas</label>
+                                            <select name="bimbel_fakultas"
+                                                class="w-full px-4 py-2 rounded-lg border text-sm">
+                                                <option value="">-- Pilih --</option>
+                                                <option value="syariah">Syariah Islamiyah</option>
+                                                <option value="ushuluddin">Ushuluddin</option>
+                                                <option value="lughah">Lughah Arabiyah</option>
+                                                <option value="dirasat">Dirasat Islamiyah</option>
+                                            </select>
+                                        </div>
+                                        <div class="space-y-2">
+                                            <label class="text-[10px] font-bold uppercase text-gray-400">Tingkat
+                                                (Level)</label>
+                                            <select name="bimbel_level"
+                                                class="w-full px-4 py-2 rounded-lg border text-sm">
+                                                <option value="">-- Pilih --</option>
+                                                <option value="1">Tingkat 1 (Satu)</option>
+                                                <option value="2">Tingkat 2 (Dua)</option>
+                                                <option value="3">Tingkat 3 (Tiga)</option>
+                                                <option value="4">Tingkat 4 (Empat)</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold uppercase text-gray-400">Materi
+                                            Spesifik</label>
+                                        <input type="text" name="bimbel_materi"
+                                            class="w-full px-4 py-2 rounded-lg border text-sm"
+                                            placeholder="Contoh: Fiqh Muamalah, Ulumul Quran, dll">
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Sub-fields for Tafaqquh -->
+                                <div id="tafaqquh-fields"
+                                    class="sub-field-group hidden space-y-4 p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold uppercase text-gray-400">Kategori Fan
+                                            Ilmu</label>
+                                        <select name="tafaqquh_category"
+                                            class="w-full px-4 py-2 rounded-lg border text-sm">
+                                            <option value="">-- Pilih Kategori --</option>
+                                            <option value="fiqh">Fiqh (Syafii/Maliki/Hanafi/Hambali)</option>
+                                            <option value="ushul">Ushul Fiqh</option>
+                                            <option value="aqidah">Aqidah & Manthiq</option>
+                                            <option value="hadits">Mushtholah & Hadits</option>
+                                            <option value="nahwu">Nahwu & Sharaf</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold uppercase text-gray-400">Kitab/Materi yang
+                                            dikuasai</label>
+                                        <input type="text" name="tafaqquh_material"
+                                            class="w-full px-4 py-2 rounded-lg border text-sm"
+                                            placeholder="Sebutkan nama kitab (Contoh: Fathul Qarib, Matan Jurumiyah)">
+                                    </div>
+                                </div>
+
+                                <!-- Dynamic Sub-fields for Amiyah -->
+                                <div id="amiyah-fields"
+                                    class="sub-field-group hidden space-y-4 p-5 md:p-6 bg-gray-50 rounded-2xl border border-gray-100">
+                                    <div class="space-y-2">
+                                        <label class="text-[10px] font-bold uppercase text-gray-400">Fokus
+                                            Pengajaran</label>
+                                        <select name="amiyah_focus" class="w-full px-4 py-2 rounded-lg border text-sm">
+                                            <option value="">-- Pilih Fokus --</option>
+                                            <option value="daily">Percakapan Sehari-hari (Daily Talk)</option>
+                                            <option value="academic">Amiyah Akademik/Formal</option>
+                                            <option value="custom">Kustom (Sesuai Permintaan)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3: Experience & Availability -->
+                        <div id="step-3" class="hidden space-y-6 step-content">
+                            <h3 class="text-lg md:text-xl font-semibold border-l-4 border-primary pl-4 mb-6">Keahlian &
+                                Ketersediaan</h3>
+
+                            <div class="space-y-6">
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Pengalaman Mengajar
+                                            (Tahun)</label>
+                                        <select name="experience" required
+                                            class="w-full px-4 py-3 rounded-xl border border-gray-200 text-sm md:text-base">
+                                            <option value="">-- Pilih Pengalaman --</option>
+                                            <option value="0">Belum pernah (Fresh)</option>
+                                            <option value="1">1 Tahun</option>
+                                            <option value="2">2 Tahun</option>
+                                            <option value="3+">> 3 Tahun</option>
+                                        </select>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="block text-sm font-medium text-gray-700">Metode Pengajaran (Min.
+                                            1)</label>
+                                        <div class="flex flex-wrap gap-2 pt-1">
+                                            <label
+                                                class="inline-flex items-center px-3 py-1.5 bg-gray-100 rounded-lg text-xs cursor-pointer hover:bg-gray-200 transition">
+                                                <input type="checkbox" name="skills" value="online"
+                                                    class="mr-2 h-4 w-4 rounded border-gray-300"> Online (Zoom)
+                                            </label>
+                                            <label
+                                                class="inline-flex items-center px-3 py-1.5 bg-gray-100 rounded-lg text-xs cursor-pointer hover:bg-gray-200 transition">
+                                                <input type="checkbox" name="skills" value="offline"
+                                                    class="mr-2 h-4 w-4 rounded border-gray-300"> Offline (Kairo)
+                                            </label>
+                                            <label
+                                                class="inline-flex items-center px-3 py-1.5 bg-gray-100 rounded-lg text-xs cursor-pointer hover:bg-gray-200 transition">
+                                                <input type="checkbox" name="skills" value="module"
+                                                    class="mr-2 h-4 w-4 rounded border-gray-300"> Pembuatan Modul
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                                    <div class="p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+                                        <p class="font-bold text-[10px] uppercase text-gray-400 mb-2">Hari (Min. 1)</p>
+                                        <div class="grid grid-cols-2 sm:grid-cols-1 gap-1">
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Senin" class="mr-2 h-3 w-3"> Senin</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Selasa" class="mr-2 h-3 w-3"> Selasa</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Rabu" class="mr-2 h-3 w-3"> Rabu</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Kamis" class="mr-2 h-3 w-3"> Kamis</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Jumat" class="mr-2 h-3 w-3"> Jumat</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Sabtu" class="mr-2 h-3 w-3"> Sabtu</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="days"
+                                                    value="Minggu" class="mr-2 h-3 w-3"> Minggu</label>
+                                        </div>
+                                    </div>
+                                    <div class="p-4 border border-gray-100 rounded-xl bg-gray-50/50">
+                                        <p class="font-bold text-[10px] uppercase text-gray-400 mb-2">Waktu Kairo (Min.
+                                            1)</p>
+                                        <div class="space-y-1.5">
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="times"
+                                                    value="Pagi" class="mr-2 h-3 w-3"> Pagi (08:00-12:00)</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="times"
+                                                    value="Siang" class="mr-2 h-3 w-3"> Siang (12:00-16:00)</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="times"
+                                                    value="Sore" class="mr-2 h-3 w-3"> Sore (16:00-20:00)</label>
+                                            <label class="flex items-center text-xs"><input type="checkbox" name="times"
+                                                    value="Malam" class="mr-2 h-3 w-3"> Malam (20:00-22:00)</label>
+                                        </div>
+                                    </div>
+                                    <div class="md:col-span-2 space-y-2">
+                                        <label class="text-[10px] font-bold uppercase text-gray-400">Link Portofolio
+                                            (Opsional)</label>
+                                        <input type="url" name="portfolio"
+                                            class="w-full px-4 py-2 rounded-lg border text-sm"
+                                            placeholder="Gdrive / Youtube / LinkedIn">
+                                        <p class="text-[10px] text-gray-400 leading-relaxed">Sertakan link rekaman
+                                            mengajar atau CV untuk memperbesar peluang diterima.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Form Navigation -->
+                        <div
+                            class="flex flex-col-reverse sm:flex-row items-center justify-between pt-8 border-t border-gray-100 gap-4">
+                            <button type="button" id="prev-btn"
+                                class="hidden w-full sm:w-auto px-6 py-3 border border-gray-200 text-gray-600 font-semibold rounded-xl hover:bg-gray-50 transition">
+                                <i class="fas fa-chevron-left mr-2"></i> Sebelumnya
+                            </button>
+                            <div class="flex-grow hidden sm:block"></div>
+                            <button type="button" id="next-btn" disabled
+                                class="w-full sm:w-auto px-8 py-3 bg-primary text-white font-bold rounded-xl opacity-50 pointer-events-none transition-all shadow-lg shadow-green-900/10">
+                                Lanjutkan <i class="fas fa-chevron-right ml-2"></i>
+                            </button>
+                            <button type="submit" id="submit-btn" disabled
+                                class="hidden w-full sm:w-auto px-8 py-3 bg-primary text-white font-bold rounded-xl opacity-50 pointer-events-none transition-all shadow-lg shadow-green-900/10">
+                                Kirim Pendaftaran <i class="fab fa-whatsapp ml-2"></i>
+                            </button>
+                        </div>
+                        <p class="text-center text-[10px] text-gray-400">Data Anda diproses secara aman untuk kebutuhan
+                            seleksi internal • Nuqthah Learning Center</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="py-24 bg-white">
+        <div class="max-w-4xl mx-auto px-4">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-primary mb-4">Pertanyaan Umum (FAQ)</h2>
+                <p class="text-gray-600">Masih ragu? Temukan jawaban Anda di sini.</p>
+            </div>
+
+            <div class="space-y-4">
+                <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <span class="font-bold text-gray-700 text-sm md:text-base">Apakah saya harus berada di Mesir
+                            untuk mengajar?</span>
+                        <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div
+                        class="faq-content hidden p-6 pt-0 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-50">
+                        Tidak wajib. Kami menerapkan sistem pengajaran online penuh. Selama Anda memiliki koneksi
+                        internet stabil dan kompetensi yang sesuai, Anda bisa mengajar dari mana saja.
+                    </div>
+                </div>
+                <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <span class="font-bold text-gray-700 text-sm md:text-base">Bagaimana sistem gaji/bagi
+                            hasilnya?</span>
+                        <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div
+                        class="faq-content hidden p-6 pt-0 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-50">
+                        Kami menggunakan sistem transparan. Rincian bagi hasil antara lembaga dan pengajar akan
+                        dijelaskan secara mendalam saat sesi wawancara dan tertuang dalam surat perjanjian kerjasama.
+                    </div>
+                </div>
+                <div class="faq-item border border-gray-100 rounded-2xl overflow-hidden shadow-sm">
+                    <button class="w-full flex items-center justify-between p-6 text-left hover:bg-gray-50 transition">
+                        <span class="font-bold text-gray-700 text-sm md:text-base">Apakah saya boleh mengajar lebih dari
+                            satu program?</span>
+                        <i class="fas fa-chevron-down text-gray-400 transition-transform"></i>
+                    </button>
+                    <div
+                        class="faq-content hidden p-6 pt-0 text-gray-600 text-sm md:text-base leading-relaxed border-t border-gray-50">
+                        Sangat boleh, selama jadwal tidak bentrok dan Anda memiliki kapasitas yang mumpuni di
+                        bidang-bidang tersebut.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+
+
+    <div
+        class="pt-8 border-t border-green/10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-400">
+        <p>&copy; 2026 Nuqthah Learning Center. All rights reserved.</p>
+        <div class="mt-4 md:mt-0 flex items-center space-x-4">
+            <a href="#" class="hover:text-white">Privacy Policy</a>
+            <a href="#" class="hover:text-white">Terms</a>
+        </div>
+    </div>
+
+
+    <!-- Success Modal -->
+    <div id="success-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
+        <div class="relative bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl animate-fade-in">
+            <div
+                class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center mx-auto mb-6 text-3xl">
+                <i class="fas fa-check"></i>
+            </div>
+            <h3 class="text-2xl font-bold text-primary mb-2">Pendaftaran Terkirim!</h3>
+            <p class="text-gray-600 mb-8 text-sm">Silakan klik tombol di bawah untuk mengirim konfirmasi pendaftaran
+                Anda kepada admin melalui WhatsApp.</p>
+            <button id="close-modal"
+                class="w-full py-4 bg-primary text-white font-bold rounded-xl hover:bg-opacity-90 transition">Buka
+                WhatsApp</button>
+        </div>
+    </div>
+
+    <!-- Floating Action Button -->
+    <a href="https://wa.me/6285185409887"
+        class="fixed bottom-4 left-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all z-40 group">
+        <i class="fab fa-whatsapp text-2xl"></i>
+        <span
+            class="absolute left-16 bg-white text-gray-800 text-xs px-3 py-1.5 rounded-lg font-medium opacity-0 group-hover:opacity-100 transition whitespace-nowrap shadow-sm border border-gray-100">Bantuan
+            Admin</span>
+    </a>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Mobile Menu Toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // FAQ Toggles
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(item => {
+                const btn = item.querySelector('button');
+                const content = item.querySelector('.faq-content');
+                const icon = item.querySelector('i');
+
+                btn.addEventListener('click', () => {
+                    const isOpen = !content.classList.contains('hidden');
+                    document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
+                    document.querySelectorAll('.faq-item i').forEach(i => i.classList.remove('rotate-180'));
+
+                    if (!isOpen) {
+                        content.classList.remove('hidden');
+                        icon.classList.add('rotate-180');
+                    }
+                });
+            });
+
+            // --- Form & Validation Logic ---
+            const agreeTerms = document.getElementById('agree-terms');
+            const registrationSection = document.getElementById('registration');
+            const form = document.getElementById('teacher-form');
+            const progressBar = document.getElementById('progress-bar');
+            const currentStepDisplay = document.getElementById('current-step-display');
+
+            const steps = [
+                document.getElementById('step-1'),
+                document.getElementById('step-2'),
+                document.getElementById('step-3')
+            ];
+
+            let currentStep = 0;
+            const nextBtn = document.getElementById('next-btn');
+            const prevBtn = document.getElementById('prev-btn');
+            const submitBtn = document.getElementById('submit-btn');
+
+            // Toggle Registration Activation
+            agreeTerms.addEventListener('change', () => {
+                if (agreeTerms.checked) {
+                    registrationSection.classList.remove('opacity-50', 'pointer-events-none', 'grayscale');
+                    validateCurrentStep(); // Run initial validation check
+                } else {
+                    registrationSection.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
+                }
+            });
+
+            // Sub-field Logic
+            const mainProgram = document.getElementById('main-program');
+            const subFieldGroups = document.querySelectorAll('.sub-field-group');
+
+            mainProgram.addEventListener('change', () => {
+                const value = mainProgram.value;
+                subFieldGroups.forEach(group => group.classList.add('hidden'));
+
+                if (value === 'bimbel') document.getElementById('bimbel-fields').classList.remove('hidden');
+                if (value === 'tafaqquh') document.getElementById('tafaqquh-fields').classList.remove('hidden');
+                if (value === 'amiyah') document.getElementById('amiyah-fields').classList.remove('hidden');
+
+                validateCurrentStep();
+            });
+
+            // Helper to Check Validity of a Step
+            function validateCurrentStep() {
+                const step = steps[currentStep];
+                let isValid = true;
+
+                // 1. Check all direct required inputs/selects in the step
+                const requiredInputs = Array.from(step.querySelectorAll('input[required], select[required]'));
+                for (const input of requiredInputs) {
+                    if (!input.value.trim()) {
+                        isValid = false;
+                        break;
+                    }
+                }
+
+                // 2. Step 2 specific: Check visible sub-fields
+                if (currentStep === 1 && isValid) {
+                    const activeSubGroup = step.querySelector('.sub-field-group:not(.hidden)');
+                    if (activeSubGroup) {
+                        const subInputs = activeSubGroup.querySelectorAll('input, select');
+                        for (const input of subInputs) {
+                            if (!input.value.trim()) {
+                                isValid = false;
+                                break;
+                            }
+                        }
+                    } else {
+                        isValid = false; // Program must be selected
+                    }
+                }
+
+                // 3. Step 3 specific: Check Checkboxes
+                if (currentStep === 2 && isValid) {
+                    const skillsChecked = step.querySelectorAll('input[name="skills"]:checked').length > 0;
+                    const daysChecked = step.querySelectorAll('input[name="days"]:checked').length > 0;
+                    const timesChecked = step.querySelectorAll('input[name="times"]:checked').length > 0;
+
+                    if (!skillsChecked || !daysChecked || !timesChecked) {
+                        isValid = false;
+                    }
+                }
+
+                // Update Button States
+                if (currentStep === steps.length - 1) {
+                    submitBtn.disabled = !isValid;
+                    submitBtn.classList.toggle('opacity-50', !isValid);
+                    submitBtn.classList.toggle('pointer-events-none', !isValid);
+                } else {
+                    nextBtn.disabled = !isValid;
+                    nextBtn.classList.toggle('opacity-50', !isValid);
+                    nextBtn.classList.toggle('pointer-events-none', !isValid);
+                }
+            }
+
+            // Real-time Event Listeners for all inputs
+            form.querySelectorAll('input, select, textarea').forEach(el => {
+                el.addEventListener('input', validateCurrentStep);
+                el.addEventListener('change', validateCurrentStep);
+            });
+
+            function updateStepUI() {
+                steps.forEach((step, idx) => {
+                    step.classList.toggle('hidden', idx !== currentStep);
+                });
+
+                prevBtn.classList.toggle('hidden', currentStep === 0);
+                nextBtn.classList.toggle('hidden', currentStep === steps.length - 1);
+                submitBtn.classList.toggle('hidden', currentStep !== steps.length - 1);
+
+                const progress = ((currentStep + 1) / steps.length) * 100;
+                progressBar.style.width = `${progress}%`;
+                currentStepDisplay.textContent = currentStep + 1;
+
+                validateCurrentStep();
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentStep < steps.length - 1) {
+                    currentStep++;
+                    updateStepUI();
+                    registrationSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentStep > 0) {
+                    currentStep--;
+                    updateStepUI();
+                }
+            });
+
+            // Form Submission
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const formData = new FormData(form);
+                const data = Object.fromEntries(formData.entries());
+
+                const skills = Array.from(formData.getAll('skills'));
+                const days = Array.from(formData.getAll('days'));
+                const times = Array.from(formData.getAll('times'));
+
+                // Construct WA Message
+                let message = `*PENDAFTARAN PENGAJAR NUQTHAH*\n\n`;
+                message += `*Data Pribadi:*\n`;
+                message += `• Nama: ${data.name}\n`;
+                message += `• WA: ${data.whatsapp}\n`;
+                message += `• Email: ${data.email}\n`;
+                message += `• Fak/Smtr: ${data.faculty} / ${data.semester}\n`;
+                message += `• Domisili: ${data.domicile}\n\n`;
+
+                message += `*Pilihan Program:*\n`;
+                if (data.main_program === 'bimbel') {
+                    message += `• Program: Bimbel Fakultas\n`;
+                    message += `• Fak: ${data.bimbel_fakultas} | Lvl: ${data.bimbel_level}\n`;
+                    message += `• Materi: ${data.bimbel_materi}\n`;
+                } else if (data.main_program === 'tafaqquh') {
+                    message += `• Program: Tafaqquh/Ta'shil\n`;
+                    message += `• Kategori: ${data.tafaqquh_category}\n`;
+                    message += `• Materi: ${data.tafaqquh_material}\n`;
+                } else {
+                    message += `• Program: Amiyah Mesir\n`;
+                    message += `• Fokus: ${data.amiyah_focus}\n`;
+                }
+
+                message += `\n*Keahlian & Waktu:*\n`;
+                message += `• Pengalaman: ${data.experience} tahun\n`;
+                message += `• Metode Pengajaran : ${skills.join(', ')}\n`;
+                message += `• Hari: ${days.join(', ')}\n`;
+                message += `• Waktu: ${times.join(', ')}\n`;
+                if (data.portfolio) message += `• Portfolio: ${data.portfolio}\n`;
+
+                const waUrl = `https://api.whatsapp.com/send?phone=6285185409887&text=${encodeURIComponent(message)}`;
+
+                // Show Success Modal
+                document.getElementById('success-modal').classList.remove('hidden');
+
+                document.getElementById('close-modal').onclick = () => {
+                    window.open(waUrl, '_blank');
+                    document.getElementById('success-modal').classList.add('hidden');
+                };
+            });
+        });
+    </script>
+</body>
+
+</html>
