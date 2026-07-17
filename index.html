@@ -7,8 +7,8 @@
     <title>Nuqthah Learning Center - Gateway</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png"
-        href="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/8e57a76b_ChatGPT Image 13 Jul 2026, 10.36.15.png">
+    <link rel="icon" type="image/png" href="assets/logofix.png">
+
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -262,7 +262,7 @@
         }
 
         /* =========================================================
-   MODAL PENDAFTARAN
+   MODAL PENDAFTARAN & LOGIN
    (dipertahankan agar fitur registrasi tetap bekerja)
 ========================================================= */
 
@@ -272,6 +272,19 @@
 
         #registerModal .modal-content {
             transition: transform .3s ease;
+            max-height: 92vh;
+            overflow-y: auto;
+            max-width: 540px;
+            width: 100%;
+            margin: 1.5rem auto;
+        }
+
+        @media (max-width: 640px) {
+            #registerModal .modal-content {
+                max-width: 100%;
+                margin: 1rem;
+                max-height: 94vh;
+            }
         }
 
         #registerModal input,
@@ -279,11 +292,11 @@
             width: 100%;
             border: 1px solid rgba(15, 74, 58, .10);
             border-radius: 12px;
-            padding: 14px 16px;
+            padding: 12px 16px;
             background: #fff;
             outline: none;
             transition: .25s;
-            font-size: .92rem;
+            font-size: .9rem;
         }
 
         #registerModal input:focus,
@@ -292,8 +305,25 @@
             box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
         }
 
+        #registerModal .p-6 {
+            padding: 1.25rem 1.5rem;
+        }
+
+        #registerModal .p-6.md\:p-8 {
+            padding: 1.5rem 2rem;
+        }
+
+        #registerModal .grid {
+            gap: 0.75rem;
+        }
+
+        #registerModal .space-y-4 {
+            gap: 0.75rem;
+        }
+
         #registerModal button[type="submit"] {
             transition: .25s;
+            padding: 0.9rem 1.5rem;
         }
 
         #registerModal button[type="submit"]:hover {
@@ -302,6 +332,57 @@
 
         #successMessage {
             transition: opacity .45s ease;
+        }
+
+        /* Login Modal */
+        #loginModal {
+            transition: opacity .3s ease;
+        }
+
+        #loginModal .modal-content {
+            transition: transform .3s ease;
+            max-height: 92vh;
+            overflow-y: auto;
+            max-width: 440px;
+            width: 100%;
+            margin: 1.5rem auto;
+        }
+
+        @media (max-width: 640px) {
+            #loginModal .modal-content {
+                max-width: 100%;
+                margin: 1rem;
+                max-height: 94vh;
+            }
+        }
+
+        #loginModal input {
+            width: 100%;
+            border: 1px solid rgba(15, 74, 58, .10);
+            border-radius: 12px;
+            padding: 12px 16px;
+            background: #fff;
+            outline: none;
+            transition: .25s;
+            font-size: .9rem;
+        }
+
+        #loginModal input:focus {
+            border-color: rgba(15, 74, 58, .35);
+            box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
+        }
+
+        #loginModal .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #loginModal .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(15, 74, 58, .2);
+            border-radius: 20px;
+        }
+
+        #loginModal .modal-content {
+            scrollbar-width: thin;
         }
 
         /* ==========================
@@ -436,6 +517,20 @@
                 width: 100%;
             }
         }
+
+        /* scrollable modal */
+        #registerModal .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #registerModal .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(15, 74, 58, .2);
+            border-radius: 20px;
+        }
+
+        #registerModal .modal-content {
+            scrollbar-width: thin;
+        }
     </style>
 </head>
 
@@ -450,9 +545,9 @@
     <!-- Header Navigation -->
     <div class="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-3">
 
-        <!-- Tombol Daftar (FITUR TETAP DIPERTAHANKAN) -->
+        <!-- Tombol Daftar/Login (FITUR TETAP DIPERTAHANKAN) -->
         <button id="nav-register-btn"
-            class="bg-secondary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
+            class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
 
             Daftar Gratis
 
@@ -576,6 +671,44 @@
 
             </a>
 
+            <!-- Menu Login - hanya muncul jika belum login -->
+            <a id="login-menu" href="#"
+                class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+
+                <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+
+                    <i class="fa-solid fa-right-to-bracket"></i>
+
+                </div>
+
+                <span class="text-base font-semibold">
+
+                    Login
+
+                </span>
+
+            </a>
+
+            <!-- Menu Logout - hanya muncul jika login -->
+            <a id="logout-menu" href="#"
+                class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group hidden">
+
+                <div
+                    class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+
+                    <i class="fa-solid fa-right-from-bracket"></i>
+
+                </div>
+
+                <span class="text-base font-semibold">
+
+                    Logout
+
+                </span>
+
+            </a>
+
         </nav>
 
         <div class="relative p-6 border-t border-primary/10 text-center bg-white/20 backdrop-blur-sm">
@@ -597,48 +730,48 @@
         class="fixed inset-0 z-[60] flex items-center justify-center px-4 opacity-0 pointer-events-none transition-all duration-300 overflow-hidden">
         <div id="modalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
         <div
-            class="modal-content relative bg-cream w-full max-w-xl rounded-2xl shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300 overflow-hidden">
+            class="modal-content relative bg-cream w-full max-w-lg rounded-2xl shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300 overflow-hidden">
             <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
                 <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/10f3dfa8_102721793_a7899a0ddc_c.jpg"
                     alt="" class="w-full h-full object-cover">
             </div>
 
             <!-- Modal Header -->
-            <div class="p-6 md:p-8 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
+            <div class="p-5 md:p-6 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
                 <div>
-                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Daftar Akun Baru</h2>
-                    <p class="text-sm text-gray-500 mt-1">Mulai perjalanan belajarmu hari ini</p>
+                    <h2 class="text-xl md:text-2xl font-serif font-bold text-primary">Daftar Akun Baru</h2>
+                    <p class="text-xs text-gray-500 mt-0.5">Mulai perjalanan belajarmu hari ini</p>
                 </div>
-                <button id="closeModal" class="text-primary/50 hover:text-primary transition-colors text-2xl">
+                <button id="closeModal" class="text-primary/50 hover:text-primary transition-colors text-xl">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
 
             <!-- Form Body -->
-            <form id="registerForm" class="p-6 md:p-8 space-y-4 relative">
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <form id="registerForm" class="p-5 md:p-6 space-y-3 relative">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="space-y-1">
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Nama Lengkap</label>
                         <input type="text" id="regName" required placeholder="Fulan bin Fulan"
-                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
                     </div>
                     <div class="space-y-1">
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">No. WhatsApp</label>
                         <input type="tel" id="regWA" required placeholder="08123456789"
-                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
                     </div>
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Email Address</label>
                     <input type="email" id="regEmail" required placeholder="nama@email.com"
-                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
                 </div>
 
                 <div class="space-y-1">
                     <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Pilih Program</label>
                     <select id="regProgram" required
-                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
                         <option value="" disabled selected>Pilih Program Minat</option>
                         <option value="Bimbel Muqoror Al-Azhar">Bimbel Muqoror Al-Azhar</option>
                         <option value="Tafaqquh">Tafaqquh</option>
@@ -647,28 +780,29 @@
                     </select>
                 </div>
 
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div class="space-y-1">
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password</label>
                         <input type="password" id="regPass" required placeholder="••••••••"
-                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
                     </div>
                     <div class="space-y-1">
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Konfirmasi
                             Password</label>
                         <input type="password" id="regConfirm" required placeholder="••••••••"
-                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
                     </div>
                 </div>
 
                 <button type="submit" id="submitReg"
-                    class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                    class="w-full bg-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
                     <span id="btnText">Daftar Sekarang</span>
                     <i id="btnIcon" class="fas fa-paper-plane"></i>
                 </button>
 
-                <p class="text-center text-[10px] text-gray-400 uppercase tracking-widest pt-2">
-                    Pembayaran via Mayar
+                <p class="text-center text-[10px] text-gray-400 uppercase tracking-widest pt-1">
+                    Sudah punya akun? <button type="button" id="switchToLogin"
+                        class="text-primary font-bold hover:underline">Login di sini</button>
                 </p>
             </form>
 
@@ -686,6 +820,56 @@
                     <div class="h-full bg-secondary w-full animate-[progress_3s_linear_forwards]"></div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Login Modal -->
+    <div id="loginModal"
+        class="fixed inset-0 z-[60] flex items-center justify-center px-4 opacity-0 pointer-events-none transition-all duration-300 overflow-hidden">
+        <div id="loginModalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
+        <div
+            class="modal-content relative bg-cream w-full max-w-md rounded-2xl shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300 overflow-hidden">
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+                <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/10f3dfa8_102721793_a7899a0ddc_c.jpg"
+                    alt="" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Modal Header -->
+            <div class="p-5 md:p-6 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-serif font-bold text-primary">Login Akun</h2>
+                    <p class="text-xs text-gray-500 mt-0.5">Masuk ke akun yang sudah terdaftar</p>
+                </div>
+                <button id="closeLoginModal" class="text-primary/50 hover:text-primary transition-colors text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Form Body -->
+            <form id="loginForm" class="p-5 md:p-6 space-y-4 relative">
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Email Address</label>
+                    <input type="email" id="loginEmail" required placeholder="nama@email.com"
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password</label>
+                    <input type="password" id="loginPass" required placeholder="••••••••"
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                </div>
+
+                <button type="submit" id="submitLogin"
+                    class="w-full bg-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                    <span id="loginBtnText">Login</span>
+                    <i id="loginBtnIcon" class="fas fa-sign-in-alt"></i>
+                </button>
+
+                <p class="text-center text-[10px] text-gray-400 uppercase tracking-widest pt-1">
+                    Belum punya akun? <button type="button" id="switchToRegister"
+                        class="text-primary font-bold hover:underline">Daftar di sini</button>
+                </p>
+            </form>
         </div>
     </div>
 
@@ -804,23 +988,35 @@
 
     </main>
 
-    <!-- Scripts Section -->
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
     <script>
         /**
-         * Nuqthah Learning Center - JavaScript Logic
+         * ============================================================
+         * N U Q T H A H   L E A R N I N G   C E N T E R
+         * ============================================================
+         * AUTHENTICATION SYSTEM - SUPABASE AUTH
+         * ============================================================
          */
 
         // 1. App Configuration & State
         const APP_STATE = {
-            isLoggedIn: false,
-            user: null,
             supabase: {
                 url: 'https://idwrkzekykarxnuoaysu.supabase.co',
                 key: 'sb_publishable_N96gYsm_jeSntalN3qMVCA_TpXloD4u'
             }
         };
 
-        // 2. DOM Elements
+        // 2. Initialize Supabase Client
+        const { createClient } = supabase;
+        const supabaseClient = createClient(
+            APP_STATE.supabase.url,
+            APP_STATE.supabase.key
+        );
+
+        // 3. DOM Elements
         const elements = {
             menuToggle: document.getElementById('menu-toggle'),
             closeSidebar: document.getElementById('close-sidebar'),
@@ -833,33 +1029,173 @@
             closeModal: document.getElementById('closeModal'),
             registerForm: document.getElementById('registerForm'),
             searchCta: document.getElementById('searchCta'),
+            logoutMenu: document.getElementById('logout-menu'),
 
             successMessage: document.getElementById('successMessage'),
             btnText: document.getElementById('btnText'),
             btnIcon: document.getElementById('btnIcon'),
+
+            // Login Modal
+            loginModal: document.getElementById('loginModal'),
+            loginModalOverlay: document.getElementById('loginModalOverlay'),
+            closeLoginModal: document.getElementById('closeLoginModal'),
+            loginForm: document.getElementById('loginForm'),
+            switchToLogin: document.getElementById('switchToLogin'),
+            switchToRegister: document.getElementById('switchToRegister'),
         };
 
-        // 3. UI Helper Functions
+        // 4. UI Helper Functions
         const toggleSidebar = () => elements.body.classList.toggle('sidebar-open');
 
-        const openModal = () => {
+        // Register Modal
+        const openRegisterModal = () => {
             elements.registerModal.classList.remove('opacity-0', 'pointer-events-none');
             elements.registerModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.registerModal.querySelector('.modal-content').classList.add('scale-100');
         };
 
-        const closeModal = () => {
+        const closeRegisterModal = () => {
             elements.registerModal.classList.add('opacity-0', 'pointer-events-none');
             elements.registerModal.querySelector('.modal-content').classList.add('scale-95');
             elements.registerModal.querySelector('.modal-content').classList.remove('scale-100');
-            // Reset state if success message was showing
             setTimeout(() => {
                 elements.successMessage.classList.add('opacity-0', 'pointer-events-none');
                 elements.registerForm.classList.remove('opacity-0');
             }, 500);
         };
 
-        // 4. Authentication & Form Logic
+        // Login Modal
+        const openLoginModal = () => {
+            elements.loginModal.classList.remove('opacity-0', 'pointer-events-none');
+            elements.loginModal.querySelector('.modal-content').classList.remove('scale-95');
+            elements.loginModal.querySelector('.modal-content').classList.add('scale-100');
+        };
+
+        const closeLoginModal = () => {
+            elements.loginModal.classList.add('opacity-0', 'pointer-events-none');
+            elements.loginModal.querySelector('.modal-content').classList.add('scale-95');
+            elements.loginModal.querySelector('.modal-content').classList.remove('scale-100');
+        };
+
+        // Switch between modals
+        const switchToLoginHandler = () => {
+            closeRegisterModal();
+            setTimeout(openLoginModal, 300);
+        };
+
+        const switchToRegisterHandler = () => {
+            closeLoginModal();
+            setTimeout(openRegisterModal, 300);
+        };
+
+        // 5. Login Menu Handler
+        const loginMenu = document.getElementById('login-menu');
+
+        if (loginMenu) {
+            loginMenu.addEventListener('click', (e) => {
+                e.preventDefault();
+                // Tutup sidebar jika terbuka
+                if (elements.body.classList.contains('sidebar-open')) {
+                    toggleSidebar();
+                }
+                // Buka Login Modal
+                setTimeout(openLoginModal, 300);
+            });
+        }
+
+        // 6. Check Session and Update UI
+        const checkSessionAndUpdateUI = async () => {
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+
+                if (error) throw error;
+
+                if (session) {
+                    // User is logged in
+                    elements.navRegisterBtn.textContent = 'Akun Saya';
+                    elements.navRegisterBtn.classList.add('bg-secondary');
+                    elements.navRegisterBtn.classList.remove('bg-primary');
+                    elements.navRegisterBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = "materi.html";
+                    };
+
+                    if (elements.logoutMenu) {
+                        elements.logoutMenu.classList.remove('hidden');
+                    }
+
+                    // Sembunyikan menu Login
+                    if (loginMenu) {
+                        loginMenu.classList.add('hidden');
+                    }
+
+                    // Update search button
+                    const span = elements.searchCta.querySelector('span');
+                    const icon = elements.searchCta.querySelector('i');
+                    if (span) span.textContent = 'Cari Materi';
+                    if (icon) {
+                        icon.className = 'fas fa-search text-xs md:text-base opacity-80 z-10 transition-transform group-hover:scale-110';
+                    }
+                    elements.searchCta.classList.remove('pointer-events-none', 'opacity-90');
+                    delete elements.searchCta.dataset.redirecting;
+
+                } else {
+                    // User is not logged in
+                    elements.navRegisterBtn.textContent = 'Daftar Gratis';
+                    elements.navRegisterBtn.classList.remove('bg-secondary');
+                    elements.navRegisterBtn.classList.add('bg-primary');
+                    elements.navRegisterBtn.onclick = (e) => {
+                        e.preventDefault();
+                        openRegisterModal();
+                    };
+
+                    if (elements.logoutMenu) {
+                        elements.logoutMenu.classList.add('hidden');
+                    }
+
+                    // Tampilkan menu Login
+                    if (loginMenu) {
+                        loginMenu.classList.remove('hidden');
+                    }
+                }
+            } catch (err) {
+                console.error('Session check error:', err);
+                // Fallback to logged out state
+                elements.navRegisterBtn.textContent = 'Daftar Gratis';
+                elements.navRegisterBtn.classList.remove('bg-secondary');
+                elements.navRegisterBtn.classList.add('bg-primary');
+                elements.navRegisterBtn.onclick = (e) => {
+                    e.preventDefault();
+                    openRegisterModal();
+                };
+                if (elements.logoutMenu) {
+                    elements.logoutMenu.classList.add('hidden');
+                }
+                if (loginMenu) {
+                    loginMenu.classList.remove('hidden');
+                }
+            }
+        };
+
+        // 7. Logout Function
+        const logoutUser = async () => {
+            try {
+                const { error } = await supabaseClient.auth.signOut();
+                if (error) throw error;
+            } catch (err) {
+                console.warn('Logout error:', err);
+            }
+
+            // Close sidebar if open
+            if (elements.body.classList.contains('sidebar-open')) {
+                toggleSidebar();
+            }
+
+            // Update UI
+            await checkSessionAndUpdateUI();
+        };
+
+        // 8. Registration Handler
         const handleRegistration = async (e) => {
             e.preventDefault();
 
@@ -887,48 +1223,42 @@
                 // 1. Registrasi ke Supabase Auth
                 // ============================
                 const { data, error } = await supabaseClient.auth.signUp({
-
                     email: formData.email,
-
                     password: formData.pass,
-
                     options: {
-
                         data: {
-
                             full_name: formData.name,
-
                             whatsapp: formData.wa,
-
                             interest_program: formData.program
-
                         }
-
                     }
-
                 });
 
-                if (error) throw error;
-
+                if (error) {
+                    // Check if user already exists
+                    if (error.message.includes('already registered') || error.message.includes('already exists')) {
+                        alert('Email sudah terdaftar. Silakan login menggunakan akun Anda.');
+                        closeRegisterModal();
+                        setTimeout(openLoginModal, 300);
+                        elements.registerForm.classList.remove('pointer-events-none', 'opacity-50');
+                        elements.btnText.textContent = "Daftar Sekarang";
+                        elements.btnIcon.className = "fas fa-paper-plane";
+                        return;
+                    }
+                    throw error;
+                }
 
                 // ============================
                 // 2. Simpan ke tabel profiles
                 // ============================
-
                 const { error: profileError } = await supabaseClient
                     .from("profiles")
                     .upsert({
-
                         id: data.user.id,
-
                         full_name: formData.name,
-
                         email: formData.email,
-
                         whatsapp: formData.wa,
-
                         interest_program: formData.program
-
                     });
 
                 if (profileError) throw profileError;
@@ -937,43 +1267,26 @@
                 // Kirim WhatsApp melalui Edge Function
                 // ============================
                 const waResponse = await fetch(
-                    "https://idwrkzekykarxnuoaysu.supabase.co/functions/v1/send-whatsapp",
-                    {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "apikey": APP_STATE.supabase.key,
-                            "Authorization": `Bearer ${APP_STATE.supabase.key}`,
-                        },
-                        body: JSON.stringify({
-                            phone: formData.wa,
-                            name: formData.name,
-                            program: formData.program,
-                        }),
-                    }
-                );
+                    "https://idwrkzekykarxnuoaysu.supabase.co/functions/v1/send-whatsapp", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "apikey": APP_STATE.supabase.key,
+                        "Authorization": `Bearer ${APP_STATE.supabase.key}`,
+                    },
+                    body: JSON.stringify({
+                        phone: formData.wa,
+                        name: formData.name,
+                        program: formData.program,
+                    }),
+                });
 
                 const waResult = await waResponse.json();
                 console.log(waResult);
 
-
-
                 // ============================
                 // 3. Success
                 // ============================
-
-                APP_STATE.isLoggedIn = true;
-
-                APP_STATE.user = formData;
-
-                localStorage.setItem(
-                    "nuqthah_session",
-                    JSON.stringify({
-                        loggedIn: true,
-                        name: formData.name
-                    })
-                );
-
                 elements.successMessage.classList.remove(
                     "opacity-0",
                     "pointer-events-none"
@@ -981,15 +1294,15 @@
 
                 elements.registerForm.classList.add("opacity-0");
 
+                // Update UI after login
+                await checkSessionAndUpdateUI();
+
                 setTimeout(() => {
-
                     window.location.href = "materi.html";
-
                 }, 3000);
 
             } catch (err) {
                 console.error("ERROR:", err);
-
                 alert(
                     err.message ||
                     JSON.stringify(err) ||
@@ -1000,51 +1313,147 @@
             }
         };
 
-        // 5. Main Button Logic
-        const handleSearchCta = (e) => {
+        // 9. Login Handler
+        const handleLogin = async (e) => {
             e.preventDefault();
 
-            // Check Session
-            const session = JSON.parse(localStorage.getItem('nuqthah_session'));
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPass').value;
 
-            if (session && session.loggedIn) {
-                // User is logged in, show loading and redirect
-                const icon = elements.searchCta.querySelector('i');
-                const text = elements.searchCta.querySelector('span');
+            const loginBtnText = document.getElementById('loginBtnText');
+            const loginBtnIcon = document.getElementById('loginBtnIcon');
 
-                icon.className = 'fas fa-spinner fa-spin text-2xl md:text-4xl z-10';
-                text.textContent = 'Menyiapkan...';
-                elements.searchCta.classList.add('pointer-events-none', 'opacity-90');
+            loginBtnText.textContent = "Memproses...";
+            loginBtnIcon.className = "fas fa-circle-notch fa-spin";
+            elements.loginForm.classList.add('pointer-events-none', 'opacity-50');
 
-                setTimeout(() => {
-                    window.location.href = "materi.html";
-                }, 1000);
-            } else {
-                // Not logged in, open registration
-                openModal();
+            try {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password
+                });
+
+                if (error) throw error;
+
+                // Close login modal
+                closeLoginModal();
+
+                // Update UI
+                await checkSessionAndUpdateUI();
+
+                // Redirect to materi page
+                window.location.href = "materi.html";
+
+            } catch (err) {
+                console.error("Login error:", err);
+                alert(err.message || "Login gagal. Periksa email dan password Anda.");
+                loginBtnText.textContent = "Login";
+                loginBtnIcon.className = "fas fa-sign-in-alt";
+                elements.loginForm.classList.remove('pointer-events-none', 'opacity-50');
             }
         };
 
-        // 6. Event Listeners Initialization
+        // 10. Search Button Handler
+        const handleSearchCta = async (e) => {
+            e.preventDefault();
+
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                if (error) throw error;
+
+                if (session) {
+                    // User is logged in, show loading and redirect
+                    const icon = elements.searchCta.querySelector('i');
+                    const text = elements.searchCta.querySelector('span');
+
+                    icon.className = 'fas fa-spinner fa-spin text-2xl md:text-4xl z-10';
+                    text.textContent = 'Menyiapkan...';
+                    elements.searchCta.classList.add('pointer-events-none', 'opacity-90');
+
+                    if (!elements.searchCta.dataset.redirecting) {
+                        elements.searchCta.dataset.redirecting = 'true';
+                        setTimeout(() => {
+                            window.location.href = "materi.html";
+                        }, 1000);
+                    }
+                } else {
+                    // Not logged in, open registration
+                    openRegisterModal();
+                }
+            } catch (err) {
+                console.error('Session check error:', err);
+                openRegisterModal();
+            }
+        };
+
+        // 11. Event Listeners Initialization
+        // Sidebar
         elements.menuToggle.addEventListener('click', toggleSidebar);
         elements.closeSidebar.addEventListener('click', toggleSidebar);
         elements.sidebarOverlay.addEventListener('click', toggleSidebar);
 
-        elements.navRegisterBtn.addEventListener('click', openModal);
-        elements.closeModal.addEventListener('click', closeModal);
-        elements.modalOverlay.addEventListener('click', closeModal);
+        // Register Modal
+        elements.closeModal.addEventListener('click', closeRegisterModal);
+        elements.modalOverlay.addEventListener('click', closeRegisterModal);
         elements.registerForm.addEventListener('submit', handleRegistration);
+        if (elements.switchToLogin) {
+            elements.switchToLogin.addEventListener('click', switchToLoginHandler);
+        }
+
+        // Login Modal
+        if (elements.closeLoginModal) {
+            elements.closeLoginModal.addEventListener('click', closeLoginModal);
+        }
+        if (elements.loginModalOverlay) {
+            elements.loginModalOverlay.addEventListener('click', closeLoginModal);
+        }
+        if (elements.loginForm) {
+            elements.loginForm.addEventListener('submit', handleLogin);
+        }
+        if (elements.switchToRegister) {
+            elements.switchToRegister.addEventListener('click', switchToRegisterHandler);
+        }
+
+        // Search button
         elements.searchCta.addEventListener('click', handleSearchCta);
+
+        // Logout menu
+        if (elements.logoutMenu) {
+            elements.logoutMenu.addEventListener('click', (e) => {
+                e.preventDefault();
+                logoutUser();
+            });
+        }
 
         // Escape to close
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
-                closeModal();
+                closeRegisterModal();
+                closeLoginModal();
             }
         });
 
-        // 7. Responsive Fixes
+        // 12. Check session on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            checkSessionAndUpdateUI();
+        });
+
+        // On pageshow (for bfcache)
+        window.addEventListener('pageshow', (event) => {
+            if (event.persisted) {
+                checkSessionAndUpdateUI();
+            }
+        });
+
+        // On visibility change (when user returns to tab)
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                checkSessionAndUpdateUI();
+            }
+        });
+
+        // 13. Responsive Fixes
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -1052,27 +1461,6 @@
         window.addEventListener('resize', setVh);
         setVh();
 
-        // Check for existing session on load
-        window.onload = () => {
-            const session = JSON.parse(localStorage.getItem('nuqthah_session'));
-            if (session && session.loggedIn) {
-                elements.navRegisterBtn.textContent = 'Akun Saya';
-                elements.navRegisterBtn.classList.add('bg-secondary');
-            }
-        };
-
-    </script>
-
-    <!-- Supabase Library -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-    <script>
-        const { createClient } = supabase;
-
-        const supabaseClient = createClient(
-            APP_STATE.supabase.url,
-            APP_STATE.supabase.key
-        );
     </script>
 
     <style>
