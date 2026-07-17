@@ -3,12 +3,11 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Nuqthah Learning Center - Gateway</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logofix.png">
-
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -43,14 +42,22 @@
             }
         };
     </script>
-    <style>
-        :root {
-            --viewport-height: 100vh;
 
+    <style>
+        /* ============================================================
+           ROOT & RESET
+        ============================================================ */
+        :root {
             --primary: #0F4A3A;
             --secondary: #C9A227;
             --cream: #F8F5EE;
             --text: #1F2A24;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         html,
@@ -58,10 +65,11 @@
             height: 100%;
             margin: 0;
             padding: 0;
-
             background: var(--cream);
             color: var(--text);
             font-family: 'Inter', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         body {
@@ -80,17 +88,15 @@
             overflow-y: visible;
         }
 
-        /* ==========================
-   Animation
-========================== */
-
+        /* ============================================================
+           ANIMATIONS
+        ============================================================ */
         .fade-in {
             opacity: 0;
             animation: fadeIn .9s ease forwards;
         }
 
         @keyframes fadeIn {
-
             from {
                 opacity: 0;
                 transform: translateY(12px);
@@ -100,191 +106,122 @@
                 opacity: 1;
                 transform: translateY(0);
             }
-
         }
 
-        /* ==========================
-   Logo
-========================== */
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
 
+            100% {
+                width: 100%;
+            }
+        }
+
+        /* ============================================================
+           LOGO & LAYOUT
+        ============================================================ */
         .logo-glow-radial {
-
-            background:
-                radial-gradient(circle,
-                    rgba(15, 74, 58, .08) 0%,
-                    rgba(15, 74, 58, 0) 70%);
-
+            background: radial-gradient(circle, rgba(15, 74, 58, .08) 0%, rgba(15, 74, 58, 0) 70%);
         }
 
         .dynamic-logo {
-
             height: 30vh;
             min-height: 110px;
             max-height: 260px;
-
         }
 
-        /* ==========================
-   Main Layout
-========================== */
-
         .main-content {
-
             width: 100%;
             max-width: 1100px;
-
             margin: auto;
-
             padding-inline: 24px;
-
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-
             gap: 2rem;
-
             flex: 1;
             padding-top: 80px;
             padding-bottom: 40px;
-
         }
-
-        /* ==========================
-   Tagline
-========================== */
 
         .tagline-text {
-
             color: var(--primary);
-
             font-weight: 700;
-
             text-transform: uppercase;
-
             letter-spacing: .28em;
-
             font-size: clamp(.95rem, .8rem + .5vw, 1.35rem);
-
         }
 
-        /* ==========================
-   SOCIAL
-========================== */
+        .welcome-text {
+            max-width: 920px;
+            margin: auto;
+            text-align: center;
+            color: var(--text);
+            font-size: clamp(1.15rem, 1rem + .7vw, 1.65rem);
+            line-height: 1.85;
+            font-weight: 400;
+        }
 
         .social-icons {
-
             display: flex;
-
             gap: 28px;
-
             margin-top: 18px;
-
         }
 
         .social-icons a {
-
             color: var(--primary);
-
             font-size: 1.4rem;
-
             transition: .25s;
-
         }
 
         .social-icons a:hover {
-
             color: var(--secondary);
-
         }
-
-        /* ==========================
-   WELCOME TEXT
-========================== */
-
-        .welcome-text {
-
-            max-width: 920px;
-
-            margin: auto;
-
-            text-align: center;
-
-            color: var(--text);
-
-            font-size: clamp(1.15rem, 1rem + .7vw, 1.65rem);
-
-            line-height: 1.85;
-
-            font-weight: 400;
-
-        }
-
-        /* ==========================
-   CTA
-========================== */
 
         .cta-btn {
-
             transition: .3s;
-
         }
 
         .cta-btn:hover {
-
             transform: translateY(-2px);
-
         }
 
-        /* ==========================
-   Sidebar
-========================== */
-
+        /* ============================================================
+           SIDEBAR
+        ============================================================ */
         #sidebar {
-
-            transition:
-                transform .35s ease;
-
+            transition: transform .35s ease;
         }
 
         .sidebar-open #sidebar {
-
             transform: translateX(0);
-
         }
 
         .sidebar-open #sidebar-overlay {
-
             opacity: 1;
-
             pointer-events: auto;
-
         }
 
-        /* ==========================
-   Scrollbar
-========================== */
-
+        /* ============================================================
+           SCROLLBAR
+        ============================================================ */
         ::-webkit-scrollbar {
-
             width: 4px;
-
         }
 
         ::-webkit-scrollbar-thumb {
-
             background: rgba(15, 74, 58, .25);
-
             border-radius: 20px;
-
         }
 
-        /* =========================================================
-   MODAL PENDAFTARAN & LOGIN
-   (dipertahankan agar fitur registrasi tetap bekerja)
-========================================================= */
-
-        #registerModal {
+        /* ============================================================
+           MODAL (REGISTER & LOGIN)
+        ============================================================ */
+        #registerModal,
+        #loginModal,
+        #resetModal {
             transition: opacity .3s ease;
             position: fixed;
             inset: 0;
@@ -298,7 +235,9 @@
             overflow: hidden;
         }
 
-        #registerModal .modal-content {
+        #registerModal .modal-content,
+        #loginModal .modal-content,
+        #resetModal .modal-content {
             transition: transform .3s ease;
             max-height: 92vh;
             overflow-y: auto;
@@ -307,16 +246,36 @@
             margin: 1.5rem auto;
         }
 
-        @media (max-width: 640px) {
-            #registerModal .modal-content {
-                max-width: 100%;
-                margin: 1rem;
-                max-height: 94vh;
-            }
+        #registerModal .modal-content::-webkit-scrollbar,
+        #loginModal .modal-content::-webkit-scrollbar,
+        #resetModal .modal-content::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        #registerModal .modal-content::-webkit-scrollbar-thumb,
+        #loginModal .modal-content::-webkit-scrollbar-thumb,
+        #resetModal .modal-content::-webkit-scrollbar-thumb {
+            background: rgba(15, 74, 58, .2);
+            border-radius: 20px;
+        }
+
+        #registerModal .modal-content,
+        #loginModal .modal-content,
+        #resetModal .modal-content {
+            scrollbar-width: thin;
+        }
+
+        #registerModal.show,
+        #loginModal.show,
+        #resetModal.show {
+            opacity: 1;
+            pointer-events: auto;
         }
 
         #registerModal input,
-        #registerModal select {
+        #registerModal select,
+        #loginModal input,
+        #resetModal input {
             width: 100%;
             border: 1px solid rgba(15, 74, 58, .10);
             border-radius: 12px;
@@ -328,149 +287,180 @@
         }
 
         #registerModal input:focus,
-        #registerModal select:focus {
+        #registerModal select:focus,
+        #loginModal input:focus,
+        #resetModal input:focus {
             border-color: rgba(15, 74, 58, .35);
             box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
         }
 
-        #registerModal .p-6 {
-            padding: 1.25rem 1.5rem;
-        }
-
-        #registerModal .p-6.md\:p-8 {
-            padding: 1.5rem 2rem;
-        }
-
-        #registerModal .grid {
-            gap: 0.75rem;
-        }
-
-        #registerModal .space-y-4 {
-            gap: 0.75rem;
-        }
-
-        #registerModal button[type="submit"] {
-            transition: .25s;
-            padding: 0.9rem 1.5rem;
-        }
-
-        #registerModal button[type="submit"]:hover {
-            transform: translateY(-1px);
-        }
-
-        #successMessage {
-            transition: opacity .45s ease;
-        }
-
-        /* Login Modal */
-        #loginModal {
-            transition: opacity .3s ease;
+        /* ============================================================
+           CUSTOM POPUP (FIXED)
+        ============================================================ */
+        #customPopup {
             position: fixed;
             inset: 0;
-            z-index: 60;
+            z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 1rem;
+            padding: 1.5rem;
             opacity: 0;
             pointer-events: none;
-            overflow: hidden;
+            transition: opacity 0.3s ease;
+            background: rgba(15, 74, 58, 0.3);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
         }
 
-        #loginModal .modal-content {
-            transition: transform .3s ease;
-            max-height: 92vh;
-            overflow-y: auto;
+        #customPopup.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #customPopup .popup-box {
+            background: var(--cream);
             max-width: 440px;
             width: 100%;
-            margin: 1.5rem auto;
+            border-radius: 28px;
+            padding: 2rem 1.75rem;
+            box-shadow: 0 25px 60px rgba(15, 74, 58, 0.25), 0 0 0 1px rgba(255, 255, 255, 0.3);
+            transform: scale(0.92) translateY(10px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            opacity: 0;
+            text-align: center;
+            position: relative;
+            z-index: 10000;
         }
 
-        @media (max-width: 640px) {
-            #loginModal .modal-content {
-                max-width: 100%;
-                margin: 1rem;
-                max-height: 94vh;
-            }
+        #customPopup.show .popup-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
         }
 
-        #loginModal input {
-            width: 100%;
-            border: 1px solid rgba(15, 74, 58, .10);
-            border-radius: 12px;
-            padding: 12px 16px;
-            background: #fff;
-            outline: none;
-            transition: .25s;
-            font-size: .9rem;
+        #customPopup .popup-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin: 0 auto 1rem auto;
+            background: rgba(15, 74, 58, 0.08);
+            color: var(--primary);
         }
 
-        #loginModal input:focus {
-            border-color: rgba(15, 74, 58, .35);
-            box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
+        #customPopup .popup-icon.success {
+            background: rgba(16, 185, 129, 0.15);
+            color: #059669;
         }
 
-        #loginModal .modal-content::-webkit-scrollbar {
-            width: 4px;
+        #customPopup .popup-icon.error {
+            background: rgba(239, 68, 68, 0.12);
+            color: #dc2626;
         }
 
-        #loginModal .modal-content::-webkit-scrollbar-thumb {
-            background: rgba(15, 74, 58, .2);
-            border-radius: 20px;
+        #customPopup .popup-icon.warning {
+            background: rgba(245, 158, 11, 0.15);
+            color: #d97706;
         }
 
-        #loginModal .modal-content {
-            scrollbar-width: thin;
+        #customPopup .popup-icon.info {
+            background: rgba(59, 130, 246, 0.12);
+            color: #2563eb;
         }
 
-        /* ==========================
-   Laptop
-========================== */
+        #customPopup .popup-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.6rem;
+            color: var(--primary);
+            margin-bottom: 0.4rem;
+        }
 
+        #customPopup .popup-message {
+            color: #374151;
+            font-size: 1rem;
+            line-height: 1.6;
+            margin-bottom: 1.6rem;
+            padding: 0 0.25rem;
+        }
+
+        #customPopup .popup-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            justify-content: center;
+        }
+
+        #customPopup .popup-btn {
+            background: var(--primary);
+            color: white;
+            font-weight: 600;
+            padding: 0.8rem 2.2rem;
+            border-radius: 40px;
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            font-size: 0.95rem;
+            min-width: 120px;
+            letter-spacing: 0.02em;
+            position: relative;
+            z-index: 10001;
+        }
+
+        #customPopup .popup-btn:hover {
+            background: #0b3d30;
+        }
+
+        #customPopup .popup-btn:active {
+            transform: scale(0.96);
+        }
+
+        #customPopup .popup-btn.secondary {
+            background: transparent;
+            color: var(--primary);
+            border: 1px solid rgba(15, 74, 58, 0.2);
+        }
+
+        #customPopup .popup-btn.secondary:hover {
+            background: rgba(15, 74, 58, 0.06);
+        }
+
+        #customPopup .popup-btn.danger {
+            background: #dc2626;
+        }
+
+        #customPopup .popup-btn.danger:hover {
+            background: #b91c1c;
+        }
+
+        /* ============================================================
+           RESPONSIVE
+        ============================================================ */
         @media(max-width:1200px) {
-
             .main-content {
-
                 max-width: 950px;
-
             }
-
         }
-
-        /* ==========================
-   Tablet
-========================== */
 
         @media(max-width:992px) {
-
             .dynamic-logo {
-
                 height: 24vh;
-
             }
 
             .main-content {
-
                 gap: 1.7rem;
-
             }
 
             .welcome-text {
-
                 font-size: 1.2rem;
-
                 line-height: 1.8;
-
             }
-
         }
 
-        /* ==========================
-   Mobile
-========================== */
-
         @media (max-width:768px) {
-
             .dynamic-logo {
                 height: 20vh;
             }
@@ -502,14 +492,12 @@
                 padding: 16px 28px;
             }
 
+            #customPopup .popup-box {
+                padding: 1.75rem 1.25rem;
+            }
         }
 
-        /* ==========================
-   Small Mobile
-========================== */
-
         @media (max-width:480px) {
-
             .dynamic-logo {
                 height: 19vh;
             }
@@ -542,49 +530,48 @@
                 padding: 15px 24px;
             }
 
-        }
-
-        /* Progress Bar */
-
-        @keyframes progress {
-            from {
-                width: 0%;
+            #customPopup .popup-box {
+                padding: 1.5rem 1rem;
+                border-radius: 22px;
             }
 
-            to {
-                width: 100%;
+            #customPopup .popup-title {
+                font-size: 1.4rem;
             }
         }
 
-        /* scrollable modal */
-        #registerModal .modal-content::-webkit-scrollbar {
-            width: 4px;
-        }
-
-        #registerModal .modal-content::-webkit-scrollbar-thumb {
-            background: rgba(15, 74, 58, .2);
-            border-radius: 20px;
-        }
-
-        #registerModal .modal-content {
-            scrollbar-width: thin;
-        }
-
-        /* Fix untuk pull to refresh */
-        #registerModal.show {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        #loginModal.show {
-            opacity: 1;
-            pointer-events: auto;
+        /* Fix modal overlay position */
+        #registerModal .absolute.inset-0.bg-primary\/40,
+        #loginModal .absolute.inset-0.bg-primary\/40,
+        #resetModal .absolute.inset-0.bg-primary\/40 {
+            position: fixed;
+            inset: 0;
         }
     </style>
 </head>
 
 <body>
 
+    <!-- ============================================================
+    CUSTOM POPUP (FIXED)
+    ============================================================ -->
+    <div id="customPopup" role="dialog" aria-modal="true" aria-labelledby="popup-title"
+        aria-describedby="popup-message">
+        <div class="popup-box">
+            <div id="popupIcon" class="popup-icon">
+                <i class="fas fa-info-circle"></i>
+            </div>
+            <h2 id="popup-title" class="popup-title">Judul</h2>
+            <p id="popup-message" class="popup-message">Pesan</p>
+            <div id="popupActions" class="popup-actions">
+                <!-- Tombol akan dibuat oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    APP CONTAINER
+    ============================================================ -->
     <div id="app-container">
 
         <!-- Background Pattern -->
@@ -593,34 +580,34 @@
                 alt="" class="w-full h-full object-cover">
         </div>
 
-        <!-- Header Navigation -->
+        <!-- ============================================================
+        HEADER NAVIGATION
+        ============================================================ -->
         <div class="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-3">
 
-            <!-- Tombol Daftar/Login (FITUR TETAP DIPERTAHANKAN) -->
             <button id="nav-register-btn"
                 class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
-
                 Daftar Gratis
-
             </button>
 
-            <!-- Hamburger -->
             <button id="menu-toggle"
                 class="p-3 text-primary hover:text-secondary transition-colors duration-300 focus:outline-none"
                 aria-label="Buka Menu">
-
                 <i class="fas fa-bars text-xl md:text-2xl"></i>
-
             </button>
 
         </div>
 
-        <!-- Sidebar Overlay -->
+        <!-- ============================================================
+        SIDEBAR OVERLAY
+        ============================================================ -->
         <div id="sidebar-overlay"
             class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-400 backdrop-blur-[2px]">
         </div>
 
-        <!-- Sidebar -->
+        <!-- ============================================================
+        SIDEBAR
+        ============================================================ -->
         <aside id="sidebar"
             class="fixed top-0 right-0 h-full w-72 md:w-80 bg-cream text-primary z-50 transform translate-x-full shadow-2xl flex flex-col border-l border-primary/5 overflow-hidden">
 
@@ -631,152 +618,82 @@
 
             <div
                 class="relative p-6 flex justify-between items-center border-b border-primary/10 bg-white/30 backdrop-blur-sm">
-
-                <span class="font-serif text-2xl text-primary font-bold tracking-tight">
-
-                    Menu Utama
-
-                </span>
-
+                <span class="font-serif text-2xl text-primary font-bold tracking-tight">Menu Utama</span>
                 <button id="close-sidebar"
                     class="text-primary hover:text-secondary transition-colors p-2 focus:outline-none"
                     aria-label="Tutup Menu">
-
                     <i class="fas fa-times text-2xl"></i>
-
                 </button>
-
             </div>
 
             <nav class="relative flex-grow py-6 px-6 space-y-2 overflow-y-auto">
 
                 <a href="knowledge/knowledge.html"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
-
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
-
                         <i class="fas fa-circle-info text-xs"></i>
-
                     </div>
-
-                    <span class="text-base font-semibold">
-
-                        Tentang Kami
-
-                    </span>
-
+                    <span class="text-base font-semibold">Tentang Kami</span>
                 </a>
 
                 <a href="profil.html"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
-
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
-
                         <i class="fa-solid fa-id-card"></i>
-
                     </div>
-
-                    <span class="text-base font-semibold">
-
-                        Profil Asaatidz
-
-                    </span>
-
+                    <span class="text-base font-semibold">Profil Asaatidz</span>
                 </a>
 
                 <a href="tentangprogram.html"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
-
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
-
                         <i class="fa-solid fa-book-open"></i>
-
                     </div>
-
-                    <span class="text-base font-semibold">
-
-                        Tentang Program
-
-                    </span>
-
+                    <span class="text-base font-semibold">Tentang Program</span>
                 </a>
 
                 <a href="formpengajar.html"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
-
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
-
                         <i class="fa-solid fa-chalkboard-user"></i>
-
                     </div>
-
-                    <span class="text-base font-semibold">
-
-                        Jadi Pengajar
-
-                    </span>
-
+                    <span class="text-base font-semibold">Jadi Pengajar</span>
                 </a>
 
-                <!-- Menu Login - hanya muncul jika belum login -->
                 <a id="login-menu" href="#"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
-
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
-
                         <i class="fa-solid fa-right-to-bracket"></i>
-
                     </div>
-
-                    <span class="text-base font-semibold">
-
-                        Login
-
-                    </span>
-
+                    <span class="text-base font-semibold">Login</span>
                 </a>
 
-                <!-- Menu Logout - hanya muncul jika login -->
                 <a id="logout-menu" href="#"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group hidden">
-
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
-
                         <i class="fa-solid fa-right-from-bracket"></i>
-
                     </div>
-
-                    <span class="text-base font-semibold">
-
-                        Logout
-
-                    </span>
-
+                    <span class="text-base font-semibold">Logout</span>
                 </a>
 
             </nav>
 
             <div class="relative p-6 border-t border-primary/10 text-center bg-white/20 backdrop-blur-sm">
-
                 <img src="assets/logofix.png" alt="Nuqthah Logo" class="h-10 mx-auto object-contain mb-3">
-
-                <p class="text-[10px] text-primary/60 font-bold tracking-widest uppercase">
-
-                    Nuqthah Learning Center
-
-                </p>
-
+                <p class="text-[10px] text-primary/60 font-bold tracking-widest uppercase">Nuqthah Learning Center</p>
             </div>
 
         </aside>
 
-        <!-- Register Modal -->
+        <!-- ============================================================
+        REGISTER MODAL
+        ============================================================ -->
         <div id="registerModal">
             <div id="modalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
             <div
@@ -786,7 +703,6 @@
                         alt="" class="w-full h-full object-cover">
                 </div>
 
-                <!-- Modal Header -->
                 <div
                     class="p-5 md:p-6 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
                     <div>
@@ -798,7 +714,6 @@
                     </button>
                 </div>
 
-                <!-- Form Body -->
                 <form id="registerForm" class="p-5 md:p-6 space-y-3 relative">
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="space-y-1">
@@ -861,7 +776,6 @@
                     </p>
                 </form>
 
-                <!-- Success Message Overlay (Hidden) -->
                 <div id="successMessage"
                     class="absolute inset-0 bg-cream flex flex-col items-center justify-center p-8 text-center opacity-0 pointer-events-none transition-opacity duration-500 z-10">
                     <div
@@ -870,8 +784,7 @@
                     </div>
                     <h3 class="text-3xl font-serif font-bold text-primary mb-2">Registrasi Berhasil!</h3>
                     <p class="text-gray-600 mb-8">Selamat bergabung di keluarga Nuqthah Learning Center. Menghubungkan
-                        anda
-                        ke katalog materi...</p>
+                        anda ke katalog materi...</p>
                     <div class="w-16 h-1 bg-primary/10 rounded-full overflow-hidden">
                         <div class="h-full bg-secondary w-full animate-[progress_3s_linear_forwards]"></div>
                     </div>
@@ -879,7 +792,9 @@
             </div>
         </div>
 
-        <!-- Login Modal -->
+        <!-- ============================================================
+        LOGIN MODAL
+        ============================================================ -->
         <div id="loginModal">
             <div id="loginModalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
             <div
@@ -889,7 +804,6 @@
                         alt="" class="w-full h-full object-cover">
                 </div>
 
-                <!-- Modal Header -->
                 <div
                     class="p-5 md:p-6 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
                     <div>
@@ -901,7 +815,6 @@
                     </button>
                 </div>
 
-                <!-- Form Body -->
                 <form id="loginForm" class="p-5 md:p-6 space-y-4 relative">
                     <div class="space-y-1">
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Email
@@ -914,6 +827,13 @@
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password</label>
                         <input type="password" id="loginPass" required placeholder="••••••••"
                             class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                    </div>
+
+                    <div class="text-right">
+                        <button type="button" id="forgotPasswordBtn"
+                            class="text-xs text-primary/70 hover:text-primary font-medium transition-colors">
+                            Lupa Password?
+                        </button>
                     </div>
 
                     <button type="submit" id="submitLogin"
@@ -930,137 +850,143 @@
             </div>
         </div>
 
-        <!-- Main Content Wrapper -->
+        <!-- ============================================================
+        RESET PASSWORD MODAL
+        ============================================================ -->
+        <div id="resetModal">
+            <div id="resetModalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
+            <div
+                class="modal-content relative bg-cream w-full max-w-md rounded-2xl shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300 overflow-hidden">
+                <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/10f3dfa8_102721793_a7899a0ddc_c.jpg"
+                        alt="" class="w-full h-full object-cover">
+                </div>
+
+                <div
+                    class="p-5 md:p-6 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
+                    <div>
+                        <h2 id="resetModalTitle" class="text-xl md:text-2xl font-serif font-bold text-primary">Reset
+                            Password</h2>
+                        <p id="resetModalSub" class="text-xs text-gray-500 mt-0.5">Masukkan email akun Anda</p>
+                    </div>
+                    <button id="closeResetModal" class="text-primary/50 hover:text-primary transition-colors text-xl">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+
+                <form id="resetForm" class="p-5 md:p-6 space-y-4 relative">
+                    <div id="resetEmailField" class="space-y-1">
+                        <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Email
+                            Address</label>
+                        <input type="email" id="resetEmail" required placeholder="nama@email.com"
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                    </div>
+
+                    <div id="resetPasswordFields" class="space-y-3 hidden">
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password
+                                Baru</label>
+                            <input type="password" id="resetNewPass" placeholder="••••••••"
+                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                        </div>
+                        <div class="space-y-1">
+                            <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Konfirmasi
+                                Password</label>
+                            <input type="password" id="resetConfirmPass" placeholder="••••••••"
+                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="submitReset"
+                        class="w-full bg-primary text-white font-bold py-3.5 rounded-xl shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                        <span id="resetBtnText">Kirim Link Reset</span>
+                        <i id="resetBtnIcon" class="fas fa-paper-plane"></i>
+                    </button>
+
+                    <p class="text-center text-[10px] text-gray-400 uppercase tracking-widest pt-1">
+                        <button type="button" id="resetBackToLogin"
+                            class="text-primary font-bold hover:underline">Kembali ke Login</button>
+                    </p>
+                </form>
+            </div>
+        </div>
+
+        <!-- ============================================================
+        MAIN CONTENT
+        ============================================================ -->
         <main
             class="main-content relative z-10 w-full max-w-4xl mx-auto px-6 flex flex-col justify-center items-center">
 
-            <!-- HEADER -->
             <header class="fade-in flex flex-col items-center text-center w-full flex-shrink-0"
                 style="animation-delay:.1s;">
-
                 <div class="relative logo-glow-radial rounded-full p-1 md:p-2 mb-1">
-
                     <img src="assets/logofix.png" alt="Nuqthah Learning Center Logo"
                         class="dynamic-logo w-auto object-contain mx-auto drop-shadow-lg">
-
                 </div>
-
                 <h1
                     class="tagline-text text-primary font-bold text-sm md:text-lg lg:text-xl tracking-[0.25em] md:tracking-[0.35em] font-sans uppercase">
-
                     Berfikir • Berdzikir • Berhasil
-
                 </h1>
-
                 <div class="social-icons mt-3 md:mt-4 flex items-center justify-center gap-5 md:gap-7">
-
                     <a href="https://wa.me/6285185409887" target="_blank"
                         class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
-
                         <i class="fab fa-whatsapp"></i>
-
                     </a>
-
                     <a href="https://www.instagram.com/nuqthah.learning/" target="_blank"
                         class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
-
                         <i class="fab fa-instagram"></i>
-
                     </a>
-
                     <a href="https://www.youtube.com/@nuqthahlearning" target="_blank"
                         class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
-
                         <i class="fab fa-youtube"></i>
-
                     </a>
-
                 </div>
-
             </header>
-
-            <!-- WELCOME -->
 
             <section class="fade-in flex flex-col justify-center text-center max-w-2xl px-2 my-2 md:my-4"
                 style="animation-delay:.3s;">
-
                 <p
                     class="welcome-text text-textDark text-sm md:text-base lg:text-lg font-normal leading-relaxed md:leading-loose">
-
                     Selamat datang dan selamat belajar di
-
-                    <span class="font-bold text-primary">
-
-                        Nuqthah Learning Center.
-
-                    </span>
-
+                    <span class="font-bold text-primary">Nuqthah Learning Center.</span>
                     Semoga belajarmu menjadi lebih mudah bersama kami.
-
                     Cari materimu sekarang dan capai nilai terbaikmu mulai dari sini.
-
                 </p>
-
             </section>
 
-            <!-- CTA -->
-
             <footer class="fade-in flex flex-col items-center w-full flex-shrink-0" style="animation-delay:.5s;">
-
                 <div class="flex flex-col items-center w-full space-y-2">
-
                     <button id="searchCta"
                         class="cta-btn bg-primary text-white px-8 py-3.5 md:px-12 md:py-4 rounded-btn font-semibold text-sm md:text-lg transition-all duration-300 shadow-lg hover:shadow-primary/20 active:scale-95 w-full sm:w-auto min-w-[220px] md:min-w-[280px] flex items-center justify-center gap-3 group relative overflow-hidden">
-
-                        <span class="relative z-10">
-
-                            Cari Materi
-
-                        </span>
-
+                        <span class="relative z-10">Cari Materi</span>
                         <i
                             class="fas fa-search text-xs md:text-base opacity-80 z-10 transition-transform group-hover:scale-110"></i>
-
                         <div
                             class="absolute inset-0 bg-secondary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                         </div>
-
                     </button>
-
                     <div class="flex items-center gap-1.5 py-0.5">
-
                         <i class="fas fa-shield-halved text-[10px] text-primary/40"></i>
-
-                        <p class="text-[10px] md:text-xs text-primary/60 font-medium tracking-wide">
-
-                            Semua transaksi aman menggunakan Enkripsi Mayar
-
-                        </p>
-
+                        <p class="text-[10px] md:text-xs text-primary/60 font-medium tracking-wide">Semua transaksi aman
+                            menggunakan Enkripsi Mayar</p>
                     </div>
-
                 </div>
-
             </footer>
 
         </main>
 
     </div>
 
-    <!-- Supabase Library -->
+    <!-- ============================================================
+    SUPABASE LIBRARY
+    ============================================================ -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
 
     <script>
-        /**
-         * ============================================================
-         * N U Q T H A H   L E A R N I N G   C E N T E R
-         * ============================================================
-         * AUTHENTICATION SYSTEM - SUPABASE AUTH
-         * ============================================================
-         */
-
-        // 1. App Configuration & State
+        /* ============================================================
+           SUPABASE CONFIG
+        ============================================================ */
         const APP_STATE = {
             supabase: {
                 url: 'https://idwrkzekykarxnuoaysu.supabase.co',
@@ -1068,14 +994,156 @@
             }
         };
 
-        // 2. Initialize Supabase Client
         const { createClient } = supabase;
         const supabaseClient = createClient(
             APP_STATE.supabase.url,
             APP_STATE.supabase.key
         );
 
-        // 3. DOM Elements
+        /* ============================================================
+           CUSTOM POPUP (FIXED)
+           
+           PERBAIKAN:
+           1. Promise sekarang selalu resolve ketika popup ditutup
+           2. Event listener untuk tombol dibuat dengan benar
+           3. State popup di-reset setiap kali ditutup
+           4. Tidak ada memory leak dari event listener
+           5. Backdrop dan ESC key berfungsi dengan baik
+           6. Semua tombol dapat diklik
+        ============================================================ */
+        (function () {
+            const popupEl = document.getElementById('customPopup');
+            const iconEl = document.getElementById('popupIcon');
+            const titleEl = document.getElementById('popup-title');
+            const msgEl = document.getElementById('popup-message');
+            const actionsEl = document.getElementById('popupActions');
+
+            // State
+            let currentResolve = null;
+            let isOpen = false;
+
+            const iconMap = {
+                success: { icon: 'fa-check-circle', cls: 'success' },
+                error: { icon: 'fa-exclamation-circle', cls: 'error' },
+                warning: { icon: 'fa-triangle-exclamation', cls: 'warning' },
+                info: { icon: 'fa-circle-info', cls: 'info' },
+            };
+
+            // Handler untuk menutup popup
+            function closePopup(value) {
+                if (!isOpen) return;
+
+                isOpen = false;
+                popupEl.classList.remove('show');
+
+                // Hapus event listener keyboard
+                document.removeEventListener('keydown', handleKeydown);
+
+                // Resolve promise jika ada
+                if (currentResolve) {
+                    const resolve = currentResolve;
+                    currentResolve = null;
+                    resolve(value !== undefined ? value : true);
+                }
+
+                // Reset overflow body
+                document.body.style.overflow = '';
+
+                // Cleanup - hapus semua tombol
+                actionsEl.innerHTML = '';
+            }
+
+            // Handler untuk keyboard (ESC)
+            function handleKeydown(e) {
+                if (e.key === 'Escape' && isOpen) {
+                    e.preventDefault();
+                    closePopup(null);
+                }
+            }
+
+            // Handler untuk backdrop click
+            function handleBackdropClick(e) {
+                if (e.target === popupEl && isOpen) {
+                    closePopup(null);
+                }
+            }
+
+            // Fungsi utama showPopup
+            window.showPopup = function (options) {
+                return new Promise((resolve) => {
+                    // Tutup popup sebelumnya jika masih terbuka
+                    if (isOpen) {
+                        closePopup(null);
+                    }
+
+                    // Bersihkan actions
+                    actionsEl.innerHTML = '';
+
+                    const type = options.type || 'info';
+                    const title = options.title || 'Informasi';
+                    const message = options.message || '';
+                    const buttons = options.buttons || [{ text: 'Mengerti', primary: true, value: true }];
+
+                    const iconData = iconMap[type] || iconMap.info;
+
+                    // Set icon
+                    iconEl.className = `popup-icon ${iconData.cls}`;
+                    iconEl.innerHTML = `<i class="fas ${iconData.icon}"></i>`;
+
+                    // Set title dan message
+                    titleEl.textContent = title;
+                    msgEl.textContent = message;
+
+                    // Buat tombol
+                    buttons.forEach((btn, index) => {
+                        const btnEl = document.createElement('button');
+                        btnEl.textContent = btn.text;
+                        btnEl.className = `popup-btn ${btn.primary ? '' : 'secondary'} ${btn.danger ? 'danger' : ''}`;
+
+                        // Simpan nilai
+                        const value = btn.value !== undefined ? btn.value : index;
+
+                        // Event listener untuk tombol - menggunakan closure untuk menangkap value
+                        btnEl.addEventListener('click', function (e) {
+                            e.stopPropagation();
+                            closePopup(value);
+                        });
+
+                        actionsEl.appendChild(btnEl);
+                    });
+
+                    // Set state
+                    isOpen = true;
+                    currentResolve = resolve;
+
+                    // Tampilkan popup
+                    popupEl.classList.add('show');
+                    document.body.style.overflow = 'hidden';
+
+                    // Fokus pada tombol pertama
+                    const firstBtn = actionsEl.querySelector('.popup-btn');
+                    if (firstBtn) {
+                        setTimeout(() => firstBtn.focus(), 50);
+                    }
+
+                    // Pasang event listener keyboard
+                    document.addEventListener('keydown', handleKeydown);
+
+                    // Pastikan event listener backdrop hanya satu
+                    // Hapus listener lama sebelum menambah baru
+                    popupEl.removeEventListener('click', handleBackdropClick);
+                    popupEl.addEventListener('click', handleBackdropClick);
+                });
+            };
+
+            // Expose close untuk debugging jika diperlukan
+            window.__closePopup = closePopup;
+
+        })();
+
+        /* ============================================================
+           DOM REFS
+        ============================================================ */
         const elements = {
             menuToggle: document.getElementById('menu-toggle'),
             closeSidebar: document.getElementById('close-sidebar'),
@@ -1094,28 +1162,51 @@
             btnText: document.getElementById('btnText'),
             btnIcon: document.getElementById('btnIcon'),
 
-            // Login Modal
             loginModal: document.getElementById('loginModal'),
             loginModalOverlay: document.getElementById('loginModalOverlay'),
             closeLoginModal: document.getElementById('closeLoginModal'),
             loginForm: document.getElementById('loginForm'),
             switchToLogin: document.getElementById('switchToLogin'),
             switchToRegister: document.getElementById('switchToRegister'),
+            loginMenu: document.getElementById('login-menu'),
+            forgotPasswordBtn: document.getElementById('forgotPasswordBtn'),
+
+            resetModal: document.getElementById('resetModal'),
+            resetModalOverlay: document.getElementById('resetModalOverlay'),
+            closeResetModal: document.getElementById('closeResetModal'),
+            resetForm: document.getElementById('resetForm'),
+            resetEmail: document.getElementById('resetEmail'),
+            resetNewPass: document.getElementById('resetNewPass'),
+            resetConfirmPass: document.getElementById('resetConfirmPass'),
+            resetBtnText: document.getElementById('resetBtnText'),
+            resetBtnIcon: document.getElementById('resetBtnIcon'),
+            resetBackToLogin: document.getElementById('resetBackToLogin'),
+            resetEmailField: document.getElementById('resetEmailField'),
+            resetPasswordFields: document.getElementById('resetPasswordFields'),
+            resetModalTitle: document.getElementById('resetModalTitle'),
+            resetModalSub: document.getElementById('resetModalSub'),
         };
 
-        // 4. UI Helper Functions
+        /* ============================================================
+           SIDEBAR
+        ============================================================ */
         const toggleSidebar = () => elements.body.classList.toggle('sidebar-open');
 
-        // Register Modal
-        const openRegisterModal = () => {
+        elements.menuToggle.addEventListener('click', toggleSidebar);
+        elements.closeSidebar.addEventListener('click', toggleSidebar);
+        elements.sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        /* ============================================================
+           MODAL HELPERS
+        ============================================================ */
+        function openRegisterModal() {
             elements.registerModal.classList.add('show');
             elements.registerModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.registerModal.querySelector('.modal-content').classList.add('scale-100');
-            // Prevent body scroll when modal is open
             document.body.style.overflow = 'hidden';
-        };
+        }
 
-        const closeRegisterModal = () => {
+        function closeRegisterModal() {
             elements.registerModal.classList.remove('show');
             elements.registerModal.querySelector('.modal-content').classList.add('scale-95');
             elements.registerModal.querySelector('.modal-content').classList.remove('scale-100');
@@ -1123,62 +1214,118 @@
                 elements.successMessage.classList.add('opacity-0', 'pointer-events-none');
                 elements.registerForm.classList.remove('opacity-0');
             }, 500);
-            // Restore body scroll
             document.body.style.overflow = '';
-        };
+        }
 
-        // Login Modal
-        const openLoginModal = () => {
+        function openLoginModal() {
             elements.loginModal.classList.add('show');
             elements.loginModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.loginModal.querySelector('.modal-content').classList.add('scale-100');
-            // Prevent body scroll when modal is open
             document.body.style.overflow = 'hidden';
-        };
+            // Fokus pada email
+            setTimeout(() => document.getElementById('loginEmail').focus(), 100);
+        }
 
-        const closeLoginModal = () => {
+        function closeLoginModal() {
             elements.loginModal.classList.remove('show');
             elements.loginModal.querySelector('.modal-content').classList.add('scale-95');
             elements.loginModal.querySelector('.modal-content').classList.remove('scale-100');
-            // Restore body scroll
             document.body.style.overflow = '';
-        };
-
-        // Switch between modals
-        const switchToLoginHandler = () => {
-            closeRegisterModal();
-            setTimeout(openLoginModal, 300);
-        };
-
-        const switchToRegisterHandler = () => {
-            closeLoginModal();
-            setTimeout(openRegisterModal, 300);
-        };
-
-        // 5. Login Menu Handler
-        const loginMenu = document.getElementById('login-menu');
-
-        if (loginMenu) {
-            loginMenu.addEventListener('click', (e) => {
-                e.preventDefault();
-                // Tutup sidebar jika terbuka
-                if (elements.body.classList.contains('sidebar-open')) {
-                    toggleSidebar();
-                }
-                // Buka Login Modal
-                setTimeout(openLoginModal, 300);
-            });
         }
 
-        // 6. Check Session and Update UI
-        const checkSessionAndUpdateUI = async () => {
+        function openResetModal(mode) {
+            elements.resetModal.classList.add('show');
+            elements.resetModal.querySelector('.modal-content').classList.remove('scale-95');
+            elements.resetModal.querySelector('.modal-content').classList.add('scale-100');
+            document.body.style.overflow = 'hidden';
+
+            if (mode === 'reset') {
+                elements.resetEmailField.classList.remove('hidden');
+                elements.resetPasswordFields.classList.add('hidden');
+                elements.resetModalTitle.textContent = 'Reset Password';
+                elements.resetModalSub.textContent = 'Masukkan email akun Anda';
+                elements.resetBtnText.textContent = 'Kirim Link Reset';
+                elements.resetBtnIcon.className = 'fas fa-paper-plane';
+                elements.resetEmail.value = '';
+                elements.resetNewPass.value = '';
+                elements.resetConfirmPass.value = '';
+                elements.resetEmail.disabled = false;
+                setTimeout(() => elements.resetEmail.focus(), 100);
+            } else if (mode === 'newpassword') {
+                elements.resetEmailField.classList.add('hidden');
+                elements.resetPasswordFields.classList.remove('hidden');
+                elements.resetModalTitle.textContent = 'Buat Password Baru';
+                elements.resetModalSub.textContent = 'Masukkan password baru Anda';
+                elements.resetBtnText.textContent = 'Simpan Password';
+                elements.resetBtnIcon.className = 'fas fa-save';
+                elements.resetEmail.value = '';
+                elements.resetNewPass.value = '';
+                elements.resetConfirmPass.value = '';
+                elements.resetEmail.disabled = true;
+                setTimeout(() => elements.resetNewPass.focus(), 100);
+            }
+        }
+
+        function closeResetModal() {
+            elements.resetModal.classList.remove('show');
+            elements.resetModal.querySelector('.modal-content').classList.add('scale-95');
+            elements.resetModal.querySelector('.modal-content').classList.remove('scale-100');
+            document.body.style.overflow = '';
+            // Reset ke mode default
+            elements.resetEmailField.classList.remove('hidden');
+            elements.resetPasswordFields.classList.add('hidden');
+            elements.resetModalTitle.textContent = 'Reset Password';
+            elements.resetModalSub.textContent = 'Masukkan email akun Anda';
+            elements.resetBtnText.textContent = 'Kirim Link Reset';
+            elements.resetBtnIcon.className = 'fas fa-paper-plane';
+            elements.resetEmail.disabled = false;
+        }
+
+        function switchToLoginHandler() {
+            closeRegisterModal();
+            setTimeout(openLoginModal, 300);
+        }
+
+        function switchToRegisterHandler() {
+            closeLoginModal();
+            setTimeout(openRegisterModal, 300);
+        }
+
+        /* ============================================================
+           SESSION CHECK & UI UPDATE
+        ============================================================ */
+        async function checkSessionAndUpdateUI() {
             try {
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
-
                 if (error) throw error;
 
+                // Cek parameter URL untuk reset password
+                const urlParams = new URLSearchParams(window.location.search);
+                const mode = urlParams.get('mode');
+                const accessToken = urlParams.get('access_token');
+                const refreshToken = urlParams.get('refresh_token');
+
+                if (mode === 'reset' && accessToken) {
+                    // Set session dari token reset
+                    const { data: sessionData, error: sessionError } = await supabaseClient.auth.setSession({
+                        access_token: accessToken,
+                        refresh_token: refreshToken
+                    });
+                    if (sessionError) {
+                        console.warn('Set session error:', sessionError);
+                    } else {
+                        // Tampilkan modal reset password
+                        setTimeout(() => {
+                            openResetModal('newpassword');
+                            // Hapus parameter URL
+                            const newUrl = window.location.pathname;
+                            window.history.replaceState({}, document.title, newUrl);
+                        }, 500);
+                    }
+                }
+
                 if (session) {
-                    // User is logged in
+                    // Logged in
                     elements.navRegisterBtn.textContent = 'Akun Saya';
                     elements.navRegisterBtn.classList.add('bg-secondary');
                     elements.navRegisterBtn.classList.remove('bg-primary');
@@ -1187,27 +1334,21 @@
                         window.location.href = "materi.html";
                     };
 
-                    if (elements.logoutMenu) {
-                        elements.logoutMenu.classList.remove('hidden');
-                    }
+                    if (elements.logoutMenu) elements.logoutMenu.classList.remove('hidden');
+                    if (elements.loginMenu) elements.loginMenu.classList.add('hidden');
 
-                    // Sembunyikan menu Login
-                    if (loginMenu) {
-                        loginMenu.classList.add('hidden');
-                    }
-
-                    // Update search button
                     const span = elements.searchCta.querySelector('span');
                     const icon = elements.searchCta.querySelector('i');
                     if (span) span.textContent = 'Cari Materi';
                     if (icon) {
-                        icon.className = 'fas fa-search text-xs md:text-base opacity-80 z-10 transition-transform group-hover:scale-110';
+                        icon.className =
+                            'fas fa-search text-xs md:text-base opacity-80 z-10 transition-transform group-hover:scale-110';
                     }
                     elements.searchCta.classList.remove('pointer-events-none', 'opacity-90');
                     delete elements.searchCta.dataset.redirecting;
 
                 } else {
-                    // User is not logged in
+                    // Logged out
                     elements.navRegisterBtn.textContent = 'Daftar Gratis';
                     elements.navRegisterBtn.classList.remove('bg-secondary');
                     elements.navRegisterBtn.classList.add('bg-primary');
@@ -1216,18 +1357,12 @@
                         openRegisterModal();
                     };
 
-                    if (elements.logoutMenu) {
-                        elements.logoutMenu.classList.add('hidden');
-                    }
-
-                    // Tampilkan menu Login
-                    if (loginMenu) {
-                        loginMenu.classList.remove('hidden');
-                    }
+                    if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
+                    if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
                 }
             } catch (err) {
-                console.error('Session check error:', err);
-                // Fallback to logged out state
+                console.warn('Session check error:', err);
+                // Fallback logged out
                 elements.navRegisterBtn.textContent = 'Daftar Gratis';
                 elements.navRegisterBtn.classList.remove('bg-secondary');
                 elements.navRegisterBtn.classList.add('bg-primary');
@@ -1235,157 +1370,203 @@
                     e.preventDefault();
                     openRegisterModal();
                 };
-                if (elements.logoutMenu) {
-                    elements.logoutMenu.classList.add('hidden');
-                }
-                if (loginMenu) {
-                    loginMenu.classList.remove('hidden');
-                }
+                if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
+                if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
             }
-        };
+        }
 
-        // 7. Logout Function
-        const logoutUser = async () => {
+        /* ============================================================
+           LOGOUT
+        ============================================================ */
+        async function logoutUser() {
             try {
                 const { error } = await supabaseClient.auth.signOut();
                 if (error) throw error;
             } catch (err) {
                 console.warn('Logout error:', err);
             }
-
-            // Close sidebar if open
-            if (elements.body.classList.contains('sidebar-open')) {
-                toggleSidebar();
-            }
-
-            // Update UI
+            if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
             await checkSessionAndUpdateUI();
-        };
+        }
 
-        // 8. Registration Handler
-        const handleRegistration = async (e) => {
+        /* ============================================================
+           REGISTRATION
+        ============================================================ */
+        async function handleRegistration(e) {
             e.preventDefault();
 
-            const formData = {
-                name: document.getElementById('regName').value,
-                email: document.getElementById('regEmail').value,
-                wa: document.getElementById('regWA').value,
-                program: document.getElementById('regProgram').value,
-                pass: document.getElementById('regPass').value,
-                confirm: document.getElementById('regConfirm').value
-            };
+            const name = document.getElementById('regName').value.trim();
+            const email = document.getElementById('regEmail').value.trim();
+            const wa = document.getElementById('regWA').value.trim();
+            const program = document.getElementById('regProgram').value;
+            const pass = document.getElementById('regPass').value;
+            const confirm = document.getElementById('regConfirm').value;
 
-            if (formData.pass !== formData.confirm) {
-                alert("Password dan Konfirmasi Password tidak cocok!");
+            if (!name || !email || !wa || !program || !pass || !confirm) {
+                await showPopup({
+                    type: 'warning',
+                    title: 'Form Belum Lengkap',
+                    message: 'Silakan isi semua kolom yang tersedia.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
                 return;
             }
 
-            // Simulate Loading
+            if (pass !== confirm) {
+                await showPopup({
+                    type: 'warning',
+                    title: 'Password Tidak Cocok',
+                    message: 'Password dan Konfirmasi Password harus sama.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
+                return;
+            }
+
+            if (pass.length < 6) {
+                await showPopup({
+                    type: 'warning',
+                    title: 'Password Terlalu Pendek',
+                    message: 'Password minimal 6 karakter.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
+                return;
+            }
+
             elements.btnText.textContent = "Memproses...";
             elements.btnIcon.className = "fas fa-circle-notch fa-spin";
             elements.registerForm.classList.add('pointer-events-none', 'opacity-50');
 
             try {
-                // ============================
-                // 1. Registrasi ke Supabase Auth
-                // ============================
                 const { data, error } = await supabaseClient.auth.signUp({
-                    email: formData.email,
-                    password: formData.pass,
+                    email: email,
+                    password: pass,
                     options: {
                         data: {
-                            full_name: formData.name,
-                            whatsapp: formData.wa,
-                            interest_program: formData.program
+                            full_name: name,
+                            whatsapp: wa,
+                            interest_program: program
                         }
                     }
                 });
 
                 if (error) {
-                    // Check if user already exists
+                    let msg = 'Terjadi kesalahan saat pendaftaran.';
                     if (error.message.includes('already registered') || error.message.includes('already exists')) {
-                        alert('Email sudah terdaftar. Silakan login menggunakan akun Anda.');
+                        msg = 'Email tersebut sudah terdaftar. Silakan login menggunakan akun Anda.';
+                        await showPopup({
+                            type: 'error',
+                            title: 'Email Terdaftar',
+                            message: msg,
+                            buttons: [{ text: 'Login', primary: true, value: 'login' }]
+                        });
                         closeRegisterModal();
-                        setTimeout(openLoginModal, 300);
+                        setTimeout(openLoginModal, 400);
                         elements.registerForm.classList.remove('pointer-events-none', 'opacity-50');
                         elements.btnText.textContent = "Daftar Sekarang";
                         elements.btnIcon.className = "fas fa-paper-plane";
                         return;
+                    } else if (error.message.includes('password')) {
+                        msg = 'Password harus minimal 6 karakter.';
+                    } else {
+                        msg = error.message;
                     }
-                    throw error;
+                    await showPopup({
+                        type: 'error',
+                        title: 'Registrasi Gagal',
+                        message: msg,
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    elements.registerForm.classList.remove('pointer-events-none', 'opacity-50');
+                    elements.btnText.textContent = "Daftar Sekarang";
+                    elements.btnIcon.className = "fas fa-paper-plane";
+                    return;
                 }
 
-                // ============================
-                // 2. Simpan ke tabel profiles
-                // ============================
+                // Simpan ke profiles
                 const { error: profileError } = await supabaseClient
                     .from("profiles")
                     .upsert({
                         id: data.user.id,
-                        full_name: formData.name,
-                        email: formData.email,
-                        whatsapp: formData.wa,
-                        interest_program: formData.program
+                        full_name: name,
+                        email: email,
+                        whatsapp: wa,
+                        interest_program: program
                     });
 
-                if (profileError) throw profileError;
+                if (profileError) {
+                    console.warn('Profile upsert error:', profileError);
+                }
 
-                // ============================
-                // Kirim WhatsApp melalui Edge Function
-                // ============================
-                const waResponse = await fetch(
-                    "https://idwrkzekykarxnuoaysu.supabase.co/functions/v1/send-whatsapp", {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                        "apikey": APP_STATE.supabase.key,
-                        "Authorization": `Bearer ${APP_STATE.supabase.key}`,
-                    },
-                    body: JSON.stringify({
-                        phone: formData.wa,
-                        name: formData.name,
-                        program: formData.program,
-                    }),
-                });
+                // WhatsApp Edge Function
+                try {
+                    await fetch(
+                        "https://idwrkzekykarxnuoaysu.supabase.co/functions/v1/send-whatsapp", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "apikey": APP_STATE.supabase.key,
+                            "Authorization": `Bearer ${APP_STATE.supabase.key}`,
+                        },
+                        body: JSON.stringify({
+                            phone: wa,
+                            name: name,
+                            program: program,
+                        }),
+                    }
+                    );
+                } catch (waErr) {
+                    console.warn('WhatsApp send error:', waErr);
+                }
 
-                const waResult = await waResponse.json();
-                console.log(waResult);
+                // Success
+                elements.successMessage.classList.remove('opacity-0', 'pointer-events-none');
+                elements.registerForm.classList.add('opacity-0');
 
-                // ============================
-                // 3. Success
-                // ============================
-                elements.successMessage.classList.remove(
-                    "opacity-0",
-                    "pointer-events-none"
-                );
-
-                elements.registerForm.classList.add("opacity-0");
-
-                // Update UI after login
                 await checkSessionAndUpdateUI();
+
+                await showPopup({
+                    type: 'success',
+                    title: 'Registrasi Berhasil',
+                    message: 'Selamat bergabung di keluarga Nuqthah Learning Center. Anda akan diarahkan ke katalog materi.',
+                    buttons: [{ text: 'Lanjut', primary: true }]
+                });
 
                 setTimeout(() => {
                     window.location.href = "materi.html";
-                }, 3000);
+                }, 1500);
 
             } catch (err) {
-                console.error("ERROR:", err);
-                alert(
-                    err.message ||
-                    JSON.stringify(err) ||
-                    "Terjadi kesalahan saat pendaftaran.");
+                console.error('Registration error:', err);
+                await showPopup({
+                    type: 'error',
+                    title: 'Registrasi Gagal',
+                    message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
                 elements.btnText.textContent = "Daftar Sekarang";
                 elements.btnIcon.className = "fas fa-paper-plane";
                 elements.registerForm.classList.remove('pointer-events-none', 'opacity-50');
             }
-        };
+        }
 
-        // 9. Login Handler
-        const handleLogin = async (e) => {
+        /* ============================================================
+           LOGIN
+        ============================================================ */
+        async function handleLogin(e) {
             e.preventDefault();
 
-            const email = document.getElementById('loginEmail').value;
+            const email = document.getElementById('loginEmail').value.trim();
             const password = document.getElementById('loginPass').value;
+
+            if (!email || !password) {
+                await showPopup({
+                    type: 'warning',
+                    title: 'Form Kosong',
+                    message: 'Silakan isi email dan password Anda.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
+                return;
+            }
 
             const loginBtnText = document.getElementById('loginBtnText');
             const loginBtnIcon = document.getElementById('loginBtnIcon');
@@ -1400,39 +1581,257 @@
                     password: password
                 });
 
-                if (error) throw error;
+                if (error) {
+                    let msg = 'Email atau password yang Anda masukkan salah.';
+                    if (error.message.includes('Email not confirmed')) {
+                        msg = 'Silakan verifikasi email Anda terlebih dahulu melalui email yang telah dikirim.';
+                    } else if (error.message.includes('Invalid login credentials')) {
+                        msg = 'Email atau password yang Anda masukkan salah.';
+                    } else {
+                        msg = error.message;
+                    }
 
-                // Close login modal
+                    const result = await showPopup({
+                        type: 'error',
+                        title: 'Login Gagal',
+                        message: msg,
+                        buttons: [
+                            { text: 'Coba Lagi', primary: true, value: 'retry' },
+                            { text: 'Lupa Password', primary: false, value: 'forgot' }
+                        ]
+                    });
+
+                    // Handle hasil popup
+                    if (result === 'forgot') {
+                        // Tutup login modal, buka reset modal
+                        closeLoginModal();
+                        setTimeout(() => openResetModal('reset'), 300);
+                    }
+                    // Jika 'retry' atau null, tetap di login modal
+
+                    loginBtnText.textContent = "Login";
+                    loginBtnIcon.className = "fas fa-sign-in-alt";
+                    elements.loginForm.classList.remove('pointer-events-none', 'opacity-50');
+
+                    // Jika retry, fokus ke password
+                    if (result === 'retry' || result === null || result === true) {
+                        setTimeout(() => document.getElementById('loginPass').focus(), 100);
+                    }
+                    return;
+                }
+
                 closeLoginModal();
-
-                // Update UI
                 await checkSessionAndUpdateUI();
 
-                // Redirect to materi page
-                window.location.href = "materi.html";
+                await showPopup({
+                    type: 'success',
+                    title: 'Login Berhasil',
+                    message: 'Selamat datang kembali! Anda akan diarahkan ke halaman materi.',
+                    buttons: [{ text: 'Lanjut', primary: true }]
+                });
+
+                setTimeout(() => {
+                    window.location.href = "materi.html";
+                }, 1200);
 
             } catch (err) {
-                console.error("Login error:", err);
-                alert(err.message || "Login gagal. Periksa email dan password Anda.");
+                console.error('Login error:', err);
+                await showPopup({
+                    type: 'error',
+                    title: 'Login Gagal',
+                    message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
                 loginBtnText.textContent = "Login";
                 loginBtnIcon.className = "fas fa-sign-in-alt";
                 elements.loginForm.classList.remove('pointer-events-none', 'opacity-50');
             }
-        };
+        }
 
-        // 10. Search Button Handler
-        const handleSearchCta = async (e) => {
+        /* ============================================================
+           RESET PASSWORD
+        ============================================================ */
+        async function handleReset(e) {
             e.preventDefault();
 
+            // Cek apakah dalam mode new password
+            const isNewPassword = elements.resetPasswordFields.classList.contains('hidden') === false;
+
+            if (isNewPassword) {
+                // Mode new password
+                const newPass = elements.resetNewPass.value;
+                const confirmPass = elements.resetConfirmPass.value;
+
+                if (!newPass || !confirmPass) {
+                    await showPopup({
+                        type: 'warning',
+                        title: 'Form Kosong',
+                        message: 'Silakan isi password baru dan konfirmasi.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    return;
+                }
+
+                if (newPass.length < 6) {
+                    await showPopup({
+                        type: 'warning',
+                        title: 'Password Terlalu Pendek',
+                        message: 'Password minimal 6 karakter.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    return;
+                }
+
+                if (newPass !== confirmPass) {
+                    await showPopup({
+                        type: 'warning',
+                        title: 'Password Tidak Cocok',
+                        message: 'Password dan Konfirmasi Password harus sama.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    return;
+                }
+
+                const btnText = elements.resetBtnText;
+                const btnIcon = elements.resetBtnIcon;
+                btnText.textContent = "Memproses...";
+                btnIcon.className = "fas fa-circle-notch fa-spin";
+                elements.resetForm.classList.add('pointer-events-none', 'opacity-50');
+
+                try {
+                    const { data, error } = await supabaseClient.auth.updateUser({
+                        password: newPass
+                    });
+
+                    if (error) {
+                        let msg = 'Gagal memperbarui password.';
+                        if (error.message.includes('weak password')) {
+                            msg = 'Password terlalu lemah. Gunakan minimal 6 karakter.';
+                        } else {
+                            msg = error.message;
+                        }
+                        await showPopup({
+                            type: 'error',
+                            title: 'Gagal Update Password',
+                            message: msg,
+                            buttons: [{ text: 'Mengerti', primary: true }]
+                        });
+                        btnText.textContent = "Simpan Password";
+                        btnIcon.className = "fas fa-save";
+                        elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
+                        return;
+                    }
+
+                    closeResetModal();
+
+                    await showPopup({
+                        type: 'success',
+                        title: 'Password Berhasil Diperbarui',
+                        message: 'Silakan login menggunakan password baru Anda.',
+                        buttons: [{ text: 'Login', primary: true }]
+                    });
+
+                    setTimeout(() => {
+                        openLoginModal();
+                    }, 400);
+
+                } catch (err) {
+                    console.error('Update password error:', err);
+                    await showPopup({
+                        type: 'error',
+                        title: 'Gagal Update Password',
+                        message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    btnText.textContent = "Simpan Password";
+                    btnIcon.className = "fas fa-save";
+                    elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
+                }
+                return;
+            }
+
+            // Mode reset password (kirim link)
+            const email = elements.resetEmail.value.trim();
+
+            if (!email) {
+                await showPopup({
+                    type: 'warning',
+                    title: 'Email Kosong',
+                    message: 'Silakan masukkan email Anda.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
+                return;
+            }
+
+            const btnText = elements.resetBtnText;
+            const btnIcon = elements.resetBtnIcon;
+            btnText.textContent = "Memproses...";
+            btnIcon.className = "fas fa-circle-notch fa-spin";
+            elements.resetForm.classList.add('pointer-events-none', 'opacity-50');
+
+            try {
+                const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + window.location.pathname + '?mode=reset'
+                });
+
+                if (error) {
+                    let msg = 'Gagal mengirim link reset.';
+                    if (error.message.includes('not found')) {
+                        msg = 'Email tidak ditemukan. Pastikan email sudah terdaftar.';
+                    } else {
+                        msg = error.message;
+                    }
+                    await showPopup({
+                        type: 'error',
+                        title: 'Gagal Kirim Link',
+                        message: msg,
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    btnText.textContent = "Kirim Link Reset";
+                    btnIcon.className = "fas fa-paper-plane";
+                    elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
+                    return;
+                }
+
+                closeResetModal();
+
+                await showPopup({
+                    type: 'success',
+                    title: 'Link Reset Password Berhasil Dikirim',
+                    message: 'Silakan buka email Anda. Klik tautan yang telah kami kirim. Setelah itu Anda dapat membuat password baru.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
+
+                btnText.textContent = "Kirim Link Reset";
+                btnIcon.className = "fas fa-paper-plane";
+                elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
+
+            } catch (err) {
+                console.error('Reset password error:', err);
+                await showPopup({
+                    type: 'error',
+                    title: 'Gagal Kirim Link',
+                    message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                    buttons: [{ text: 'Mengerti', primary: true }]
+                });
+                btnText.textContent = "Kirim Link Reset";
+                btnIcon.className = "fas fa-paper-plane";
+                elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
+            }
+        }
+
+        /* ============================================================
+           SEARCH CTA
+        ============================================================ */
+        async function handleSearchCta(e) {
+            e.preventDefault();
             try {
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
                 if (error) throw error;
 
                 if (session) {
-                    // User is logged in, show loading and redirect
                     const icon = elements.searchCta.querySelector('i');
                     const text = elements.searchCta.querySelector('span');
-
                     icon.className = 'fas fa-spinner fa-spin text-2xl md:text-4xl z-10';
                     text.textContent = 'Menyiapkan...';
                     elements.searchCta.classList.add('pointer-events-none', 'opacity-90');
@@ -1444,21 +1843,17 @@
                         }, 1000);
                     }
                 } else {
-                    // Not logged in, open registration
                     openRegisterModal();
                 }
             } catch (err) {
-                console.error('Session check error:', err);
+                console.warn('Search CTA session error:', err);
                 openRegisterModal();
             }
-        };
+        }
 
-        // 11. Event Listeners Initialization
-        // Sidebar
-        elements.menuToggle.addEventListener('click', toggleSidebar);
-        elements.closeSidebar.addEventListener('click', toggleSidebar);
-        elements.sidebarOverlay.addEventListener('click', toggleSidebar);
-
+        /* ============================================================
+           EVENT LISTENERS
+        ============================================================ */
         // Register Modal
         elements.closeModal.addEventListener('click', closeRegisterModal);
         elements.modalOverlay.addEventListener('click', closeRegisterModal);
@@ -1480,11 +1875,43 @@
         if (elements.switchToRegister) {
             elements.switchToRegister.addEventListener('click', switchToRegisterHandler);
         }
+        if (elements.forgotPasswordBtn) {
+            elements.forgotPasswordBtn.addEventListener('click', () => {
+                closeLoginModal();
+                setTimeout(() => openResetModal('reset'), 300);
+            });
+        }
 
-        // Search button
+        // Reset Modal
+        if (elements.closeResetModal) {
+            elements.closeResetModal.addEventListener('click', closeResetModal);
+        }
+        if (elements.resetModalOverlay) {
+            elements.resetModalOverlay.addEventListener('click', closeResetModal);
+        }
+        if (elements.resetForm) {
+            elements.resetForm.addEventListener('submit', handleReset);
+        }
+        if (elements.resetBackToLogin) {
+            elements.resetBackToLogin.addEventListener('click', () => {
+                closeResetModal();
+                setTimeout(openLoginModal, 300);
+            });
+        }
+
+        // Login menu (sidebar)
+        if (elements.loginMenu) {
+            elements.loginMenu.addEventListener('click', (e) => {
+                e.preventDefault();
+                if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
+                setTimeout(openLoginModal, 300);
+            });
+        }
+
+        // Search
         elements.searchCta.addEventListener('click', handleSearchCta);
 
-        // Logout menu
+        // Logout
         if (elements.logoutMenu) {
             elements.logoutMenu.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -1492,35 +1919,33 @@
             });
         }
 
-        // Escape to close
+        // Escape - tutup semua modal
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
+                // Tutup modal yang terbuka (tidak akan mengganggu popup karena popup punya handler sendiri)
                 closeRegisterModal();
                 closeLoginModal();
+                closeResetModal();
             }
         });
 
-        // 12. Check session on page load
+        /* ============================================================
+           INIT
+        ============================================================ */
         document.addEventListener('DOMContentLoaded', () => {
             checkSessionAndUpdateUI();
         });
 
-        // On pageshow (for bfcache)
         window.addEventListener('pageshow', (event) => {
-            if (event.persisted) {
-                checkSessionAndUpdateUI();
-            }
+            if (event.persisted) checkSessionAndUpdateUI();
         });
 
-        // On visibility change (when user returns to tab)
         document.addEventListener('visibilitychange', () => {
-            if (document.visibilityState === 'visible') {
-                checkSessionAndUpdateUI();
-            }
+            if (document.visibilityState === 'visible') checkSessionAndUpdateUI();
         });
 
-        // 13. Responsive Fixes
+        // Responsive vh fix
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -1528,31 +1953,9 @@
         window.addEventListener('resize', setVh);
         setVh();
 
+        console.log('✅ Nuqthah Gateway — Popup fixed: semua tombol dapat diklik, promise selalu resolve, tidak ada freeze.');
     </script>
 
-    <style>
-        /* Progress Bar Animation */
-        @keyframes progress {
-            0% {
-                width: 0%;
-            }
-
-            100% {
-                width: 100%;
-            }
-        }
-
-        /* Fix untuk modal overlay */
-        #registerModal .absolute.inset-0.bg-primary\/40 {
-            position: fixed;
-            inset: 0;
-        }
-
-        #loginModal .absolute.inset-0.bg-primary\/40 {
-            position: fixed;
-            inset: 0;
-        }
-    </style>
 </body>
 
 </html>
