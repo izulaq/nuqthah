@@ -4,9 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuqthah Learning Center - Platform Pembelajaran Online</title>
+    <title>Nuqthah Learning Center - Gateway</title>
+
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logofix.png">
+    <link rel="icon" type="image/png"
+        href="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/8e57a76b_ChatGPT Image 13 Jul 2026, 10.36.15.png">
+
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
@@ -33,7 +36,7 @@
                         sans: ['Inter', 'sans-serif'],
                     },
                     borderRadius: {
-                        'btn': '16px',
+                        'btn': '30px',
                         'card': '14px',
                     }
                 }
@@ -258,6 +261,49 @@
 
         }
 
+        /* =========================================================
+   MODAL PENDAFTARAN
+   (dipertahankan agar fitur registrasi tetap bekerja)
+========================================================= */
+
+        #registerModal {
+            transition: opacity .3s ease;
+        }
+
+        #registerModal .modal-content {
+            transition: transform .3s ease;
+        }
+
+        #registerModal input,
+        #registerModal select {
+            width: 100%;
+            border: 1px solid rgba(15, 74, 58, .10);
+            border-radius: 12px;
+            padding: 14px 16px;
+            background: #fff;
+            outline: none;
+            transition: .25s;
+            font-size: .92rem;
+        }
+
+        #registerModal input:focus,
+        #registerModal select:focus {
+            border-color: rgba(15, 74, 58, .35);
+            box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
+        }
+
+        #registerModal button[type="submit"] {
+            transition: .25s;
+        }
+
+        #registerModal button[type="submit"]:hover {
+            transform: translateY(-1px);
+        }
+
+        #successMessage {
+            transition: opacity .45s ease;
+        }
+
         /* ==========================
    Laptop
 ========================== */
@@ -323,7 +369,6 @@
             .welcome-text {
                 max-width: 100%;
                 font-size: 1.28rem;
-                /* ±20.5px */
                 line-height: 1.9;
                 padding-inline: 18px;
             }
@@ -362,7 +407,6 @@
             .welcome-text {
                 max-width: 100%;
                 font-size: 1.18rem;
-                /* ±19px */
                 line-height: 1.8;
                 padding-inline: 20px;
             }
@@ -380,31 +424,60 @@
             }
 
         }
+
+        /* Progress Bar */
+
+        @keyframes progress {
+            from {
+                width: 0%;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
     </style>
 </head>
 
-<body class="relative h-[100dvh] w-full overflow-hidden flex flex-col items-center">
+<body class="relative h-[100dvh] w-full overflow-hidden flex flex-col items-center selection:bg-secondary/30">
 
     <!-- Background Pattern -->
-    <div class="fixed inset-0 opacity-[0.03] pointer-events-none z-0 overflow-hidden">
+    <div class="fixed inset-0 opacity-[0.04] pointer-events-none z-0 overflow-hidden">
         <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/30e377a1_islamic-geometric-pattern-abstract-green-teal-gradient-decorative-background-vector.jpg"
             alt="" class="w-full h-full object-cover">
     </div>
 
-    <!-- Hamburger Menu Toggle -->
-    <button id="menu-toggle"
-        class="fixed top-4 right-4 md:top-6 md:right-6 z-40 p-3 text-primary hover:text-secondary transition-colors duration-300 focus:outline-none"
-        aria-label="Buka Menu">
-        <i class="fas fa-bars text-xl md:text-2xl"></i>
-    </button>
+    <!-- Header Navigation -->
+    <div class="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-3">
+
+        <!-- Tombol Daftar (FITUR TETAP DIPERTAHANKAN) -->
+        <button id="nav-register-btn"
+            class="bg-secondary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
+
+            Daftar Gratis
+
+        </button>
+
+        <!-- Hamburger -->
+        <button id="menu-toggle"
+            class="p-3 text-primary hover:text-secondary transition-colors duration-300 focus:outline-none"
+            aria-label="Buka Menu">
+
+            <i class="fas fa-bars text-xl md:text-2xl"></i>
+
+        </button>
+
+    </div>
 
     <!-- Sidebar Overlay -->
     <div id="sidebar-overlay"
-        class="fixed inset-0 bg-black/40 z-40 opacity-0 pointer-events-none transition-opacity duration-400"></div>
+        class="fixed inset-0 bg-black/50 z-40 opacity-0 pointer-events-none transition-opacity duration-400 backdrop-blur-[2px]">
+    </div>
 
     <!-- Sidebar -->
     <aside id="sidebar"
         class="fixed top-0 right-0 h-full w-72 md:w-80 bg-cream text-primary z-50 transform translate-x-full shadow-2xl flex flex-col border-l border-primary/5 overflow-hidden">
+
         <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
             <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/f4996a95_islamic-art-1565749.jpg"
                 alt="" class="w-full h-full object-cover">
@@ -412,177 +485,608 @@
 
         <div
             class="relative p-6 flex justify-between items-center border-b border-primary/10 bg-white/30 backdrop-blur-sm">
-            <span class="font-serif text-2xl text-primary font-bold tracking-tight">Menu Utama</span>
+
+            <span class="font-serif text-2xl text-primary font-bold tracking-tight">
+
+                Menu Utama
+
+            </span>
+
             <button id="close-sidebar"
                 class="text-primary hover:text-secondary transition-colors p-2 focus:outline-none"
                 aria-label="Tutup Menu">
+
                 <i class="fas fa-times text-2xl"></i>
+
             </button>
+
         </div>
 
         <nav class="relative flex-grow py-6 px-6 space-y-2 overflow-y-auto">
+
             <a href="knowledge/knowledge.html"
                 class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+
                 <div
                     class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+
                     <i class="fas fa-circle-info text-xs"></i>
+
                 </div>
-                <span class="text-base font-semibold">Tentang Kami</span>
+
+                <span class="text-base font-semibold">
+
+                    Tentang Kami
+
+                </span>
+
             </a>
+
             <a href="profil.html"
                 class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+
                 <div
                     class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+
                     <i class="fa-solid fa-id-card"></i>
+
                 </div>
-                <span class="text-base font-semibold">Profil Asaatidz</span>
+
+                <span class="text-base font-semibold">
+
+                    Profil Asaatidz
+
+                </span>
+
             </a>
+
             <a href="tentangprogram.html"
                 class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+
                 <div
                     class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+
                     <i class="fa-solid fa-book-open"></i>
+
                 </div>
-                <span class="text-base font-semibold">Tentang Program</span>
+
+                <span class="text-base font-semibold">
+
+                    Tentang Program
+
+                </span>
+
             </a>
+
             <a href="formpengajar.html"
                 class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
+
                 <div
                     class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
+
                     <i class="fa-solid fa-chalkboard-user"></i>
+
                 </div>
-                <span class="text-base font-semibold">Jadi Pengajar</span>
+
+                <span class="text-base font-semibold">
+
+                    Jadi Pengajar
+
+                </span>
+
             </a>
+
         </nav>
 
         <div class="relative p-6 border-t border-primary/10 text-center bg-white/20 backdrop-blur-sm">
+
             <img src="assets/logofix.png" alt="Nuqthah Logo" class="h-10 mx-auto object-contain mb-3">
-            <p class="text-[10px] text-primary/60 font-bold tracking-widest uppercase">Nuqthah Learning Center</p>
+
+            <p class="text-[10px] text-primary/60 font-bold tracking-widest uppercase">
+
+                Nuqthah Learning Center
+
+            </p>
+
         </div>
+
     </aside>
 
-    <!-- Main Content Wrapper (Centered Cohesive Unit) -->
+    <!-- Register Modal -->
+    <div id="registerModal"
+        class="fixed inset-0 z-[60] flex items-center justify-center px-4 opacity-0 pointer-events-none transition-all duration-300 overflow-hidden">
+        <div id="modalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
+        <div
+            class="modal-content relative bg-cream w-full max-w-xl rounded-2xl shadow-2xl border border-white/20 transform scale-95 transition-transform duration-300 overflow-hidden">
+            <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
+                <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-bright-tiger-7816/10f3dfa8_102721793_a7899a0ddc_c.jpg"
+                    alt="" class="w-full h-full object-cover">
+            </div>
+
+            <!-- Modal Header -->
+            <div class="p-6 md:p-8 bg-white/50 border-b border-primary/5 flex justify-between items-center relative">
+                <div>
+                    <h2 class="text-2xl md:text-3xl font-serif font-bold text-primary">Daftar Akun Baru</h2>
+                    <p class="text-sm text-gray-500 mt-1">Mulai perjalanan belajarmu hari ini</p>
+                </div>
+                <button id="closeModal" class="text-primary/50 hover:text-primary transition-colors text-2xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <!-- Form Body -->
+            <form id="registerForm" class="p-6 md:p-8 space-y-4 relative">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Nama Lengkap</label>
+                        <input type="text" id="regName" required placeholder="Fulan bin Fulan"
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">No. WhatsApp</label>
+                        <input type="tel" id="regWA" required placeholder="08123456789"
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                    </div>
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="nama@email.com"
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                </div>
+
+                <div class="space-y-1">
+                    <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Pilih Program</label>
+                    <select id="regProgram" required
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                        <option value="" disabled selected>Pilih Program Minat</option>
+                        <option value="Bimbel Muqoror Al-Azhar">Bimbel Muqoror Al-Azhar</option>
+                        <option value="Tafaqquh">Tafaqquh</option>
+                        <option value="Ta'shil">Ta'shil</option>
+                        <option value="Amiyah Mesir">Amiyah Mesir</option>
+                    </select>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password</label>
+                        <input type="password" id="regPass" required placeholder="••••••••"
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                    </div>
+                    <div class="space-y-1">
+                        <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Konfirmasi
+                            Password</label>
+                        <input type="password" id="regConfirm" required placeholder="••••••••"
+                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-3 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                    </div>
+                </div>
+
+                <button type="submit" id="submitReg"
+                    class="w-full bg-primary text-white font-bold py-4 rounded-xl shadow-lg hover:shadow-primary/20 active:scale-[0.98] transition-all flex items-center justify-center gap-3">
+                    <span id="btnText">Daftar Sekarang</span>
+                    <i id="btnIcon" class="fas fa-paper-plane"></i>
+                </button>
+
+                <p class="text-center text-[10px] text-gray-400 uppercase tracking-widest pt-2">
+                    Pembayaran via Mayar
+                </p>
+            </form>
+
+            <!-- Success Message Overlay (Hidden) -->
+            <div id="successMessage"
+                class="absolute inset-0 bg-cream flex flex-col items-center justify-center p-8 text-center opacity-0 pointer-events-none transition-opacity duration-500 z-10">
+                <div
+                    class="w-20 h-20 bg-green-100 text-green-600 rounded-full flex items-center justify-center text-4xl mb-6 shadow-sm">
+                    <i class="fas fa-check"></i>
+                </div>
+                <h3 class="text-3xl font-serif font-bold text-primary mb-2">Registrasi Berhasil!</h3>
+                <p class="text-gray-600 mb-8">Selamat bergabung di keluarga Nuqthah Learning Center. Menghubungkan anda
+                    ke katalog materi...</p>
+                <div class="w-16 h-1 bg-primary/10 rounded-full overflow-hidden">
+                    <div class="h-full bg-secondary w-full animate-[progress_3s_linear_forwards]"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Wrapper -->
     <main
         class="main-content relative z-10 w-full h-full max-w-4xl mx-auto px-6 flex flex-col justify-center items-center">
 
-        <!-- TOP: Header (Tight Spacing) -->
+        <!-- HEADER -->
         <header class="fade-in flex flex-col items-center text-center w-full flex-shrink-0"
-            style="animation-delay: 0.1s;">
+            style="animation-delay:.1s;">
+
             <div class="relative logo-glow-radial rounded-full p-1 md:p-2 mb-1">
+
                 <img src="assets/logofix.png" alt="Nuqthah Learning Center Logo"
                     class="dynamic-logo w-auto object-contain mx-auto drop-shadow-lg">
+
             </div>
 
             <h1
                 class="tagline-text text-primary font-bold text-sm md:text-lg lg:text-xl tracking-[0.25em] md:tracking-[0.35em] font-sans uppercase">
+
                 Berfikir • Berdzikir • Berhasil
+
             </h1>
 
             <div class="social-icons mt-3 md:mt-4 flex items-center justify-center gap-5 md:gap-7">
+
                 <a href="https://wa.me/6285185409887" target="_blank"
-                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl"
-                    aria-label="WhatsApp">
+                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
+
                     <i class="fab fa-whatsapp"></i>
+
                 </a>
+
                 <a href="https://www.instagram.com/nuqthah.learning/" target="_blank"
-                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl"
-                    aria-label="Instagram">
+                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
+
                     <i class="fab fa-instagram"></i>
+
                 </a>
+
                 <a href="https://www.youtube.com/@nuqthahlearning" target="_blank"
-                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl" aria-label="YouTube">
+                    class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
+
                     <i class="fab fa-youtube"></i>
+
                 </a>
+
             </div>
+
         </header>
 
-        <!-- MIDDLE: Welcome Message (Prominent & Centered) -->
+        <!-- WELCOME -->
+
         <section class="fade-in flex flex-col justify-center text-center max-w-2xl px-2 my-2 md:my-4"
-            style="animation-delay: 0.3s;">
+            style="animation-delay:.3s;">
+
             <p
                 class="welcome-text text-textDark text-sm md:text-base lg:text-lg font-normal leading-relaxed md:leading-loose">
-                Selamat datang dan selamat belajar di <span class="font-bold text-primary">Nuqthah Learning
-                    Center</span>.
-                Semoga belajarmu menjadi lebih mudah bersama kami. Cari materimu sekarang dan capai nilai terbaikmu
-                mulai dari sini.
+
+                Selamat datang dan selamat belajar di
+
+                <span class="font-bold text-primary">
+
+                    Nuqthah Learning Center.
+
+                </span>
+
+                Semoga belajarmu menjadi lebih mudah bersama kami.
+
+                Cari materimu sekarang dan capai nilai terbaikmu mulai dari sini.
+
             </p>
+
         </section>
 
-        <!-- BOTTOM: Actions (Raised for Cohesion) -->
-        <footer class="fade-in flex flex-col items-center w-full flex-shrink-0" style="animation-delay: 0.5s;">
+        <!-- CTA -->
+
+        <footer class="fade-in flex flex-col items-center w-full flex-shrink-0" style="animation-delay:.5s;">
+
             <div class="flex flex-col items-center w-full space-y-2">
-                <a href="materi.html"
+
+                <button id="searchCta"
                     class="cta-btn bg-primary text-white px-8 py-3.5 md:px-12 md:py-4 rounded-btn font-semibold text-sm md:text-lg transition-all duration-300 shadow-lg hover:shadow-primary/20 active:scale-95 w-full sm:w-auto min-w-[220px] md:min-w-[280px] flex items-center justify-center gap-3 group relative overflow-hidden">
-                    <span class="relative z-10">Cari Materi</span>
+
+                    <span class="relative z-10">
+
+                        Cari Materi
+
+                    </span>
+
                     <i
                         class="fas fa-search text-xs md:text-base opacity-80 z-10 transition-transform group-hover:scale-110"></i>
+
                     <div
                         class="absolute inset-0 bg-secondary/10 translate-y-full group-hover:translate-y-0 transition-transform duration-300">
                     </div>
-                </a>
 
-                <!-- Mandatory Mayar Watermark -->
+                </button>
+
                 <div class="flex items-center gap-1.5 py-0.5">
-                    <i class="fas fa-shield-halved text-[10px] text-primary/40"></i>
-                    <p class="text-[10px] md:text-xs text-primary/60 font-medium tracking-wide">
-                        Semua transaksi aman menggunakan Enkripsi Mayar
-                    </p>
-                </div>
-            </div>
 
+                    <i class="fas fa-shield-halved text-[10px] text-primary/40"></i>
+
+                    <p class="text-[10px] md:text-xs text-primary/60 font-medium tracking-wide">
+
+                        Semua transaksi aman menggunakan Enkripsi Mayar
+
+                    </p>
+
+                </div>
+
+            </div>
 
         </footer>
 
     </main>
 
-
-    <!-- Scripts -->
+    <!-- Scripts Section -->
     <script>
-        const menuToggle = document.getElementById('menu-toggle');
-        const closeSidebar = document.getElementById('close-sidebar');
-        const sidebarOverlay = document.getElementById('sidebar-overlay');
-        const bodyElement = document.body;
+        /**
+         * Nuqthah Learning Center - JavaScript Logic
+         */
 
-        function toggleSidebar() {
-            bodyElement.classList.toggle('sidebar-open');
-        }
+        // 1. App Configuration & State
+        const APP_STATE = {
+            isLoggedIn: false,
+            user: null,
+            supabase: {
+                url: 'https://idwrkzekykarxnuoaysu.supabase.co',
+                key: 'sb_publishable_N96gYsm_jeSntalN3qMVCA_TpXloD4u'
+            }
+        };
 
-        menuToggle.addEventListener('click', toggleSidebar);
-        closeSidebar.addEventListener('click', toggleSidebar);
-        sidebarOverlay.addEventListener('click', toggleSidebar);
+        // 2. DOM Elements
+        const elements = {
+            menuToggle: document.getElementById('menu-toggle'),
+            closeSidebar: document.getElementById('close-sidebar'),
+            sidebarOverlay: document.getElementById('sidebar-overlay'),
+            body: document.body,
+
+            navRegisterBtn: document.getElementById('nav-register-btn'),
+            registerModal: document.getElementById('registerModal'),
+            modalOverlay: document.getElementById('modalOverlay'),
+            closeModal: document.getElementById('closeModal'),
+            registerForm: document.getElementById('registerForm'),
+            searchCta: document.getElementById('searchCta'),
+
+            successMessage: document.getElementById('successMessage'),
+            btnText: document.getElementById('btnText'),
+            btnIcon: document.getElementById('btnIcon'),
+        };
+
+        // 3. UI Helper Functions
+        const toggleSidebar = () => elements.body.classList.toggle('sidebar-open');
+
+        const openModal = () => {
+            elements.registerModal.classList.remove('opacity-0', 'pointer-events-none');
+            elements.registerModal.querySelector('.modal-content').classList.remove('scale-95');
+            elements.registerModal.querySelector('.modal-content').classList.add('scale-100');
+        };
+
+        const closeModal = () => {
+            elements.registerModal.classList.add('opacity-0', 'pointer-events-none');
+            elements.registerModal.querySelector('.modal-content').classList.add('scale-95');
+            elements.registerModal.querySelector('.modal-content').classList.remove('scale-100');
+            // Reset state if success message was showing
+            setTimeout(() => {
+                elements.successMessage.classList.add('opacity-0', 'pointer-events-none');
+                elements.registerForm.classList.remove('opacity-0');
+            }, 500);
+        };
+
+        // 4. Authentication & Form Logic
+        const handleRegistration = async (e) => {
+            e.preventDefault();
+
+            const formData = {
+                name: document.getElementById('regName').value,
+                email: document.getElementById('regEmail').value,
+                wa: document.getElementById('regWA').value,
+                program: document.getElementById('regProgram').value,
+                pass: document.getElementById('regPass').value,
+                confirm: document.getElementById('regConfirm').value
+            };
+
+            if (formData.pass !== formData.confirm) {
+                alert("Password dan Konfirmasi Password tidak cocok!");
+                return;
+            }
+
+            // Simulate Loading
+            elements.btnText.textContent = "Memproses...";
+            elements.btnIcon.className = "fas fa-circle-notch fa-spin";
+            elements.registerForm.classList.add('pointer-events-none', 'opacity-50');
+
+            try {
+                // ============================
+                // 1. Registrasi ke Supabase Auth
+                // ============================
+                const { data, error } = await supabaseClient.auth.signUp({
+
+                    email: formData.email,
+
+                    password: formData.pass,
+
+                    options: {
+
+                        data: {
+
+                            full_name: formData.name,
+
+                            whatsapp: formData.wa,
+
+                            interest_program: formData.program
+
+                        }
+
+                    }
+
+                });
+
+                if (error) throw error;
+
+
+                // ============================
+                // 2. Simpan ke tabel profiles
+                // ============================
+
+                const { error: profileError } = await supabaseClient
+                    .from("profiles")
+                    .upsert({
+
+                        id: data.user.id,
+
+                        full_name: formData.name,
+
+                        email: formData.email,
+
+                        whatsapp: formData.wa,
+
+                        interest_program: formData.program
+
+                    });
+
+                if (profileError) throw profileError;
+
+                // ============================
+                // Kirim WhatsApp melalui Edge Function
+                // ============================
+                const waResponse = await fetch(
+                    "https://idwrkzekykarxnuoaysu.supabase.co/functions/v1/send-whatsapp",
+                    {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            "apikey": APP_STATE.supabase.key,
+                            "Authorization": `Bearer ${APP_STATE.supabase.key}`,
+                        },
+                        body: JSON.stringify({
+                            phone: formData.wa,
+                            name: formData.name,
+                            program: formData.program,
+                        }),
+                    }
+                );
+
+                const waResult = await waResponse.json();
+                console.log(waResult);
+
+
+
+                // ============================
+                // 3. Success
+                // ============================
+
+                APP_STATE.isLoggedIn = true;
+
+                APP_STATE.user = formData;
+
+                localStorage.setItem(
+                    "nuqthah_session",
+                    JSON.stringify({
+                        loggedIn: true,
+                        name: formData.name
+                    })
+                );
+
+                elements.successMessage.classList.remove(
+                    "opacity-0",
+                    "pointer-events-none"
+                );
+
+                elements.registerForm.classList.add("opacity-0");
+
+                setTimeout(() => {
+
+                    window.location.href = "materi.html";
+
+                }, 3000);
+
+            } catch (err) {
+                console.error("ERROR:", err);
+
+                alert(
+                    err.message ||
+                    JSON.stringify(err) ||
+                    "Terjadi kesalahan saat pendaftaran.");
+                elements.btnText.textContent = "Daftar Sekarang";
+                elements.btnIcon.className = "fas fa-paper-plane";
+                elements.registerForm.classList.remove('pointer-events-none', 'opacity-50');
+            }
+        };
+
+        // 5. Main Button Logic
+        const handleSearchCta = (e) => {
+            e.preventDefault();
+
+            // Check Session
+            const session = JSON.parse(localStorage.getItem('nuqthah_session'));
+
+            if (session && session.loggedIn) {
+                // User is logged in, show loading and redirect
+                const icon = elements.searchCta.querySelector('i');
+                const text = elements.searchCta.querySelector('span');
+
+                icon.className = 'fas fa-spinner fa-spin text-2xl md:text-4xl z-10';
+                text.textContent = 'Menyiapkan...';
+                elements.searchCta.classList.add('pointer-events-none', 'opacity-90');
+
+                setTimeout(() => {
+                    window.location.href = "materi.html";
+                }, 1000);
+            } else {
+                // Not logged in, open registration
+                openModal();
+            }
+        };
+
+        // 6. Event Listeners Initialization
+        elements.menuToggle.addEventListener('click', toggleSidebar);
+        elements.closeSidebar.addEventListener('click', toggleSidebar);
+        elements.sidebarOverlay.addEventListener('click', toggleSidebar);
+
+        elements.navRegisterBtn.addEventListener('click', openModal);
+        elements.closeModal.addEventListener('click', closeModal);
+        elements.modalOverlay.addEventListener('click', closeModal);
+        elements.registerForm.addEventListener('submit', handleRegistration);
+        elements.searchCta.addEventListener('click', handleSearchCta);
 
         // Escape to close
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && bodyElement.classList.contains('sidebar-open')) {
-                toggleSidebar();
+            if (e.key === 'Escape') {
+                if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
+                closeModal();
             }
         });
 
-        // Search CTA Simulation
-        document.getElementById('searchCta').addEventListener('click', function (e) {
-            e.preventDefault();
-            const icon = this.querySelector('i');
-            const originalClass = icon.className;
-
-            icon.className = 'fas fa-spinner fa-spin text-xs md:text-base z-10';
-            this.classList.add('pointer-events-none', 'opacity-90');
-
-            setTimeout(() => {
-                alert('Mengarahkan ke Katalog Materi Nuqthah Learning Center...');
-                icon.className = originalClass;
-                this.classList.remove('pointer-events-none', 'opacity-90');
-            }, 800);
-        });
-
-        // Responsive Height Fix
+        // 7. Responsive Fixes
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
         };
         window.addEventListener('resize', setVh);
         setVh();
+
+        // Check for existing session on load
+        window.onload = () => {
+            const session = JSON.parse(localStorage.getItem('nuqthah_session'));
+            if (session && session.loggedIn) {
+                elements.navRegisterBtn.textContent = 'Akun Saya';
+                elements.navRegisterBtn.classList.add('bg-secondary');
+            }
+        };
+
     </script>
 
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <script>
+        const { createClient } = supabase;
+
+        const supabaseClient = createClient(
+            APP_STATE.supabase.url,
+            APP_STATE.supabase.key
+        );
+    </script>
+
+    <style>
+        /* Progress Bar Animation */
+        @keyframes progress {
+            0% {
+                width: 0%;
+            }
+
+            100% {
+                width: 100%;
+            }
+        }
+    </style>
 </body>
 
 </html>
