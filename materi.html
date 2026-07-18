@@ -151,6 +151,27 @@
         .modal-overlay {
             z-index: 9999998 !important;
         }
+
+        /* Edit modal style */
+        #edit-modal .modal-content {
+            max-width: 440px;
+        }
+
+        #edit-modal input {
+            width: 100%;
+            border: 1px solid rgba(15, 74, 58, .10);
+            border-radius: 12px;
+            padding: 12px 16px;
+            background: #fff;
+            outline: none;
+            transition: .25s;
+            font-size: .9rem;
+        }
+
+        #edit-modal input:focus {
+            border-color: rgba(15, 74, 58, .35);
+            box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
+        }
     </style>
 </head>
 
@@ -1478,6 +1499,39 @@
         </div>
     </div>
 
+    <!-- Edit Modal -->
+    <div id="edit-modal" class="fixed inset-0 flex items-center justify-center p-4 hidden modal-container"
+        style="z-index: 99999999;">
+        <div id="edit-modal-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm modal-overlay"
+            style="z-index: 99999998;"></div>
+        <div class="modal-content relative bg-cream w-full max-w-md rounded-2xl shadow-2xl border border-white/20 modal-fade-in"
+            style="z-index: 99999999;">
+            <div class="bg-primary p-5 text-white rounded-t-2xl">
+                <h3 class="text-xl font-bold text-center">Edit Materi</h3>
+            </div>
+            <div class="p-6 space-y-4">
+                <div>
+                    <label class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Nama
+                        Materi</label>
+                    <input type="text" id="edit-name"
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+                </div>
+                <div>
+                    <label class="text-xs font-bold text-primary uppercase tracking-wider block mb-1">Link
+                        Produk</label>
+                    <input type="url" id="edit-link"
+                        class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 text-sm">
+                </div>
+                <div class="flex gap-3 mt-4">
+                    <button id="edit-save-btn"
+                        class="flex-1 bg-primary text-white font-bold py-3 rounded-xl hover:bg-opacity-90 transition-all">Simpan</button>
+                    <button id="edit-cancel-btn"
+                        class="flex-1 bg-gray-200 text-gray-700 font-bold py-3 rounded-xl hover:bg-gray-300 transition-all">Batal</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Supabase Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
     </script>
@@ -1511,7 +1565,7 @@
 
         // --- 3. GLOBAL STATE ---
         let currentUser = null;
-        let savedCourseIds = []; // hanya menyimpan course_id
+        let savedItems = []; // [{ id, course_id, title, link, thumb }]
         let isLoggedIn = false;
 
         // --- 4. SESSION MANAGEMENT ---
@@ -1526,22 +1580,22 @@
                 } else {
                     currentUser = null;
                     isLoggedIn = false;
-                    savedCourseIds = [];
+                    savedItems = [];
                     updateMaterimuUI();
                 }
             } catch (err) {
                 console.error('Session check error:', err);
                 currentUser = null;
                 isLoggedIn = false;
-                savedCourseIds = [];
+                savedItems = [];
                 updateMaterimuUI();
             }
         }
 
-        // --- 5. LOAD SAVED MATERIALS (hanya course_id) ---
+        // --- 5. LOAD SAVED MATERIALS (full data from Supabase) ---
         async function loadSavedMaterials() {
             if (!isLoggedIn || !currentUser) {
-                savedCourseIds = [];
+                savedItems = [];
                 updateMaterimuUI();
                 return;
             }
@@ -1549,29 +1603,51 @@
             try {
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
-                    .select('course_id')
+                    .select('id, course_id, title, link')
                     .eq('user_id', currentUser.id)
                     .order('created_at', { ascending: false });
 
                 if (error) throw error;
 
-                savedCourseIds = data.map(item => item.course_id);
-                console.log('✅ Loaded course_ids:', savedCourseIds);
+                savedItems = data.map(item => {
+                    // If title is null or empty, try to get from card
+                    let name = item.title;
+                    let thumb = 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                    let url = item.link || '#';
+
+                    if (!name || name === '') {
+                        // Try to get from card
+                        const cardData = getCardData(item.course_id);
+                        name = cardData.name || 'Materi';
+                        thumb = cardData.thumb || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                        url = cardData.url || '#';
+                    }
+
+                    return {
+                        id: item.id,
+                        course_id: item.course_id,
+                        title: name,
+                        link: url,
+                        thumb: thumb
+                    };
+                });
+
+                console.log('✅ Loaded saved items:', savedItems);
 
                 updateMaterimuUI();
                 // Broadcast count
-                window.materimuCount = savedCourseIds.length;
+                window.materimuCount = savedItems.length;
                 if (window.nuqthahChannel) {
-                    window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedCourseIds.length });
+                    window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
                 }
             } catch (err) {
                 console.error('Load saved materials error:', err);
-                savedCourseIds = [];
+                savedItems = [];
                 updateMaterimuUI();
             }
         }
 
-        // --- 6. SAVE MATERIAL (hanya user_id dan course_id) ---
+        // --- 6. SAVE MATERIAL (user_id, course_id, title, link) ---
         async function saveToMaterimu(courseId) {
             // 1. Pastikan user login
             const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
@@ -1582,19 +1658,33 @@
             }
 
             // 2. Cek apakah sudah tersimpan
-            if (savedCourseIds.includes(courseId)) {
+            if (savedItems.find(m => m.course_id === courseId)) {
                 toggleDrawer();
                 return;
             }
 
-            console.log('🔄 Saving course_id:', courseId, 'for user:', user.id);
+            // 3. Ambil data dari card
+            const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
+            let title = '';
+            let link = '#';
+            let thumb = 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+
+            if (card) {
+                title = card.querySelector('h3')?.innerText?.trim() || '';
+                link = card.querySelector('a')?.getAttribute('href') || '#';
+                thumb = card.querySelector('img')?.src || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+            }
+
+            console.log('🔄 Saving:', { courseId, title, link, user: user.id });
 
             try {
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .insert({
                         user_id: user.id,
-                        course_id: courseId
+                        course_id: courseId,
+                        title: title,
+                        link: link
                     })
                     .select();
 
@@ -1620,21 +1710,21 @@
             }
         }
 
-        // --- 7. REMOVE MATERIAL ---
-        async function removeFromMaterimu(courseId) {
+        // --- 7. REMOVE MATERIAL (by record id) ---
+        async function removeFromMaterimu(recordId) {
             if (!isLoggedIn || !currentUser) {
                 alert('Silakan login terlebih dahulu.');
                 return;
             }
 
-            console.log('🔄 Removing course_id:', courseId);
+            console.log('🔄 Removing record id:', recordId, 'for user:', currentUser.id);
 
             try {
                 const { error } = await supabaseClient
                     .from('saved_materials')
                     .delete()
-                    .eq('user_id', currentUser.id)
-                    .eq('course_id', courseId);
+                    .eq('id', recordId)
+                    .eq('user_id', currentUser.id);
 
                 if (error) {
                     console.error('❌ Delete error:', error);
@@ -1701,16 +1791,14 @@
             // Buat ID unik untuk manual
             const courseId = 'manual-' + Date.now();
 
-            // Cari card dengan data-id yang sama (tidak ada, karena manual)
-            // Kita akan simpan di localStorage sebagai cache untuk manual entries
-            // Tapi data utama tetap di Supabase
             try {
-                // Simpan ke Supabase (hanya user_id dan course_id)
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .insert({
                         user_id: user.id,
-                        course_id: courseId
+                        course_id: courseId,
+                        title: name,
+                        link: url
                     })
                     .select();
 
@@ -1722,15 +1810,6 @@
 
                 console.log('✅ Manual insert success:', data);
 
-                // Simpan metadata manual ke localStorage sebagai cache
-                let manualCache = JSON.parse(localStorage.getItem('manual_materials_cache') || '{}');
-                manualCache[courseId] = {
-                    name: name,
-                    url: url,
-                    thumb: 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png'
-                };
-                localStorage.setItem('manual_materials_cache', JSON.stringify(manualCache));
-
                 await loadSavedMaterials();
                 nameInput.value = '';
                 urlInput.value = '';
@@ -1741,9 +1820,41 @@
             }
         }
 
-        // --- 10. GET CARD DATA BY COURSE ID ---
+        // --- 10. UPDATE MANUAL MATERIAL ---
+        async function updateMaterial(recordId, newTitle, newLink) {
+            if (!isLoggedIn || !currentUser) {
+                alert('Silakan login terlebih dahulu.');
+                return;
+            }
+
+            console.log('🔄 Updating material:', { recordId, newTitle, newLink });
+
+            try {
+                const { error } = await supabaseClient
+                    .from('saved_materials')
+                    .update({
+                        title: newTitle,
+                        link: newLink
+                    })
+                    .eq('id', recordId)
+                    .eq('user_id', currentUser.id);
+
+                if (error) {
+                    console.error('❌ Update error:', error);
+                    alert('Gagal mengupdate materi: ' + error.message);
+                    return;
+                }
+
+                console.log('✅ Update success');
+                await loadSavedMaterials();
+            } catch (err) {
+                console.error('❌ Update material error:', err);
+                alert('Gagal mengupdate materi: ' + err.message);
+            }
+        }
+
+        // --- 11. GET CARD DATA BY COURSE ID ---
         function getCardData(courseId) {
-            // Cari kartu dengan data-id
             const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
             if (card) {
                 const name = card.querySelector('h3')?.innerText?.trim() || 'Materi';
@@ -1751,14 +1862,6 @@
                 const url = card.querySelector('a')?.getAttribute('href') || '#';
                 return { name, thumb, url };
             }
-
-            // Cek manual cache
-            const manualCache = JSON.parse(localStorage.getItem('manual_materials_cache') || '{}');
-            if (manualCache[courseId]) {
-                return manualCache[courseId];
-            }
-
-            // Fallback
             return {
                 name: 'Materi',
                 thumb: 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png',
@@ -1766,14 +1869,14 @@
             };
         }
 
-        // --- 11. UPDATE UI ---
+        // --- 12. UPDATE UI ---
         function updateMaterimuUI() {
             const drawerBadge = document.getElementById('materimu-badge');
             const drawerCountBadge = document.getElementById('drawer-count-badge');
             const drawerContent = document.getElementById('drawer-content');
             const emptyState = document.getElementById('drawer-empty');
 
-            const count = savedCourseIds.length;
+            const count = savedItems.length;
             if (drawerBadge) drawerBadge.textContent = count;
             if (drawerCountBadge) drawerCountBadge.textContent = count;
 
@@ -1787,19 +1890,20 @@
                 if (emptyState) emptyState.style.display = count > 0 ? 'none' : 'flex';
                 drawerContent.querySelectorAll('.saved-item').forEach(item => item.remove());
 
-                savedCourseIds.forEach(courseId => {
-                    const cardData = getCardData(courseId);
+                savedItems.forEach(item => {
+                    const isManual = item.course_id.startsWith('manual-');
                     const itemDiv = document.createElement('div');
                     itemDiv.className = 'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
                     itemDiv.innerHTML = `
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
-                            <img src="${cardData.thumb}" class="w-full h-full object-cover">
+                            <img src="${item.thumb}" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-grow flex flex-col justify-between py-0.5">
-                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight">${cardData.name}</h4>
+                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight">${item.title}</h4>
                             <div class="flex items-center gap-2 mt-2">
-                                <button onclick="handleDaftar(event, '${cardData.url}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
-                                <button onclick="removeFromMaterimu('${courseId}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
+                                <button onclick="handleDaftar(event, '${item.link}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
+                                ${isManual ? `<button onclick="openEditModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.link.replace(/'/g, "\\'")}')" class="w-6 h-6 text-blue-500 flex items-center justify-center transition-colors hover:text-blue-700"><i class="fas fa-pen"></i></button>` : ''}
+                                <button onclick="removeFromMaterimu('${item.id}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
                                     <i class="far fa-trash-can"></i>
                                 </button>
                             </div>
@@ -1810,7 +1914,39 @@
             }
         }
 
-        // --- 12. NAVIGATION & FILTER ---
+        // --- 13. EDIT MODAL ---
+        let editRecordId = null;
+
+        function openEditModal(recordId, title, link) {
+            editRecordId = recordId;
+            document.getElementById('edit-name').value = title;
+            document.getElementById('edit-link').value = link;
+            document.getElementById('edit-modal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeEditModal() {
+            document.getElementById('edit-modal').classList.add('hidden');
+            document.body.style.overflow = '';
+            editRecordId = null;
+        }
+
+        async function saveEdit() {
+            const newTitle = document.getElementById('edit-name').value.trim();
+            const newLink = document.getElementById('edit-link').value.trim();
+
+            if (!newTitle || !newLink) {
+                alert('Nama dan Link harus diisi.');
+                return;
+            }
+
+            if (editRecordId) {
+                await updateMaterial(editRecordId, newTitle, newLink);
+                closeEditModal();
+            }
+        }
+
+        // --- 14. NAVIGATION & FILTER ---
         const PROGRAMS = {
             syariah: { label: 'Bimbel Syariah', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'bs' },
             ushul: { label: 'Bimbel Ushul', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'us' },
@@ -1884,7 +2020,7 @@
             });
         }
 
-        // --- 13. MODAL HELPERS ---
+        // --- 15. MODAL HELPERS ---
         window.showModal = function (id) {
             const m = document.getElementById(id);
             if (m) {
@@ -1901,7 +2037,7 @@
             }
         };
 
-        // --- 14. DRAWER ---
+        // --- 16. DRAWER ---
         window.toggleDrawer = function () {
             const drawer = document.getElementById('materimu-drawer');
             const overlay = document.getElementById('drawer-overlay');
@@ -1911,7 +2047,7 @@
             overlay.classList.toggle('pointer-events-none');
         };
 
-        // --- 15. HANDLE DAFTAR ---
+        // --- 17. HANDLE DAFTAR ---
         window.handleDaftar = function (e, url) {
             if (e) e.preventDefault();
             if (!url || url === '#' || url === '' || url === 'javascript:void(0)') {
@@ -1921,15 +2057,19 @@
             }
         };
 
-        // --- 16. EXPOSE FUNCTIONS GLOBALLY ---
+        // --- 18. EXPOSE FUNCTIONS GLOBALLY ---
         window.saveToMaterimu = saveToMaterimu;
         window.removeFromMaterimu = removeFromMaterimu;
         window.updateMaterimuUI = updateMaterimuUI;
         window.clearAllMaterials = clearAllMaterials;
         window.saveManualMaterial = saveManualMaterial;
         window.loadSavedMaterials = loadSavedMaterials;
+        window.openEditModal = openEditModal;
+        window.closeEditModal = closeEditModal;
+        window.saveEdit = saveEdit;
+        window.updateMaterial = updateMaterial;
 
-        // --- 17. INIT ---
+        // --- 19. INIT ---
         document.addEventListener('DOMContentLoaded', async () => {
             // Check session
             await checkSession();
@@ -1953,6 +2093,11 @@
             document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
             document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
             document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
+
+            // Edit modal events
+            document.getElementById('edit-modal-overlay').onclick = closeEditModal;
+            document.getElementById('edit-cancel-btn').onclick = closeEditModal;
+            document.getElementById('edit-save-btn').onclick = saveEdit;
 
             const saveManual = document.getElementById('save-manual-btn');
             if (saveManual) {
@@ -1997,7 +2142,7 @@
                 } else if (event === 'SIGNED_OUT') {
                     currentUser = null;
                     isLoggedIn = false;
-                    savedCourseIds = [];
+                    savedItems = [];
                     updateMaterimuUI();
                     window.materimuCount = 0;
                     if (window.nuqthahChannel) {
