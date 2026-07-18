@@ -322,14 +322,6 @@
             class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-24 overflow-hidden">
 
 
-
-
-
-            <!-- =============================================================================================
-             ==================================================================================================
-             BIMBEL SAYARIAH
-             =================================================================================================
-             =================================================================================================-->
             <!-- =============================================================================================
              ==================================================================================================
              BIMBEL SYARIAH: TK 1 
@@ -997,7 +989,6 @@
 
 
 
-
             <!-- =============================================================================================
              ==================================================================================================
              TA'SHIL
@@ -1192,7 +1183,6 @@
 
 
 
-
             <!-- =============================================================================================
              ==================================================================================================
              AMIYAH MESIR
@@ -1336,13 +1326,6 @@
                     </div>
                 </div>
             </div>
-
-
-
-
-
-
-
 
 
 
@@ -1541,29 +1524,12 @@
         const { createClient } = supabase;
         const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- 2. BRIDGE INITIALIZATION & DATA ONLY CHECK ---
-        const urlParams = new URLSearchParams(window.location.search);
-        const isBridgeMode = urlParams.get('mode') === 'bridge';
-
-        // Communication Bridge Setup
-        window.nuqthahChannel = new BroadcastChannel('nuqthah_sync');
-
-        // Handle incoming queries from main site
-        window.addEventListener('message', (event) => {
-            if (event.data?.type === 'GET_MATERIMU_COUNT') {
-                const count = window.materimuCount || 0;
-                if (event.source) {
-                    event.source.postMessage({
-                        type: 'MATERIMU_COUNT_RESPONSE',
-                        count: count
-                    }, event.origin || '*');
-                }
-            }
-        });
+        // --- 2. BROADCAST CHANNEL (sinkronisasi dengan index.html) ---
+        const nuqthahChannel = new BroadcastChannel('nuqthah_sync');
 
         // --- 3. GLOBAL STATE ---
         let currentUser = null;
-        let savedItems = []; // [{ id, course_id, title, link, image }]
+        let savedItems = [];
         let isLoggedIn = false;
 
         // --- 4. SESSION MANAGEMENT ---
@@ -1590,7 +1556,7 @@
             }
         }
 
-        // --- 5. LOAD SAVED MATERIALS (full data from Supabase) ---
+        // --- 5. LOAD SAVED MATERIALS ---
         async function loadSavedMaterials() {
             if (!isLoggedIn || !currentUser) {
                 savedItems = [];
@@ -1608,16 +1574,16 @@
                 if (error) throw error;
 
                 savedItems = data.map(item => {
-                    // If title is null or empty, try to get from card
                     let name = item.title;
-                    let thumb = item.image || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                    let thumb = item.image ||
+                        'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
                     let url = item.link || '#';
 
                     if (!name || name === '') {
-                        // Try to get from card
                         const cardData = getCardData(item.course_id);
                         name = cardData.name || 'Materi';
-                        thumb = cardData.thumb || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                        thumb = cardData.thumb ||
+                            'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
                         url = cardData.url || '#';
                     }
 
@@ -1634,10 +1600,7 @@
 
                 updateMaterimuUI();
                 // Broadcast count
-                window.materimuCount = savedItems.length;
-                if (window.nuqthahChannel) {
-                    window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
-                }
+                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
             } catch (err) {
                 console.error('Load saved materials error:', err);
                 savedItems = [];
@@ -1645,9 +1608,8 @@
             }
         }
 
-        // --- 6. SAVE MATERIAL (user_id, course_id, title, link, image) ---
+        // --- 6. SAVE MATERIAL ---
         async function saveToMaterimu(courseId) {
-            // 1. Pastikan user login
             const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
             if (userError || !user) {
                 alert('Silakan login terlebih dahulu.');
@@ -1655,13 +1617,11 @@
                 return;
             }
 
-            // 2. Cek apakah sudah tersimpan
             if (savedItems.find(m => m.course_id === courseId)) {
                 toggleDrawer();
                 return;
             }
 
-            // 3. Ambil data dari card
             const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
             let title = '';
             let link = '#';
@@ -1671,10 +1631,9 @@
                 title = card.querySelector('h3')?.innerText?.trim() || '';
                 link = card.querySelector('a')?.getAttribute('href') || '#';
                 const imgElement = card.querySelector('img');
-                image = imgElement?.src || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                image = imgElement?.src ||
+                    'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
             }
-
-            console.log('🔄 Saving:', { courseId, title, link, image, user: user.id });
 
             try {
                 const { data, error } = await supabaseClient
@@ -1691,7 +1650,6 @@
                 if (error) {
                     console.error('❌ Supabase INSERT error:', error);
                     if (error.code === '23505') {
-                        // Duplicate - already saved
                         toggleDrawer();
                         return;
                     }
@@ -1701,23 +1659,32 @@
 
                 console.log('✅ Insert success:', data);
 
-                // Reload to get latest
                 await loadSavedMaterials();
                 toggleDrawer();
+
+                // Notify index.html
+                nuqthahChannel.postMessage({
+                    type: 'MATERIMU_ITEM_ADDED',
+                    item: {
+                        id: data[0]?.id,
+                        title: title,
+                        link: link,
+                        course_id: courseId
+                    }
+                });
+
             } catch (err) {
                 console.error('❌ Save material error:', err);
                 alert('Gagal menyimpan materi: ' + err.message);
             }
         }
 
-        // --- 7. REMOVE MATERIAL (by record id) ---
+        // --- 7. REMOVE MATERIAL ---
         async function removeFromMaterimu(recordId) {
             if (!isLoggedIn || !currentUser) {
                 alert('Silakan login terlebih dahulu.');
                 return;
             }
-
-            console.log('🔄 Removing record id:', recordId, 'for user:', currentUser.id);
 
             try {
                 const { error } = await supabaseClient
@@ -1734,6 +1701,13 @@
 
                 console.log('✅ Delete success');
                 await loadSavedMaterials();
+
+                // Notify index.html
+                nuqthahChannel.postMessage({
+                    type: 'MATERIMU_ITEM_DELETED',
+                    recordId: recordId
+                });
+
             } catch (err) {
                 console.error('❌ Remove material error:', err);
                 alert('Gagal menghapus materi: ' + err.message);
@@ -1747,8 +1721,6 @@
                 return;
             }
             if (!confirm('Kosongkan daftar materi Anda?')) return;
-
-            console.log('🔄 Clearing all materials for user:', currentUser.id);
 
             try {
                 const { error } = await supabaseClient
@@ -1764,6 +1736,13 @@
 
                 console.log('✅ Clear all success');
                 await loadSavedMaterials();
+
+                // Notify index.html
+                nuqthahChannel.postMessage({
+                    type: 'MATERIMU_ITEM_DELETED',
+                    recordId: 'all'
+                });
+
             } catch (err) {
                 console.error('❌ Clear all materials error:', err);
                 alert('Gagal mengosongkan daftar: ' + err.message);
@@ -1788,7 +1767,6 @@
                 return;
             }
 
-            // Buat ID unik untuk manual
             const courseId = 'manual-' + Date.now();
 
             try {
@@ -1799,7 +1777,7 @@
                         course_id: courseId,
                         title: name,
                         link: url,
-                        image: null // Biarkan null agar pakai default
+                        image: null
                     })
                     .select();
 
@@ -1815,20 +1793,30 @@
                 nameInput.value = '';
                 urlInput.value = '';
                 document.getElementById('manual-form-container').classList.add('hidden');
+
+                // Notify index.html
+                nuqthahChannel.postMessage({
+                    type: 'MATERIMU_ITEM_ADDED',
+                    item: {
+                        id: data[0]?.id,
+                        title: name,
+                        link: url,
+                        course_id: courseId
+                    }
+                });
+
             } catch (err) {
                 console.error('❌ Save manual material error:', err);
                 alert('Gagal menyimpan materi: ' + err.message);
             }
         }
 
-        // --- 10. UPDATE MANUAL MATERIAL ---
+        // --- 10. UPDATE MATERIAL ---
         async function updateMaterial(recordId, newTitle, newLink) {
             if (!isLoggedIn || !currentUser) {
                 alert('Silakan login terlebih dahulu.');
                 return;
             }
-
-            console.log('🔄 Updating material:', { recordId, newTitle, newLink });
 
             try {
                 const { error } = await supabaseClient
@@ -1848,18 +1836,20 @@
 
                 console.log('✅ Update success');
                 await loadSavedMaterials();
+
             } catch (err) {
                 console.error('❌ Update material error:', err);
                 alert('Gagal mengupdate materi: ' + err.message);
             }
         }
 
-        // --- 11. GET CARD DATA BY COURSE ID ---
+        // --- 11. GET CARD DATA ---
         function getCardData(courseId) {
             const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
             if (card) {
                 const name = card.querySelector('h3')?.innerText?.trim() || 'Materi';
-                const thumb = card.querySelector('img')?.src || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                const thumb = card.querySelector('img')?.src ||
+                    'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
                 const url = card.querySelector('a')?.getAttribute('href') || '#';
                 return { name, thumb, url };
             }
@@ -1881,12 +1871,6 @@
             if (drawerBadge) drawerBadge.textContent = count;
             if (drawerCountBadge) drawerCountBadge.textContent = count;
 
-            // Update global count
-            window.materimuCount = count;
-            if (window.nuqthahChannel) {
-                window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
-            }
-
             if (drawerContent) {
                 if (emptyState) emptyState.style.display = count > 0 ? 'none' : 'flex';
                 drawerContent.querySelectorAll('.saved-item').forEach(item => item.remove());
@@ -1894,9 +1878,10 @@
                 savedItems.forEach(item => {
                     const isManual = item.course_id.startsWith('manual-');
                     const itemDiv = document.createElement('div');
-                    itemDiv.className = 'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
-                    // Gunakan item.image untuk thumbnail, fallback ke default jika null
-                    const thumbSrc = item.image || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                    itemDiv.className =
+                        'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
+                    const thumbSrc = item.image ||
+                        'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
                     itemDiv.innerHTML = `
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
                             <img src="${thumbSrc}" class="w-full h-full object-cover" alt="${item.title}">
@@ -1974,7 +1959,8 @@
 
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 const isActive = tab.getAttribute('data-category') === categoryKey;
-                tab.className = `nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium ${isActive ? 'bg-primary text-white' : 'text-gray-600'}`;
+                tab.className =
+                    `nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium ${isActive ? 'bg-primary text-white' : 'text-gray-600'}`;
             });
 
             renderSubFilters();
@@ -2003,7 +1989,8 @@
             filters.forEach(filter => {
                 const btn = document.createElement('button');
                 btn.textContent = filter;
-                btn.className = `px-4 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border transition-all ${currentSubFilter === filter ? 'bg-accent text-white border-accent' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/40'}`;
+                btn.className =
+                    `px-4 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border transition-all ${currentSubFilter === filter ? 'bg-accent text-white border-accent' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/40'}`;
                 btn.onclick = (e) => {
                     e.preventDefault();
                     currentSubFilter = filter;
@@ -2018,7 +2005,8 @@
             const cards = document.querySelectorAll('.course-card');
             cards.forEach(card => {
                 const matchesCat = card.getAttribute('data-category') === currentCategory;
-                const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') === currentSubFilter;
+                const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') ===
+                    currentSubFilter;
                 card.style.display = (matchesCat && matchesSub) ? 'flex' : 'none';
             });
         }
@@ -2074,10 +2062,8 @@
 
         // --- 19. INIT ---
         document.addEventListener('DOMContentLoaded', async () => {
-            // Check session
             await checkSession();
 
-            // Parse URL params
             const params = new URLSearchParams(window.location.search);
             const sidebarParam = params.get('sidebar');
             const catParam = params.get('cat');
@@ -2097,7 +2083,6 @@
             document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
             document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
 
-            // Edit modal events
             document.getElementById('edit-modal-overlay').onclick = closeEditModal;
             document.getElementById('edit-cancel-btn').onclick = closeEditModal;
             document.getElementById('edit-save-btn').onclick = saveEdit;
@@ -2120,17 +2105,14 @@
                 clearAll.onclick = clearAllMaterials;
             }
 
-            // Deep link: Login
             if (loginParam === 'true') {
                 setTimeout(() => openLoginModal(), 500);
             }
 
-            // Deep link: Sidebar
             if (sidebarParam === 'materimu') {
                 setTimeout(toggleDrawer, 300);
             }
 
-            // Show guide only once
             if (!localStorage.getItem('guideShown')) {
                 setTimeout(() => showModal('guide-modal'), 1500);
                 localStorage.setItem('guideShown', 'true');
@@ -2147,24 +2129,53 @@
                     isLoggedIn = false;
                     savedItems = [];
                     updateMaterimuUI();
-                    window.materimuCount = 0;
-                    if (window.nuqthahChannel) {
-                        window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: 0 });
-                    }
+                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: 0 });
                 }
             });
+
+            // --- LISTENER UNTUK PESAN DARI INDEX.HTML ---
+            nuqthahChannel.addEventListener('message', async function (event) {
+                if (event.data?.type === 'MATERIMU_ITEM_ADDED') {
+                    // Item ditambahkan dari index.html, reload data
+                    await loadSavedMaterials();
+                }
+                if (event.data?.type === 'MATERIMU_COUNT_UPDATE') {
+                    // Update count jika diperlukan
+                }
+            });
+
         });
 
         // Broadcast ready
-        if (window.nuqthahChannel) {
-            window.nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: 0 });
-        }
+        nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: 0 });
 
         console.log('✅ Nuqthah Materi — Fully integrated with Supabase for Materimu.');
+        console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
     </script>
 
     <script>
-        (function () { if (!window.chatbase || window.chatbase("getState") !== "initialized") { window.chatbase = (...arguments) => { if (!window.chatbase.q) { window.chatbase.q = [] } window.chatbase.q.push(arguments) }; window.chatbase = new Proxy(window.chatbase, { get(target, prop) { if (prop === "q") { return target.q } return (...args) => target(prop, ...args) } }) } const onLoad = function () { const script = document.createElement("script"); script.src = "https://www.chatbase.co/embed.min.js"; script.id = "wbrH-IPTjw2Y9XKpocaKT"; script.domain = "www.chatbase.co"; document.body.appendChild(script) }; if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) } })();
+        (function () {
+            if (!window.chatbase || window.chatbase("getState") !== "initialized") {
+                window.chatbase = (...arguments) => {
+                    if (!window.chatbase.q) { window.chatbase.q = [] }
+                    window.chatbase.q.push(arguments)
+                };
+                window.chatbase = new Proxy(window.chatbase, {
+                    get(target, prop) {
+                        if (prop === "q") { return target.q }
+                        return (...args) => target(prop, ...args)
+                    }
+                })
+            }
+            const onLoad = function () {
+                const script = document.createElement("script");
+                script.src = "https://www.chatbase.co/embed.min.js";
+                script.id = "wbrH-IPTjw2Y9XKpocaKT";
+                script.domain = "www.chatbase.co";
+                document.body.appendChild(script)
+            };
+            if (document.readyState === "complete") { onLoad() } else { window.addEventListener("load", onLoad) }
+        })();
     </script>
 
 </body>

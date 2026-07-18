@@ -225,7 +225,7 @@
             transition: opacity .3s ease;
             position: fixed;
             inset: 0;
-            z-index: 60;
+            z-index: 100;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -295,12 +295,14 @@
         }
 
         /* ============================================================
-           CUSTOM POPUP (FIXED)
+           CUSTOM POPUP (FIXED) - LAYER TERTINGGI
+           z-index: 999999 -> PALING DEPAN
         ============================================================ */
         #customPopup {
             position: fixed;
             inset: 0;
-            z-index: 9999;
+            z-index: 999999;
+            /* Layer paling depan */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -330,7 +332,8 @@
             opacity: 0;
             text-align: center;
             position: relative;
-            z-index: 10000;
+            z-index: 1000000;
+            /* Di dalam popup-box, tetap di atas */
         }
 
         #customPopup.show .popup-box {
@@ -407,7 +410,7 @@
             min-width: 120px;
             letter-spacing: 0.02em;
             position: relative;
-            z-index: 10001;
+            z-index: 1000001;
         }
 
         #customPopup .popup-btn:hover {
@@ -434,6 +437,131 @@
 
         #customPopup .popup-btn.danger:hover {
             background: #b91c1c;
+        }
+
+        /* ============================================================
+           MATERIMU POPUP - LAYER KEDUA
+           z-index: 90000 -> DI BAWAH customPopup
+        ============================================================ */
+        #materimuPopup {
+            position: fixed;
+            inset: 0;
+            z-index: 90000;
+            /* Di bawah customPopup (999999) */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            background: rgba(15, 74, 58, 0.3);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        #materimuPopup.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #materimuPopup .popup-box {
+            background: var(--cream);
+            max-width: 460px;
+            width: 100%;
+            border-radius: 24px;
+            box-shadow: 0 25px 60px rgba(15, 74, 58, 0.25);
+            transform: scale(0.92) translateY(10px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            opacity: 0;
+            overflow: hidden;
+        }
+
+        #materimuPopup.show .popup-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        #materimuPopup .popup-header {
+            background: var(--primary);
+            padding: 1.25rem 1.5rem;
+            color: white;
+        }
+
+        #materimuPopup .popup-header h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.4rem;
+        }
+
+        #materimuPopup .popup-body {
+            padding: 1.5rem;
+        }
+
+        #materimuPopup label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            display: block;
+            margin-bottom: 0.35rem;
+        }
+
+        #materimuPopup input {
+            width: 100%;
+            border: 1px solid rgba(15, 74, 58, .10);
+            border-radius: 12px;
+            padding: 12px 16px;
+            background: #fff;
+            outline: none;
+            transition: .25s;
+            font-size: .9rem;
+            font-family: 'Inter', sans-serif;
+        }
+
+        #materimuPopup input:focus {
+            border-color: rgba(15, 74, 58, .35);
+            box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
+        }
+
+        #materimuPopup .btn-save {
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            padding: 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        #materimuPopup .btn-save:hover {
+            background: #0b3d30;
+            transform: scale(1.01);
+        }
+
+        #materimuPopup .btn-save:active {
+            transform: scale(0.98);
+        }
+
+        #materimuPopup .btn-save:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        #materimuPopup .helper-text {
+            font-size: 0.75rem;
+            color: #6b7280;
+            line-height: 1.6;
+            text-align: center;
+            margin-top: 0.75rem;
         }
 
         /* ============================================================
@@ -492,6 +620,14 @@
                 padding: 16px 28px;
             }
 
+            #materimuPopup .popup-box {
+                margin: 1rem;
+            }
+
+            #materimuPopup .popup-body {
+                padding: 1.25rem;
+            }
+
             #customPopup .popup-box {
                 padding: 1.75rem 1.25rem;
             }
@@ -530,6 +666,14 @@
                 padding: 15px 24px;
             }
 
+            #materimuPopup .popup-box {
+                border-radius: 20px;
+            }
+
+            #materimuPopup .popup-header h3 {
+                font-size: 1.2rem;
+            }
+
             #customPopup .popup-box {
                 padding: 1.5rem 1rem;
                 border-radius: 22px;
@@ -547,13 +691,27 @@
             position: fixed;
             inset: 0;
         }
+
+        /* Materimu button styles */
+        #materimu-btn {
+            transition: all 0.3s ease;
+        }
+
+        #materimu-btn.has-link {
+            background: var(--secondary);
+        }
+
+        #materimu-btn.has-link:hover {
+            opacity: 0.85;
+            transform: translateY(-1px);
+        }
     </style>
 </head>
 
 <body>
 
     <!-- ============================================================
-    CUSTOM POPUP (FIXED)
+    CUSTOM POPUP (FIXED) - LAYER PALING DEPAN
     ============================================================ -->
     <div id="customPopup" role="dialog" aria-modal="true" aria-labelledby="popup-title"
         aria-describedby="popup-message">
@@ -565,6 +723,42 @@
             <p id="popup-message" class="popup-message">Pesan</p>
             <div id="popupActions" class="popup-actions">
                 <!-- Tombol akan dibuat oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MATERIMU POPUP - LAYER KEDUA (DI BAWAH CUSTOM POPUP)
+    ============================================================ -->
+    <div id="materimuPopup" role="dialog" aria-modal="true">
+        <div class="popup-box">
+            <div class="popup-header flex items-center justify-between">
+                <div>
+                    <h3>Tambah Materi</h3>
+                    <p class="text-xs opacity-80 mt-0.5">Simpan link akses materimu</p>
+                </div>
+                <button id="closeMaterimuPopup" class="text-white/70 hover:text-white transition-colors text-xl">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="popup-body space-y-4">
+                <div>
+                    <label for="popupMateriName">Nama Materi</label>
+                    <input type="text" id="popupMateriName" placeholder="Contoh: Fiqih Syafi'i Nashi">
+                </div>
+                <div>
+                    <label for="popupMateriLink">Link Produk / Akses</label>
+                    <input type="url" id="popupMateriLink" placeholder="https://nuqthah.myr.id/course/...">
+                </div>
+                <button id="saveMaterimuPopup" class="btn-save">
+                    <span>Simpan ke Materimu</span>
+                    <i class="fas fa-save"></i>
+                </button>
+                <p class="helper-text">
+                    Masukkan link akses yang dikirim ke email Anda setelah pembelian berhasil.
+                    Link tersebut akan disimpan ke Materimu sehingga Anda dapat membuka materi
+                    dengan lebih cepat tanpa harus mencari kembali email pembelian.
+                </p>
             </div>
         </div>
     </div>
@@ -588,6 +782,12 @@
             <button id="nav-register-btn"
                 class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
                 Daftar Gratis
+            </button>
+
+            <!-- Tombol Materimu -->
+            <button id="materimu-btn"
+                class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
+                Materimu
             </button>
 
             <button id="menu-toggle"
@@ -1001,15 +1201,12 @@
         );
 
         /* ============================================================
-           CUSTOM POPUP (FIXED)
-           
-           PERBAIKAN:
-           1. Promise sekarang selalu resolve ketika popup ditutup
-           2. Event listener untuk tombol dibuat dengan benar
-           3. State popup di-reset setiap kali ditutup
-           4. Tidak ada memory leak dari event listener
-           5. Backdrop dan ESC key berfungsi dengan baik
-           6. Semua tombol dapat diklik
+           BROADCAST CHANNEL (untuk komunikasi dengan materi.html)
+        ============================================================ */
+        const nuqthahChannel = new BroadcastChannel('nuqthah_sync');
+
+        /* ============================================================
+           CUSTOM POPUP (FIXED) - LAYER PALING DEPAN
         ============================================================ */
         (function () {
             const popupEl = document.getElementById('customPopup');
@@ -1018,7 +1215,6 @@
             const msgEl = document.getElementById('popup-message');
             const actionsEl = document.getElementById('popupActions');
 
-            // State
             let currentResolve = null;
             let isOpen = false;
 
@@ -1029,31 +1225,20 @@
                 info: { icon: 'fa-circle-info', cls: 'info' },
             };
 
-            // Handler untuk menutup popup
             function closePopup(value) {
                 if (!isOpen) return;
-
                 isOpen = false;
                 popupEl.classList.remove('show');
-
-                // Hapus event listener keyboard
                 document.removeEventListener('keydown', handleKeydown);
-
-                // Resolve promise jika ada
                 if (currentResolve) {
                     const resolve = currentResolve;
                     currentResolve = null;
                     resolve(value !== undefined ? value : true);
                 }
-
-                // Reset overflow body
                 document.body.style.overflow = '';
-
-                // Cleanup - hapus semua tombol
                 actionsEl.innerHTML = '';
             }
 
-            // Handler untuk keyboard (ESC)
             function handleKeydown(e) {
                 if (e.key === 'Escape' && isOpen) {
                     e.preventDefault();
@@ -1061,22 +1246,18 @@
                 }
             }
 
-            // Handler untuk backdrop click
             function handleBackdropClick(e) {
                 if (e.target === popupEl && isOpen) {
                     closePopup(null);
                 }
             }
 
-            // Fungsi utama showPopup
             window.showPopup = function (options) {
                 return new Promise((resolve) => {
-                    // Tutup popup sebelumnya jika masih terbuka
                     if (isOpen) {
                         closePopup(null);
                     }
 
-                    // Bersihkan actions
                     actionsEl.innerHTML = '';
 
                     const type = options.type || 'info';
@@ -1086,57 +1267,41 @@
 
                     const iconData = iconMap[type] || iconMap.info;
 
-                    // Set icon
                     iconEl.className = `popup-icon ${iconData.cls}`;
                     iconEl.innerHTML = `<i class="fas ${iconData.icon}"></i>`;
 
-                    // Set title dan message
                     titleEl.textContent = title;
                     msgEl.textContent = message;
 
-                    // Buat tombol
                     buttons.forEach((btn, index) => {
                         const btnEl = document.createElement('button');
                         btnEl.textContent = btn.text;
-                        btnEl.className = `popup-btn ${btn.primary ? '' : 'secondary'} ${btn.danger ? 'danger' : ''}`;
-
-                        // Simpan nilai
+                        btnEl.className =
+                            `popup-btn ${btn.primary ? '' : 'secondary'} ${btn.danger ? 'danger' : ''}`;
                         const value = btn.value !== undefined ? btn.value : index;
-
-                        // Event listener untuk tombol - menggunakan closure untuk menangkap value
                         btnEl.addEventListener('click', function (e) {
                             e.stopPropagation();
                             closePopup(value);
                         });
-
                         actionsEl.appendChild(btnEl);
                     });
 
-                    // Set state
                     isOpen = true;
                     currentResolve = resolve;
-
-                    // Tampilkan popup
                     popupEl.classList.add('show');
                     document.body.style.overflow = 'hidden';
 
-                    // Fokus pada tombol pertama
                     const firstBtn = actionsEl.querySelector('.popup-btn');
                     if (firstBtn) {
                         setTimeout(() => firstBtn.focus(), 50);
                     }
 
-                    // Pasang event listener keyboard
                     document.addEventListener('keydown', handleKeydown);
-
-                    // Pastikan event listener backdrop hanya satu
-                    // Hapus listener lama sebelum menambah baru
                     popupEl.removeEventListener('click', handleBackdropClick);
                     popupEl.addEventListener('click', handleBackdropClick);
                 });
             };
 
-            // Expose close untuk debugging jika diperlukan
             window.__closePopup = closePopup;
 
         })();
@@ -1185,6 +1350,14 @@
             resetPasswordFields: document.getElementById('resetPasswordFields'),
             resetModalTitle: document.getElementById('resetModalTitle'),
             resetModalSub: document.getElementById('resetModalSub'),
+
+            // Materimu Popup
+            materimuBtn: document.getElementById('materimu-btn'),
+            materimuPopup: document.getElementById('materimuPopup'),
+            closeMaterimuPopup: document.getElementById('closeMaterimuPopup'),
+            popupMateriName: document.getElementById('popupMateriName'),
+            popupMateriLink: document.getElementById('popupMateriLink'),
+            saveMaterimuPopup: document.getElementById('saveMaterimuPopup'),
         };
 
         /* ============================================================
@@ -1222,7 +1395,6 @@
             elements.loginModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.loginModal.querySelector('.modal-content').classList.add('scale-100');
             document.body.style.overflow = 'hidden';
-            // Fokus pada email
             setTimeout(() => document.getElementById('loginEmail').focus(), 100);
         }
 
@@ -1271,7 +1443,6 @@
             elements.resetModal.querySelector('.modal-content').classList.add('scale-95');
             elements.resetModal.querySelector('.modal-content').classList.remove('scale-100');
             document.body.style.overflow = '';
-            // Reset ke mode default
             elements.resetEmailField.classList.remove('hidden');
             elements.resetPasswordFields.classList.add('hidden');
             elements.resetModalTitle.textContent = 'Reset Password';
@@ -1292,6 +1463,286 @@
         }
 
         /* ============================================================
+           MATERIMU POPUP
+        ============================================================ */
+        (function () {
+            let savedLink = null;
+            let savedRecordId = null;
+            let isChecking = false;
+
+            // Fungsi untuk mengecek apakah user memiliki materi tersimpan
+            async function checkSavedMaterial() {
+                if (isChecking) return;
+                isChecking = true;
+
+                try {
+                    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+                    if (userError || !user) {
+                        savedLink = null;
+                        savedRecordId = null;
+                        updateButtonBehavior();
+                        return;
+                    }
+
+                    // Cari materi manual pertama yang tersimpan untuk user ini
+                    const { data, error } = await supabaseClient
+                        .from('saved_materials')
+                        .select('id, link')
+                        .eq('user_id', user.id)
+                        .limit(1)
+                        .maybeSingle();
+
+                    if (error) {
+                        console.warn('Check saved material error:', error);
+                        savedLink = null;
+                        savedRecordId = null;
+                        updateButtonBehavior();
+                        return;
+                    }
+
+                    if (data && data.link && data.link !== '#' && data.link.trim() !== '') {
+                        savedLink = data.link;
+                        savedRecordId = data.id;
+                    } else {
+                        savedLink = null;
+                        savedRecordId = null;
+                    }
+
+                    updateButtonBehavior();
+
+                } catch (err) {
+                    console.warn('Check saved material error:', err);
+                    savedLink = null;
+                    savedRecordId = null;
+                    updateButtonBehavior();
+                } finally {
+                    isChecking = false;
+                }
+            }
+
+            // Update perilaku tombol berdasarkan state
+            function updateButtonBehavior() {
+                const btn = elements.materimuBtn;
+                if (!btn) return;
+
+                if (savedLink && savedLink !== '#' && savedLink.trim() !== '') {
+                    // Kondisi 2: Ada link, buka link langsung di tab yang SAMA
+                    btn.className =
+                        'bg-secondary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-85 transition-all has-link';
+                    btn.innerHTML = 'Materimu <i class="fas fa-external-link-alt text-xs ml-1"></i>';
+                    btn.onclick = function (e) {
+                        e.preventDefault();
+                        // Menggunakan window.location.href untuk membuka di tab yang SAMA
+                        window.location.href = savedLink;
+                    };
+                    btn.style.cursor = 'pointer';
+                } else {
+                    // Kondisi 1: Tidak ada link, buka popup
+                    btn.className =
+                        'bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all';
+                    btn.innerHTML = 'Materimu';
+                    btn.onclick = function (e) {
+                        e.preventDefault();
+                        openMaterimuPopup();
+                    };
+                    btn.style.cursor = 'pointer';
+                }
+            }
+
+            // Buka popup
+            function openMaterimuPopup() {
+                const popup = elements.materimuPopup;
+                if (!popup) return;
+                popup.classList.add('show');
+                document.body.style.overflow = 'hidden';
+                elements.popupMateriName.value = '';
+                elements.popupMateriLink.value = '';
+                setTimeout(() => elements.popupMateriName.focus(), 100);
+            }
+
+            // Tutup popup
+            function closeMaterimuPopup() {
+                const popup = elements.materimuPopup;
+                if (!popup) return;
+                popup.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            // Simpan materi dari popup
+            async function saveFromPopup() {
+                const name = elements.popupMateriName.value.trim();
+                const link = elements.popupMateriLink.value.trim();
+
+                if (!name || !link) {
+                    await window.showPopup({
+                        type: 'warning',
+                        title: 'Form Belum Lengkap',
+                        message: 'Silakan isi Nama Materi dan Link Produk / Akses.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                    return;
+                }
+
+                // Cek login
+                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+                if (userError || !user) {
+                    await window.showPopup({
+                        type: 'warning',
+                        title: 'Belum Login',
+                        message: 'Silakan login terlebih dahulu untuk menyimpan materi.',
+                        buttons: [{ text: 'Login', primary: true, value: 'login' }]
+                    });
+                    closeMaterimuPopup();
+                    setTimeout(openLoginModal, 300);
+                    return;
+                }
+
+                // Disable tombol
+                const saveBtn = elements.saveMaterimuPopup;
+                saveBtn.disabled = true;
+                saveBtn.querySelector('span').textContent = 'Menyimpan...';
+                saveBtn.querySelector('i').className = 'fas fa-spinner fa-spin';
+
+                try {
+                    const courseId = 'manual-' + Date.now();
+
+                    const { data, error } = await supabaseClient
+                        .from('saved_materials')
+                        .insert({
+                            user_id: user.id,
+                            course_id: courseId,
+                            title: name,
+                            link: link,
+                            image: null
+                        })
+                        .select();
+
+                    if (error) {
+                        console.error('❌ Save from popup error:', error);
+                        await window.showPopup({
+                            type: 'error',
+                            title: 'Gagal Menyimpan',
+                            message: 'Terjadi kesalahan: ' + error.message,
+                            buttons: [{ text: 'Mengerti', primary: true }]
+                        });
+                        return;
+                    }
+
+                    console.log('✅ Materi saved from popup:', data);
+
+                    // Update state
+                    savedLink = link;
+                    savedRecordId = data[0]?.id || null;
+                    updateButtonBehavior();
+
+                    closeMaterimuPopup();
+
+                    // Kirim pesan ke materi.html (jika terbuka)
+                    nuqthahChannel.postMessage({
+                        type: 'MATERIMU_ITEM_ADDED',
+                        item: {
+                            id: data[0]?.id,
+                            title: name,
+                            link: link,
+                            course_id: courseId
+                        }
+                    });
+
+                    // Kirim update count
+                    const count = await getMaterimuCount(user.id);
+                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
+
+                    await window.showPopup({
+                        type: 'success',
+                        title: 'Materi Tersimpan!',
+                        message: 'Materi "' + name + '" berhasil disimpan. Klik tombol Materimu untuk mengakses langsung.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+
+                } catch (err) {
+                    console.error('❌ Save from popup error:', err);
+                    await window.showPopup({
+                        type: 'error',
+                        title: 'Gagal Menyimpan',
+                        message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                        buttons: [{ text: 'Mengerti', primary: true }]
+                    });
+                } finally {
+                    saveBtn.disabled = false;
+                    saveBtn.querySelector('span').textContent = 'Simpan ke Materimu';
+                    saveBtn.querySelector('i').className = 'fas fa-save';
+                }
+            }
+
+            // Dapatkan jumlah materi user
+            async function getMaterimuCount(userId) {
+                try {
+                    const { count, error } = await supabaseClient
+                        .from('saved_materials')
+                        .select('*', { count: 'exact', head: true })
+                        .eq('user_id', userId);
+                    if (error) throw error;
+                    return count || 0;
+                } catch (err) {
+                    console.warn('Get count error:', err);
+                    return 0;
+                }
+            }
+
+            // Event Listeners
+            elements.closeMaterimuPopup.addEventListener('click', closeMaterimuPopup);
+            elements.materimuPopup.addEventListener('click', function (e) {
+                if (e.target === this) closeMaterimuPopup();
+            });
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && elements.materimuPopup.classList.contains('show')) {
+                    closeMaterimuPopup();
+                }
+            });
+            elements.saveMaterimuPopup.addEventListener('click', saveFromPopup);
+
+            // Enter key support
+            elements.popupMateriName.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    elements.popupMateriLink.focus();
+                }
+            });
+            elements.popupMateriLink.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    elements.saveMaterimuPopup.click();
+                }
+            });
+
+            // Ekspos fungsi untuk dipanggil dari luar
+            window.materimuPopup = {
+                open: openMaterimuPopup,
+                close: closeMaterimuPopup,
+                check: checkSavedMaterial,
+                refresh: checkSavedMaterial
+            };
+
+            // Inisialisasi
+            document.addEventListener('DOMContentLoaded', function () {
+                setTimeout(checkSavedMaterial, 500);
+            });
+
+            // Listener untuk perubahan dari materi.html
+            nuqthahChannel.addEventListener('message', function (event) {
+                if (event.data?.type === 'MATERIMU_ITEM_DELETED') {
+                    setTimeout(checkSavedMaterial, 300);
+                }
+                if (event.data?.type === 'MATERIMU_COUNT_UPDATE' && event.data.count === 0) {
+                    savedLink = null;
+                    savedRecordId = null;
+                    updateButtonBehavior();
+                }
+            });
+
+        })();
+
+        /* ============================================================
            SESSION CHECK & UI UPDATE
         ============================================================ */
         async function checkSessionAndUpdateUI() {
@@ -1306,7 +1757,6 @@
                 const refreshToken = urlParams.get('refresh_token');
 
                 if (mode === 'reset' && accessToken) {
-                    // Set session dari token reset
                     const { data: sessionData, error: sessionError } = await supabaseClient.auth.setSession({
                         access_token: accessToken,
                         refresh_token: refreshToken
@@ -1314,10 +1764,8 @@
                     if (sessionError) {
                         console.warn('Set session error:', sessionError);
                     } else {
-                        // Tampilkan modal reset password
                         setTimeout(() => {
                             openResetModal('newpassword');
-                            // Hapus parameter URL
                             const newUrl = window.location.pathname;
                             window.history.replaceState({}, document.title, newUrl);
                         }, 500);
@@ -1347,6 +1795,11 @@
                     elements.searchCta.classList.remove('pointer-events-none', 'opacity-90');
                     delete elements.searchCta.dataset.redirecting;
 
+                    // Update Materimu popup state
+                    if (window.materimuPopup?.check) {
+                        setTimeout(window.materimuPopup.check, 300);
+                    }
+
                 } else {
                     // Logged out
                     elements.navRegisterBtn.textContent = 'Daftar Gratis';
@@ -1359,6 +1812,11 @@
 
                     if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
                     if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
+
+                    // Reset Materimu popup state
+                    if (window.materimuPopup?.check) {
+                        setTimeout(window.materimuPopup.check, 300);
+                    }
                 }
             } catch (err) {
                 console.warn('Session check error:', err);
@@ -1403,7 +1861,7 @@
             const confirm = document.getElementById('regConfirm').value;
 
             if (!name || !email || !wa || !program || !pass || !confirm) {
-                await showPopup({
+                await window.showPopup({
                     type: 'warning',
                     title: 'Form Belum Lengkap',
                     message: 'Silakan isi semua kolom yang tersedia.',
@@ -1413,7 +1871,7 @@
             }
 
             if (pass !== confirm) {
-                await showPopup({
+                await window.showPopup({
                     type: 'warning',
                     title: 'Password Tidak Cocok',
                     message: 'Password dan Konfirmasi Password harus sama.',
@@ -1423,7 +1881,7 @@
             }
 
             if (pass.length < 6) {
-                await showPopup({
+                await window.showPopup({
                     type: 'warning',
                     title: 'Password Terlalu Pendek',
                     message: 'Password minimal 6 karakter.',
@@ -1453,7 +1911,7 @@
                     let msg = 'Terjadi kesalahan saat pendaftaran.';
                     if (error.message.includes('already registered') || error.message.includes('already exists')) {
                         msg = 'Email tersebut sudah terdaftar. Silakan login menggunakan akun Anda.';
-                        await showPopup({
+                        await window.showPopup({
                             type: 'error',
                             title: 'Email Terdaftar',
                             message: msg,
@@ -1470,7 +1928,7 @@
                     } else {
                         msg = error.message;
                     }
-                    await showPopup({
+                    await window.showPopup({
                         type: 'error',
                         title: 'Registrasi Gagal',
                         message: msg,
@@ -1524,7 +1982,7 @@
 
                 await checkSessionAndUpdateUI();
 
-                await showPopup({
+                await window.showPopup({
                     type: 'success',
                     title: 'Registrasi Berhasil',
                     message: 'Selamat bergabung di keluarga Nuqthah Learning Center. Anda akan diarahkan ke katalog materi.',
@@ -1537,7 +1995,7 @@
 
             } catch (err) {
                 console.error('Registration error:', err);
-                await showPopup({
+                await window.showPopup({
                     type: 'error',
                     title: 'Registrasi Gagal',
                     message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
@@ -1559,7 +2017,7 @@
             const password = document.getElementById('loginPass').value;
 
             if (!email || !password) {
-                await showPopup({
+                await window.showPopup({
                     type: 'warning',
                     title: 'Form Kosong',
                     message: 'Silakan isi email dan password Anda.',
@@ -1591,7 +2049,7 @@
                         msg = error.message;
                     }
 
-                    const result = await showPopup({
+                    const result = await window.showPopup({
                         type: 'error',
                         title: 'Login Gagal',
                         message: msg,
@@ -1601,19 +2059,15 @@
                         ]
                     });
 
-                    // Handle hasil popup
                     if (result === 'forgot') {
-                        // Tutup login modal, buka reset modal
                         closeLoginModal();
                         setTimeout(() => openResetModal('reset'), 300);
                     }
-                    // Jika 'retry' atau null, tetap di login modal
 
                     loginBtnText.textContent = "Login";
                     loginBtnIcon.className = "fas fa-sign-in-alt";
                     elements.loginForm.classList.remove('pointer-events-none', 'opacity-50');
 
-                    // Jika retry, fokus ke password
                     if (result === 'retry' || result === null || result === true) {
                         setTimeout(() => document.getElementById('loginPass').focus(), 100);
                     }
@@ -1623,7 +2077,7 @@
                 closeLoginModal();
                 await checkSessionAndUpdateUI();
 
-                await showPopup({
+                await window.showPopup({
                     type: 'success',
                     title: 'Login Berhasil',
                     message: 'Selamat datang kembali! Anda akan diarahkan ke halaman materi.',
@@ -1636,7 +2090,7 @@
 
             } catch (err) {
                 console.error('Login error:', err);
-                await showPopup({
+                await window.showPopup({
                     type: 'error',
                     title: 'Login Gagal',
                     message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
@@ -1654,16 +2108,14 @@
         async function handleReset(e) {
             e.preventDefault();
 
-            // Cek apakah dalam mode new password
             const isNewPassword = elements.resetPasswordFields.classList.contains('hidden') === false;
 
             if (isNewPassword) {
-                // Mode new password
                 const newPass = elements.resetNewPass.value;
                 const confirmPass = elements.resetConfirmPass.value;
 
                 if (!newPass || !confirmPass) {
-                    await showPopup({
+                    await window.showPopup({
                         type: 'warning',
                         title: 'Form Kosong',
                         message: 'Silakan isi password baru dan konfirmasi.',
@@ -1673,7 +2125,7 @@
                 }
 
                 if (newPass.length < 6) {
-                    await showPopup({
+                    await window.showPopup({
                         type: 'warning',
                         title: 'Password Terlalu Pendek',
                         message: 'Password minimal 6 karakter.',
@@ -1683,7 +2135,7 @@
                 }
 
                 if (newPass !== confirmPass) {
-                    await showPopup({
+                    await window.showPopup({
                         type: 'warning',
                         title: 'Password Tidak Cocok',
                         message: 'Password dan Konfirmasi Password harus sama.',
@@ -1710,7 +2162,7 @@
                         } else {
                             msg = error.message;
                         }
-                        await showPopup({
+                        await window.showPopup({
                             type: 'error',
                             title: 'Gagal Update Password',
                             message: msg,
@@ -1724,7 +2176,7 @@
 
                     closeResetModal();
 
-                    await showPopup({
+                    await window.showPopup({
                         type: 'success',
                         title: 'Password Berhasil Diperbarui',
                         message: 'Silakan login menggunakan password baru Anda.',
@@ -1737,7 +2189,7 @@
 
                 } catch (err) {
                     console.error('Update password error:', err);
-                    await showPopup({
+                    await window.showPopup({
                         type: 'error',
                         title: 'Gagal Update Password',
                         message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
@@ -1754,7 +2206,7 @@
             const email = elements.resetEmail.value.trim();
 
             if (!email) {
-                await showPopup({
+                await window.showPopup({
                     type: 'warning',
                     title: 'Email Kosong',
                     message: 'Silakan masukkan email Anda.',
@@ -1781,7 +2233,7 @@
                     } else {
                         msg = error.message;
                     }
-                    await showPopup({
+                    await window.showPopup({
                         type: 'error',
                         title: 'Gagal Kirim Link',
                         message: msg,
@@ -1795,7 +2247,7 @@
 
                 closeResetModal();
 
-                await showPopup({
+                await window.showPopup({
                     type: 'success',
                     title: 'Link Reset Password Berhasil Dikirim',
                     message: 'Silakan buka email Anda. Klik tautan yang telah kami kirim. Setelah itu Anda dapat membuat password baru.',
@@ -1808,7 +2260,7 @@
 
             } catch (err) {
                 console.error('Reset password error:', err);
-                await showPopup({
+                await window.showPopup({
                     type: 'error',
                     title: 'Gagal Kirim Link',
                     message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
@@ -1923,7 +2375,6 @@
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
-                // Tutup modal yang terbuka (tidak akan mengganggu popup karena popup punya handler sendiri)
                 closeRegisterModal();
                 closeLoginModal();
                 closeResetModal();
@@ -1953,7 +2404,9 @@
         window.addEventListener('resize', setVh);
         setVh();
 
-        console.log('✅ Nuqthah Gateway — Popup fixed: semua tombol dapat diklik, promise selalu resolve, tidak ada freeze.');
+        console.log('✅ Nuqthah Gateway — Popup layer fixed: customPopup (z-index: 999999) is above materimuPopup (z-index: 90000)');
+        console.log('✅ Materimu button integrated with Supabase saved_materials table.');
+        console.log('✅ Materimu link opens in same tab using window.location.href');
     </script>
 
 </body>
