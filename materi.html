@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuqthah Learning - Pusat Pembelajaran Ilmu Syar'i</title>
+    <title>Materi - Nuqthah Learning Center</title>
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logofix.png">
@@ -178,7 +178,7 @@
 
         <div class="flex items-center gap-2 md:gap-3">
             <button onclick="openLoginModal(event)"
-                class="bg-accent text-white px-4 py-1.5 rounded-lg font-bold text-xs md:text-sm hover:bg-opacity-90 transition-all">Login</button>
+                class="bg-accent text-white px-4 py-1.5 rounded-lg font-bold text-xs md:text-sm hover:bg-opacity-90 transition-all">Portal</button>
             <button id="materimu-toggle-btn"
                 class="flex items-center gap-2 bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-colors relative">
                 <i class="far fa-bookmark"></i>
@@ -299,6 +299,7 @@
         <!-- #course-grid begin -->
         <div id="course-grid"
             class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-24 overflow-hidden">
+
 
 
 
@@ -590,7 +591,6 @@
 
 
 
-
             <!-- =============================================================================================
              ==================================================================================================
              BIMBEL SYARIAH: TK 3
@@ -843,7 +843,8 @@
                 data-id="nlc-tf-fiqih-Bughyatul-bahits" data-category="tafaqquh" data-subfilter="Fiqih"
                 style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
-                    <img src="assets/usttirto.jpeg" alt="Bughyatul Bahits"
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/c55de257_usttirto.jpeg"
+                        alt="Bughyatul Bahits"
                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     <div
                         class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
@@ -1333,10 +1334,6 @@
 
 
 
-
-
-
-
         </div>
         <!-- #course-grid end -->
     </main>
@@ -1481,18 +1478,20 @@
         </div>
     </div>
 
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+    </script>
+
     <script>
-        // --- 1. BRIDGE INITIALIZATION & DATA ONLY CHECK ---
+        // --- 1. SUPABASE CONFIG ---
+        const SUPABASE_URL = 'https://idwrkzekykarxnuoaysu.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_N96gYsm_jeSntalN3qMVCA_TpXloD4u';
+        const { createClient } = supabase;
+        const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+        // --- 2. BRIDGE INITIALIZATION & DATA ONLY CHECK ---
         const urlParams = new URLSearchParams(window.location.search);
         const isBridgeMode = urlParams.get('mode') === 'bridge';
-
-        // Load data immediately
-        let savedMaterials = [];
-        try {
-            savedMaterials = JSON.parse(localStorage.getItem('savedMaterials')) || [];
-        } catch (e) {
-            console.error('Error loading materials:', e);
-        }
 
         // Communication Bridge Setup
         window.nuqthahChannel = new BroadcastChannel('nuqthah_sync');
@@ -1500,7 +1499,7 @@
         // Handle incoming queries from main site
         window.addEventListener('message', (event) => {
             if (event.data?.type === 'GET_MATERIMU_COUNT') {
-                const count = savedMaterials.length;
+                const count = window.materimuCount || 0;
                 if (event.source) {
                     event.source.postMessage({
                         type: 'MATERIMU_COUNT_RESPONSE',
@@ -1510,269 +1509,510 @@
             }
         });
 
-        // Broadcast that this bridge is ready
-        window.nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: savedMaterials.length });
+        // --- 3. GLOBAL STATE ---
+        let currentUser = null;
+        let savedCourseIds = []; // hanya menyimpan course_id
+        let isLoggedIn = false;
 
-        // Exit early if bridge mode is active (no UI needed)
-        if (isBridgeMode) {
-            console.log("Nuqthah Bridge: Running in background data-only mode.");
-            window.saveToMaterimu = () => { };
-            window.removeFromMaterimu = () => { };
-            window.updateMaterimuUI = () => { };
+        // --- 4. SESSION MANAGEMENT ---
+        async function checkSession() {
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                if (error) throw error;
+                if (session) {
+                    currentUser = session.user;
+                    isLoggedIn = true;
+                    await loadSavedMaterials();
+                } else {
+                    currentUser = null;
+                    isLoggedIn = false;
+                    savedCourseIds = [];
+                    updateMaterimuUI();
+                }
+            } catch (err) {
+                console.error('Session check error:', err);
+                currentUser = null;
+                isLoggedIn = false;
+                savedCourseIds = [];
+                updateMaterimuUI();
+            }
         }
 
-        // --- 2. FULL UI INITIALIZATION (SKIP IF BRIDGE) ---
-        if (!isBridgeMode) {
-            const PROGRAMS = {
-                syariah: { label: 'Bimbel Syariah', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'bs' },
-                ushul: { label: 'Bimbel Ushul', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'us' },
-                tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'], prefix: 'tf' },
-                tashil: { label: "Ta'shil", subs: ['Nahwu', 'Sharaf', 'Balaghah', 'Mantiq'], prefix: 'ts' },
-                amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'], prefix: 'am' }
-            };
-
-            let currentCategory = 'syariah';
-            let currentSubFilter = 'Semua';
-
-            window.openLoginModal = function (event) {
-                if (event) event.preventDefault();
-                showModal('login-guide-modal');
-            };
-
-            window.changeCategory = function (categoryKey) {
-                if (!PROGRAMS[categoryKey]) return;
-
-                currentCategory = categoryKey;
-                currentSubFilter = 'Semua';
-
-                document.querySelectorAll('.nav-tab').forEach(tab => {
-                    const isActive = tab.getAttribute('data-category') === categoryKey;
-                    tab.className = `nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium ${isActive ? 'bg-primary text-white' : 'text-gray-600'}`;
-                });
-
-                renderSubFilters();
-                applyFilters();
-
-                const activeTab = document.querySelector(`.nav-tab[data-category="${categoryKey}"]`);
-                const container = document.getElementById('category-tabs');
-                if (activeTab && container) {
-                    const scrollLeft = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
-                    container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
-                }
-
-                const url = new URL(window.location.href);
-                url.searchParams.set('cat', categoryKey);
-                window.history.replaceState({}, '', url.pathname + url.search);
-            };
-
-            function renderSubFilters() {
-                const container = document.getElementById('sub-filter-container');
-                if (!container) return;
-
-                const subs = PROGRAMS[currentCategory].subs;
-                const filters = ['Semua', ...subs];
-
-                container.innerHTML = '';
-                filters.forEach(filter => {
-                    const btn = document.createElement('button');
-                    btn.textContent = filter;
-                    btn.className = `px-4 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border transition-all ${currentSubFilter === filter ? 'bg-accent text-white border-accent' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/40'}`;
-                    btn.onclick = (e) => {
-                        e.preventDefault();
-                        currentSubFilter = filter;
-                        renderSubFilters();
-                        applyFilters();
-                    };
-                    container.appendChild(btn);
-                });
+        // --- 5. LOAD SAVED MATERIALS (hanya course_id) ---
+        async function loadSavedMaterials() {
+            if (!isLoggedIn || !currentUser) {
+                savedCourseIds = [];
+                updateMaterimuUI();
+                return;
             }
 
-            function applyFilters() {
-                const cards = document.querySelectorAll('.course-card');
-                cards.forEach(card => {
-                    const matchesCat = card.getAttribute('data-category') === currentCategory;
-                    const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') === currentSubFilter;
-                    card.style.display = (matchesCat && matchesSub) ? 'flex' : 'none';
-                });
+            try {
+                const { data, error } = await supabaseClient
+                    .from('saved_materials')
+                    .select('course_id')
+                    .eq('user_id', currentUser.id)
+                    .order('created_at', { ascending: false });
+
+                if (error) throw error;
+
+                savedCourseIds = data.map(item => item.course_id);
+                console.log('✅ Loaded course_ids:', savedCourseIds);
+
+                updateMaterimuUI();
+                // Broadcast count
+                window.materimuCount = savedCourseIds.length;
+                if (window.nuqthahChannel) {
+                    window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedCourseIds.length });
+                }
+            } catch (err) {
+                console.error('Load saved materials error:', err);
+                savedCourseIds = [];
+                updateMaterimuUI();
+            }
+        }
+
+        // --- 6. SAVE MATERIAL (hanya user_id dan course_id) ---
+        async function saveToMaterimu(courseId) {
+            // 1. Pastikan user login
+            const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+            if (userError || !user) {
+                alert('Silakan login terlebih dahulu.');
+                openLoginModal();
+                return;
             }
 
-            window.showModal = function (id) {
-                const m = document.getElementById(id);
-                if (m) {
-                    m.classList.remove('hidden');
-                    document.body.style.overflow = 'hidden';
-                }
-            };
+            // 2. Cek apakah sudah tersimpan
+            if (savedCourseIds.includes(courseId)) {
+                toggleDrawer();
+                return;
+            }
 
-            window.hideModal = function (id) {
-                const m = document.getElementById(id);
-                if (m) {
-                    m.classList.add('hidden');
-                    document.body.style.overflow = '';
-                }
-            };
+            console.log('🔄 Saving course_id:', courseId, 'for user:', user.id);
 
-            window.toggleDrawer = function () {
-                const drawer = document.getElementById('materimu-drawer');
-                const overlay = document.getElementById('drawer-overlay');
-                if (!drawer || !overlay) return;
-                drawer.classList.toggle('translate-x-full');
-                overlay.classList.toggle('opacity-0');
-                overlay.classList.toggle('pointer-events-none');
-            };
+            try {
+                const { data, error } = await supabaseClient
+                    .from('saved_materials')
+                    .insert({
+                        user_id: user.id,
+                        course_id: courseId
+                    })
+                    .select();
 
-            window.saveToMaterimu = function (id) {
-                if (savedMaterials.find(m => m.id === id)) {
-                    toggleDrawer();
+                if (error) {
+                    console.error('❌ Supabase INSERT error:', error);
+                    if (error.code === '23505') {
+                        // Duplicate - already saved
+                        toggleDrawer();
+                        return;
+                    }
+                    alert('Gagal menyimpan materi: ' + error.message);
                     return;
                 }
 
-                const card = document.querySelector(`.course-card[data-id="${id}"]`);
-                if (card) {
-                    const name = card.querySelector('h3').innerText.trim();
-                    const thumb = card.querySelector('img').src;
-                    const url = card.querySelector('a').getAttribute('href');
+                console.log('✅ Insert success:', data);
 
-                    savedMaterials.push({ id, name, url, thumb });
-                    localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
-                    updateMaterimuUI();
-                    toggleDrawer();
+                // Reload to get latest
+                await loadSavedMaterials();
+                toggleDrawer();
+            } catch (err) {
+                console.error('❌ Save material error:', err);
+                alert('Gagal menyimpan materi: ' + err.message);
+            }
+        }
+
+        // --- 7. REMOVE MATERIAL ---
+        async function removeFromMaterimu(courseId) {
+            if (!isLoggedIn || !currentUser) {
+                alert('Silakan login terlebih dahulu.');
+                return;
+            }
+
+            console.log('🔄 Removing course_id:', courseId);
+
+            try {
+                const { error } = await supabaseClient
+                    .from('saved_materials')
+                    .delete()
+                    .eq('user_id', currentUser.id)
+                    .eq('course_id', courseId);
+
+                if (error) {
+                    console.error('❌ Delete error:', error);
+                    alert('Gagal menghapus materi: ' + error.message);
+                    return;
                 }
-            };
 
-            window.removeFromMaterimu = function (id) {
-                savedMaterials = savedMaterials.filter(m => m.id !== id);
-                localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
-                updateMaterimuUI();
-            };
+                console.log('✅ Delete success');
+                await loadSavedMaterials();
+            } catch (err) {
+                console.error('❌ Remove material error:', err);
+                alert('Gagal menghapus materi: ' + err.message);
+            }
+        }
 
-            window.updateMaterimuUI = function () {
-                const drawerBadge = document.getElementById('materimu-badge');
-                const drawerCountBadge = document.getElementById('drawer-count-badge');
-                const drawerContent = document.getElementById('drawer-content');
-                const emptyState = document.getElementById('drawer-empty');
+        // --- 8. CLEAR ALL MATERIALS ---
+        async function clearAllMaterials() {
+            if (!isLoggedIn || !currentUser) {
+                alert('Silakan login terlebih dahulu.');
+                return;
+            }
+            if (!confirm('Kosongkan daftar materi Anda?')) return;
 
-                const count = savedMaterials.length;
-                if (drawerBadge) drawerBadge.textContent = count;
-                if (drawerCountBadge) drawerCountBadge.textContent = count;
+            console.log('🔄 Clearing all materials for user:', currentUser.id);
 
-                if (window.nuqthahChannel) {
-                    window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
+            try {
+                const { error } = await supabaseClient
+                    .from('saved_materials')
+                    .delete()
+                    .eq('user_id', currentUser.id);
+
+                if (error) {
+                    console.error('❌ Clear all error:', error);
+                    alert('Gagal mengosongkan daftar: ' + error.message);
+                    return;
                 }
 
-                if (drawerContent) {
-                    if (emptyState) emptyState.style.display = count > 0 ? 'none' : 'flex';
-                    drawerContent.querySelectorAll('.saved-item').forEach(item => item.remove());
+                console.log('✅ Clear all success');
+                await loadSavedMaterials();
+            } catch (err) {
+                console.error('❌ Clear all materials error:', err);
+                alert('Gagal mengosongkan daftar: ' + err.message);
+            }
+        }
 
-                    savedMaterials.forEach(item => {
-                        const itemDiv = document.createElement('div');
-                        itemDiv.className = 'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
-                        itemDiv.innerHTML = `
+        // --- 9. MANUAL ADD MATERIAL ---
+        async function saveManualMaterial() {
+            const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+            if (userError || !user) {
+                alert('Silakan login terlebih dahulu.');
+                return;
+            }
+
+            const nameInput = document.getElementById('manual-name');
+            const urlInput = document.getElementById('manual-link');
+            const name = nameInput.value.trim();
+            const url = urlInput.value.trim();
+
+            if (!name || !url) {
+                alert('Nama dan Link harus diisi.');
+                return;
+            }
+
+            // Buat ID unik untuk manual
+            const courseId = 'manual-' + Date.now();
+
+            // Cari card dengan data-id yang sama (tidak ada, karena manual)
+            // Kita akan simpan di localStorage sebagai cache untuk manual entries
+            // Tapi data utama tetap di Supabase
+            try {
+                // Simpan ke Supabase (hanya user_id dan course_id)
+                const { data, error } = await supabaseClient
+                    .from('saved_materials')
+                    .insert({
+                        user_id: user.id,
+                        course_id: courseId
+                    })
+                    .select();
+
+                if (error) {
+                    console.error('❌ Manual insert error:', error);
+                    alert('Gagal menyimpan materi: ' + error.message);
+                    return;
+                }
+
+                console.log('✅ Manual insert success:', data);
+
+                // Simpan metadata manual ke localStorage sebagai cache
+                let manualCache = JSON.parse(localStorage.getItem('manual_materials_cache') || '{}');
+                manualCache[courseId] = {
+                    name: name,
+                    url: url,
+                    thumb: 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png'
+                };
+                localStorage.setItem('manual_materials_cache', JSON.stringify(manualCache));
+
+                await loadSavedMaterials();
+                nameInput.value = '';
+                urlInput.value = '';
+                document.getElementById('manual-form-container').classList.add('hidden');
+            } catch (err) {
+                console.error('❌ Save manual material error:', err);
+                alert('Gagal menyimpan materi: ' + err.message);
+            }
+        }
+
+        // --- 10. GET CARD DATA BY COURSE ID ---
+        function getCardData(courseId) {
+            // Cari kartu dengan data-id
+            const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
+            if (card) {
+                const name = card.querySelector('h3')?.innerText?.trim() || 'Materi';
+                const thumb = card.querySelector('img')?.src || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                const url = card.querySelector('a')?.getAttribute('href') || '#';
+                return { name, thumb, url };
+            }
+
+            // Cek manual cache
+            const manualCache = JSON.parse(localStorage.getItem('manual_materials_cache') || '{}');
+            if (manualCache[courseId]) {
+                return manualCache[courseId];
+            }
+
+            // Fallback
+            return {
+                name: 'Materi',
+                thumb: 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png',
+                url: '#'
+            };
+        }
+
+        // --- 11. UPDATE UI ---
+        function updateMaterimuUI() {
+            const drawerBadge = document.getElementById('materimu-badge');
+            const drawerCountBadge = document.getElementById('drawer-count-badge');
+            const drawerContent = document.getElementById('drawer-content');
+            const emptyState = document.getElementById('drawer-empty');
+
+            const count = savedCourseIds.length;
+            if (drawerBadge) drawerBadge.textContent = count;
+            if (drawerCountBadge) drawerCountBadge.textContent = count;
+
+            // Update global count
+            window.materimuCount = count;
+            if (window.nuqthahChannel) {
+                window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
+            }
+
+            if (drawerContent) {
+                if (emptyState) emptyState.style.display = count > 0 ? 'none' : 'flex';
+                drawerContent.querySelectorAll('.saved-item').forEach(item => item.remove());
+
+                savedCourseIds.forEach(courseId => {
+                    const cardData = getCardData(courseId);
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
+                    itemDiv.innerHTML = `
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
-                            <img src="${item.thumb}" class="w-full h-full object-cover">
+                            <img src="${cardData.thumb}" class="w-full h-full object-cover">
                         </div>
                         <div class="flex-grow flex flex-col justify-between py-0.5">
-                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight">${item.name}</h4>
+                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight">${cardData.name}</h4>
                             <div class="flex items-center gap-2 mt-2">
-                                <button onclick="handleDaftar(event, '${item.url}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
-                                <button onclick="removeFromMaterimu('${item.id}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
+                                <button onclick="handleDaftar(event, '${cardData.url}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
+                                <button onclick="removeFromMaterimu('${courseId}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
                                     <i class="far fa-trash-can"></i>
                                 </button>
                             </div>
                         </div>
                     `;
-                        drawerContent.appendChild(itemDiv);
-                    });
-                }
-            };
+                    drawerContent.appendChild(itemDiv);
+                });
+            }
+        }
 
-            window.handleDaftar = function (e, url) {
-                if (e) e.preventDefault();
-                if (!url || url === '#' || url === '' || url === 'javascript:void(0)') {
-                    showModal('unavailable-modal');
-                } else {
-                    window.open(url, '_self');
-                }
-            };
+        // --- 12. NAVIGATION & FILTER ---
+        const PROGRAMS = {
+            syariah: { label: 'Bimbel Syariah', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'bs' },
+            ushul: { label: 'Bimbel Ushul', subs: ['Tk 1', 'Tk 2', 'Tk 3'], prefix: 'us' },
+            tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'], prefix: 'tf' },
+            tashil: { label: "Ta'shil", subs: ['Nahwu', 'Sharaf', 'Balaghah', 'Mantiq'], prefix: 'ts' },
+            amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'], prefix: 'am' }
+        };
 
-            window.addEventListener('DOMContentLoaded', () => {
-                const params = new URLSearchParams(window.location.search);
-                const sidebarParam = params.get('sidebar');
-                const catParam = params.get('cat');
-                const loginParam = params.get('login');
+        let currentCategory = 'syariah';
+        let currentSubFilter = 'Semua';
 
-                let initialCat = 'syariah';
-                if (catParam && PROGRAMS[catParam]) initialCat = catParam;
+        window.openLoginModal = function (event) {
+            if (event) event.preventDefault();
+            showModal('login-guide-modal');
+        };
 
-                changeCategory(initialCat);
-                updateMaterimuUI();
+        window.changeCategory = function (categoryKey) {
+            if (!PROGRAMS[categoryKey]) return;
 
-                // Event bindings
-                document.getElementById('materimu-toggle-btn').onclick = toggleDrawer;
-                document.getElementById('close-drawer').onclick = toggleDrawer;
-                document.getElementById('drawer-overlay').onclick = toggleDrawer;
-                document.getElementById('close-guide-modal').onclick = () => hideModal('guide-modal');
-                document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
-                document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
-                document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
+            currentCategory = categoryKey;
+            currentSubFilter = 'Semua';
 
-                const saveManual = document.getElementById('save-manual-btn');
-                if (saveManual) {
-                    saveManual.onclick = () => {
-                        const nameInput = document.getElementById('manual-name');
-                        const urlInput = document.getElementById('manual-link');
-                        const name = nameInput.value.trim();
-                        const url = urlInput.value.trim();
-                        if (!name || !url) return;
-                        savedMaterials.push({
-                            id: 'man-' + Date.now(),
-                            name,
-                            url,
-                            thumb: 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png'
-                        });
-                        localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
-                        updateMaterimuUI();
-                        nameInput.value = '';
-                        urlInput.value = '';
-                        document.getElementById('manual-form-container').classList.add('hidden');
-                    };
-                }
+            document.querySelectorAll('.nav-tab').forEach(tab => {
+                const isActive = tab.getAttribute('data-category') === categoryKey;
+                tab.className = `nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium ${isActive ? 'bg-primary text-white' : 'text-gray-600'}`;
+            });
 
-                const toggleManual = document.getElementById('toggle-manual-form');
-                if (toggleManual) {
-                    toggleManual.onclick = () => {
-                        document.getElementById('manual-form-container').classList.toggle('hidden');
-                        document.getElementById('manual-chevron').classList.toggle('rotate-180');
-                    };
-                }
+            renderSubFilters();
+            applyFilters();
 
-                const clearAll = document.getElementById('clear-all-btn');
-                if (clearAll) {
-                    clearAll.onclick = () => {
-                        if (confirm('Kosongkan daftar materi Anda?')) {
-                            savedMaterials = [];
-                            localStorage.setItem('savedMaterials', JSON.stringify(savedMaterials));
-                            updateMaterimuUI();
-                        }
-                    };
-                }
+            const activeTab = document.querySelector(`.nav-tab[data-category="${categoryKey}"]`);
+            const container = document.getElementById('category-tabs');
+            if (activeTab && container) {
+                const scrollLeft = activeTab.offsetLeft - (container.offsetWidth / 2) + (activeTab.offsetWidth / 2);
+                container.scrollTo({ left: scrollLeft, behavior: 'smooth' });
+            }
 
-                // Deep link: Login
-                if (loginParam === 'true') {
-                    setTimeout(() => openLoginModal(), 500);
-                }
+            const url = new URL(window.location.href);
+            url.searchParams.set('cat', categoryKey);
+            window.history.replaceState({}, '', url.pathname + url.search);
+        };
 
-                // Deep link: Sidebar
-                if (sidebarParam === 'materimu') {
-                    setTimeout(toggleDrawer, 300);
-                }
+        function renderSubFilters() {
+            const container = document.getElementById('sub-filter-container');
+            if (!container) return;
 
-                if (!localStorage.getItem('guideShown')) {
-                    setTimeout(() => showModal('guide-modal'), 1500);
-                    localStorage.setItem('guideShown', 'true');
-                }
+            const subs = PROGRAMS[currentCategory].subs;
+            const filters = ['Semua', ...subs];
+
+            container.innerHTML = '';
+            filters.forEach(filter => {
+                const btn = document.createElement('button');
+                btn.textContent = filter;
+                btn.className = `px-4 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border transition-all ${currentSubFilter === filter ? 'bg-accent text-white border-accent' : 'bg-white text-gray-600 border-gray-200 hover:border-accent/40'}`;
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    currentSubFilter = filter;
+                    renderSubFilters();
+                    applyFilters();
+                };
+                container.appendChild(btn);
             });
         }
+
+        function applyFilters() {
+            const cards = document.querySelectorAll('.course-card');
+            cards.forEach(card => {
+                const matchesCat = card.getAttribute('data-category') === currentCategory;
+                const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') === currentSubFilter;
+                card.style.display = (matchesCat && matchesSub) ? 'flex' : 'none';
+            });
+        }
+
+        // --- 13. MODAL HELPERS ---
+        window.showModal = function (id) {
+            const m = document.getElementById(id);
+            if (m) {
+                m.classList.remove('hidden');
+                document.body.style.overflow = 'hidden';
+            }
+        };
+
+        window.hideModal = function (id) {
+            const m = document.getElementById(id);
+            if (m) {
+                m.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        };
+
+        // --- 14. DRAWER ---
+        window.toggleDrawer = function () {
+            const drawer = document.getElementById('materimu-drawer');
+            const overlay = document.getElementById('drawer-overlay');
+            if (!drawer || !overlay) return;
+            drawer.classList.toggle('translate-x-full');
+            overlay.classList.toggle('opacity-0');
+            overlay.classList.toggle('pointer-events-none');
+        };
+
+        // --- 15. HANDLE DAFTAR ---
+        window.handleDaftar = function (e, url) {
+            if (e) e.preventDefault();
+            if (!url || url === '#' || url === '' || url === 'javascript:void(0)') {
+                showModal('unavailable-modal');
+            } else {
+                window.open(url, '_self');
+            }
+        };
+
+        // --- 16. EXPOSE FUNCTIONS GLOBALLY ---
+        window.saveToMaterimu = saveToMaterimu;
+        window.removeFromMaterimu = removeFromMaterimu;
+        window.updateMaterimuUI = updateMaterimuUI;
+        window.clearAllMaterials = clearAllMaterials;
+        window.saveManualMaterial = saveManualMaterial;
+        window.loadSavedMaterials = loadSavedMaterials;
+
+        // --- 17. INIT ---
+        document.addEventListener('DOMContentLoaded', async () => {
+            // Check session
+            await checkSession();
+
+            // Parse URL params
+            const params = new URLSearchParams(window.location.search);
+            const sidebarParam = params.get('sidebar');
+            const catParam = params.get('cat');
+            const loginParam = params.get('login');
+
+            let initialCat = 'syariah';
+            if (catParam && PROGRAMS[catParam]) initialCat = catParam;
+
+            changeCategory(initialCat);
+
+            // Event bindings
+            document.getElementById('materimu-toggle-btn').onclick = toggleDrawer;
+            document.getElementById('close-drawer').onclick = toggleDrawer;
+            document.getElementById('drawer-overlay').onclick = toggleDrawer;
+            document.getElementById('close-guide-modal').onclick = () => hideModal('guide-modal');
+            document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
+            document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
+            document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
+
+            const saveManual = document.getElementById('save-manual-btn');
+            if (saveManual) {
+                saveManual.onclick = saveManualMaterial;
+            }
+
+            const toggleManual = document.getElementById('toggle-manual-form');
+            if (toggleManual) {
+                toggleManual.onclick = () => {
+                    document.getElementById('manual-form-container').classList.toggle('hidden');
+                    document.getElementById('manual-chevron').classList.toggle('rotate-180');
+                };
+            }
+
+            const clearAll = document.getElementById('clear-all-btn');
+            if (clearAll) {
+                clearAll.onclick = clearAllMaterials;
+            }
+
+            // Deep link: Login
+            if (loginParam === 'true') {
+                setTimeout(() => openLoginModal(), 500);
+            }
+
+            // Deep link: Sidebar
+            if (sidebarParam === 'materimu') {
+                setTimeout(toggleDrawer, 300);
+            }
+
+            // Show guide only once
+            if (!localStorage.getItem('guideShown')) {
+                setTimeout(() => showModal('guide-modal'), 1500);
+                localStorage.setItem('guideShown', 'true');
+            }
+
+            // Listen for auth changes
+            supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                    currentUser = session?.user || null;
+                    isLoggedIn = !!currentUser;
+                    await loadSavedMaterials();
+                } else if (event === 'SIGNED_OUT') {
+                    currentUser = null;
+                    isLoggedIn = false;
+                    savedCourseIds = [];
+                    updateMaterimuUI();
+                    window.materimuCount = 0;
+                    if (window.nuqthahChannel) {
+                        window.nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: 0 });
+                    }
+                }
+            });
+        });
+
+        // Broadcast ready
+        if (window.nuqthahChannel) {
+            window.nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: 0 });
+        }
+
+        console.log('✅ Nuqthah Materi — Fully integrated with Supabase for Materimu.');
     </script>
 
     <script>
