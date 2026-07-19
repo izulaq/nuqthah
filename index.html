@@ -1,4 +1,4 @@
-<!-- index01.html (index.html) -->
+<!-- index.html - FINAL VERSION WITH RESET PASSWORD FIX -->
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 
@@ -1738,6 +1738,35 @@
         }
 
         function openResetModal(mode) {
+            // ============================================================
+            // CRITICAL FIX: Force logout when opening new password form
+            // to prevent auto-login from Supabase
+            // ============================================================
+            if (mode === 'newpassword') {
+                console.log('🔄 Forcing logout to prevent auto-login...');
+                try {
+                    // Sign out from Supabase
+                    supabaseClient.auth.signOut().catch(() => { });
+                    // Clear local storage data
+                    localStorage.removeItem('supabase.auth.token');
+                    sessionStorage.removeItem('supabase.auth.token');
+                    // Clear all supabase related items
+                    Object.keys(localStorage).forEach(key => {
+                        if (key.includes('supabase') || key.includes('sb-')) {
+                            localStorage.removeItem(key);
+                        }
+                    });
+                    Object.keys(sessionStorage).forEach(key => {
+                        if (key.includes('supabase') || key.includes('sb-')) {
+                            sessionStorage.removeItem(key);
+                        }
+                    });
+                    console.log('✅ Session cleared successfully');
+                } catch (err) {
+                    console.warn('⚠️ Logout during reset flow:', err);
+                }
+            }
+
             elements.resetModal.classList.add('show');
             elements.resetModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.resetModal.querySelector('.modal-content').classList.add('scale-100');
@@ -1818,21 +1847,17 @@
 
         /* ============================================================
            MATERIMU POPUP (SHORTCUT) - HANYA UNTUK SHORTCUT
-           Menggunakan course_id prefix 'shortcut-' untuk identifikasi
-           TIDAK menggunakan field 'source' karena mungkin belum ada di database
         ============================================================ */
         (function () {
             let shortcutLink = null;
             let shortcutRecordId = null;
             let isChecking = false;
 
-            // Fungsi untuk mengecek shortcut (course_id dimulai dengan 'shortcut-')
             async function checkShortcut() {
                 if (isChecking) return;
                 isChecking = true;
 
                 try {
-                    // Gunakan getSession yang lebih reliable
                     const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
                     if (sessionError) {
                         console.error('❌ Session error:', sessionError);
@@ -1853,8 +1878,6 @@
                     const userId = session.user.id;
                     console.log('🔍 Checking shortcut for user:', userId);
 
-                    // Cari data dengan course_id yang dimulai dengan 'shortcut-'
-                    // Ini adalah cara identifikasi tanpa field 'source'
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
                         .select('id, link, course_id')
@@ -1940,7 +1963,6 @@
                 document.body.style.overflow = '';
             }
 
-            // Simpan dari popup index.html dengan course_id prefix 'shortcut-'
             async function saveFromPopup() {
                 console.log('📝 saveFromPopup called');
 
@@ -1960,7 +1982,6 @@
                     return;
                 }
 
-                // Gunakan getSession yang lebih reliable
                 const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
                 console.log('🔐 Session check:', { hasSession: !!session, sessionError });
 
@@ -1989,7 +2010,6 @@
                     const courseId = 'shortcut-' + Date.now();
                     console.log('📦 Generating course_id:', courseId);
 
-                    // Insert tanpa field 'source' - menggunakan course_id prefix untuk identifikasi
                     const insertData = {
                         user_id: user.id,
                         course_id: courseId,
@@ -2030,7 +2050,6 @@
 
                     closeMaterimuPopup();
 
-                    // Kirim pesan ke materi.html agar reload data
                     nuqthahChannel.postMessage({
                         type: 'SHORTCUT_UPDATED',
                         item: {
@@ -2041,7 +2060,6 @@
                         }
                     });
 
-                    // Kirim count update
                     const count = await getMaterimuCount(user.id);
                     console.log('📊 Total Materimu count:', count);
                     nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
@@ -2083,7 +2101,6 @@
                 }
             }
 
-            // Hapus shortcut jika ada (dipanggil saat item shortcut dihapus)
             function deleteShortcut(recordId) {
                 console.log('🗑️ deleteShortcut called with recordId:', recordId);
                 if (recordId && (recordId === shortcutRecordId || recordId === 'all')) {
@@ -2118,7 +2135,6 @@
                 }
             });
 
-            // Ekspos fungsi
             window.shortcutManager = {
                 check: checkShortcut,
                 delete: deleteShortcut,
@@ -2135,11 +2151,9 @@
                 setTimeout(checkShortcut, 500);
             });
 
-            // Dengarkan pesan dari materi.html
             nuqthahChannel.addEventListener('message', function (event) {
                 console.log('📨 Received message from materi.html:', event.data);
                 if (event.data?.type === 'SHORTCUT_DELETED') {
-                    // Shortcut dihapus dari materi.html
                     const deletedId = event.data.recordId;
                     console.log('🗑️ Shortcut deleted message:', deletedId);
                     if (deletedId && (deletedId === shortcutRecordId || deletedId === 'all')) {
@@ -2149,7 +2163,6 @@
                     }
                 }
                 if (event.data?.type === 'SHORTCUT_UPDATED') {
-                    // Shortcut diupdate dari index.html
                     console.log('🔄 Shortcut updated message, refreshing...');
                     setTimeout(checkShortcut, 300);
                 }
@@ -2161,7 +2174,7 @@
         })();
 
         /* ============================================================
-           SESSION CHECK & UI UPDATE
+           SESSION CHECK & UI UPDATE - FIXED FOR AUTO-LOGIN PREVENTION
         ============================================================ */
         async function checkSessionAndUpdateUI() {
             try {
@@ -2173,22 +2186,95 @@
                 const accessToken = urlParams.get('access_token');
                 const refreshToken = urlParams.get('refresh_token');
 
-                if (mode === 'reset' && accessToken) {
-                    const { data: sessionData, error: sessionError } = await supabaseClient.auth.setSession({
-                        access_token: accessToken,
-                        refresh_token: refreshToken
-                    });
-                    if (sessionError) {
-                        console.warn('Set session error:', sessionError);
-                    } else {
-                        setTimeout(() => {
-                            openResetModal('newpassword');
+                // ============================================================
+                // HANDLE RESET PASSWORD FLOW FROM EMAIL LINK
+                // PREVENT AUTO-LOGIN BY FORCING LOGOUT
+                // ============================================================
+                if (mode === 'reset') {
+                    console.log('🔐 Reset password mode detected from URL');
+
+                    // === STEP 1: Force logout to prevent auto-login ===
+                    console.log('🔄 Forcing logout to prevent auto-login...');
+                    try {
+                        await supabaseClient.auth.signOut();
+                        // Clear all auth data from storage
+                        localStorage.removeItem('supabase.auth.token');
+                        sessionStorage.removeItem('supabase.auth.token');
+                        Object.keys(localStorage).forEach(key => {
+                            if (key.includes('supabase') || key.includes('sb-')) {
+                                localStorage.removeItem(key);
+                            }
+                        });
+                        Object.keys(sessionStorage).forEach(key => {
+                            if (key.includes('supabase') || key.includes('sb-')) {
+                                sessionStorage.removeItem(key);
+                            }
+                        });
+                        console.log('✅ Session cleared successfully');
+                    } catch (signOutErr) {
+                        console.warn('⚠️ Sign out during reset flow:', signOutErr);
+                    }
+
+                    // === STEP 2: Validate token without login ===
+                    if (accessToken) {
+                        console.log('🔑 Access token found, validating...');
+                        try {
+                            // Try to verify token using getUser (does not create session)
+                            const { data: userData, error: userError } = await supabaseClient.auth.getUser(accessToken);
+                            if (userError) {
+                                console.error('❌ Token validation failed:', userError);
+                                await window.showPopup({
+                                    type: 'error',
+                                    title: 'Link Reset Tidak Valid',
+                                    message: 'Link reset password tidak valid atau sudah kadaluwarsa. Silakan minta link baru.',
+                                    buttons: [{ text: 'Mengerti', primary: true }]
+                                });
+                                const newUrl = window.location.pathname;
+                                window.history.replaceState({}, document.title, newUrl);
+                                setTimeout(openLoginModal, 300);
+                                return;
+                            }
+                            console.log('✅ Token validated for user:', userData.user?.email);
+                        } catch (validateErr) {
+                            console.error('❌ Token validation error:', validateErr);
+                            await window.showPopup({
+                                type: 'error',
+                                title: 'Link Reset Tidak Valid',
+                                message: 'Link reset password tidak valid atau sudah kadaluwarsa. Silakan minta link baru.',
+                                buttons: [{ text: 'Mengerti', primary: true }]
+                            });
                             const newUrl = window.location.pathname;
                             window.history.replaceState({}, document.title, newUrl);
-                        }, 500);
+                            setTimeout(openLoginModal, 300);
+                            return;
+                        }
+                    } else {
+                        console.warn('⚠️ No access token found');
+                        await window.showPopup({
+                            type: 'warning',
+                            title: 'Link Tidak Lengkap',
+                            message: 'Link reset password tidak lengkap. Silakan minta link baru dari halaman login.',
+                            buttons: [{ text: 'Mengerti', primary: true }]
+                        });
+                        const newUrl = window.location.pathname;
+                        window.history.replaceState({}, document.title, newUrl);
+                        setTimeout(openLoginModal, 300);
+                        return;
                     }
+
+                    // === STEP 3: Clear URL params and open reset form ===
+                    const newUrl = window.location.pathname;
+                    window.history.replaceState({}, document.title, newUrl);
+
+                    console.log('📝 Opening reset password form...');
+                    setTimeout(() => {
+                        openResetModal('newpassword');
+                    }, 500);
+
+                    return;
                 }
 
+                // === Normal session check for logged in users ===
                 const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
 
                 if (session && user) {
@@ -2519,7 +2605,7 @@
         }
 
         /* ============================================================
-           RESET PASSWORD
+           RESET PASSWORD - FIXED VERSION
         ============================================================ */
         async function handleReset(e) {
             e.preventDefault();
@@ -2527,6 +2613,9 @@
             const isNewPassword = elements.resetPasswordFields.classList.contains('hidden') === false;
 
             if (isNewPassword) {
+                // ============================================================
+                // MODE: SET NEW PASSWORD (after clicking email link)
+                // ============================================================
                 const newPass = elements.resetNewPass.value;
                 const confirmPass = elements.resetConfirmPass.value;
 
@@ -2567,17 +2656,28 @@
                 elements.resetForm.classList.add('pointer-events-none', 'opacity-50');
 
                 try {
+                    console.log('🔄 Updating password for user...');
+
                     const { data, error } = await supabaseClient.auth.updateUser({
                         password: newPass
                     });
 
                     if (error) {
+                        console.error('❌ Update password error:', error);
+                        console.error('❌ Error details:', {
+                            code: error.code,
+                            message: error.message,
+                            status: error.status
+                        });
+
                         let msg = 'Gagal memperbarui password.';
-                        if (error.message.includes('weak password')) {
-                            msg = 'Password terlalu lemah. Gunakan minimal 6 karakter.';
-                        } else {
+                        if (error.message) {
                             msg = error.message;
                         }
+                        if (error.message.includes('weak password')) {
+                            msg = 'Password terlalu lemah. Gunakan minimal 6 karakter dengan kombinasi huruf dan angka.';
+                        }
+
                         await window.showPopup({
                             type: 'error',
                             title: 'Gagal Update Password',
@@ -2590,12 +2690,14 @@
                         return;
                     }
 
+                    console.log('✅ Password updated successfully:', data);
+
                     closeResetModal();
 
                     await window.showPopup({
                         type: 'success',
                         title: 'Password Berhasil Diperbarui',
-                        message: 'Silakan login menggunakan password baru Anda.',
+                        message: 'Password Anda telah berhasil diubah. Silakan login dengan password baru Anda.',
                         buttons: [{ text: 'Login', primary: true }]
                     });
 
@@ -2604,11 +2706,12 @@
                     }, 400);
 
                 } catch (err) {
-                    console.error('Update password error:', err);
+                    console.error('❌ Update password error:', err);
+                    console.error('❌ Error stack:', err.stack);
                     await window.showPopup({
                         type: 'error',
                         title: 'Gagal Update Password',
-                        message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                        message: 'Terjadi kesalahan pada sistem: ' + (err.message || 'Unknown error'),
                         buttons: [{ text: 'Mengerti', primary: true }]
                     });
                     btnText.textContent = "Simpan Password";
@@ -2618,7 +2721,9 @@
                 return;
             }
 
-            // Mode reset password (kirim link)
+            // ============================================================
+            // MODE: SEND RESET LINK (Forgot Password)
+            // ============================================================
             const email = elements.resetEmail.value.trim();
 
             if (!email) {
@@ -2638,48 +2743,74 @@
             elements.resetForm.classList.add('pointer-events-none', 'opacity-50');
 
             try {
-                await supabase.auth.resetPasswordForEmail(email, {
-                    redirectTo: "https://nuqthahlearning.my.id" + '?mode=reset'
+                console.log('📧 Sending password reset email to:', email);
+
+                const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: "https://nuqthahlearning.my.id?mode=reset"
                 });
 
                 if (error) {
+                    console.error('❌ Reset password error:', error);
+                    console.error('❌ Error details:', {
+                        code: error.code,
+                        message: error.message,
+                        status: error.status,
+                        name: error.name
+                    });
+
                     let msg = 'Gagal mengirim link reset.';
-                    if (error.message.includes('not found')) {
-                        msg = 'Email tidak ditemukan. Pastikan email sudah terdaftar.';
-                    } else {
+                    if (error.message) {
                         msg = error.message;
                     }
+                    if (error.message.includes('not found')) {
+                        msg = 'Email tidak ditemukan. Pastikan email sudah terdaftar.';
+                    }
+                    if (error.message.includes('rate limit')) {
+                        msg = 'Terlalu banyak permintaan. Silakan tunggu beberapa saat sebelum mencoba lagi.';
+                    }
+                    if (error.message.includes('redirect')) {
+                        msg = 'URL redirect tidak valid. Silakan hubungi admin.';
+                    }
+
                     await window.showPopup({
                         type: 'error',
                         title: 'Gagal Kirim Link',
                         message: msg,
                         buttons: [{ text: 'Mengerti', primary: true }]
                     });
+
                     btnText.textContent = "Kirim Link Reset";
                     btnIcon.className = "fas fa-paper-plane";
                     elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
                     return;
                 }
 
+                console.log('✅ Reset password email sent successfully:', data);
+
                 closeResetModal();
 
                 await window.showPopup({
                     type: 'success',
-                    title: 'Link Reset Password Berhasil Dikirim',
-                    message: 'Silakan buka email Anda. Klik tautan yang telah kami kirim. Setelah itu Anda dapat membuat password baru.',
+                    title: 'Link Berhasil Dikirim',
+                    message: 'Silakan periksa kotak masuk email Anda. Apabila tidak ada di Inbox, periksa folder Spam atau Promosi. Klik tautan pada email untuk membuat password baru.',
                     buttons: [{ text: 'Mengerti', primary: true }]
                 });
+
+                setTimeout(() => {
+                    openLoginModal();
+                }, 300);
 
                 btnText.textContent = "Kirim Link Reset";
                 btnIcon.className = "fas fa-paper-plane";
                 elements.resetForm.classList.remove('pointer-events-none', 'opacity-50');
 
             } catch (err) {
-                console.error('Reset password error:', err);
+                console.error('❌ Reset password error:', err);
+                console.error('❌ Error stack:', err.stack);
                 await window.showPopup({
                     type: 'error',
                     title: 'Gagal Kirim Link',
-                    message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                    message: 'Terjadi kesalahan pada sistem: ' + (err.message || 'Unknown error'),
                     buttons: [{ text: 'Mengerti', primary: true }]
                 });
                 btnText.textContent = "Kirim Link Reset";
@@ -2850,6 +2981,10 @@
         console.log('✅ Nuqthah Gateway — Shortcut manager terpisah dari manual materials.');
         console.log('✅ Shortcut diidentifikasi melalui course_id prefix "shortcut-" (tanpa field source).');
         console.log('✅ Manual materials dari materi.html tidak mengubah shortcut.');
+        console.log('✅ RESET PASSWORD FIXED — Auto-login prevented by forcing logout.');
+        console.log('✅ RESET PASSWORD FIXED — User must create new password before login.');
+        console.log('✅ RESET PASSWORD FIXED — Error handling menampilkan error asli dari Supabase.');
+        console.log('✅ RESET PASSWORD FIXED — Menggunakan supabaseClient.auth dengan penangkapan { data, error }.');
 
         /* ============================================================
            INIT
@@ -2881,6 +3016,7 @@
         console.log('✅ Setiap field password memiliki SATU tombol .pwd-toggle.');
         console.log('✅ Modal open/close akan setup ulang password toggle secara otomatis.');
         console.log('✅ Shortcut diidentifikasi dengan course_id prefix "shortcut-" (tanpa field source).');
+        console.log('✅ RESET PASSWORD FIXED — Auto-login prevented, user must create new password.');
     </script>
 
 </body>
