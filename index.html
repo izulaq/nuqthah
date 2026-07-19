@@ -1,3 +1,4 @@
+<!-- index01.html (index.html) -->
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 
@@ -1462,48 +1463,34 @@
            VISIBILITY BERDASARKAN input.value.length > 0
         ============================================================ */
         (function initPasswordToggles() {
-            // Flag untuk mencegah inisialisasi ganda
             if (window.__passwordTogglesInitialized) {
                 console.log('⚠️ Password toggle already initialized, skipping.');
                 return;
             }
             window.__passwordTogglesInitialized = true;
 
-            /**
-             * Update visibility toggle berdasarkan nilai input
-             * @param {HTMLElement} wrapper - .pwd-wrapper element
-             */
             function updateToggleVisibility(wrapper) {
                 if (!wrapper) return;
                 const input = wrapper.querySelector('input[type="password"], input[type="text"]');
                 const toggle = wrapper.querySelector('.pwd-toggle');
                 if (!input || !toggle) return;
 
-                // Cek apakah input sedang dalam mode password atau text
                 const isPassword = input.type === 'password';
                 const hasValue = input.value.length > 0;
 
-                // Toggle visibility berdasarkan nilai
                 if (hasValue) {
                     toggle.classList.add('visible');
                 } else {
                     toggle.classList.remove('visible');
-                    // Reset icon ke eye jika password kosong
                     const icon = toggle.querySelector('i');
                     if (icon && input.type === 'text') {
-                        // Jika input dalam mode text tapi kosong, ubah ke password
                         input.type = 'password';
                         icon.className = 'fa-regular fa-eye';
                     }
                 }
             }
 
-            /**
-             * Setup satu password wrapper
-             * @param {HTMLElement} wrapper - .pwd-wrapper element
-             */
             function setupPasswordWrapper(wrapper) {
-                // Cek apakah sudah memiliki toggle
                 const toggle = wrapper.querySelector('.pwd-toggle');
                 if (!toggle) {
                     console.warn('⚠️ .pwd-toggle not found in wrapper:', wrapper);
@@ -1516,33 +1503,27 @@
                     return;
                 }
 
-                // Cek apakah sudah diinisialisasi
                 if (wrapper.dataset.passwordBound === 'true') {
-                    // Jika sudah, hanya update visibility
                     updateToggleVisibility(wrapper);
                     return;
                 }
                 wrapper.dataset.passwordBound = 'true';
 
-                // Hapus event listener lama dengan clone
                 const newToggle = toggle.cloneNode(true);
                 if (toggle.parentNode) {
                     toggle.parentNode.replaceChild(newToggle, toggle);
                 }
 
-                // Ambil referensi baru
                 const finalWrapper = wrapper;
                 const finalInput = finalWrapper.querySelector('input');
                 const finalToggle = finalWrapper.querySelector('.pwd-toggle');
 
                 if (!finalInput || !finalToggle) return;
 
-                // Pastikan input memiliki type password
                 if (!finalInput.type || finalInput.type === 'text') {
                     finalInput.type = 'password';
                 }
 
-                // Event untuk update visibility saat input berubah
                 finalInput.addEventListener('input', function () {
                     updateToggleVisibility(finalWrapper);
                 });
@@ -1551,17 +1532,14 @@
                     updateToggleVisibility(finalWrapper);
                 });
 
-                // Event untuk paste
                 finalInput.addEventListener('paste', function () {
                     setTimeout(() => updateToggleVisibility(finalWrapper), 10);
                 });
 
-                // Event untuk cut
                 finalInput.addEventListener('cut', function () {
                     setTimeout(() => updateToggleVisibility(finalWrapper), 10);
                 });
 
-                // Toggle click handler
                 finalToggle.addEventListener('click', function (e) {
                     e.preventDefault();
                     e.stopPropagation();
@@ -1575,20 +1553,14 @@
                         if (icon) icon.className = 'fa-regular fa-eye';
                     }
                     finalInput.focus();
-                    // Update visibility tetap berdasarkan nilai
                     updateToggleVisibility(finalWrapper);
                 });
 
-                // Initial update
                 updateToggleVisibility(finalWrapper);
 
                 console.log('✅ Password toggle setup complete for:', finalInput.id || 'unnamed input');
             }
 
-            /**
-             * Setup semua password wrapper dalam container
-             * @param {HTMLElement} container - Element yang berisi .pwd-wrapper
-             */
             function setupAllWrappers(container) {
                 if (!container) return;
                 const wrappers = container.querySelectorAll('.pwd-wrapper');
@@ -1597,12 +1569,7 @@
                 });
             }
 
-            /**
-             * Inisialisasi semua password wrapper di halaman
-             * Termasuk yang ada di dalam modal
-             */
             function initAllPasswordToggles() {
-                // Setup semua wrapper yang ada di DOM
                 document.querySelectorAll('.pwd-wrapper').forEach(wrapper => {
                     setupPasswordWrapper(wrapper);
                 });
@@ -1611,9 +1578,6 @@
                     .length);
             }
 
-            /**
-             * Setup observer untuk modal yang dibuka
-             */
             function setupModalObserver() {
                 const modalIds = ['registerModal', 'loginModal', 'resetModal'];
 
@@ -1621,12 +1585,10 @@
                     const modal = document.getElementById(id);
                     if (!modal) return;
 
-                    // Observer untuk menangkap perubahan class 'show' pada modal
                     const observer = new MutationObserver(function (mutations) {
                         mutations.forEach(function (mutation) {
                             if (mutation.attributeName === 'class') {
                                 if (modal.classList.contains('show')) {
-                                    // Modal dibuka - setup ulang semua wrapper di dalamnya
                                     setTimeout(() => {
                                         setupAllWrappers(modal);
                                     }, 100);
@@ -1642,7 +1604,6 @@
                 });
             }
 
-            // Inisialisasi saat DOM ready
             if (document.readyState === 'loading') {
                 document.addEventListener('DOMContentLoaded', function () {
                     initAllPasswordToggles();
@@ -1653,7 +1614,6 @@
                 setupModalObserver();
             }
 
-            // Ekspos fungsi untuk digunakan di tempat lain
             window.passwordToggle = {
                 setupAllWrappers: setupAllWrappers,
                 setupPasswordWrapper: setupPasswordWrapper,
@@ -1739,7 +1699,6 @@
             elements.registerModal.querySelector('.modal-content').classList.add('scale-100');
             document.body.style.overflow = 'hidden';
 
-            // Setup ulang password toggle di modal register
             setTimeout(() => {
                 if (window.passwordToggle) {
                     window.passwordToggle.setupAllWrappers(elements.registerModal);
@@ -1765,7 +1724,6 @@
             document.body.style.overflow = 'hidden';
             setTimeout(() => {
                 document.getElementById('loginEmail').focus();
-                // Setup ulang password toggle di modal login
                 if (window.passwordToggle) {
                     window.passwordToggle.setupAllWrappers(elements.loginModal);
                 }
@@ -1810,7 +1768,6 @@
                 elements.resetEmail.disabled = true;
                 setTimeout(() => {
                     elements.resetNewPass.focus();
-                    // Setup ulang password toggle di modal reset
                     if (window.passwordToggle) {
                         window.passwordToggle.setupAllWrappers(elements.resetModal);
                     }
@@ -1860,55 +1817,78 @@
         }
 
         /* ============================================================
-           MATERIMU POPUP
+           MATERIMU POPUP (SHORTCUT) - HANYA UNTUK SHORTCUT
+           Menggunakan course_id prefix 'shortcut-' untuk identifikasi
+           TIDAK menggunakan field 'source' karena mungkin belum ada di database
         ============================================================ */
         (function () {
-            let savedLink = null;
-            let savedRecordId = null;
+            let shortcutLink = null;
+            let shortcutRecordId = null;
             let isChecking = false;
 
-            async function checkSavedMaterial() {
+            // Fungsi untuk mengecek shortcut (course_id dimulai dengan 'shortcut-')
+            async function checkShortcut() {
                 if (isChecking) return;
                 isChecking = true;
 
                 try {
-                    const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-                    if (userError || !user) {
-                        savedLink = null;
-                        savedRecordId = null;
+                    // Gunakan getSession yang lebih reliable
+                    const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+                    if (sessionError) {
+                        console.error('❌ Session error:', sessionError);
+                        shortcutLink = null;
+                        shortcutRecordId = null;
                         updateButtonBehavior();
                         return;
                     }
 
+                    if (!session || !session.user) {
+                        console.log('ℹ️ No active session, shortcut cleared.');
+                        shortcutLink = null;
+                        shortcutRecordId = null;
+                        updateButtonBehavior();
+                        return;
+                    }
+
+                    const userId = session.user.id;
+                    console.log('🔍 Checking shortcut for user:', userId);
+
+                    // Cari data dengan course_id yang dimulai dengan 'shortcut-'
+                    // Ini adalah cara identifikasi tanpa field 'source'
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
-                        .select('id, link')
-                        .eq('user_id', user.id)
+                        .select('id, link, course_id')
+                        .eq('user_id', userId)
+                        .ilike('course_id', 'shortcut-%')
                         .limit(1)
                         .maybeSingle();
 
                     if (error) {
-                        console.warn('Check saved material error:', error);
-                        savedLink = null;
-                        savedRecordId = null;
+                        console.error('❌ Check shortcut query error:', error);
+                        shortcutLink = null;
+                        shortcutRecordId = null;
                         updateButtonBehavior();
                         return;
                     }
 
+                    console.log('🔍 Shortcut query result:', data);
+
                     if (data && data.link && data.link !== '#' && data.link.trim() !== '') {
-                        savedLink = data.link;
-                        savedRecordId = data.id;
+                        shortcutLink = data.link;
+                        shortcutRecordId = data.id;
+                        console.log('✅ Shortcut found:', { id: shortcutRecordId, link: shortcutLink });
                     } else {
-                        savedLink = null;
-                        savedRecordId = null;
+                        console.log('ℹ️ No shortcut found.');
+                        shortcutLink = null;
+                        shortcutRecordId = null;
                     }
 
                     updateButtonBehavior();
 
                 } catch (err) {
-                    console.warn('Check saved material error:', err);
-                    savedLink = null;
-                    savedRecordId = null;
+                    console.error('❌ Check shortcut error:', err);
+                    shortcutLink = null;
+                    shortcutRecordId = null;
                     updateButtonBehavior();
                 } finally {
                     isChecking = false;
@@ -1918,14 +1898,16 @@
             function updateButtonBehavior() {
                 const btn = elements.materimuBtn;
                 if (!btn) return;
+                console.log('🔄 Updating button behavior. Has shortcut:', !!shortcutLink);
 
-                if (savedLink && savedLink !== '#' && savedLink.trim() !== '') {
+                if (shortcutLink && shortcutLink !== '#' && shortcutLink.trim() !== '') {
                     btn.className =
                         'header-btn bg-secondary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-85 transition-all has-link';
                     btn.innerHTML = 'Materimu <i class="fas fa-external-link-alt text-xs ml-1"></i>';
                     btn.onclick = function (e) {
                         e.preventDefault();
-                        window.location.href = savedLink;
+                        console.log('🔗 Opening shortcut link:', shortcutLink);
+                        window.location.href = shortcutLink;
                     };
                     btn.style.cursor = 'pointer';
                 } else {
@@ -1934,6 +1916,7 @@
                     btn.innerHTML = 'Materimu';
                     btn.onclick = function (e) {
                         e.preventDefault();
+                        console.log('📂 Opening Materimu popup');
                         openMaterimuPopup();
                     };
                     btn.style.cursor = 'pointer';
@@ -1957,11 +1940,17 @@
                 document.body.style.overflow = '';
             }
 
+            // Simpan dari popup index.html dengan course_id prefix 'shortcut-'
             async function saveFromPopup() {
+                console.log('📝 saveFromPopup called');
+
                 const name = elements.popupMateriName.value.trim();
                 const link = elements.popupMateriLink.value.trim();
 
+                console.log('📝 Form values:', { name, link });
+
                 if (!name || !link) {
+                    console.warn('⚠️ Form validation failed: name or link empty');
                     await window.showPopup({
                         type: 'warning',
                         title: 'Form Belum Lengkap',
@@ -1971,8 +1960,12 @@
                     return;
                 }
 
-                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-                if (userError || !user) {
+                // Gunakan getSession yang lebih reliable
+                const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+                console.log('🔐 Session check:', { hasSession: !!session, sessionError });
+
+                if (sessionError || !session || !session.user) {
+                    console.warn('⚠️ No valid session');
                     await window.showPopup({
                         type: 'warning',
                         title: 'Belum Login',
@@ -1984,46 +1977,62 @@
                     return;
                 }
 
+                const user = session.user;
+                console.log('👤 User authenticated:', user.id);
+
                 const saveBtn = elements.saveMaterimuPopup;
                 saveBtn.disabled = true;
                 saveBtn.querySelector('span').textContent = 'Menyimpan...';
                 saveBtn.querySelector('i').className = 'fas fa-spinner fa-spin';
 
                 try {
-                    const courseId = 'manual-' + Date.now();
+                    const courseId = 'shortcut-' + Date.now();
+                    console.log('📦 Generating course_id:', courseId);
+
+                    // Insert tanpa field 'source' - menggunakan course_id prefix untuk identifikasi
+                    const insertData = {
+                        user_id: user.id,
+                        course_id: courseId,
+                        title: name,
+                        link: link,
+                        image: null
+                    };
+                    console.log('📤 Insert data:', insertData);
 
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
-                        .insert({
-                            user_id: user.id,
-                            course_id: courseId,
-                            title: name,
-                            link: link,
-                            image: null
-                        })
+                        .insert(insertData)
                         .select();
 
                     if (error) {
                         console.error('❌ Save from popup error:', error);
+                        console.error('❌ Error details:', {
+                            code: error.code,
+                            message: error.message,
+                            details: error.details,
+                            hint: error.hint
+                        });
                         await window.showPopup({
                             type: 'error',
                             title: 'Gagal Menyimpan',
-                            message: 'Terjadi kesalahan: ' + error.message,
+                            message: 'Terjadi kesalahan: ' + error.message + '. Detail: ' + (error.details || 'Tidak ada detail tambahan.'),
                             buttons: [{ text: 'Mengerti', primary: true }]
                         });
                         return;
                     }
 
-                    console.log('✅ Materi saved from popup:', data);
+                    console.log('✅ Shortcut saved successfully:', data);
 
-                    savedLink = link;
-                    savedRecordId = data[0]?.id || null;
+                    shortcutLink = link;
+                    shortcutRecordId = data[0]?.id || null;
+                    console.log('🔗 Shortcut set:', { id: shortcutRecordId, link: shortcutLink });
                     updateButtonBehavior();
 
                     closeMaterimuPopup();
 
+                    // Kirim pesan ke materi.html agar reload data
                     nuqthahChannel.postMessage({
-                        type: 'MATERIMU_ITEM_ADDED',
+                        type: 'SHORTCUT_UPDATED',
                         item: {
                             id: data[0]?.id,
                             title: name,
@@ -2032,7 +2041,9 @@
                         }
                     });
 
+                    // Kirim count update
                     const count = await getMaterimuCount(user.id);
+                    console.log('📊 Total Materimu count:', count);
                     nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
 
                     await window.showPopup({
@@ -2044,10 +2055,11 @@
 
                 } catch (err) {
                     console.error('❌ Save from popup error:', err);
+                    console.error('❌ Error stack:', err.stack);
                     await window.showPopup({
                         type: 'error',
                         title: 'Gagal Menyimpan',
-                        message: 'Terjadi kesalahan pada sistem. Silakan coba beberapa saat lagi.',
+                        message: 'Terjadi kesalahan pada sistem: ' + (err.message || 'Unknown error'),
                         buttons: [{ text: 'Mengerti', primary: true }]
                     });
                 } finally {
@@ -2068,6 +2080,17 @@
                 } catch (err) {
                     console.warn('Get count error:', err);
                     return 0;
+                }
+            }
+
+            // Hapus shortcut jika ada (dipanggil saat item shortcut dihapus)
+            function deleteShortcut(recordId) {
+                console.log('🗑️ deleteShortcut called with recordId:', recordId);
+                if (recordId && (recordId === shortcutRecordId || recordId === 'all')) {
+                    console.log('🗑️ Clearing shortcut. RecordId:', recordId);
+                    shortcutLink = null;
+                    shortcutRecordId = null;
+                    updateButtonBehavior();
                 }
             }
 
@@ -2095,25 +2118,43 @@
                 }
             });
 
-            window.materimuPopup = {
-                open: openMaterimuPopup,
-                close: closeMaterimuPopup,
-                check: checkSavedMaterial,
-                refresh: checkSavedMaterial
+            // Ekspos fungsi
+            window.shortcutManager = {
+                check: checkShortcut,
+                delete: deleteShortcut,
+                refresh: checkShortcut,
+                getShortcutLink: () => shortcutLink,
+                getShortcutRecordId: () => shortcutRecordId,
+                updateButton: updateButtonBehavior,
+                openPopup: openMaterimuPopup,
+                closePopup: closeMaterimuPopup
             };
 
             document.addEventListener('DOMContentLoaded', function () {
-                setTimeout(checkSavedMaterial, 500);
+                console.log('📄 DOM loaded, checking shortcut...');
+                setTimeout(checkShortcut, 500);
             });
 
+            // Dengarkan pesan dari materi.html
             nuqthahChannel.addEventListener('message', function (event) {
-                if (event.data?.type === 'MATERIMU_ITEM_DELETED') {
-                    setTimeout(checkSavedMaterial, 300);
+                console.log('📨 Received message from materi.html:', event.data);
+                if (event.data?.type === 'SHORTCUT_DELETED') {
+                    // Shortcut dihapus dari materi.html
+                    const deletedId = event.data.recordId;
+                    console.log('🗑️ Shortcut deleted message:', deletedId);
+                    if (deletedId && (deletedId === shortcutRecordId || deletedId === 'all')) {
+                        shortcutLink = null;
+                        shortcutRecordId = null;
+                        updateButtonBehavior();
+                    }
                 }
-                if (event.data?.type === 'MATERIMU_COUNT_UPDATE' && event.data.count === 0) {
-                    savedLink = null;
-                    savedRecordId = null;
-                    updateButtonBehavior();
+                if (event.data?.type === 'SHORTCUT_UPDATED') {
+                    // Shortcut diupdate dari index.html
+                    console.log('🔄 Shortcut updated message, refreshing...');
+                    setTimeout(checkShortcut, 300);
+                }
+                if (event.data?.type === 'MATERIMU_COUNT_UPDATE') {
+                    console.log('📊 Count update received:', event.data.count);
                 }
             });
 
@@ -2172,8 +2213,8 @@
                     elements.searchCta.classList.remove('pointer-events-none', 'opacity-90');
                     delete elements.searchCta.dataset.redirecting;
 
-                    if (window.materimuPopup?.check) {
-                        setTimeout(window.materimuPopup.check, 300);
+                    if (window.shortcutManager?.check) {
+                        setTimeout(window.shortcutManager.check, 300);
                     }
 
                     updateSidebarEmail(user);
@@ -2190,8 +2231,8 @@
                     if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
                     if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
 
-                    if (window.materimuPopup?.check) {
-                        setTimeout(window.materimuPopup.check, 300);
+                    if (window.shortcutManager?.check) {
+                        setTimeout(window.shortcutManager.check, 300);
                     }
 
                     updateSidebarEmail(null);
@@ -2681,7 +2722,6 @@
         /* ============================================================
            EVENT LISTENERS
         ============================================================ */
-        // Register Modal
         elements.closeModal.addEventListener('click', closeRegisterModal);
         elements.modalOverlay.addEventListener('click', closeRegisterModal);
         elements.registerForm.addEventListener('submit', handleRegistration);
@@ -2689,7 +2729,6 @@
             elements.switchToLogin.addEventListener('click', switchToLoginHandler);
         }
 
-        // Login Modal
         if (elements.closeLoginModal) {
             elements.closeLoginModal.addEventListener('click', closeLoginModal);
         }
@@ -2709,7 +2748,6 @@
             });
         }
 
-        // Reset Modal
         if (elements.closeResetModal) {
             elements.closeResetModal.addEventListener('click', closeResetModal);
         }
@@ -2726,7 +2764,6 @@
             });
         }
 
-        // Login menu (sidebar)
         if (elements.loginMenu) {
             elements.loginMenu.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -2735,10 +2772,8 @@
             });
         }
 
-        // Search
         elements.searchCta.addEventListener('click', handleSearchCta);
 
-        // Logout
         if (elements.logoutMenu) {
             elements.logoutMenu.addEventListener('click', (e) => {
                 e.preventDefault();
@@ -2746,7 +2781,6 @@
             });
         }
 
-        // Escape - tutup semua modal
         document.addEventListener('keydown', (e) => {
             if (e.key === 'Escape') {
                 if (elements.body.classList.contains('sidebar-open')) toggleSidebar();
@@ -2763,7 +2797,6 @@
         console.log('%c🔍 VERIFIKASI PASSWORD TOGGLE', 'color: #C9A227; font-weight: bold;');
         console.log('%c========================================', 'color: #C9A227; font-weight: bold;');
 
-        // Jalankan verifikasi setelah DOM siap
         setTimeout(() => {
             const allWrappers = document.querySelectorAll('.pwd-wrapper');
             const allToggles = document.querySelectorAll('.pwd-toggle');
@@ -2779,7 +2812,6 @@
             console.log('📊 .pwd-toggle di #loginModal:', loginToggles.length);
             console.log('📊 .pwd-toggle di #resetModal:', resetToggles.length);
 
-            // Periksa apakah ada wrapper tanpa toggle
             let missingToggle = false;
             allWrappers.forEach((wrapper, index) => {
                 const toggle = wrapper.querySelector('.pwd-toggle');
@@ -2789,7 +2821,6 @@
                 }
             });
 
-            // Periksa apakah ada toggle ganda dalam satu wrapper
             let duplicateToggle = false;
             allWrappers.forEach((wrapper, index) => {
                 const toggles = wrapper.querySelectorAll('.pwd-toggle');
@@ -2816,6 +2847,10 @@
             }
         }, 600);
 
+        console.log('✅ Nuqthah Gateway — Shortcut manager terpisah dari manual materials.');
+        console.log('✅ Shortcut diidentifikasi melalui course_id prefix "shortcut-" (tanpa field source).');
+        console.log('✅ Manual materials dari materi.html tidak mengubah shortcut.');
+
         /* ============================================================
            INIT
         ============================================================ */
@@ -2839,13 +2874,13 @@
         setVh();
 
         console.log('✅ Nuqthah Gateway — Popup layer fixed: customPopup (z-index: 999999) is above materimuPopup (z-index: 90000)');
-        console.log('✅ Materimu button integrated with Supabase saved_materials table.');
-        console.log('✅ Materimu link opens in same tab using window.location.href');
+        console.log('✅ Shortcut Materimu button terpisah dari manual materials.');
+        console.log('✅ Shortcut link opens in same tab using window.location.href');
         console.log('✅ Fitur 1: Password toggle - VISIBILITY BERDASARKAN input.value.length > 0');
         console.log('✅ Fitur 2: Email user ditampilkan di sidebar saat login.');
-        console.log('✅ Tidak ada MutationObserver untuk inisialisasi ulang yang berlebihan.');
         console.log('✅ Setiap field password memiliki SATU tombol .pwd-toggle.');
         console.log('✅ Modal open/close akan setup ulang password toggle secara otomatis.');
+        console.log('✅ Shortcut diidentifikasi dengan course_id prefix "shortcut-" (tanpa field source).');
     </script>
 
 </body>

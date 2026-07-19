@@ -1,3 +1,4 @@
+<!-- percobaan.html (materi.html) -->
 <!DOCTYPE html>
 <html lang="id">
 
@@ -791,6 +792,7 @@
 
 
 
+
             <!-- =============================================================================================
              ==================================================================================================
              BIMBEL USHUL: TK 3
@@ -834,6 +836,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 
@@ -890,6 +893,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 
@@ -984,6 +988,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 
@@ -1088,6 +1093,7 @@
 
 
 
+
             <!-- =============================================================================================
              ==================================================================================================
              TA'SHIL: BALAGHAH
@@ -1136,6 +1142,7 @@
 
 
 
+
             <!-- =============================================================================================
              ==================================================================================================
              TA'SHIL: MANTIQ
@@ -1178,6 +1185,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 
@@ -1232,6 +1240,7 @@
                     </div>
                 </div>
             </div>
+
 
 
 
@@ -1587,12 +1596,21 @@
                         url = cardData.url || '#';
                     }
 
+                    // Identifikasi jenis berdasarkan course_id prefix
+                    let source = 'course';
+                    if (item.course_id && item.course_id.startsWith('shortcut-')) {
+                        source = 'shortcut';
+                    } else if (item.course_id && item.course_id.startsWith('manual-')) {
+                        source = 'manual';
+                    }
+
                     return {
                         id: item.id,
                         course_id: item.course_id,
                         title: name,
                         link: url,
-                        image: thumb
+                        image: thumb,
+                        source: source
                     };
                 });
 
@@ -1608,7 +1626,7 @@
             }
         }
 
-        // --- 6. SAVE MATERIAL ---
+        // --- 6. SAVE MATERIAL (from course card + button) ---
         async function saveToMaterimu(courseId) {
             const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
             if (userError || !user) {
@@ -1617,6 +1635,7 @@
                 return;
             }
 
+            // Cek apakah sudah ada
             if (savedItems.find(m => m.course_id === courseId)) {
                 toggleDrawer();
                 return;
@@ -1636,6 +1655,7 @@
             }
 
             try {
+                // Untuk course, tidak menggunakan field source
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .insert({
@@ -1686,6 +1706,10 @@
                 return;
             }
 
+            // Cek apakah item yang dihapus adalah shortcut (course_id dimulai dengan 'shortcut-')
+            const itemToDelete = savedItems.find(item => item.id === recordId);
+            const isShortcut = itemToDelete?.source === 'shortcut';
+
             try {
                 const { error } = await supabaseClient
                     .from('saved_materials')
@@ -1700,6 +1724,16 @@
                 }
 
                 console.log('✅ Delete success');
+
+                // Jika yang dihapus adalah shortcut, beri tahu index.html
+                if (isShortcut) {
+                    console.log('🗑️ Shortcut deleted, notifying index.html');
+                    nuqthahChannel.postMessage({
+                        type: 'SHORTCUT_DELETED',
+                        recordId: recordId
+                    });
+                }
+
                 await loadSavedMaterials();
 
                 // Notify index.html
@@ -1722,6 +1756,9 @@
             }
             if (!confirm('Kosongkan daftar materi Anda?')) return;
 
+            // Cek apakah ada shortcut yang akan dihapus
+            const hasShortcut = savedItems.some(item => item.source === 'shortcut');
+
             try {
                 const { error } = await supabaseClient
                     .from('saved_materials')
@@ -1735,6 +1772,16 @@
                 }
 
                 console.log('✅ Clear all success');
+
+                // Jika ada shortcut yang dihapus, beri tahu index.html
+                if (hasShortcut) {
+                    console.log('🗑️ Shortcut deleted (clear all), notifying index.html');
+                    nuqthahChannel.postMessage({
+                        type: 'SHORTCUT_DELETED',
+                        recordId: 'all'
+                    });
+                }
+
                 await loadSavedMaterials();
 
                 // Notify index.html
@@ -1749,18 +1796,28 @@
             }
         }
 
-        // --- 9. MANUAL ADD MATERIAL ---
+        // --- 9. MANUAL ADD MATERIAL (dari fitur Tambah Materi dari Link) ---
+        // Menggunakan course_id prefix 'manual-' - TIDAK mempengaruhi shortcut
         async function saveManualMaterial() {
-            const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-            if (userError || !user) {
+            console.log('📝 saveManualMaterial called');
+
+            const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
+            console.log('🔐 Session check manual:', { hasSession: !!session, sessionError });
+
+            if (sessionError || !session || !session.user) {
                 alert('Silakan login terlebih dahulu.');
                 return;
             }
+
+            const user = session.user;
+            console.log('👤 User authenticated (manual):', user.id);
 
             const nameInput = document.getElementById('manual-name');
             const urlInput = document.getElementById('manual-link');
             const name = nameInput.value.trim();
             const url = urlInput.value.trim();
+
+            console.log('📝 Manual form values:', { name, url });
 
             if (!name || !url) {
                 alert('Nama dan Link harus diisi.');
@@ -1770,6 +1827,7 @@
             const courseId = 'manual-' + Date.now();
 
             try {
+                // Gunakan course_id prefix 'manual-' - TIDAK mempengaruhi shortcut
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .insert({
@@ -1794,9 +1852,10 @@
                 urlInput.value = '';
                 document.getElementById('manual-form-container').classList.add('hidden');
 
-                // Notify index.html
+                // Kirim pesan ke index.html - TAPI TIDAK mengubah shortcut
+                // Hanya kirim notifikasi bahwa ada item ditambahkan (tanpa mempengaruhi shortcut)
                 nuqthahChannel.postMessage({
-                    type: 'MATERIMU_ITEM_ADDED',
+                    type: 'MANUAL_ITEM_ADDED',
                     item: {
                         id: data[0]?.id,
                         title: name,
@@ -1804,6 +1863,10 @@
                         course_id: courseId
                     }
                 });
+
+                // Tetap kirim count update
+                const count = savedItems.length;
+                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
 
             } catch (err) {
                 console.error('❌ Save manual material error:', err);
@@ -1877,20 +1940,29 @@
 
                 savedItems.forEach(item => {
                     const isManual = item.course_id.startsWith('manual-');
+                    // Cek apakah ini shortcut (course_id dimulai dengan 'shortcut-')
+                    const isShortcut = item.source === 'shortcut';
                     const itemDiv = document.createElement('div');
                     itemDiv.className =
                         'saved-item bg-white border border-gray-100 rounded-xl p-3 flex gap-3 shadow-sm fade-in relative overflow-hidden';
                     const thumbSrc = item.image ||
                         'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+
+                    // Tampilkan badge shortcut jika ini adalah shortcut
+                    const shortcutBadge = isShortcut ?
+                        `<span class="absolute top-1 right-1 text-[8px] bg-accent text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wide">Shortcut</span>` :
+                        '';
+
                     itemDiv.innerHTML = `
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
                             <img src="${thumbSrc}" class="w-full h-full object-cover" alt="${item.title}">
                         </div>
-                        <div class="flex-grow flex flex-col justify-between py-0.5">
-                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight">${item.title}</h4>
+                        <div class="flex-grow flex flex-col justify-between py-0.5 relative">
+                            <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight pr-12">${item.title}</h4>
+                            ${shortcutBadge}
                             <div class="flex items-center gap-2 mt-2">
                                 <button onclick="handleDaftar(event, '${item.link}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
-                                ${isManual ? `<button onclick="openEditModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.link.replace(/'/g, "\\'")}')" class="w-6 h-6 text-blue-500 flex items-center justify-center transition-colors hover:text-blue-700"><i class="fas fa-pen"></i></button>` : ''}
+                                ${isManual || isShortcut ? `<button onclick="openEditModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.link.replace(/'/g, "\\'")}')" class="w-6 h-6 text-blue-500 flex items-center justify-center transition-colors hover:text-blue-700"><i class="fas fa-pen"></i></button>` : ''}
                                 <button onclick="removeFromMaterimu('${item.id}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
                                     <i class="far fa-trash-can"></i>
                                 </button>
@@ -2135,12 +2207,17 @@
 
             // --- LISTENER UNTUK PESAN DARI INDEX.HTML ---
             nuqthahChannel.addEventListener('message', async function (event) {
+                console.log('📨 Received message from index.html:', event.data);
                 if (event.data?.type === 'MATERIMU_ITEM_ADDED') {
-                    // Item ditambahkan dari index.html, reload data
+                    console.log('📦 Item added from index, reloading...');
+                    await loadSavedMaterials();
+                }
+                if (event.data?.type === 'SHORTCUT_UPDATED') {
+                    console.log('🔄 Shortcut updated, reloading...');
                     await loadSavedMaterials();
                 }
                 if (event.data?.type === 'MATERIMU_COUNT_UPDATE') {
-                    // Update count jika diperlukan
+                    console.log('📊 Count update received:', event.data.count);
                 }
             });
 
@@ -2151,6 +2228,8 @@
 
         console.log('✅ Nuqthah Materi — Fully integrated with Supabase for Materimu.');
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
+        console.log('✅ Manual materials (course_id prefix "manual-") TIDAK mempengaruhi shortcut.');
+        console.log('✅ Shortcut materials (course_id prefix "shortcut-") mempengaruhi tombol di index.html.');
     </script>
 
     <script>
