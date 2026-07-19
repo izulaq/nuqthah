@@ -2638,8 +2638,8 @@
             elements.resetForm.classList.add('pointer-events-none', 'opacity-50');
 
             try {
-                const { data, error } = await supabaseClient.auth.resetPasswordForEmail(email, {
-                    redirectTo: window.location.origin + window.location.pathname + '?mode=reset'
+                await supabase.auth.resetPasswordForEmail(email, {
+                    redirectTo: "https://nuqthahlearning.my.id" + '?mode=reset'
                 });
 
                 if (error) {
