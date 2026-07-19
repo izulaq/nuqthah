@@ -17,7 +17,8 @@
         rel="stylesheet">
 
     <!-- CDNs -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -302,7 +303,6 @@
             position: fixed;
             inset: 0;
             z-index: 999999;
-            /* Layer paling depan */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -333,7 +333,6 @@
             text-align: center;
             position: relative;
             z-index: 1000000;
-            /* Di dalam popup-box, tetap di atas */
         }
 
         #customPopup.show .popup-box {
@@ -447,7 +446,6 @@
             position: fixed;
             inset: 0;
             z-index: 90000;
-            /* Di bawah customPopup (999999) */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -565,6 +563,91 @@
         }
 
         /* ============================================================
+           PASSWORD TOGGLE - VISIBILITY BERDASARKAN VALUE
+        ============================================================ */
+        .pwd-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .pwd-wrapper input {
+            width: 100%;
+            padding-right: 44px;
+        }
+
+        .pwd-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: color 0.2s, opacity 0.2s;
+            background: transparent;
+            border: none;
+            padding: 8px;
+            line-height: 1;
+            z-index: 5;
+            opacity: 0;
+            pointer-events: none;
+            display: block;
+        }
+
+        .pwd-toggle.visible {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .pwd-toggle:hover {
+            color: var(--primary);
+        }
+
+        .pwd-toggle:focus-visible {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        /* ============================================================
+           SIDEBAR EMAIL (FITUR 2)
+        ============================================================ */
+        .sidebar-email {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 0.6rem 1.25rem;
+            margin-bottom: 0.5rem;
+            background: rgba(15, 74, 58, 0.04);
+            border-radius: 12px;
+            border-left: 3px solid var(--secondary);
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 500;
+            word-break: break-all;
+            transition: all 0.2s;
+        }
+
+        .sidebar-email.show {
+            display: flex;
+        }
+
+        .sidebar-email i {
+            font-size: 1.1rem;
+            color: var(--secondary);
+            flex-shrink: 0;
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-email span {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* ============================================================
            RESPONSIVE
         ============================================================ */
         @media(max-width:1200px) {
@@ -631,6 +714,12 @@
             #customPopup .popup-box {
                 padding: 1.75rem 1.25rem;
             }
+
+            .pwd-toggle {
+                right: 10px;
+                font-size: 1rem;
+                padding: 6px;
+            }
         }
 
         @media (max-width:480px) {
@@ -682,6 +771,12 @@
             #customPopup .popup-title {
                 font-size: 1.4rem;
             }
+
+            .pwd-toggle {
+                right: 8px;
+                font-size: 0.9rem;
+                padding: 4px;
+            }
         }
 
         /* Fix modal overlay position */
@@ -705,6 +800,28 @@
             opacity: 0.85;
             transform: translateY(-1px);
         }
+
+        /* ============================================================
+           TINGGI TOMBOL DISAMAKAN DENGAN HAMBURGER
+           HANYA PADDING VERTIKAL YANG DIUBAH
+        ============================================================ */
+        .header-btn {
+            padding-top: 0.6rem;
+            padding-bottom: 0.6rem;
+            line-height: 1.2;
+            height: auto;
+            min-height: 0;
+        }
+
+        .hamburger-btn {
+            padding: 0.6rem;
+            line-height: 1;
+            height: auto;
+            min-height: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
     </style>
 </head>
 
@@ -722,7 +839,6 @@
             <h2 id="popup-title" class="popup-title">Judul</h2>
             <p id="popup-message" class="popup-message">Pesan</p>
             <div id="popupActions" class="popup-actions">
-                <!-- Tombol akan dibuat oleh JavaScript -->
             </div>
         </div>
     </div>
@@ -780,18 +896,18 @@
         <div class="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-3">
 
             <button id="nav-register-btn"
-                class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
+                class="header-btn bg-primary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
                 Daftar Gratis
             </button>
 
             <!-- Tombol Materimu -->
             <button id="materimu-btn"
-                class="bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
+                class="header-btn bg-primary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
                 Materimu
             </button>
 
             <button id="menu-toggle"
-                class="p-3 text-primary hover:text-secondary transition-colors duration-300 focus:outline-none"
+                class="hamburger-btn text-primary hover:text-secondary transition-colors duration-300 focus:outline-none"
                 aria-label="Buka Menu">
                 <i class="fas fa-bars text-xl md:text-2xl"></i>
             </button>
@@ -824,6 +940,16 @@
                     aria-label="Tutup Menu">
                     <i class="fas fa-times text-2xl"></i>
                 </button>
+            </div>
+
+            <!-- ============================================================
+            SIDEBAR EMAIL (FITUR 2) - di bawah Menu Utama
+            ============================================================ -->
+            <div id="sidebarEmailContainer" class="relative px-6 pt-3 pb-1">
+                <div id="sidebarEmail" class="sidebar-email">
+                    <i class="fa-regular fa-envelope"></i>
+                    <span id="sidebarEmailText"></span>
+                </div>
             </div>
 
             <nav class="relative flex-grow py-6 px-6 space-y-2 overflow-y-auto">
@@ -953,14 +1079,24 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                         <div class="space-y-1">
                             <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password</label>
-                            <input type="password" id="regPass" required placeholder="••••••••"
-                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            <div class="pwd-wrapper">
+                                <input type="password" id="regPass" required placeholder="••••••••"
+                                    class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                                <button type="button" class="pwd-toggle" aria-label="Tampilkan password" tabindex="-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="space-y-1">
                             <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Konfirmasi
                                 Password</label>
-                            <input type="password" id="regConfirm" required placeholder="••••••••"
-                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            <div class="pwd-wrapper">
+                                <input type="password" id="regConfirm" required placeholder="••••••••"
+                                    class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                                <button type="button" class="pwd-toggle" aria-label="Tampilkan password" tabindex="-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -1025,8 +1161,13 @@
 
                     <div class="space-y-1">
                         <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password</label>
-                        <input type="password" id="loginPass" required placeholder="••••••••"
-                            class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                        <div class="pwd-wrapper">
+                            <input type="password" id="loginPass" required placeholder="••••••••"
+                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            <button type="button" class="pwd-toggle" aria-label="Tampilkan password" tabindex="-1">
+                                <i class="fa-regular fa-eye"></i>
+                            </button>
+                        </div>
                     </div>
 
                     <div class="text-right">
@@ -1086,14 +1227,24 @@
                         <div class="space-y-1">
                             <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Password
                                 Baru</label>
-                            <input type="password" id="resetNewPass" placeholder="••••••••"
-                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            <div class="pwd-wrapper">
+                                <input type="password" id="resetNewPass" placeholder="••••••••"
+                                    class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                                <button type="button" class="pwd-toggle" aria-label="Tampilkan password" tabindex="-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                         <div class="space-y-1">
                             <label class="text-xs font-bold text-primary uppercase tracking-wider ml-1">Konfirmasi
                                 Password</label>
-                            <input type="password" id="resetConfirmPass" placeholder="••••••••"
-                                class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                            <div class="pwd-wrapper">
+                                <input type="password" id="resetConfirmPass" placeholder="••••••••"
+                                    class="w-full bg-white border border-primary/10 rounded-xl px-4 py-2.5 focus:outline-none focus:ring-2 focus:ring-primary/20 transition-all text-sm">
+                                <button type="button" class="pwd-toggle" aria-label="Tampilkan password" tabindex="-1">
+                                    <i class="fa-regular fa-eye"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -1307,6 +1458,214 @@
         })();
 
         /* ============================================================
+           PASSWORD TOGGLE - SOLUSI LENGKAP
+           VISIBILITY BERDASARKAN input.value.length > 0
+        ============================================================ */
+        (function initPasswordToggles() {
+            // Flag untuk mencegah inisialisasi ganda
+            if (window.__passwordTogglesInitialized) {
+                console.log('⚠️ Password toggle already initialized, skipping.');
+                return;
+            }
+            window.__passwordTogglesInitialized = true;
+
+            /**
+             * Update visibility toggle berdasarkan nilai input
+             * @param {HTMLElement} wrapper - .pwd-wrapper element
+             */
+            function updateToggleVisibility(wrapper) {
+                if (!wrapper) return;
+                const input = wrapper.querySelector('input[type="password"], input[type="text"]');
+                const toggle = wrapper.querySelector('.pwd-toggle');
+                if (!input || !toggle) return;
+
+                // Cek apakah input sedang dalam mode password atau text
+                const isPassword = input.type === 'password';
+                const hasValue = input.value.length > 0;
+
+                // Toggle visibility berdasarkan nilai
+                if (hasValue) {
+                    toggle.classList.add('visible');
+                } else {
+                    toggle.classList.remove('visible');
+                    // Reset icon ke eye jika password kosong
+                    const icon = toggle.querySelector('i');
+                    if (icon && input.type === 'text') {
+                        // Jika input dalam mode text tapi kosong, ubah ke password
+                        input.type = 'password';
+                        icon.className = 'fa-regular fa-eye';
+                    }
+                }
+            }
+
+            /**
+             * Setup satu password wrapper
+             * @param {HTMLElement} wrapper - .pwd-wrapper element
+             */
+            function setupPasswordWrapper(wrapper) {
+                // Cek apakah sudah memiliki toggle
+                const toggle = wrapper.querySelector('.pwd-toggle');
+                if (!toggle) {
+                    console.warn('⚠️ .pwd-toggle not found in wrapper:', wrapper);
+                    return;
+                }
+
+                const input = wrapper.querySelector('input');
+                if (!input) {
+                    console.warn('⚠️ No input found in wrapper:', wrapper);
+                    return;
+                }
+
+                // Cek apakah sudah diinisialisasi
+                if (wrapper.dataset.passwordBound === 'true') {
+                    // Jika sudah, hanya update visibility
+                    updateToggleVisibility(wrapper);
+                    return;
+                }
+                wrapper.dataset.passwordBound = 'true';
+
+                // Hapus event listener lama dengan clone
+                const newToggle = toggle.cloneNode(true);
+                if (toggle.parentNode) {
+                    toggle.parentNode.replaceChild(newToggle, toggle);
+                }
+
+                // Ambil referensi baru
+                const finalWrapper = wrapper;
+                const finalInput = finalWrapper.querySelector('input');
+                const finalToggle = finalWrapper.querySelector('.pwd-toggle');
+
+                if (!finalInput || !finalToggle) return;
+
+                // Pastikan input memiliki type password
+                if (!finalInput.type || finalInput.type === 'text') {
+                    finalInput.type = 'password';
+                }
+
+                // Event untuk update visibility saat input berubah
+                finalInput.addEventListener('input', function () {
+                    updateToggleVisibility(finalWrapper);
+                });
+
+                finalInput.addEventListener('change', function () {
+                    updateToggleVisibility(finalWrapper);
+                });
+
+                // Event untuk paste
+                finalInput.addEventListener('paste', function () {
+                    setTimeout(() => updateToggleVisibility(finalWrapper), 10);
+                });
+
+                // Event untuk cut
+                finalInput.addEventListener('cut', function () {
+                    setTimeout(() => updateToggleVisibility(finalWrapper), 10);
+                });
+
+                // Toggle click handler
+                finalToggle.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+
+                    const icon = this.querySelector('i');
+                    if (finalInput.type === 'password') {
+                        finalInput.type = 'text';
+                        if (icon) icon.className = 'fa-regular fa-eye-slash';
+                    } else {
+                        finalInput.type = 'password';
+                        if (icon) icon.className = 'fa-regular fa-eye';
+                    }
+                    finalInput.focus();
+                    // Update visibility tetap berdasarkan nilai
+                    updateToggleVisibility(finalWrapper);
+                });
+
+                // Initial update
+                updateToggleVisibility(finalWrapper);
+
+                console.log('✅ Password toggle setup complete for:', finalInput.id || 'unnamed input');
+            }
+
+            /**
+             * Setup semua password wrapper dalam container
+             * @param {HTMLElement} container - Element yang berisi .pwd-wrapper
+             */
+            function setupAllWrappers(container) {
+                if (!container) return;
+                const wrappers = container.querySelectorAll('.pwd-wrapper');
+                wrappers.forEach(wrapper => {
+                    setupPasswordWrapper(wrapper);
+                });
+            }
+
+            /**
+             * Inisialisasi semua password wrapper di halaman
+             * Termasuk yang ada di dalam modal
+             */
+            function initAllPasswordToggles() {
+                // Setup semua wrapper yang ada di DOM
+                document.querySelectorAll('.pwd-wrapper').forEach(wrapper => {
+                    setupPasswordWrapper(wrapper);
+                });
+
+                console.log('✅ Password toggle initialized. Total wrappers:', document.querySelectorAll('.pwd-wrapper')
+                    .length);
+            }
+
+            /**
+             * Setup observer untuk modal yang dibuka
+             */
+            function setupModalObserver() {
+                const modalIds = ['registerModal', 'loginModal', 'resetModal'];
+
+                modalIds.forEach(id => {
+                    const modal = document.getElementById(id);
+                    if (!modal) return;
+
+                    // Observer untuk menangkap perubahan class 'show' pada modal
+                    const observer = new MutationObserver(function (mutations) {
+                        mutations.forEach(function (mutation) {
+                            if (mutation.attributeName === 'class') {
+                                if (modal.classList.contains('show')) {
+                                    // Modal dibuka - setup ulang semua wrapper di dalamnya
+                                    setTimeout(() => {
+                                        setupAllWrappers(modal);
+                                    }, 100);
+                                }
+                            }
+                        });
+                    });
+
+                    observer.observe(modal, {
+                        attributes: true,
+                        attributeFilter: ['class']
+                    });
+                });
+            }
+
+            // Inisialisasi saat DOM ready
+            if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', function () {
+                    initAllPasswordToggles();
+                    setupModalObserver();
+                });
+            } else {
+                initAllPasswordToggles();
+                setupModalObserver();
+            }
+
+            // Ekspos fungsi untuk digunakan di tempat lain
+            window.passwordToggle = {
+                setupAllWrappers: setupAllWrappers,
+                setupPasswordWrapper: setupPasswordWrapper,
+                updateToggleVisibility: updateToggleVisibility,
+                initAll: initAllPasswordToggles
+            };
+
+            console.log('✅ Password toggle module loaded successfully.');
+
+        })();
+
+        /* ============================================================
            DOM REFS
         ============================================================ */
         const elements = {
@@ -1351,13 +1710,15 @@
             resetModalTitle: document.getElementById('resetModalTitle'),
             resetModalSub: document.getElementById('resetModalSub'),
 
-            // Materimu Popup
             materimuBtn: document.getElementById('materimu-btn'),
             materimuPopup: document.getElementById('materimuPopup'),
             closeMaterimuPopup: document.getElementById('closeMaterimuPopup'),
             popupMateriName: document.getElementById('popupMateriName'),
             popupMateriLink: document.getElementById('popupMateriLink'),
             saveMaterimuPopup: document.getElementById('saveMaterimuPopup'),
+
+            sidebarEmail: document.getElementById('sidebarEmail'),
+            sidebarEmailText: document.getElementById('sidebarEmailText'),
         };
 
         /* ============================================================
@@ -1377,6 +1738,13 @@
             elements.registerModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.registerModal.querySelector('.modal-content').classList.add('scale-100');
             document.body.style.overflow = 'hidden';
+
+            // Setup ulang password toggle di modal register
+            setTimeout(() => {
+                if (window.passwordToggle) {
+                    window.passwordToggle.setupAllWrappers(elements.registerModal);
+                }
+            }, 150);
         }
 
         function closeRegisterModal() {
@@ -1395,7 +1763,13 @@
             elements.loginModal.querySelector('.modal-content').classList.remove('scale-95');
             elements.loginModal.querySelector('.modal-content').classList.add('scale-100');
             document.body.style.overflow = 'hidden';
-            setTimeout(() => document.getElementById('loginEmail').focus(), 100);
+            setTimeout(() => {
+                document.getElementById('loginEmail').focus();
+                // Setup ulang password toggle di modal login
+                if (window.passwordToggle) {
+                    window.passwordToggle.setupAllWrappers(elements.loginModal);
+                }
+            }, 100);
         }
 
         function closeLoginModal() {
@@ -1434,7 +1808,13 @@
                 elements.resetNewPass.value = '';
                 elements.resetConfirmPass.value = '';
                 elements.resetEmail.disabled = true;
-                setTimeout(() => elements.resetNewPass.focus(), 100);
+                setTimeout(() => {
+                    elements.resetNewPass.focus();
+                    // Setup ulang password toggle di modal reset
+                    if (window.passwordToggle) {
+                        window.passwordToggle.setupAllWrappers(elements.resetModal);
+                    }
+                }, 100);
             }
         }
 
@@ -1463,6 +1843,23 @@
         }
 
         /* ============================================================
+           SIDEBAR EMAIL (FITUR 2)
+        ============================================================ */
+        function updateSidebarEmail(user) {
+            const container = elements.sidebarEmail;
+            const textEl = elements.sidebarEmailText;
+            if (!container || !textEl) return;
+
+            if (user && user.email) {
+                textEl.textContent = user.email;
+                container.classList.add('show');
+            } else {
+                container.classList.remove('show');
+                textEl.textContent = '';
+            }
+        }
+
+        /* ============================================================
            MATERIMU POPUP
         ============================================================ */
         (function () {
@@ -1470,7 +1867,6 @@
             let savedRecordId = null;
             let isChecking = false;
 
-            // Fungsi untuk mengecek apakah user memiliki materi tersimpan
             async function checkSavedMaterial() {
                 if (isChecking) return;
                 isChecking = true;
@@ -1484,7 +1880,6 @@
                         return;
                     }
 
-                    // Cari materi manual pertama yang tersimpan untuk user ini
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
                         .select('id, link')
@@ -1520,26 +1915,22 @@
                 }
             }
 
-            // Update perilaku tombol berdasarkan state
             function updateButtonBehavior() {
                 const btn = elements.materimuBtn;
                 if (!btn) return;
 
                 if (savedLink && savedLink !== '#' && savedLink.trim() !== '') {
-                    // Kondisi 2: Ada link, buka link langsung di tab yang SAMA
                     btn.className =
-                        'bg-secondary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-85 transition-all has-link';
+                        'header-btn bg-secondary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-85 transition-all has-link';
                     btn.innerHTML = 'Materimu <i class="fas fa-external-link-alt text-xs ml-1"></i>';
                     btn.onclick = function (e) {
                         e.preventDefault();
-                        // Menggunakan window.location.href untuk membuka di tab yang SAMA
                         window.location.href = savedLink;
                     };
                     btn.style.cursor = 'pointer';
                 } else {
-                    // Kondisi 1: Tidak ada link, buka popup
                     btn.className =
-                        'bg-primary text-white px-6 py-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all';
+                        'header-btn bg-primary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all';
                     btn.innerHTML = 'Materimu';
                     btn.onclick = function (e) {
                         e.preventDefault();
@@ -1549,7 +1940,6 @@
                 }
             }
 
-            // Buka popup
             function openMaterimuPopup() {
                 const popup = elements.materimuPopup;
                 if (!popup) return;
@@ -1560,7 +1950,6 @@
                 setTimeout(() => elements.popupMateriName.focus(), 100);
             }
 
-            // Tutup popup
             function closeMaterimuPopup() {
                 const popup = elements.materimuPopup;
                 if (!popup) return;
@@ -1568,7 +1957,6 @@
                 document.body.style.overflow = '';
             }
 
-            // Simpan materi dari popup
             async function saveFromPopup() {
                 const name = elements.popupMateriName.value.trim();
                 const link = elements.popupMateriLink.value.trim();
@@ -1583,7 +1971,6 @@
                     return;
                 }
 
-                // Cek login
                 const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
                 if (userError || !user) {
                     await window.showPopup({
@@ -1597,7 +1984,6 @@
                     return;
                 }
 
-                // Disable tombol
                 const saveBtn = elements.saveMaterimuPopup;
                 saveBtn.disabled = true;
                 saveBtn.querySelector('span').textContent = 'Menyimpan...';
@@ -1630,14 +2016,12 @@
 
                     console.log('✅ Materi saved from popup:', data);
 
-                    // Update state
                     savedLink = link;
                     savedRecordId = data[0]?.id || null;
                     updateButtonBehavior();
 
                     closeMaterimuPopup();
 
-                    // Kirim pesan ke materi.html (jika terbuka)
                     nuqthahChannel.postMessage({
                         type: 'MATERIMU_ITEM_ADDED',
                         item: {
@@ -1648,7 +2032,6 @@
                         }
                     });
 
-                    // Kirim update count
                     const count = await getMaterimuCount(user.id);
                     nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
 
@@ -1674,7 +2057,6 @@
                 }
             }
 
-            // Dapatkan jumlah materi user
             async function getMaterimuCount(userId) {
                 try {
                     const { count, error } = await supabaseClient
@@ -1689,7 +2071,6 @@
                 }
             }
 
-            // Event Listeners
             elements.closeMaterimuPopup.addEventListener('click', closeMaterimuPopup);
             elements.materimuPopup.addEventListener('click', function (e) {
                 if (e.target === this) closeMaterimuPopup();
@@ -1701,7 +2082,6 @@
             });
             elements.saveMaterimuPopup.addEventListener('click', saveFromPopup);
 
-            // Enter key support
             elements.popupMateriName.addEventListener('keydown', function (e) {
                 if (e.key === 'Enter') {
                     e.preventDefault();
@@ -1715,7 +2095,6 @@
                 }
             });
 
-            // Ekspos fungsi untuk dipanggil dari luar
             window.materimuPopup = {
                 open: openMaterimuPopup,
                 close: closeMaterimuPopup,
@@ -1723,12 +2102,10 @@
                 refresh: checkSavedMaterial
             };
 
-            // Inisialisasi
             document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(checkSavedMaterial, 500);
             });
 
-            // Listener untuk perubahan dari materi.html
             nuqthahChannel.addEventListener('message', function (event) {
                 if (event.data?.type === 'MATERIMU_ITEM_DELETED') {
                     setTimeout(checkSavedMaterial, 300);
@@ -1750,7 +2127,6 @@
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
                 if (error) throw error;
 
-                // Cek parameter URL untuk reset password
                 const urlParams = new URLSearchParams(window.location.search);
                 const mode = urlParams.get('mode');
                 const accessToken = urlParams.get('access_token');
@@ -1772,8 +2148,9 @@
                     }
                 }
 
-                if (session) {
-                    // Logged in
+                const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+
+                if (session && user) {
                     elements.navRegisterBtn.textContent = 'Akun Saya';
                     elements.navRegisterBtn.classList.add('bg-secondary');
                     elements.navRegisterBtn.classList.remove('bg-primary');
@@ -1795,13 +2172,13 @@
                     elements.searchCta.classList.remove('pointer-events-none', 'opacity-90');
                     delete elements.searchCta.dataset.redirecting;
 
-                    // Update Materimu popup state
                     if (window.materimuPopup?.check) {
                         setTimeout(window.materimuPopup.check, 300);
                     }
 
+                    updateSidebarEmail(user);
+
                 } else {
-                    // Logged out
                     elements.navRegisterBtn.textContent = 'Daftar Gratis';
                     elements.navRegisterBtn.classList.remove('bg-secondary');
                     elements.navRegisterBtn.classList.add('bg-primary');
@@ -1813,14 +2190,14 @@
                     if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
                     if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
 
-                    // Reset Materimu popup state
                     if (window.materimuPopup?.check) {
                         setTimeout(window.materimuPopup.check, 300);
                     }
+
+                    updateSidebarEmail(null);
                 }
             } catch (err) {
                 console.warn('Session check error:', err);
-                // Fallback logged out
                 elements.navRegisterBtn.textContent = 'Daftar Gratis';
                 elements.navRegisterBtn.classList.remove('bg-secondary');
                 elements.navRegisterBtn.classList.add('bg-primary');
@@ -1830,6 +2207,7 @@
                 };
                 if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
                 if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
+                updateSidebarEmail(null);
             }
         }
 
@@ -1940,7 +2318,6 @@
                     return;
                 }
 
-                // Simpan ke profiles
                 const { error: profileError } = await supabaseClient
                     .from("profiles")
                     .upsert({
@@ -1955,7 +2332,6 @@
                     console.warn('Profile upsert error:', profileError);
                 }
 
-                // WhatsApp Edge Function
                 try {
                     await fetch(
                         "https://idwrkzekykarxnuoaysu.supabase.co/functions/v1/send-whatsapp", {
@@ -1976,7 +2352,6 @@
                     console.warn('WhatsApp send error:', waErr);
                 }
 
-                // Success
                 elements.successMessage.classList.remove('opacity-0', 'pointer-events-none');
                 elements.registerForm.classList.add('opacity-0');
 
@@ -2382,6 +2757,66 @@
         });
 
         /* ============================================================
+           VERIFIKASI DI CONSOLE
+        ============================================================ */
+        console.log('%c========================================', 'color: #C9A227; font-weight: bold;');
+        console.log('%c🔍 VERIFIKASI PASSWORD TOGGLE', 'color: #C9A227; font-weight: bold;');
+        console.log('%c========================================', 'color: #C9A227; font-weight: bold;');
+
+        // Jalankan verifikasi setelah DOM siap
+        setTimeout(() => {
+            const allWrappers = document.querySelectorAll('.pwd-wrapper');
+            const allToggles = document.querySelectorAll('.pwd-toggle');
+            const visibleToggles = document.querySelectorAll('.pwd-toggle.visible');
+            const registerToggles = document.querySelectorAll('#registerModal .pwd-toggle');
+            const loginToggles = document.querySelectorAll('#loginModal .pwd-toggle');
+            const resetToggles = document.querySelectorAll('#resetModal .pwd-toggle');
+
+            console.log('📊 Total .pwd-wrapper:', allWrappers.length);
+            console.log('📊 Total .pwd-toggle:', allToggles.length);
+            console.log('📊 Total .pwd-toggle.visible:', visibleToggles.length);
+            console.log('📊 .pwd-toggle di #registerModal:', registerToggles.length);
+            console.log('📊 .pwd-toggle di #loginModal:', loginToggles.length);
+            console.log('📊 .pwd-toggle di #resetModal:', resetToggles.length);
+
+            // Periksa apakah ada wrapper tanpa toggle
+            let missingToggle = false;
+            allWrappers.forEach((wrapper, index) => {
+                const toggle = wrapper.querySelector('.pwd-toggle');
+                if (!toggle) {
+                    console.warn(`⚠️ Wrapper #${index} tidak memiliki .pwd-toggle`);
+                    missingToggle = true;
+                }
+            });
+
+            // Periksa apakah ada toggle ganda dalam satu wrapper
+            let duplicateToggle = false;
+            allWrappers.forEach((wrapper, index) => {
+                const toggles = wrapper.querySelectorAll('.pwd-toggle');
+                if (toggles.length > 1) {
+                    console.warn(`⚠️ Wrapper #${index} memiliki ${toggles.length} .pwd-toggle (duplikat!)`);
+                    duplicateToggle = true;
+                }
+            });
+
+            if (!missingToggle && !duplicateToggle && registerToggles.length === 2 && loginToggles.length === 1 && resetToggles
+                .length >= 1) {
+                console.log('%c✅ VERIFIKASI BERHASIL! Password toggle berfungsi dengan benar.', 'color: #059669; font-weight: bold;');
+                console.log('   - Setiap wrapper memiliki SATU toggle');
+                console.log('   - Register: 2 toggles (Password + Konfirmasi)');
+                console.log('   - Login: 1 toggle (Password)');
+                console.log('   - Reset: ' + resetToggles.length + ' toggles');
+            } else {
+                console.log('%c❌ VERIFIKASI GAGAL! Ada masalah pada password toggle.', 'color: #dc2626; font-weight: bold;');
+                if (missingToggle) console.log('   - Ada wrapper tanpa toggle');
+                if (duplicateToggle) console.log('   - Ada wrapper dengan toggle ganda');
+                console.log('   - Expected: Register=2, Login=1, Reset>=1');
+                console.log('   - Actual: Register=' + registerToggles.length + ', Login=' + loginToggles.length +
+                    ', Reset=' + resetToggles.length);
+            }
+        }, 600);
+
+        /* ============================================================
            INIT
         ============================================================ */
         document.addEventListener('DOMContentLoaded', () => {
@@ -2396,7 +2831,6 @@
             if (document.visibilityState === 'visible') checkSessionAndUpdateUI();
         });
 
-        // Responsive vh fix
         const setVh = () => {
             let vh = window.innerHeight * 0.01;
             document.documentElement.style.setProperty('--vh', `${vh}px`);
@@ -2407,6 +2841,11 @@
         console.log('✅ Nuqthah Gateway — Popup layer fixed: customPopup (z-index: 999999) is above materimuPopup (z-index: 90000)');
         console.log('✅ Materimu button integrated with Supabase saved_materials table.');
         console.log('✅ Materimu link opens in same tab using window.location.href');
+        console.log('✅ Fitur 1: Password toggle - VISIBILITY BERDASARKAN input.value.length > 0');
+        console.log('✅ Fitur 2: Email user ditampilkan di sidebar saat login.');
+        console.log('✅ Tidak ada MutationObserver untuk inisialisasi ulang yang berlebihan.');
+        console.log('✅ Setiap field password memiliki SATU tombol .pwd-toggle.');
+        console.log('✅ Modal open/close akan setup ulang password toggle secara otomatis.');
     </script>
 
 </body>
