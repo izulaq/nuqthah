@@ -991,7 +991,7 @@
         <!-- ============================================================
         HEADER NAVIGATION
         ============================================================ -->
-        <div class="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-3">
+        <div class="fixed top-4 right-4 md:top-6 md:right-6 z-40 flex items-center gap-2 md:gap-3">
 
             <button id="nav-register-btn"
                 class="header-btn bg-primary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
@@ -1002,6 +1002,12 @@
             <button id="materimu-btn"
                 class="header-btn bg-primary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
                 Materimu
+            </button>
+
+            <!-- Tombol Afiliate (BARU) -->
+            <button id="afiliate-btn"
+                class="header-btn bg-primary text-white px-5 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap">
+                <i class="fa-solid fa-users"></i> Afiliate
             </button>
 
             <button id="menu-toggle"
@@ -1789,6 +1795,8 @@
 
             sidebarEmail: document.getElementById('sidebarEmail'),
             sidebarEmailText: document.getElementById('sidebarEmailText'),
+
+            afiliateBtn: document.getElementById('afiliate-btn'),
         };
 
         /* ============================================================
@@ -2198,7 +2206,7 @@
           </div>
           <div class="step">
             <span class="step-num">5</span>
-            <span class="step-text">Setelah selesai, aplikasi akan muncul di <strong>Home Screen</strong> sebagai aplikasi.</span>
+            <span class="step-text">Setelah selesai, aplikasi akan muncul di <strong>Home Screen</strong> seperti aplikasi Android.</span>
           </div>
           <div class="step">
             <span class="step-num">6</span>
@@ -2584,6 +2592,8 @@
 
                 const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
 
+                const afiliateBtn = elements.afiliateBtn;
+
                 if (session && user) {
                     // HANYA UBAH TOMBOL INI: Daftar Gratis -> Install (hanya icon)
                     elements.navRegisterBtn.innerHTML = '<i class="fa-solid fa-mobile-screen-button"></i>';
@@ -2592,6 +2602,14 @@
                     elements.navRegisterBtn.onclick = (e) => {
                         e.preventDefault();
                         showInstallGuide();
+                    };
+
+                    // Atur tombol Afiliate: icon + teks
+                    afiliateBtn.innerHTML = '<i class="fa-solid fa-users"></i> Afiliate';
+                    afiliateBtn.className = 'header-btn bg-primary text-white px-5 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap';
+                    afiliateBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = "afiliator.html";
                     };
 
                     if (elements.logoutMenu) elements.logoutMenu.classList.remove('hidden');
@@ -2623,6 +2641,14 @@
                         openRegisterModal();
                     };
 
+                    // Atur tombol Afiliate: hanya icon
+                    afiliateBtn.innerHTML = '<i class="fa-solid fa-users"></i>';
+                    afiliateBtn.className = 'header-btn bg-primary text-white px-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap';
+                    afiliateBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = "afiliator.html";
+                    };
+
                     if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
                     if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
 
@@ -2641,6 +2667,16 @@
                     e.preventDefault();
                     openRegisterModal();
                 };
+                // Fallback: afiliate hanya icon
+                const afiliateBtn = elements.afiliateBtn;
+                if (afiliateBtn) {
+                    afiliateBtn.innerHTML = '<i class="fa-solid fa-users"></i>';
+                    afiliateBtn.className = 'header-btn bg-primary text-white px-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap';
+                    afiliateBtn.onclick = (e) => {
+                        e.preventDefault();
+                        window.location.href = "afiliator.html";
+                    };
+                }
                 if (elements.logoutMenu) elements.logoutMenu.classList.add('hidden');
                 if (elements.loginMenu) elements.loginMenu.classList.remove('hidden');
                 updateSidebarEmail(null);
@@ -3302,6 +3338,8 @@
         console.log('✅ Saat sudah login: Install (icon) + Materimu + Hamburger.');
         console.log('✅ Tombol "Akun Saya" dihapus sepenuhnya dari alur aplikasi.');
         console.log('✅ Popup Install menampilkan HTML dengan benar (innerHTML).');
+        console.log('✅ Tombol Afiliate telah ditambahkan: icon+teks saat login, hanya icon saat tidak login.');
+        console.log('✅ Jarak antar tombol menggunakan gap-2 (mobile) dan gap-3 (desktop) agar tetap rapih.');
     </script>
 
 </body>
