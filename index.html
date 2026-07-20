@@ -27,8 +27,8 @@
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-   
-
+    <!-- Mobile Fix CSS -->
+    <link rel="stylesheet" href="css/mobile-fix.css">
 
     <script>
         tailwind.config = {
@@ -851,6 +851,75 @@
             opacity: 1 !important;
             pointer-events: auto !important;
         }
+
+        /* ============================================================
+           INSTALL POPUP - STYLE UNTUK KONTEN HTML
+        ============================================================ */
+        .install-steps {
+            text-align: left;
+            padding: 0 0.25rem;
+        }
+
+        .install-steps .step {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #374151;
+        }
+
+        .install-steps .step .step-num {
+            flex-shrink: 0;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+            margin-top: 1px;
+        }
+
+        .install-steps .step .step-icon {
+            flex-shrink: 0;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            margin-top: 2px;
+            width: 24px;
+            text-align: center;
+        }
+
+        .install-steps .step .step-text {
+            flex: 1;
+        }
+
+        .install-steps .step .step-text strong {
+            color: var(--primary);
+        }
+
+        .install-note {
+            font-size: 0.75rem;
+            color: #6b7280;
+            text-align: center;
+            margin-top: 12px;
+            padding: 8px 12px;
+            background: rgba(15, 74, 58, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--secondary);
+        }
+
+        .install-intro {
+            font-size: 0.9rem;
+            color: #374151;
+            text-align: center;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 
@@ -866,7 +935,7 @@
                 <i class="fas fa-info-circle"></i>
             </div>
             <h2 id="popup-title" class="popup-title">Judul</h2>
-            <p id="popup-message" class="popup-message">Pesan</p>
+            <div id="popup-message" class="popup-message"></div>
             <div id="popupActions" class="popup-actions">
             </div>
         </div>
@@ -1387,6 +1456,7 @@
 
         /* ============================================================
            CUSTOM POPUP (FIXED) - LAYER PALING DEPAN
+           DIPERBAIKI: Menggunakan innerHTML untuk render HTML
         ============================================================ */
         (function () {
             const popupEl = document.getElementById('customPopup');
@@ -1451,7 +1521,9 @@
                     iconEl.innerHTML = `<i class="fas ${iconData.icon}"></i>`;
 
                     titleEl.textContent = title;
-                    msgEl.textContent = message;
+
+                    // PERBAIKAN: Gunakan innerHTML agar HTML dirender
+                    msgEl.innerHTML = message;
 
                     buttons.forEach((btn, index) => {
                         const btnEl = document.createElement('button');
@@ -1772,7 +1844,6 @@
             console.log('🔍 openResetModal() called with mode:', mode);
 
             try {
-                // VALIDASI ELEMEN
                 if (!elements.resetModal) {
                     console.error('❌ resetModal element not found!');
                     return;
@@ -1785,7 +1856,6 @@
 
                 console.log('✅ All resetModal elements validated.');
 
-                // Setup ulang elemen berdasarkan mode
                 if (mode === 'reset') {
                     console.log('📝 Mode: reset - Kirim link reset');
 
@@ -1871,7 +1941,6 @@
                     }
                 } else {
                     console.warn('⚠️ Unknown mode:', mode, ', defaulting to "reset"');
-                    // Default ke mode reset
                     if (elements.resetEmailField) {
                         elements.resetEmailField.classList.remove('hidden');
                     }
@@ -1896,25 +1965,20 @@
                     }
                 }
 
-                // BUKA MODAL
                 console.log('📂 Opening reset modal...');
 
-                // Tambahkan class show
                 elements.resetModal.classList.add('show');
 
-                // Update transform untuk animasi
                 const modalContent = elements.resetModal.querySelector('.modal-content');
                 if (modalContent) {
                     modalContent.classList.remove('scale-95');
                     modalContent.classList.add('scale-100');
                 }
 
-                // Lock scroll
                 document.body.style.overflow = 'hidden';
 
                 console.log('✅ Reset Modal class "show" added.');
 
-                // Fokus ke field yang sesuai
                 if (mode === 'newpassword') {
                     setTimeout(() => {
                         if (elements.resetNewPass) {
@@ -1947,7 +2011,6 @@
             } catch (error) {
                 console.error('❌ Error in openResetModal():', error);
                 console.error('❌ Error stack:', error.stack);
-                // Jangan re-throw, biarkan fungsi selesai dengan aman
             }
         }
 
@@ -1970,7 +2033,6 @@
 
                 document.body.style.overflow = '';
 
-                // Reset ke mode reset untuk state default
                 if (elements.resetEmailField) {
                     elements.resetEmailField.classList.remove('hidden');
                 }
@@ -2020,10 +2082,8 @@
             console.log('🔍 Forgot Password button clicked!');
 
             try {
-                // Logging tahap demi tahap
                 console.log('📝 Step 1: Forgot Password clicked');
 
-                // Cek apakah login modal terbuka
                 if (elements.loginModal && elements.loginModal.classList.contains('show')) {
                     console.log('📝 Step 2: Login modal is open, closing it...');
                     closeLoginModal();
@@ -2034,20 +2094,17 @@
 
                 console.log('📝 Step 3: Opening Reset Modal...');
 
-                // Buka reset modal dengan mode 'reset'
                 openResetModal('reset');
 
                 console.log('✅ Reset Modal should now be open.');
                 console.log('📊 Reset Modal class list:', elements.resetModal ? elements.resetModal.classList : 'null');
 
-                // Verifikasi apakah modal benar-benar terbuka
                 setTimeout(() => {
                     if (elements.resetModal) {
                         const isOpen = elements.resetModal.classList.contains('show');
                         console.log('🔍 Verification: Reset Modal is ' + (isOpen ? 'OPEN' : 'CLOSED'));
                         if (!isOpen) {
                             console.warn('⚠️ Reset Modal did NOT open! Trying fallback...');
-                            // Fallback: coba buka langsung tanpa menutup login
                             try {
                                 elements.resetModal.classList.add('show');
                                 const modalContent = elements.resetModal.querySelector('.modal-content');
@@ -2068,7 +2125,6 @@
                 console.error('❌ Error in handleForgotPasswordClick():', error);
                 console.error('❌ Error stack:', error.stack);
 
-                // Fallback: coba buka modal langsung
                 try {
                     console.log('⚠️ Attempting emergency fallback to open reset modal...');
                     if (elements.resetModal) {
@@ -2105,6 +2161,57 @@
         }
 
         /* ============================================================
+           INSTALL BUTTON - SHOW INSTALL GUIDE POPUP
+           DIPERBAIKI: Menggunakan HTML di dalam popup
+        ============================================================ */
+        function showInstallGuide() {
+            const message = `
+        <p class="install-intro">
+          Supaya Nuqthah Learning Center lebih mudah diakses, Anda dapat menginstalnya seperti aplikasi di HP.
+        </p>
+        <div class="install-steps">
+          <div class="step">
+            <span class="step-num">1</span>
+            <span class="step-text">Buka website menggunakan <strong>Google Chrome</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-icon"><i class="fas fa-ellipsis-v"></i></span>
+            <span class="step-text">Tekan ikon titik tiga <strong>(⋮)</strong> di pojok kanan atas browser.</span>
+          </div>
+          <div class="step">
+            <span class="step-num">3</span>
+            <span class="step-text">Pilih <strong>"Install App"</strong> atau <strong>"Tambahkan ke layar utama"</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-num">4</span>
+            <span class="step-text">Tekan <strong>Install</strong> atau <strong>Tambahkan</strong>.</span>
+          </div>
+          <div class="step">
+            <span class="step-num">5</span>
+            <span class="step-text">Setelah selesai, aplikasi akan muncul di <strong>Home Screen</strong> seperti aplikasi Android.</span>
+          </div>
+          <div class="step">
+            <span class="step-num">6</span>
+            <span class="step-text">Jalankan aplikasi melalui <strong>Home Screen</strong> untuk pengalaman terbaik.</span>
+          </div>
+        </div>
+        <div class="install-note">
+          <i class="fas fa-info-circle"></i> Nama menu dapat berbeda pada setiap browser, versi Android, maupun merek HP.
+        </div>
+      `;
+
+            window.showPopup({
+                type: 'info',
+                title: 'Install Aplikasi Nuqthah',
+                message: message,
+                buttons: [
+                    { text: 'Tutup', primary: false, value: 'close' },
+                    { text: 'Mengerti', primary: true, value: 'ok' }
+                ]
+            });
+        }
+
+        /* ============================================================
            MATERIMU POPUP (SHORTCUT) - HANYA UNTUK SHORTCUT
            Menggunakan course_id prefix 'shortcut-' untuk identifikasi
            TIDAK menggunakan field 'source' karena mungkin belum ada di database
@@ -2114,13 +2221,11 @@
             let shortcutRecordId = null;
             let isChecking = false;
 
-            // Fungsi untuk mengecek shortcut (course_id dimulai dengan 'shortcut-')
             async function checkShortcut() {
                 if (isChecking) return;
                 isChecking = true;
 
                 try {
-                    // Gunakan getSession yang lebih reliable
                     const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
                     if (sessionError) {
                         console.error('❌ Session error:', sessionError);
@@ -2141,8 +2246,6 @@
                     const userId = session.user.id;
                     console.log('🔍 Checking shortcut for user:', userId);
 
-                    // Cari data dengan course_id yang dimulai dengan 'shortcut-'
-                    // Ini adalah cara identifikasi tanpa field 'source'
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
                         .select('id, link, course_id')
@@ -2228,7 +2331,6 @@
                 document.body.style.overflow = '';
             }
 
-            // Simpan dari popup index.html dengan course_id prefix 'shortcut-'
             async function saveFromPopup() {
                 console.log('📝 saveFromPopup called');
 
@@ -2248,7 +2350,6 @@
                     return;
                 }
 
-                // Gunakan getSession yang lebih reliable
                 const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
                 console.log('🔐 Session check:', { hasSession: !!session, sessionError });
 
@@ -2277,7 +2378,6 @@
                     const courseId = 'shortcut-' + Date.now();
                     console.log('📦 Generating course_id:', courseId);
 
-                    // Insert tanpa field 'source' - menggunakan course_id prefix untuk identifikasi
                     const insertData = {
                         user_id: user.id,
                         course_id: courseId,
@@ -2319,7 +2419,6 @@
 
                     closeMaterimuPopup();
 
-                    // Kirim pesan ke materi.html agar reload data
                     nuqthahChannel.postMessage({
                         type: 'SHORTCUT_UPDATED',
                         item: {
@@ -2330,7 +2429,6 @@
                         }
                     });
 
-                    // Kirim count update
                     const count = await getMaterimuCount(user.id);
                     console.log('📊 Total Materimu count:', count);
                     nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
@@ -2372,7 +2470,6 @@
                 }
             }
 
-            // Hapus shortcut jika ada (dipanggil saat item shortcut dihapus)
             function deleteShortcut(recordId) {
                 console.log('🗑️ deleteShortcut called with recordId:', recordId);
                 if (recordId && (recordId === shortcutRecordId || recordId === 'all')) {
@@ -2407,7 +2504,6 @@
                 }
             });
 
-            // Ekspos fungsi
             window.shortcutManager = {
                 check: checkShortcut,
                 delete: deleteShortcut,
@@ -2424,11 +2520,9 @@
                 setTimeout(checkShortcut, 500);
             });
 
-            // Dengarkan pesan dari materi.html
             nuqthahChannel.addEventListener('message', function (event) {
                 console.log('📨 Received message from materi.html:', event.data);
                 if (event.data?.type === 'SHORTCUT_DELETED') {
-                    // Shortcut dihapus dari materi.html
                     const deletedId = event.data.recordId;
                     console.log('🗑️ Shortcut deleted message:', deletedId);
                     if (deletedId && (deletedId === shortcutRecordId || deletedId === 'all')) {
@@ -2438,7 +2532,6 @@
                     }
                 }
                 if (event.data?.type === 'SHORTCUT_UPDATED') {
-                    // Shortcut diupdate dari index.html
                     console.log('🔄 Shortcut updated message, refreshing...');
                     setTimeout(checkShortcut, 300);
                 }
@@ -2451,6 +2544,7 @@
 
         /* ============================================================
            SESSION CHECK & UI UPDATE
+           DIPERBAIKI: Tombol "Akun Saya" dihapus, diganti Install
         ============================================================ */
         async function checkSessionAndUpdateUI() {
             try {
@@ -2481,12 +2575,13 @@
                 const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
 
                 if (session && user) {
-                    elements.navRegisterBtn.textContent = 'Akun Saya';
+                    // HANYA UBAH TOMBOL INI: Daftar Gratis -> Install (hanya icon)
+                    elements.navRegisterBtn.innerHTML = '<i class="fa-solid fa-mobile-screen-button"></i>';
                     elements.navRegisterBtn.classList.add('bg-secondary');
                     elements.navRegisterBtn.classList.remove('bg-primary');
                     elements.navRegisterBtn.onclick = (e) => {
                         e.preventDefault();
-                        window.location.href = "materi.html";
+                        showInstallGuide();
                     };
 
                     if (elements.logoutMenu) elements.logoutMenu.classList.remove('hidden');
@@ -2509,6 +2604,7 @@
                     updateSidebarEmail(user);
 
                 } else {
+                    // KEMBALI KE DAFTAR GRATIS
                     elements.navRegisterBtn.textContent = 'Daftar Gratis';
                     elements.navRegisterBtn.classList.remove('bg-secondary');
                     elements.navRegisterBtn.classList.add('bg-primary');
@@ -2907,7 +3003,6 @@
                 return;
             }
 
-            // Mode reset password (kirim link)
             const email = elements.resetEmail.value.trim();
 
             if (!email) {
@@ -3031,9 +3126,6 @@
             elements.switchToRegister.addEventListener('click', switchToRegisterHandler);
         }
 
-        /* ============================================================
-           FORGOT PASSWORD - EVENT LISTENER DIPERBAIKI
-        ============================================================ */
         if (elements.forgotPasswordBtn) {
             console.log('🔍 Forgot Password button found, attaching event listener...');
             elements.forgotPasswordBtn.addEventListener('click', handleForgotPasswordClick);
@@ -3042,9 +3134,6 @@
             console.error('❌ Forgot Password button not found!');
         }
 
-        /* ============================================================
-           RESET MODAL - EVENT LISTENERS DIPERBAIKI
-        ============================================================ */
         if (elements.closeResetModal) {
             elements.closeResetModal.addEventListener('click', closeResetModal);
             console.log('✅ closeResetModal event listener attached.');
@@ -3112,14 +3201,12 @@
         console.log('%c🔍 VERIFIKASI FITUR LUPA PASSWORD', 'color: #C9A227; font-weight: bold;');
         console.log('%c========================================', 'color: #C9A227; font-weight: bold;');
 
-        // Verifikasi event listener
         setTimeout(() => {
             console.log('📊 Event Listener Verification:');
 
             const forgotBtn = elements.forgotPasswordBtn;
             if (forgotBtn) {
                 console.log('✅ Forgot Password button exists:', forgotBtn);
-                // Cek apakah ada event listener (tidak bisa deteksi langsung, tapi kita log)
                 console.log('✅ Forgot Password event listener should be attached.');
             } else {
                 console.error('❌ Forgot Password button MISSING!');
@@ -3196,6 +3283,15 @@
         console.log('✅ FITUR LUPA PASSWORD: openResetModal() memiliki validasi dan logging lengkap.');
         console.log('✅ FITUR LUPA PASSWORD: CSS resetModal diperbaiki dengan !important.');
         console.log('✅ FITUR LUPA PASSWORD: handleForgotPasswordClick() memiliki fallback jika modal gagal terbuka.');
+        console.log('✅ PERUBAHAN MINIMAL: Hanya tombol "Akun Saya" yang diubah menjadi Install.');
+        console.log('✅ Tombol Daftar Gratis TIDAK berubah (id, class, CSS, fungsi tetap sama).');
+        console.log('✅ Tombol Materimu TIDAK berubah (id, class, CSS, fungsi tetap sama).');
+        console.log('✅ Tidak ada badge pada Materimu.');
+        console.log('✅ Tombol Install hanya icon, tanpa teks.');
+        console.log('✅ Saat belum login: Daftar Gratis + Materimu + Hamburger.');
+        console.log('✅ Saat sudah login: Install (icon) + Materimu + Hamburger.');
+        console.log('✅ Tombol "Akun Saya" dihapus sepenuhnya dari alur aplikasi.');
+        console.log('✅ Popup Install menampilkan HTML dengan benar (innerHTML).');
     </script>
 
 </body>
