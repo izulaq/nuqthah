@@ -4,13 +4,14 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <!-- PERBAIKAN: tambahkan viewport-fit=cover dan ubah user-scalable=yes -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
     <title>Nuqthah Learning Center - Gateway</title>
 
     <meta name="theme-color" content="#0F4A3A">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <!-- PERBAIKAN: status bar transparan agar warna latar terlihat -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logofix.png">
@@ -64,6 +65,7 @@
             --text: #1F2A24;
         }
 
+        /* PERBAIKAN: pastikan tidak ada margin/padding dan background penuh */
         * {
             margin: 0;
             padding: 0;
@@ -73,6 +75,7 @@
         html,
         body {
             height: 100%;
+            width: 100%;
             margin: 0;
             padding: 0;
             background: var(--cream);
@@ -80,6 +83,8 @@
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            /* PERBAIKAN: tambahkan safe-area padding agar tidak ada celah hitam */
+            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         body {
@@ -96,6 +101,9 @@
             position: relative;
             overflow-x: hidden;
             overflow-y: visible;
+            /* PERBAIKAN: padding bottom untuk safe area (home indicator) */
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            background: var(--cream);
         }
 
         /* ============================================================
@@ -812,7 +820,6 @@
 
         /* ============================================================
            TINGGI TOMBOL DISAMAKAN DENGAN HAMBURGER
-           HANYA PADDING VERTIKAL YANG DIUBAH
         ============================================================ */
         .header-btn {
             padding-top: 0.6rem;
@@ -3340,6 +3347,7 @@
         console.log('✅ Popup Install menampilkan HTML dengan benar (innerHTML).');
         console.log('✅ Tombol Afiliate telah ditambahkan: icon+teks saat login, hanya icon saat tidak login.');
         console.log('✅ Jarak antar tombol menggunakan gap-2 (mobile) dan gap-3 (desktop) agar tetap rapih.');
+        console.log('✅ PERBAIKAN HITAM DI BAWAH: viewport-fit=cover, safe-area-inset, status bar transparan.');
     </script>
 
 </body>
