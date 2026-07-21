@@ -2119,152 +2119,15 @@
             overlay.classList.toggle('pointer-events-none');
         };
 
-        // ================================================================
-        // --- 17. HANDLE DAFTAR (MODIFIED dengan logika baru) ---
-        // ================================================================
-        window.handleDaftar = async function (e, url) {
+        // --- 17. HANDLE DAFTAR ---
+        window.handleDaftar = function (e, url) {
             if (e) e.preventDefault();
-
-            // Jika URL tidak valid, tampilkan popup unavailable (tanpa simpan)
             if (!url || url === '#' || url === '' || url === 'javascript:void(0)') {
                 showModal('unavailable-modal');
-                return;
-            }
-
-            // Ambil user login
-            const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-            if (userError || !user) {
-                // Jika belum login, tampilkan modal login dan kembali
-                openLoginModal();
-                return;
-            }
-
-            // Ambil elemen card dari tombol yang diklik (e.currentTarget adalah <a> dengan onclick)
-            const card = e.currentTarget.closest('.course-card');
-            if (!card) {
-                console.warn('⚠️ Card tidak ditemukan untuk tombol Akses.');
-                // Tetap redirect meskipun card tidak ditemukan (jaga-jaga)
-                window.open(url, '_self');
-                return;
-            }
-
-            // Ambil data produk dari card
-            const newProductId = card.dataset.id || '';
-            const newProductName = card.querySelector('h3')?.innerText?.trim() || 'Materi';
-
-            // Ambil profil user (full_name, whatsapp) dari tabel profiles
-            let name = user.user_metadata?.full_name || user.email || 'User';
-            let phone = user.user_metadata?.whatsapp || '';
-
-            try {
-                const { data: profile, error: profileError } = await supabaseClient
-                    .from('profiles')
-                    .select('full_name, whatsapp')
-                    .eq('id', user.id)
-                    .maybeSingle();
-
-                if (!profileError && profile) {
-                    if (profile.full_name) name = profile.full_name;
-                    if (profile.whatsapp) phone = profile.whatsapp;
-                }
-            } catch (err) {
-                console.warn('Gagal mengambil profil user:', err);
-            }
-
-            const email = user.email;
-            const now = new Date().toISOString();
-
-            try {
-                // Cek apakah email sudah ada di lead_followups
-                const { data: existing, error: checkError } = await supabaseClient
-                    .from('lead_followups')
-                    .select('email, last_product_id')
-                    .eq('email', email)
-                    .maybeSingle();
-
-                if (checkError) {
-                    console.error('❌ Gagal cek lead_followups:', checkError);
-                    window.open(url, '_self');
-                    return;
-                }
-
-                if (existing) {
-                    // Record ditemukan → UPDATE
-                    const existingProductId = existing.last_product_id || '';
-
-                    if (existingProductId === newProductId) {
-                        // Produk SAMA → update hanya last_click_at dan followup_step = 0
-                        console.log('🔄 Produk sama, update timer saja.');
-                        const { error: updateError } = await supabaseClient
-                            .from('lead_followups')
-                            .update({
-                                last_click_at: now,
-                                followup_step: 0
-                            })
-                            .eq('email', email);
-
-                        if (updateError) {
-                            console.error('❌ Gagal update lead_followups (sama):', updateError);
-                        } else {
-                            console.log('✅ lead_followups updated (timer reset) untuk:', email);
-                        }
-                    } else {
-                        // Produk BERBEDA → update semua field, reset automation
-                        console.log('🔄 Produk berbeda, reset semua field.');
-                        const { error: updateError } = await supabaseClient
-                            .from('lead_followups')
-                            .update({
-                                phone,
-                                name,
-                                last_product: newProductName,
-                                last_product_id: newProductId,
-                                last_click_at: now,
-                                followup_step: 0,
-                                purchased: false,
-                                stop_followup: false
-                            })
-                            .eq('email', email);
-
-                        if (updateError) {
-                            console.error('❌ Gagal update lead_followups (beda):', updateError);
-                        } else {
-                            console.log('✅ lead_followups updated (produk baru) untuk:', email);
-                        }
-                    }
-                } else {
-                    // Record tidak ditemukan → INSERT baru
-                    console.log('🆕 Insert lead_followups untuk:', email);
-                    const { error: insertError } = await supabaseClient
-                        .from('lead_followups')
-                        .insert({
-                            email,
-                            phone,
-                            name,
-                            last_product: newProductName,
-                            last_product_id: newProductId,
-                            last_click_at: now,
-                            followup_step: 0,
-                            purchased: false,
-                            stop_followup: false
-                        });
-
-                    if (insertError) {
-                        console.error('❌ Gagal insert lead_followups:', insertError);
-                    } else {
-                        console.log('✅ lead_followups inserted untuk:', email);
-                    }
-                }
-
-                // Redirect ke Mayar setelah semua operasi sukses (atau gagal pun tetap redirect)
-                window.open(url, '_self');
-
-            } catch (err) {
-                console.error('❌ Error saat menyimpan lead_followups:', err);
-                // Tetap redirect meskipun error (agar user tidak terganggu)
+            } else {
                 window.open(url, '_self');
             }
         };
-        // --- END HANDLE DAFTAR ---
 
         // --- 18. EXPOSE FUNCTIONS GLOBALLY ---
         window.saveToMaterimu = saveToMaterimu;
@@ -2376,7 +2239,6 @@
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
         console.log('✅ Manual materials (course_id prefix "manual-") TIDAK mempengaruhi shortcut.');
         console.log('✅ Shortcut materials (course_id prefix "shortcut-") mempengaruhi tombol di index.html.');
-        console.log('✅ handleDaftar diperbarui dengan logika: produk sama → reset timer, produk beda → reset semua.');
     </script>
 
     <script>
