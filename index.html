@@ -1,4 +1,4 @@
-<!-- index01.html (index.html) -->
+<!-- index.html (lengkap dengan popup WhatsApp) -->
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 
@@ -184,6 +184,7 @@
             color: var(--primary);
             font-size: 1.4rem;
             transition: .25s;
+            cursor: pointer;
         }
 
         .social-icons a:hover {
@@ -448,8 +449,142 @@
         }
 
         /* ============================================================
+           WHATSAPP POPUP KHUSUS - LAYER DI BAWAH CUSTOM POPUP
+        ============================================================ */
+        #whatsappPopup {
+            position: fixed;
+            inset: 0;
+            z-index: 999998;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            background: rgba(15, 74, 58, 0.3);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        #whatsappPopup.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        #whatsappPopup .popup-box {
+            background: var(--cream);
+            max-width: 420px;
+            width: 100%;
+            border-radius: 28px;
+            padding: 2rem 1.75rem;
+            box-shadow: 0 25px 60px rgba(15, 74, 58, 0.25);
+            transform: scale(0.92) translateY(10px);
+            transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+            opacity: 0;
+            text-align: center;
+        }
+
+        #whatsappPopup.show .popup-box {
+            transform: scale(1) translateY(0);
+            opacity: 1;
+        }
+
+        #whatsappPopup .popup-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            margin: 0 auto 1rem auto;
+            background: rgba(37, 211, 102, 0.15);
+            color: #25D366;
+        }
+
+        #whatsappPopup .popup-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 0.3rem;
+        }
+
+        #whatsappPopup .popup-sub {
+            color: #4b5a52;
+            font-size: 0.9rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        #whatsappPopup .wa-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        #whatsappPopup .wa-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 20px;
+            border-radius: 16px;
+            font-weight: 600;
+            font-size: 1rem;
+            background: #ffffff;
+            border: 1px solid rgba(15, 74, 58, 0.10);
+            color: var(--primary);
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            width: 100%;
+        }
+
+        #whatsappPopup .wa-btn i {
+            font-size: 1.3rem;
+            color: #25D366;
+        }
+
+        #whatsappPopup .wa-btn:hover {
+            background: rgba(37, 211, 102, 0.06);
+            border-color: #25D366;
+            transform: translateY(-1px);
+        }
+
+        #whatsappPopup .wa-btn:active {
+            transform: scale(0.97);
+        }
+
+        #whatsappPopup .wa-btn .badge {
+            font-size: 0.6rem;
+            background: rgba(37, 211, 102, 0.12);
+            color: #059669;
+            padding: 2px 10px;
+            border-radius: 40px;
+            font-weight: 700;
+            margin-left: 6px;
+        }
+
+        #whatsappPopup .close-wa-popup {
+            margin-top: 1.2rem;
+            background: transparent;
+            border: none;
+            color: #9ca3af;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: color 0.2s;
+            padding: 8px 12px;
+            font-weight: 500;
+        }
+
+        #whatsappPopup .close-wa-popup:hover {
+            color: var(--primary);
+        }
+
+        /* ============================================================
            MATERIMU POPUP - LAYER KEDUA
-           z-index: 90000 -> DI BAWAH customPopup
         ============================================================ */
         #materimuPopup {
             position: fixed;
@@ -572,7 +707,7 @@
         }
 
         /* ============================================================
-           PASSWORD TOGGLE - VISIBILITY BERDASARKAN VALUE
+           PASSWORD TOGGLE
         ============================================================ */
         .pwd-wrapper {
             position: relative;
@@ -619,7 +754,7 @@
         }
 
         /* ============================================================
-           SIDEBAR EMAIL (FITUR 2)
+           SIDEBAR EMAIL
         ============================================================ */
         .sidebar-email {
             display: none;
@@ -729,6 +864,15 @@
                 font-size: 1rem;
                 padding: 6px;
             }
+
+            #whatsappPopup .popup-box {
+                padding: 1.75rem 1.25rem;
+            }
+
+            #whatsappPopup .wa-btn {
+                font-size: 0.9rem;
+                padding: 12px 16px;
+            }
         }
 
         @media (max-width:480px) {
@@ -786,6 +930,24 @@
                 font-size: 0.9rem;
                 padding: 4px;
             }
+
+            #whatsappPopup .popup-box {
+                padding: 1.5rem 1rem;
+                border-radius: 22px;
+            }
+
+            #whatsappPopup .popup-title {
+                font-size: 1.3rem;
+            }
+
+            #whatsappPopup .wa-btn {
+                font-size: 0.85rem;
+                padding: 11px 14px;
+            }
+
+            #whatsappPopup .wa-btn i {
+                font-size: 1.1rem;
+            }
         }
 
         /* Fix modal overlay position */
@@ -811,8 +973,7 @@
         }
 
         /* ============================================================
-           TINGGI TOMBOL DISAMAKAN DENGAN HAMBURGER
-           HANYA PADDING VERTIKAL YANG DIUBAH
+           HEADER BUTTONS
         ============================================================ */
         .header-btn {
             padding-top: 0.6rem;
@@ -833,7 +994,7 @@
         }
 
         /* ============================================================
-           RESET MODAL - PERBAIKAN CSS UNTUK MEMASTIKAN TAMPAK
+           RESET MODAL
         ============================================================ */
         #resetModal {
             z-index: 100 !important;
@@ -853,7 +1014,7 @@
         }
 
         /* ============================================================
-           INSTALL POPUP - STYLE UNTUK KONTEN HTML
+           INSTALL POPUP
         ============================================================ */
         .install-steps {
             text-align: left;
@@ -942,7 +1103,37 @@
     </div>
 
     <!-- ============================================================
-    MATERIMU POPUP - LAYER KEDUA (DI BAWAH CUSTOM POPUP)
+    WHATSAPP POPUP KHUSUS
+    ============================================================ -->
+    <div id="whatsappPopup" role="dialog" aria-modal="true">
+        <div class="popup-box">
+            <div class="popup-icon">
+                <i class="fab fa-whatsapp"></i>
+            </div>
+            <h2 class="popup-title">Hubungi Kami</h2>
+            <p class="popup-sub">Pilih salah satu opsi di bawah untuk terhubung dengan tim Nuqthah Learning Center.</p>
+
+            <div class="wa-actions">
+                <a href="https://wa.me/6285185409887?text=Halo%20Admin%20Nuqthah%20Learning%2C%20saya%20ingin%20bertanya%20tentang%20program%20belajar."
+                    target="_blank" rel="noopener noreferrer" class="wa-btn">
+                    <i class="fab fa-whatsapp"></i>
+                    Admin WhatsApp
+                    <span class="badge">Respon Cepat</span>
+                </a>
+                <a href="https://whatsapp.com/channel/0029VaXxYzYzYzYzYzYzYzYzY" target="_blank"
+                    rel="noopener noreferrer" class="wa-btn">
+                    <i class="fas fa-bullhorn"></i>
+                    Channel WhatsApp
+                    <span class="badge">Info & Update</span>
+                </a>
+            </div>
+
+            <button class="close-wa-popup" id="closeWhatsAppPopup">Tutup</button>
+        </div>
+    </div>
+
+    <!-- ============================================================
+    MATERIMU POPUP
     ============================================================ -->
     <div id="materimuPopup" role="dialog" aria-modal="true">
         <div class="popup-box">
@@ -998,13 +1189,11 @@
                 Daftar Gratis
             </button>
 
-            <!-- Tombol Materimu -->
             <button id="materimu-btn"
                 class="header-btn bg-primary text-white px-6 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all">
                 Materimu
             </button>
 
-            <!-- Tombol Afiliate (BARU) -->
             <button id="afiliate-btn"
                 class="header-btn bg-primary text-white px-5 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap">
                 <i class="fa-solid fa-users"></i> Afiliate
@@ -1046,9 +1235,7 @@
                 </button>
             </div>
 
-            <!-- ============================================================
-            SIDEBAR EMAIL (FITUR 2) - di bawah Menu Utama
-            ============================================================ -->
+            <!-- Sidebar Email -->
             <div id="sidebarEmailContainer" class="relative px-6 pt-3 pb-1">
                 <div id="sidebarEmail" class="sidebar-email">
                     <i class="fa-regular fa-envelope"></i>
@@ -1084,7 +1271,6 @@
                     </div>
                     <span class="text-base font-semibold">Profil Asaatidz</span>
                 </a>
-
 
                 <a href="tentangprogram.html"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
@@ -1306,7 +1492,7 @@
         </div>
 
         <!-- ============================================================
-        RESET PASSWORD MODAL - DIPERBAIKI
+        RESET PASSWORD MODAL
         ============================================================ -->
         <div id="resetModal">
             <div id="resetModalOverlay" class="absolute inset-0 bg-primary/40 backdrop-blur-sm"></div>
@@ -1393,8 +1579,9 @@
                     Berfikir • Berdzikir • Berhasil
                 </h1>
                 <div class="social-icons mt-3 md:mt-4 flex items-center justify-center gap-5 md:gap-7">
-                    <a href="https://wa.me/6285185409887" target="_blank"
-                        class="text-primary hover:text-secondary transition-colors text-lg md:text-xl">
+                    <!-- WhatsApp icon now triggers popup -->
+                    <a id="whatsappIcon" class="text-primary hover:text-secondary transition-colors text-lg md:text-xl"
+                        style="cursor:pointer;">
                         <i class="fab fa-whatsapp"></i>
                     </a>
                     <a href="https://www.instagram.com/nuqthah_learning?igsh=dmRxNzN4eHZrMjZt" target="_blank"
@@ -1466,13 +1653,12 @@
         );
 
         /* ============================================================
-           BROADCAST CHANNEL (untuk komunikasi dengan materi.html)
+           BROADCAST CHANNEL
         ============================================================ */
         const nuqthahChannel = new BroadcastChannel('nuqthah_sync');
 
         /* ============================================================
-           CUSTOM POPUP (FIXED) - LAYER PALING DEPAN
-           DIPERBAIKI: Menggunakan innerHTML untuk render HTML
+           CUSTOM POPUP
         ============================================================ */
         (function () {
             const popupEl = document.getElementById('customPopup');
@@ -1537,8 +1723,6 @@
                     iconEl.innerHTML = `<i class="fas ${iconData.icon}"></i>`;
 
                     titleEl.textContent = title;
-
-                    // PERBAIKAN: Gunakan innerHTML agar HTML dirender
                     msgEl.innerHTML = message;
 
                     buttons.forEach((btn, index) => {
@@ -1575,8 +1759,49 @@
         })();
 
         /* ============================================================
-           PASSWORD TOGGLE - SOLUSI LENGKAP
-           VISIBILITY BERDASARKAN input.value.length > 0
+           WHATSAPP POPUP HANDLER
+        ============================================================ */
+        (function () {
+            const popup = document.getElementById('whatsappPopup');
+            const closeBtn = document.getElementById('closeWhatsAppPopup');
+            const whatsappIcon = document.getElementById('whatsappIcon');
+
+            function openWhatsAppPopup() {
+                popup.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeWhatsAppPopup() {
+                popup.classList.remove('show');
+                document.body.style.overflow = '';
+            }
+
+            if (whatsappIcon) {
+                whatsappIcon.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openWhatsAppPopup();
+                });
+            }
+
+            if (closeBtn) {
+                closeBtn.addEventListener('click', closeWhatsAppPopup);
+            }
+
+            popup.addEventListener('click', function (e) {
+                if (e.target === popup) {
+                    closeWhatsAppPopup();
+                }
+            });
+
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && popup.classList.contains('show')) {
+                    closeWhatsAppPopup();
+                }
+            });
+        })();
+
+        /* ============================================================
+           PASSWORD TOGGLE
         ============================================================ */
         (function initPasswordToggles() {
             if (window.__passwordTogglesInitialized) {
@@ -1591,7 +1816,6 @@
                 const toggle = wrapper.querySelector('.pwd-toggle');
                 if (!input || !toggle) return;
 
-                const isPassword = input.type === 'password';
                 const hasValue = input.value.length > 0;
 
                 if (hasValue) {
@@ -1856,7 +2080,7 @@
         }
 
         /* ============================================================
-           RESET MODAL - DIPERBAIKI DENGAN VALIDASI DAN LOGGING
+           RESET MODAL
         ============================================================ */
         function openResetModal(mode) {
             console.log('🔍 openResetModal() called with mode:', mode);
@@ -2020,11 +2244,6 @@
                 }
 
                 console.log('✅ Reset Modal opened successfully!');
-                console.log('📊 Modal state:', {
-                    hasShowClass: elements.resetModal.classList.contains('show'),
-                    hasScale100: modalContent ? modalContent.classList.contains('scale-100') : false,
-                    overflow: document.body.style.overflow
-                });
 
             } catch (error) {
                 console.error('❌ Error in openResetModal():', error);
@@ -2094,7 +2313,7 @@
         }
 
         /* ============================================================
-           FORGOT PASSWORD HANDLER - DIPERBAIKI
+           FORGOT PASSWORD HANDLER
         ============================================================ */
         function handleForgotPasswordClick(e) {
             console.log('🔍 Forgot Password button clicked!');
@@ -2115,7 +2334,6 @@
                 openResetModal('reset');
 
                 console.log('✅ Reset Modal should now be open.');
-                console.log('📊 Reset Modal class list:', elements.resetModal ? elements.resetModal.classList : 'null');
 
                 setTimeout(() => {
                     if (elements.resetModal) {
@@ -2162,7 +2380,7 @@
         }
 
         /* ============================================================
-           SIDEBAR EMAIL (FITUR 2)
+           SIDEBAR EMAIL
         ============================================================ */
         function updateSidebarEmail(user) {
             const container = elements.sidebarEmail;
@@ -2180,7 +2398,6 @@
 
         /* ============================================================
            INSTALL BUTTON - SHOW INSTALL GUIDE POPUP
-           DIPERBAIKI: Menggunakan HTML di dalam popup
         ============================================================ */
         function showInstallGuide() {
             const message = `
@@ -2230,9 +2447,7 @@
         }
 
         /* ============================================================
-           MATERIMU POPUP (SHORTCUT) - HANYA UNTUK SHORTCUT
-           Menggunakan course_id prefix 'shortcut-' untuk identifikasi
-           TIDAK menggunakan field 'source' karena mungkin belum ada di database
+           MATERIMU POPUP (SHORTCUT)
         ============================================================ */
         (function () {
             let shortcutLink = null;
@@ -2562,7 +2777,6 @@
 
         /* ============================================================
            SESSION CHECK & UI UPDATE
-           DIPERBAIKI: Tombol "Akun Saya" dihapus, diganti Install
         ============================================================ */
         async function checkSessionAndUpdateUI() {
             try {
@@ -2595,7 +2809,6 @@
                 const afiliateBtn = elements.afiliateBtn;
 
                 if (session && user) {
-                    // HANYA UBAH TOMBOL INI: Daftar Gratis -> Install (hanya icon)
                     elements.navRegisterBtn.innerHTML = '<i class="fa-solid fa-mobile-screen-button"></i>';
                     elements.navRegisterBtn.classList.add('bg-secondary');
                     elements.navRegisterBtn.classList.remove('bg-primary');
@@ -2604,7 +2817,6 @@
                         showInstallGuide();
                     };
 
-                    // Atur tombol Afiliate: icon + teks
                     afiliateBtn.innerHTML = '<i class="fa-solid fa-users"></i> Afiliate';
                     afiliateBtn.className = 'header-btn bg-primary text-white px-5 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap';
                     afiliateBtn.onclick = (e) => {
@@ -2632,7 +2844,6 @@
                     updateSidebarEmail(user);
 
                 } else {
-                    // KEMBALI KE DAFTAR GRATIS
                     elements.navRegisterBtn.textContent = 'Daftar Gratis';
                     elements.navRegisterBtn.classList.remove('bg-secondary');
                     elements.navRegisterBtn.classList.add('bg-primary');
@@ -2641,7 +2852,6 @@
                         openRegisterModal();
                     };
 
-                    // Atur tombol Afiliate: hanya icon
                     afiliateBtn.innerHTML = '<i class="fa-solid fa-users"></i>';
                     afiliateBtn.className = 'header-btn bg-primary text-white px-3 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap';
                     afiliateBtn.onclick = (e) => {
@@ -2667,7 +2877,6 @@
                     e.preventDefault();
                     openRegisterModal();
                 };
-                // Fallback: afiliate hanya icon
                 const afiliateBtn = elements.afiliateBtn;
                 if (afiliateBtn) {
                     afiliateBtn.innerHTML = '<i class="fa-solid fa-users"></i>';
@@ -3241,59 +3450,12 @@
         });
 
         /* ============================================================
-           VERIFIKASI DI CONSOLE
+           VERIFICATION
         ============================================================ */
         console.log('%c========================================', 'color: #C9A227; font-weight: bold;');
-        console.log('%c🔍 VERIFIKASI FITUR LUPA PASSWORD', 'color: #C9A227; font-weight: bold;');
-        console.log('%c========================================', 'color: #C9A227; font-weight: bold;');
-
-        setTimeout(() => {
-            console.log('📊 Event Listener Verification:');
-
-            const forgotBtn = elements.forgotPasswordBtn;
-            if (forgotBtn) {
-                console.log('✅ Forgot Password button exists:', forgotBtn);
-                console.log('✅ Forgot Password event listener should be attached.');
-            } else {
-                console.error('❌ Forgot Password button MISSING!');
-            }
-
-            const resetModal = elements.resetModal;
-            if (resetModal) {
-                console.log('✅ Reset Modal exists:', resetModal);
-                console.log('✅ Reset Modal class list:', resetModal.classList);
-            } else {
-                console.error('❌ Reset Modal MISSING!');
-            }
-
-            const closeReset = elements.closeResetModal;
-            if (closeReset) {
-                console.log('✅ closeResetModal exists:', closeReset);
-            } else {
-                console.warn('⚠️ closeResetModal MISSING!');
-            }
-
-            const resetOverlay = elements.resetModalOverlay;
-            if (resetOverlay) {
-                console.log('✅ resetModalOverlay exists:', resetOverlay);
-            } else {
-                console.warn('⚠️ resetModalOverlay MISSING!');
-            }
-
-            const resetForm = elements.resetForm;
-            if (resetForm) {
-                console.log('✅ resetForm exists:', resetForm);
-            } else {
-                console.warn('⚠️ resetForm MISSING!');
-            }
-
-            console.log('✅ Verifikasi selesai.');
-            console.log('📝 Jika tombol Lupa Password tidak berfungsi, periksa console untuk error.');
-        }, 500);
-
-        console.log('✅ Nuqthah Gateway — Shortcut manager terpisah dari manual materials.');
-        console.log('✅ Shortcut diidentifikasi melalui course_id prefix "shortcut-" (tanpa field source).');
-        console.log('✅ Manual materials dari materi.html tidak mengubah shortcut.');
+        console.log('%c✅ WhatsApp Popup has been added.', 'color: #25D366; font-weight: bold;');
+        console.log('%c✅ Click the WhatsApp icon to open the popup.', 'color: #25D366;');
+        console.log('%c✅ Popup contains: Admin WhatsApp & Channel WhatsApp.', 'color: #25D366;');
 
         /* ============================================================
            INIT
@@ -3317,29 +3479,8 @@
         window.addEventListener('resize', setVh);
         setVh();
 
-        console.log('✅ Nuqthah Gateway — Popup layer fixed: customPopup (z-index: 999999) is above materimuPopup (z-index: 90000)');
-        console.log('✅ Shortcut Materimu button terpisah dari manual materials.');
-        console.log('✅ Shortcut link opens in same tab using window.location.href');
-        console.log('✅ Fitur 1: Password toggle - VISIBILITY BERDASARKAN input.value.length > 0');
-        console.log('✅ Fitur 2: Email user ditampilkan di sidebar saat login.');
-        console.log('✅ Setiap field password memiliki SATU tombol .pwd-toggle.');
-        console.log('✅ Modal open/close akan setup ulang password toggle secara otomatis.');
-        console.log('✅ Shortcut diidentifikasi dengan course_id prefix "shortcut-" (tanpa field source).');
-        console.log('✅ FITUR LUPA PASSWORD: Audit selesai, event listener terpasang dengan benar.');
-        console.log('✅ FITUR LUPA PASSWORD: openResetModal() memiliki validasi dan logging lengkap.');
-        console.log('✅ FITUR LUPA PASSWORD: CSS resetModal diperbaiki dengan !important.');
-        console.log('✅ FITUR LUPA PASSWORD: handleForgotPasswordClick() memiliki fallback jika modal gagal terbuka.');
-        console.log('✅ PERUBAHAN MINIMAL: Hanya tombol "Akun Saya" yang diubah menjadi Install.');
-        console.log('✅ Tombol Daftar Gratis TIDAK berubah (id, class, CSS, fungsi tetap sama).');
-        console.log('✅ Tombol Materimu TIDAK berubah (id, class, CSS, fungsi tetap sama).');
-        console.log('✅ Tidak ada badge pada Materimu.');
-        console.log('✅ Tombol Install hanya icon, tanpa teks.');
-        console.log('✅ Saat belum login: Daftar Gratis + Materimu + Hamburger.');
-        console.log('✅ Saat sudah login: Install (icon) + Materimu + Hamburger.');
-        console.log('✅ Tombol "Akun Saya" dihapus sepenuhnya dari alur aplikasi.');
-        console.log('✅ Popup Install menampilkan HTML dengan benar (innerHTML).');
-        console.log('✅ Tombol Afiliate telah ditambahkan: icon+teks saat login, hanya icon saat tidak login.');
-        console.log('✅ Jarak antar tombol menggunakan gap-2 (mobile) dan gap-3 (desktop) agar tetap rapih.');
+        console.log('✅ Nuqthah Gateway — WhatsApp popup added successfully.');
+        console.log('✅ Popup has two buttons: Admin WhatsApp and Channel WhatsApp.');
     </script>
 
 </body>
