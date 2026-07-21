@@ -4,14 +4,13 @@
 
 <head>
     <meta charset="UTF-8">
-    <!-- PERBAIKAN: tambahkan viewport-fit=cover dan ubah user-scalable=yes -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Nuqthah Learning Center - Gateway</title>
 
     <meta name="theme-color" content="#0F4A3A">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <!-- PERBAIKAN: status bar transparan agar warna latar terlihat -->
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/logofix.png">
@@ -65,7 +64,6 @@
             --text: #1F2A24;
         }
 
-        /* PERBAIKAN: pastikan tidak ada margin/padding dan background penuh */
         * {
             margin: 0;
             padding: 0;
@@ -75,7 +73,6 @@
         html,
         body {
             height: 100%;
-            width: 100%;
             margin: 0;
             padding: 0;
             background: var(--cream);
@@ -83,8 +80,6 @@
             font-family: 'Inter', sans-serif;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            /* PERBAIKAN: tambahkan safe-area padding agar tidak ada celah hitam */
-            padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
         }
 
         body {
@@ -101,9 +96,70 @@
             position: relative;
             overflow-x: hidden;
             overflow-y: visible;
-            /* PERBAIKAN: padding bottom untuk safe area (home indicator) */
-            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        /* ============================================================
+           LOADING OVERLAY
+        ============================================================ */
+        #loading-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999999;
             background: var(--cream);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        #loading-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .loader {
+            width: 60px;
+            height: 60px;
+            border: 5px solid rgba(15, 74, 58, 0.1);
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 0.9s linear infinite;
+            margin-bottom: 1.5rem;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .loader-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--primary);
+            letter-spacing: 0.1em;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 0.6;
+            }
+
+            50% {
+                opacity: 1;
+            }
         }
 
         /* ============================================================
@@ -820,6 +876,7 @@
 
         /* ============================================================
            TINGGI TOMBOL DISAMAKAN DENGAN HAMBURGER
+           HANYA PADDING VERTIKAL YANG DIUBAH
         ============================================================ */
         .header-btn {
             padding-top: 0.6rem;
@@ -931,6 +988,14 @@
 </head>
 
 <body>
+
+    <!-- ============================================================
+    LOADING OVERLAY
+    ============================================================ -->
+    <div id="loading-overlay">
+        <div class="loader"></div>
+        <div class="loader-text">Memuat ...</div>
+    </div>
 
     <!-- ============================================================
     CUSTOM POPUP (FIXED) - LAYER PALING DEPAN
@@ -1456,6 +1521,43 @@
     </script>
 
     <script>
+        /* ============================================================
+           LOADING OVERLAY - HILANGKAN SETELAH SEMUA KONTEN LOAD
+        ============================================================ */
+        (function () {
+            const loadingEl = document.getElementById('loading-overlay');
+
+            function hideLoading() {
+                if (!loadingEl) return;
+                loadingEl.classList.add('hidden');
+                // Setelah transisi selesai, kita bisa hapus dari DOM (opsional)
+                // setTimeout(() => loadingEl.style.display = 'none', 700);
+            }
+
+            // Jika halaman sudah fully loaded (termasuk gambar, CSS, dll)
+            if (document.readyState === 'complete') {
+                // Halaman sudah selesai dimuat sejak awal
+                setTimeout(hideLoading, 200); // sedikit jeda agar transisi halus
+            } else {
+                // Tunggu sampai semua resource selesai
+                window.addEventListener('load', function () {
+                    // Beri jeda kecil agar transisi halus
+                    setTimeout(hideLoading, 300);
+                });
+
+                // Fallback: jika load tidak terjadi dalam 5 detik, tetap hilangkan
+                setTimeout(function () {
+                    if (!loadingEl.classList.contains('hidden')) {
+                        console.warn('Loading overlay fallback triggered after 5s');
+                        hideLoading();
+                    }
+                }, 5000);
+            }
+
+            // Jika DOM sudah siap tapi load belum, tampilkan loading (default sudah tampil)
+            // Tidak perlu tambahan, karena loading overlay sudah visible dari awal.
+        })();
+
         /* ============================================================
            SUPABASE CONFIG
         ============================================================ */
@@ -3347,7 +3449,8 @@
         console.log('✅ Popup Install menampilkan HTML dengan benar (innerHTML).');
         console.log('✅ Tombol Afiliate telah ditambahkan: icon+teks saat login, hanya icon saat tidak login.');
         console.log('✅ Jarak antar tombol menggunakan gap-2 (mobile) dan gap-3 (desktop) agar tetap rapih.');
-        console.log('✅ PERBAIKAN HITAM DI BAWAH: viewport-fit=cover, safe-area-inset, status bar transparan.');
+        console.log('✅ ANIMASI LOADING: overlay dengan spinner hilang setelah window.onload.');
+        console.log('✅ Fallback loading: hilang otomatis setelah 5 detik jika resource lambat.');
     </script>
 
 </body>
