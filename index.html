@@ -99,89 +99,6 @@
         }
 
         /* ============================================================
-           LOADING OVERLAY - DENGAN LOGO
-        ============================================================ */
-        #loading-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9999999;
-            background: var(--cream);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.8s ease, visibility 0.8s ease;
-            opacity: 1;
-            visibility: visible;
-        }
-
-        #loading-overlay.hidden {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .loading-logo {
-            width: 120px;
-            height: auto;
-            max-width: 40vw;
-            animation: logoFadeIn 1s ease forwards, logoPulse 2s ease-in-out infinite 1s;
-            opacity: 0;
-            transform: scale(0.85);
-        }
-
-        @keyframes logoFadeIn {
-            0% {
-                opacity: 0;
-                transform: scale(0.85);
-            }
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes logoPulse {
-            0%,
-            100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.03);
-            }
-        }
-
-        .loading-text {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 700;
-            font-size: 1.3rem;
-            color: var(--primary);
-            letter-spacing: 0.15em;
-            margin-top: 1.2rem;
-            animation: textPulse 1.8s ease-in-out infinite;
-        }
-
-        @keyframes textPulse {
-            0%,
-            100% {
-                opacity: 0.5;
-            }
-            50% {
-                opacity: 1;
-            }
-        }
-
-        .loading-sub {
-            font-family: 'Inter', sans-serif;
-            font-size: 0.75rem;
-            color: var(--primary);
-            opacity: 0.5;
-            letter-spacing: 0.2em;
-            margin-top: 0.3rem;
-            text-transform: uppercase;
-        }
-
-        /* ============================================================
            ANIMATIONS
         ============================================================ */
         .fade-in {
@@ -812,10 +729,6 @@
                 font-size: 1rem;
                 padding: 6px;
             }
-
-            .loading-logo {
-                width: 100px;
-            }
         }
 
         @media (max-width:480px) {
@@ -872,10 +785,6 @@
                 right: 8px;
                 font-size: 0.9rem;
                 padding: 4px;
-            }
-
-            .loading-logo {
-                width: 80px;
             }
         }
 
@@ -1015,15 +924,6 @@
 </head>
 
 <body>
-
-    <!-- ============================================================
-    LOADING OVERLAY - DENGAN LOGO
-    ============================================================ -->
-    <div id="loading-overlay">
-        <img src="assets/logofix.png" alt="Nuqthah Learning Center" class="loading-logo">
-        <div class="loading-text">Nuqthah Learning Center</div>
-        <div class="loading-sub">Memuat ...</div>
-    </div>
 
     <!-- ============================================================
     CUSTOM POPUP (FIXED) - LAYER PALING DEPAN
@@ -1549,43 +1449,6 @@
     </script>
 
     <script>
-        /* ============================================================
-           LOADING OVERLAY - HILANGKAN SETELAH SEMUA KONTEN LOAD
-        ============================================================ */
-        (function () {
-            const loadingEl = document.getElementById('loading-overlay');
-
-            function hideLoading() {
-                if (!loadingEl) return;
-                loadingEl.classList.add('hidden');
-                // Setelah transisi selesai, kita bisa hapus dari DOM (opsional)
-                // setTimeout(() => loadingEl.style.display = 'none', 700);
-            }
-
-            // Jika halaman sudah fully loaded (termasuk gambar, CSS, dll)
-            if (document.readyState === 'complete') {
-                // Halaman sudah selesai dimuat sejak awal
-                setTimeout(hideLoading, 200); // sedikit jeda agar transisi halus
-            } else {
-                // Tunggu sampai semua resource selesai
-                window.addEventListener('load', function () {
-                    // Beri jeda kecil agar transisi halus
-                    setTimeout(hideLoading, 300);
-                });
-
-                // Fallback: jika load tidak terjadi dalam 5 detik, tetap hilangkan
-                setTimeout(function () {
-                    if (!loadingEl.classList.contains('hidden')) {
-                        console.warn('Loading overlay fallback triggered after 5s');
-                        hideLoading();
-                    }
-                }, 5000);
-            }
-
-            // Jika DOM sudah siap tapi load belum, tampilkan loading (default sudah tampil)
-            // Tidak perlu tambahan, karena loading overlay sudah visible dari awal.
-        })();
-
         /* ============================================================
            SUPABASE CONFIG
         ============================================================ */
@@ -3477,8 +3340,6 @@
         console.log('✅ Popup Install menampilkan HTML dengan benar (innerHTML).');
         console.log('✅ Tombol Afiliate telah ditambahkan: icon+teks saat login, hanya icon saat tidak login.');
         console.log('✅ Jarak antar tombol menggunakan gap-2 (mobile) dan gap-3 (desktop) agar tetap rapih.');
-        console.log('✅ ANIMASI LOADING dengan LOGO NUKLIR: logo muncul dengan efek fade dan pulse.');
-        console.log('✅ Loading overlay hilang setelah window.onload, durasi sesuai kecepatan internet.');
     </script>
 
 </body>
