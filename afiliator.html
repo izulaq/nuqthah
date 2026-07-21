@@ -287,7 +287,7 @@
             flex-shrink: 0;
         }
 
-        /* ===== TIMELINE - TANPA GARIS VERTIKAL ===== */
+        /* ===== TIMELINE ===== */
         .timeline {
             display: flex;
             flex-direction: column;
@@ -439,44 +439,178 @@
             padding: 0 24px 20px 24px;
         }
 
-        /* ===== CTA BLOCK ===== */
-        .cta-block {
-            background: #0f4a3a;
-            border-radius: 24px;
-            padding: 64px 48px;
-            color: #ffffff;
+        /* ===== FORM PENDAFTARAN (mirip formpengajar) ===== */
+        .form-wrapper {
+            background: #ffffff;
+            border-radius: 2rem;
+            padding: 48px 40px;
+            box-shadow: 0 20px 60px rgba(15, 74, 58, 0.08);
+            border: 1px solid rgba(15, 74, 58, 0.04);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-wrapper h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #0f4a3a;
+            letter-spacing: -0.02em;
+            margin-bottom: 8px;
             text-align: center;
         }
 
-        .cta-block h2 {
-            font-size: 2.3rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 14px;
+        .form-wrapper p {
+            color: #2d3f36;
+            text-align: center;
+            margin-bottom: 32px;
+            font-size: 1rem;
         }
 
-        .cta-block p {
-            font-size: 1.1rem;
-            opacity: 0.85;
-            max-width: 500px;
-            margin: 0 auto 34px;
+        .form-group {
+            margin-bottom: 20px;
         }
 
-        .cta-block .btn-primary {
+        .form-group label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1f2a24;
+            margin-bottom: 6px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 18px;
+            border-radius: 12px;
+            border: 1px solid #d1d5db;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            background: #fafafa;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #0f4a3a;
+            box-shadow: 0 0 0 3px rgba(15, 74, 58, 0.08);
             background: #ffffff;
-            color: #0f4a3a;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
         }
 
-        .cta-block .btn-primary:hover {
-            background: #f0f0f0;
+        .form-wrapper .btn-primary {
+            width: 100%;
+            justify-content: center;
+            padding: 16px;
+            font-size: 1.1rem;
+            border-radius: 12px;
+            margin-top: 8px;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 0.8rem;
+            color: #6b7b72;
+        }
+
+        .form-note i {
+            margin-right: 6px;
+        }
+
+        /* ===== CUSTOM ALERT MODAL ===== */
+        .alert-modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            animation: fadeInOverlay 0.3s ease;
+        }
+
+        .alert-modal-overlay.active {
+            display: flex;
+        }
+
+        .alert-modal {
+            background: #ffffff;
+            border-radius: 28px;
+            max-width: 420px;
+            width: 100%;
+            padding: 40px 32px 32px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            animation: slideUp 0.3s ease;
+        }
+
+        .alert-modal .icon-wrapper {
+            width: 72px;
+            height: 72px;
+            background: #fef3f2;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 16px;
+            font-size: 2.4rem;
+            color: #dc2626;
+        }
+
+        .alert-modal h3 {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #0f4a3a;
+            margin-bottom: 8px;
+        }
+
+        .alert-modal p {
+            color: #4b5a52;
+            font-size: 0.95rem;
+            margin-bottom: 24px;
+            line-height: 1.6;
+        }
+
+        .alert-modal .btn-close-alert {
+            background: #0f4a3a;
+            color: #ffffff;
+            border: none;
+            padding: 12px 32px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.15s;
+            box-shadow: 0 4px 14px rgba(15, 74, 58, 0.12);
+        }
+
+        .alert-modal .btn-close-alert:hover {
+            background: #0b3d30;
             transform: translateY(-2px);
         }
 
-        .cta-note {
-            margin-top: 14px;
-            font-size: 0.8rem;
-            opacity: 0.6;
+        @keyframes fadeInOverlay {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.95);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         /* ===== FOOTER ===== */
@@ -548,12 +682,12 @@
                 padding: 56px 0;
             }
 
-            .cta-block {
-                padding: 44px 28px;
+            .form-wrapper {
+                padding: 32px 24px;
             }
 
-            .cta-block h2 {
-                font-size: 1.8rem;
+            .form-wrapper h2 {
+                font-size: 1.7rem;
             }
 
             .section-title {
@@ -593,14 +727,6 @@
                 align-items: flex-start;
             }
 
-            .cta-block {
-                padding: 36px 20px;
-            }
-
-            .cta-block h2 {
-                font-size: 1.5rem;
-            }
-
             .nav-title {
                 font-size: 0.95rem;
             }
@@ -636,6 +762,38 @@
 
             .faq-item.active .faq-content {
                 padding: 0 18px 16px 18px;
+            }
+
+            .form-wrapper {
+                padding: 24px 16px;
+                border-radius: 1.5rem;
+            }
+
+            .form-wrapper h2 {
+                font-size: 1.5rem;
+            }
+
+            .form-group input {
+                padding: 10px 14px;
+                font-size: 0.95rem;
+            }
+
+            .alert-modal {
+                padding: 32px 20px 24px;
+            }
+
+            .alert-modal .icon-wrapper {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+
+            .alert-modal h3 {
+                font-size: 1.1rem;
+            }
+
+            .alert-modal p {
+                font-size: 0.9rem;
             }
         }
 
@@ -678,7 +836,7 @@
             }
         }
 
-        /* ===== FLOATING WHATSAPP BUTTON ===== */
+        /* ===== FLOATING WHATSAPP ===== */
         .floating-wa {
             position: fixed;
             bottom: 28px;
@@ -702,6 +860,7 @@
             box-shadow: 0 4px 20px rgba(37, 211, 102, 0.35);
             transition: all 0.3s ease;
             flex-shrink: 0;
+            animation: wa-pulse 2.5s ease-in-out infinite;
         }
 
         .floating-wa-icon i {
@@ -723,7 +882,6 @@
             transform: scale(0.92);
         }
 
-        /* ===== TOOLTIP ===== */
         .floating-wa-tooltip {
             position: relative;
             opacity: 0;
@@ -763,7 +921,6 @@
             border-right: 6px solid #ffffff;
         }
 
-        /* ===== PULSE ANIMATION (Subtle) ===== */
         @keyframes wa-pulse {
             0% {
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.25);
@@ -776,10 +933,6 @@
             100% {
                 box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
             }
-        }
-
-        .floating-wa-icon {
-            animation: wa-pulse 2.5s ease-in-out infinite;
         }
 
         @media (max-width: 640px) {
@@ -933,7 +1086,7 @@
         </div>
     </section>
 
-    <!-- ===== CARA MENJADI AFILIATOR - DENGAN KOTAK ===== -->
+    <!-- ===== CARA MENJADI AFILIATOR ===== -->
     <section class="section-alt fade-up" id="cara">
         <div class="container">
             <div style="max-width: 700px; margin-bottom: 44px;">
@@ -974,6 +1127,34 @@
             <div class="timeline-note">
                 <i class="fas fa-info-circle"></i>
                 <span>Sistem afiliasi terintegrasi dengan sistem profesional — transparan dan otomatis.</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FORM PENDAFTARAN (menggantikan CTA) ===== -->
+    <section style="padding: 40px 0 80px;" class="fade-up" id="daftar">
+        <div class="container">
+            <div class="form-wrapper">
+                <h2>Pendaftaran Afiliator</h2>
+                <p>Isi data diri Anda di bawah ini, dan kami akan segera menghubungi Anda.</p>
+                <form id="affiliate-form" novalidate>
+                    <div class="form-group">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Masukkan nama lengkap" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="wa">Nomor WhatsApp</label>
+                        <input type="tel" id="wa" placeholder="0812xxxx" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Aktif</label>
+                        <input type="email" id="email" placeholder="example@email.com" required>
+                    </div>
+                    <button type="submit" class="btn-primary">Kirim Pendaftaran</button>
+                    <div class="form-note">
+                        <i class="fas fa-info-circle"></i> Pendaftaran gratis, tidak ada kewajiban pembelian
+                    </div>
+                </form>
             </div>
         </div>
     </section>
@@ -1052,19 +1233,6 @@
         </div>
     </section>
 
-    <!-- ===== CTA ===== -->
-    <section style="padding: 40px 0 80px;" class="fade-up" id="daftar">
-        <div class="container">
-            <div class="cta-block">
-                <h2>Siap Menjadi Bagian dari Nuqthah Learning?</h2>
-                <p>Mulailah membagikan manfaat ilmu kepada lebih banyak orang sekaligus memperoleh komisi dari setiap
-                    transaksi yang berhasil.</p>
-                <a href="https://web.mayar.id/sign-in/referral/gbgw8tg" class="btn-primary">Daftar Menjadi Afiliator</a>
-                <div class="cta-note">* Pendaftaran gratis, tidak ada kewajiban pembelian</div>
-            </div>
-        </div>
-    </section>
-
     <!-- ===== FOOTER ===== -->
     <div class="container">
         <div class="footer">
@@ -1087,6 +1255,18 @@
             <span class="tooltip-arrow"></span>
         </div>
     </a>
+
+    <!-- ===== CUSTOM ALERT MODAL ===== -->
+    <div id="alertModal" class="alert-modal-overlay">
+        <div class="alert-modal">
+            <div class="icon-wrapper">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <h3>Perhatian</h3>
+            <p id="alertMessage">Harap isi semua kolom dengan lengkap sebelum mengirim.</p>
+            <button class="btn-close-alert" id="closeAlertBtn">Mengerti</button>
+        </div>
+    </div>
 
     <!-- ===== SCRIPTS ===== -->
     <script>
@@ -1111,7 +1291,6 @@
                 observer.observe(el);
             });
 
-            // Trigger for elements already in view
             setTimeout(function () {
                 fadeElements.forEach(function (el) {
                     const rect = el.getBoundingClientRect();
@@ -1127,25 +1306,20 @@
             const item = header.parentElement;
             const isActive = item.classList.contains('active');
 
-            // Close all other FAQ items
             document.querySelectorAll('.faq-item').forEach(function (otherItem) {
                 if (otherItem !== item) {
                     otherItem.classList.remove('active');
                 }
             });
 
-            // Toggle current item
             if (!isActive) {
                 item.classList.add('active');
             } else {
                 item.classList.remove('active');
             }
         }
-
-        // Make toggleFaq globally accessible
         window.toggleFaq = toggleFaq;
 
-        // Close FAQ when clicking outside
         document.addEventListener('click', function (e) {
             const isFaqItem = e.target.closest('.faq-item');
             if (!isFaqItem) {
@@ -1153,6 +1327,56 @@
                     item.classList.remove('active');
                 });
             }
+        });
+
+        // ===== FORM SUBMISSION + CUSTOM ALERT =====
+        const alertModal = document.getElementById('alertModal');
+        const alertMessage = document.getElementById('alertMessage');
+        const closeAlertBtn = document.getElementById('closeAlertBtn');
+
+        function showAlert(msg) {
+            alertMessage.textContent = msg || 'Harap isi semua kolom dengan lengkap sebelum mengirim.';
+            alertModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideAlert() {
+            alertModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        closeAlertBtn.addEventListener('click', hideAlert);
+
+        alertModal.addEventListener('click', function (e) {
+            if (e.target === alertModal) {
+                hideAlert();
+            }
+        });
+
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape' && alertModal.classList.contains('active')) {
+                hideAlert();
+            }
+        });
+
+        document.getElementById('affiliate-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const nama = document.getElementById('nama').value.trim();
+            const wa = document.getElementById('wa').value.trim();
+            const email = document.getElementById('email').value.trim();
+
+            if (!nama || !wa || !email) {
+                showAlert('Harap isi semua kolom dengan lengkap sebelum mengirim.');
+                return;
+            }
+
+            const message =
+                `Halo Admin Nuqthah Learning, saya tertarik menjadi afiliator.%0A%0A*Data Pendaftaran:*%0A• Nama: ${encodeURIComponent(nama)}%0A• WhatsApp: ${encodeURIComponent(wa)}%0A• Email: ${encodeURIComponent(email)}`;
+
+            const waUrl = `https://api.whatsapp.com/send?phone=6285185409887&text=${message}`;
+
+            window.open(waUrl, '_blank');
         });
     </script>
 
