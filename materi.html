@@ -4562,11 +4562,15 @@
         const checkoutBackBtn = document.getElementById('checkout-back-btn');
         const checkoutRefreshBtn = document.getElementById('checkout-refresh-btn');
         let previousScrollY = 0;
-        let overlayStatePushed = false;
+        let currentCheckoutUrl = '';
+        let checkoutStatePushed = false;
+        let isRefreshing = false;
 
         function openCheckoutOverlay(url) {
             // Store current scroll position
             previousScrollY = window.scrollY;
+            // Store the original URL
+            currentCheckoutUrl = url;
             // Show overlay with animation
             checkoutOverlay.classList.add('active');
             // Lock body scroll
@@ -4586,10 +4590,10 @@
             setTimeout(() => {
                 checkoutLoading.classList.add('hidden');
             }, 10000);
-            // Push state for back button handling
-            if (!overlayStatePushed) {
+            // Push state only if not already pushed
+            if (!checkoutStatePushed) {
                 history.pushState({ checkout: true }, '');
-                overlayStatePushed = true;
+                checkoutStatePushed = true;
             }
         }
 
@@ -4600,16 +4604,12 @@
             document.body.style.overflow = '';
             // Clear iframe
             checkoutIframe.src = '';
+            // Reset url and flags
+            currentCheckoutUrl = '';
+            checkoutStatePushed = false;
+            isRefreshing = false;
             // Restore scroll position
             window.scrollTo(0, previousScrollY);
-            // Reset overlay state
-            if (overlayStatePushed) {
-                // Go back in history to remove the state we pushed
-                // but we only need to pop one state if it's the current one
-                // However, if user pressed back button, popstate already fired.
-                // So we just reset flag.
-                overlayStatePushed = false;
-            }
         }
 
         // Handle popstate for back button
@@ -4625,23 +4625,24 @@
 
         // Refresh function
         function refreshCheckout() {
-            const currentSrc = checkoutIframe.src;
-            if (currentSrc) {
-                // Reload with cache-busting
-                const separator = currentSrc.includes('?') ? '&' : '?';
-                // Remove existing _t parameter if any
-                const cleaned = currentSrc.replace(/[&?]_t=\d+/, '');
-                const newSrc = cleaned + separator + '_t=' + Date.now();
-                checkoutIframe.src = newSrc;
-                // Show loading
-                checkoutLoading.classList.remove('hidden');
-                checkoutIframe.onload = function () {
-                    checkoutLoading.classList.add('hidden');
-                };
-                setTimeout(() => {
-                    checkoutLoading.classList.add('hidden');
-                }, 10000);
-            }
+            if (isRefreshing || !currentCheckoutUrl) return;
+            isRefreshing = true;
+            // Reload with cache-busting
+            const separator = currentCheckoutUrl.includes('?') ? '&' : '?';
+            // Remove any existing _t parameter
+            const cleaned = currentCheckoutUrl.replace(/[&?]_t=\d+/, '');
+            const newSrc = cleaned + separator + '_t=' + Date.now();
+            checkoutIframe.src = newSrc;
+            // Show loading
+            checkoutLoading.classList.remove('hidden');
+            checkoutIframe.onload = function () {
+                checkoutLoading.classList.add('hidden');
+                isRefreshing = false;
+            };
+            setTimeout(() => {
+                checkoutLoading.classList.add('hidden');
+                isRefreshing = false;
+            }, 10000);
         }
 
         // Event listener for back button
