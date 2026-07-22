@@ -4616,7 +4616,7 @@
             openCheckoutOverlay(url, reviewUrl);
         };
 
-        // --- 18. CHECKOUT OVERLAY FUNCTIONS (FIXED HISTORY) ---
+        // --- 18. CHECKOUT OVERLAY FUNCTIONS ---
         const checkoutOverlay = document.getElementById('checkout-overlay');
         const checkoutIframe = document.getElementById('checkout-iframe');
         const checkoutLoading = document.getElementById('checkout-loading');
@@ -4627,70 +4627,83 @@
         let currentCheckoutUrl = '';
         let currentReviewUrl = '';
         let currentIframeUrl = '';
+        let checkoutStatePushed = false;
         let isRefreshing = false;
 
-        // --- BUKA OVERLAY ---
         function openCheckoutOverlay(url, reviewUrl) {
-            const isActive = checkoutOverlay.classList.contains('active');
-
-            // Jika belum aktif, simpan posisi scroll dan push state baru
-            if (!isActive) {
-                previousScrollY = window.scrollY;
-                history.pushState({ checkout: true }, '');
-            }
-
+            // Store current scroll position
+            previousScrollY = window.scrollY;
+            // Store the original URLs
             currentCheckoutUrl = url;
             currentReviewUrl = reviewUrl || '';
-            currentIframeUrl = url;
-
-            // Tampilkan overlay
+            currentIframeUrl = url; // initially show checkout
+            // Show overlay with animation
             checkoutOverlay.classList.add('active');
+            // Lock body scroll
             document.body.style.overflow = 'hidden';
-
-            // Tampilkan loading
+            // Show loading
             checkoutLoading.classList.remove('hidden');
-
-            // Set iframe dengan cache buster
+            // Add cache-busting timestamp to URL
             const separator = url.includes('?') ? '&' : '?';
             const urlWithCache = url + separator + '_t=' + Date.now();
+            // Set iframe src
             checkoutIframe.src = urlWithCache;
-
+            // When iframe loads, hide loading
             checkoutIframe.onload = function () {
                 checkoutLoading.classList.add('hidden');
             };
+            // Fallback: if loading takes too long, hide after 10s
             setTimeout(() => {
                 checkoutLoading.classList.add('hidden');
             }, 10000);
-
+            // Push state only if not already pushed
+            if (!checkoutStatePushed) {
+                history.pushState({ checkout: true }, '');
+                checkoutStatePushed = true;
+            }
+            // Update review button visibility
             updateReviewButton();
         }
 
-        // --- TUTUP OVERLAY (TANPA NAVIGASI) ---
         function closeCheckoutOverlay() {
+            // Hide overlay
             checkoutOverlay.classList.remove('active');
+            // Restore body scroll
             document.body.style.overflow = '';
+            // Clear iframe
             checkoutIframe.src = '';
+            // Reset url and flags
             currentCheckoutUrl = '';
             currentReviewUrl = '';
             currentIframeUrl = '';
+            checkoutStatePushed = false;
             isRefreshing = false;
+            // Restore scroll position
             window.scrollTo(0, previousScrollY);
         }
 
-        // --- TUTUP OVERLAY DAN KEMBALI KE HALAMAN SEBELUMNYA ---
-        function closeCheckoutAndGoBack() {
-            closeCheckoutOverlay();
-            history.back();  // menghapus state checkout dari history
-        }
+        // Handle popstate for back button
+        window.addEventListener('popstate', function (event) {
+            if (event.state && event.state.checkout) {
+                // If state has checkout flag, close overlay
+                closeCheckoutOverlay();
+            } else if (checkoutOverlay.classList.contains('active')) {
+                // If overlay is active but state doesn't have checkout flag, we still close it
+                closeCheckoutOverlay();
+            }
+        });
 
-        // --- REFRESH IFRAME ---
+        // Refresh function
         function refreshCheckout() {
             if (isRefreshing || !currentIframeUrl) return;
             isRefreshing = true;
+            // Reload with cache-busting
             const separator = currentIframeUrl.includes('?') ? '&' : '?';
+            // Remove any existing _t parameter
             const cleaned = currentIframeUrl.replace(/[&?]_t=\d+/, '');
             const newSrc = cleaned + separator + '_t=' + Date.now();
             checkoutIframe.src = newSrc;
+            // Show loading
             checkoutLoading.classList.remove('hidden');
             checkoutIframe.onload = function () {
                 checkoutLoading.classList.add('hidden');
@@ -4702,7 +4715,7 @@
             }, 10000);
         }
 
-        // --- UPDATE TOMBOL ULASAN ---
+        // Update review button visibility
         function updateReviewButton() {
             if (currentReviewUrl && currentReviewUrl !== '#' && currentReviewUrl !== '') {
                 checkoutReviewBtn.style.display = 'inline-block';
@@ -4711,28 +4724,18 @@
             }
         }
 
-        // --- EVENT LISTENER BACK BUTTON (navbar overlay) ---
-        checkoutBackBtn.addEventListener('click', closeCheckoutAndGoBack);
+        // Event listener for back button
+        checkoutBackBtn.addEventListener('click', closeCheckoutOverlay);
 
-        // --- EVENT LISTENER REFRESH ---
+        // Event listener for refresh button
         checkoutRefreshBtn.addEventListener('click', refreshCheckout);
 
-        // --- EVENT LISTENER ULASAN ---
+        // Event listener for review button
         checkoutReviewBtn.addEventListener('click', function () {
             if (currentReviewUrl && currentReviewUrl !== '#' && currentReviewUrl !== '') {
+                // Switch iframe to review URL
                 currentIframeUrl = currentReviewUrl;
                 refreshCheckout();
-            }
-        });
-
-        // --- POPSTATE (saat user menekan tombol Back browser) ---
-        window.addEventListener('popstate', function (event) {
-            if (event.state && event.state.checkout) {
-                // Berada di state checkout, tutup overlay dan biarkan browser kembali ke halaman sebelumnya
-                closeCheckoutOverlay();
-            } else if (checkoutOverlay.classList.contains('active')) {
-                // Keamanan: jika overlay aktif tapi state tidak diketahui
-                closeCheckoutOverlay();
             }
         });
 
@@ -4749,7 +4752,6 @@
         window.updateMaterial = updateMaterial;
         window.openCheckoutOverlay = openCheckoutOverlay;
         window.closeCheckoutOverlay = closeCheckoutOverlay;
-        window.closeCheckoutAndGoBack = closeCheckoutAndGoBack;
 
         // --- 20. INIT ---
         document.addEventListener('DOMContentLoaded', async () => {
@@ -4849,7 +4851,6 @@
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
         console.log('✅ Manual materials (course_id prefix "manual-") TIDAK mempengaruhi shortcut.');
         console.log('✅ Shortcut materials (course_id prefix "shortcut-") mempengaruhi tombol di index.html.');
-        console.log('✅ History browser checkout overlay telah diperbaiki.');
     </script>
 
     <script>
