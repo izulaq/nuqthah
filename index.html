@@ -1,4 +1,4 @@
-<!-- index.html (lengkap dengan popup WhatsApp) -->
+<!-- index.html (lengkap dengan popup WhatsApp + tombol Materi Tersedia) -->
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 
@@ -9,7 +9,6 @@
 
     <meta name="theme-color" content="#0F4A3A">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Favicon -->
@@ -873,6 +872,11 @@
                 font-size: 0.9rem;
                 padding: 12px 16px;
             }
+
+            /* Tombol Materi Tersedia di header disembunyikan di mobile */
+            #materi-tersedia-header-btn {
+                display: none !important;
+            }
         }
 
         @media (max-width:480px) {
@@ -993,6 +997,11 @@
             justify-content: center;
         }
 
+        /* Tombol Materi Tersedia di header - tampil di desktop */
+        #materi-tersedia-header-btn {
+            display: inline-flex;
+        }
+
         /* ============================================================
            RESET MODAL
         ============================================================ */
@@ -1080,6 +1089,63 @@
             text-align: center;
             margin-bottom: 16px;
             line-height: 1.6;
+        }
+
+        /* ============================================================
+           FLOATING ACTION BUTTON (MATERI TERSEDIA) - MOBILE
+        ============================================================ */
+        .fab-materi-tersedia {
+            position: fixed;
+            bottom: 100px;
+            left: 24px;
+            z-index: 999;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 18px;
+            border-radius: 50px;
+            box-shadow: 0 8px 25px rgba(15, 74, 58, 0.25);
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            text-decoration: none;
+        }
+
+        .fab-materi-tersedia i {
+            font-size: 1.2rem;
+        }
+
+        .fab-materi-tersedia:hover {
+            transform: scale(1.05);
+            background: #0b3d30;
+        }
+
+        .fab-materi-tersedia:active {
+            transform: scale(0.95);
+        }
+
+        @media (min-width: 769px) {
+            .fab-materi-tersedia {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .fab-materi-tersedia {
+                display: flex;
+            }
+        }
+
+        /* Menyesuaikan posisi dengan chatbase (biasanya di kanan bawah) */
+        @media (max-width: 768px) {
+            .fab-materi-tersedia {
+                bottom: 90px;
+                left: 16px;
+            }
         }
     </style>
 </head>
@@ -1197,6 +1263,14 @@
             <button id="afiliate-btn"
                 class="header-btn bg-primary text-white px-5 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap">
                 <i class="fa-solid fa-users"></i> Afiliate
+            </button>
+
+            <!-- TOMBOL MATERI TERSEDIA (Desktop) -->
+            <button id="materi-tersedia-header-btn"
+                class="header-btn bg-primary text-white px-4 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap flex items-center gap-1">
+                <i class="fas fa-book-open text-xs"></i>
+                <span class="hidden sm:inline">Materi Tersedia</span>
+                <span class="sm:hidden">Tersedia</span>
             </button>
 
             <button id="menu-toggle"
@@ -1579,7 +1653,6 @@
                     Berfikir • Berdzikir • Berhasil
                 </h1>
                 <div class="social-icons mt-3 md:mt-4 flex items-center justify-center gap-5 md:gap-7">
-                    <!-- WhatsApp icon now triggers popup -->
                     <a id="whatsappIcon" class="text-primary hover:text-secondary transition-colors text-lg md:text-xl"
                         style="cursor:pointer;">
                         <i class="fab fa-whatsapp"></i>
@@ -1628,6 +1701,14 @@
         </main>
 
     </div>
+
+    <!-- ============================================================
+    FLOATING ACTION BUTTON (MATERI TERSEDIA) - MOBILE
+    ============================================================ -->
+    <button id="fab-materi-tersedia" class="fab-materi-tersedia">
+        <i class="fas fa-book-open"></i>
+        <span>Materi Tersedia</span>
+    </button>
 
     <!-- ============================================================
     SUPABASE LIBRARY
@@ -2021,6 +2102,10 @@
             sidebarEmailText: document.getElementById('sidebarEmailText'),
 
             afiliateBtn: document.getElementById('afiliate-btn'),
+
+            // Tombol baru
+            materiTersediaHeaderBtn: document.getElementById('materi-tersedia-header-btn'),
+            fabMateriTersedia: document.getElementById('fab-materi-tersedia'),
         };
 
         /* ============================================================
@@ -2776,6 +2861,44 @@
         })();
 
         /* ============================================================
+           FUNGSI NAVIGASI KE MATERI TERSEDIA (digunakan oleh tombol)
+        ============================================================ */
+        async function navigateToMateriTersedia(e) {
+            if (e) e.preventDefault();
+
+            try {
+                const { data: { session }, error } = await supabaseClient.auth.getSession();
+                if (error) throw error;
+
+                if (session) {
+                    // Sudah login, langsung arahkan
+                    window.location.href = "materi-tersedia.html";
+                } else {
+                    // Belum login, tampilkan modal login
+                    // Gunakan openLoginModal yang sudah ada
+                    openLoginModal();
+                    // Setelah login, redirect akan otomatis? Kita perlu tangani di event auth.
+                    // Untuk saat ini, kita simpan redirect setelah login.
+                    // Karena kita sudah punya mekanisme di handleLogin yang redirect ke materi.html,
+                    // kita ubah sedikit.
+                    // Kita akan set flag untuk redirect ke materi-tersedia setelah login.
+                    window._redirectAfterLogin = "materi-tersedia.html";
+                }
+            } catch (err) {
+                console.warn('Materi Tersedia navigation error:', err);
+                openLoginModal();
+            }
+        }
+
+        // Tambahkan event listener ke kedua tombol
+        if (elements.materiTersediaHeaderBtn) {
+            elements.materiTersediaHeaderBtn.addEventListener('click', navigateToMateriTersedia);
+        }
+        if (elements.fabMateriTersedia) {
+            elements.fabMateriTersedia.addEventListener('click', navigateToMateriTersedia);
+        }
+
+        /* ============================================================
            SESSION CHECK & UI UPDATE
         ============================================================ */
         async function checkSessionAndUpdateUI() {
@@ -2842,6 +2965,16 @@
                     }
 
                     updateSidebarEmail(user);
+
+                    // Jika ada redirect after login dan kita baru saja login
+                    if (window._redirectAfterLogin) {
+                        const redirectUrl = window._redirectAfterLogin;
+                        window._redirectAfterLogin = null;
+                        // Redirect setelah delay agar login selesai
+                        setTimeout(() => {
+                            window.location.href = redirectUrl;
+                        }, 300);
+                    }
 
                 } else {
                     elements.navRegisterBtn.textContent = 'Daftar Gratis';
@@ -3132,6 +3265,22 @@
 
                 closeLoginModal();
                 await checkSessionAndUpdateUI();
+
+                // Cek apakah ada redirect setelah login
+                if (window._redirectAfterLogin) {
+                    const redirectUrl = window._redirectAfterLogin;
+                    window._redirectAfterLogin = null;
+                    await window.showPopup({
+                        type: 'success',
+                        title: 'Login Berhasil',
+                        message: 'Selamat datang kembali! Mengarahkan ke halaman yang diminta.',
+                        buttons: [{ text: 'Lanjut', primary: true }]
+                    });
+                    setTimeout(() => {
+                        window.location.href = redirectUrl;
+                    }, 800);
+                    return;
+                }
 
                 await window.showPopup({
                     type: 'success',
@@ -3456,6 +3605,7 @@
         console.log('%c✅ WhatsApp Popup has been added.', 'color: #25D366; font-weight: bold;');
         console.log('%c✅ Click the WhatsApp icon to open the popup.', 'color: #25D366;');
         console.log('%c✅ Popup contains: Admin WhatsApp & Channel WhatsApp.', 'color: #25D366;');
+        console.log('%c✅ Materi Tersedia button added (desktop header + mobile FAB).', 'color: #0F4A3A; font-weight: bold;');
 
         /* ============================================================
            INIT

@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Checkout - Nuqthah Learning Center</title>
+    <meta name="theme-color" content="#2E5E4E">
+    <link rel="icon" type="image/png" href="assets/logofix.png">
+
+    <!-- Fonts & CDNs -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
+        rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#2E5E4E',
+                        accent: '#C9A227',
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #fff;
+            overflow: hidden;
+            height: 100dvh;
+        }
+
+        .navbar {
+            height: 56px;
+            background: #2E5E4E;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .navbar {
+                height: 64px;
+                padding: 0 24px;
+            }
+        }
+
+        .navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .brand img {
+            height: 32px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .navbar .brand span {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .navbar .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .actions button,
+        .navbar .actions a {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .navbar .actions button:hover,
+        .navbar .actions a:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .navbar .actions .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar .actions .icon-btn i {
+            font-size: 1rem;
+        }
+
+        .navbar .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .navbar .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .iframe-wrapper {
+            height: calc(100dvh - 56px);
+            width: 100%;
+            position: relative;
+        }
+
+        @media (min-width: 768px) {
+            .iframe-wrapper {
+                height: calc(100dvh - 64px);
+            }
+        }
+
+        .iframe-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            display: block;
+        }
+
+        .loading-overlay {
+            position: absolute;
+            inset: 0;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            transition: opacity 0.3s ease;
+        }
+
+        .loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            border: 4px solid #e5e7eb;
+            border-top-color: #2E5E4E;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .error-page {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            padding: 2rem;
+            text-align: center;
+            color: #374151;
+        }
+
+        .error-page i {
+            font-size: 4rem;
+            color: #dc2626;
+            margin-bottom: 1rem;
+        }
+
+        .error-page h2 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #1f2937;
+        }
+
+        .error-page p {
+            margin: 0.5rem 0 1.5rem;
+            color: #6b7280;
+            max-width: 400px;
+        }
+
+        .error-page .btn-back {
+            background: #2E5E4E;
+            color: white;
+            padding: 0.75rem 2rem;
+            border-radius: 30px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .error-page .btn-back:hover {
+            background: #1f4a3e;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand">
+            <button class="back-btn" id="backBtn" aria-label="Kembali">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
+                alt="Nuqthah">
+            <span class="hidden sm:inline">Nuqthah Learning</span>
+        </div>
+
+        <div class="actions">
+            <button id="refreshBtn" class="icon-btn" title="Refresh halaman checkout">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+            <button id="reviewBtn" class="hidden" title="Beri Ulasan">Review</button>
+            <a href="https://wa.me/6285185409887" target="_blank" class="icon-btn" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- IFRAME WRAPPER -->
+    <div class="iframe-wrapper">
+        <div class="loading-overlay" id="loadingOverlay">
+            <div class="spinner"></div>
+        </div>
+        <iframe id="checkoutIframe" allow="payment *; clipboard-write"
+            sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals" loading="lazy"></iframe>
+    </div>
+
+    <script>
+            (function () {
+                'use strict';
+
+                // --- DOM refs ---
+                const iframe = document.getElementById('checkoutIframe');
+                const loading = document.getElementById('loadingOverlay');
+                const backBtn = document.getElementById('backBtn');
+                const refreshBtn = document.getElementById('refreshBtn');
+                const reviewBtn = document.getElementById('reviewBtn');
+
+                // --- Ambil parameter URL ---
+                const urlParams = new URLSearchParams(window.location.search);
+                const checkoutParam = urlParams.get('checkout');
+                const courseId = urlParams.get('course') || '';
+                const reviewUrl = urlParams.get('review') || '';
+                const from = urlParams.get('from') || '';
+
+                // --- Validasi URL checkout ---
+                let validCheckoutUrl = null;
+                if (checkoutParam) {
+                    try {
+                        // Coba parsing sebagai URL
+                        const parsed = new URL(checkoutParam);
+                        // Hanya izinkan http atau https
+                        if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
+                            validCheckoutUrl = checkoutParam;
+                            console.log('✅ Checkout URL valid:', validCheckoutUrl);
+                        } else {
+                            console.warn('⚠️ Protocol tidak diizinkan:', parsed.protocol);
+                        }
+                    } catch (e) {
+                        console.warn('❌ Invalid checkout URL:', checkoutParam, e);
+                    }
+                } else {
+                    console.warn('❌ Parameter "checkout" tidak ditemukan.');
+                }
+
+                // --- Tampilkan review button jika reviewUrl valid ---
+                if (reviewUrl && reviewUrl.startsWith('http')) {
+                    reviewBtn.classList.remove('hidden');
+                } else {
+                    reviewBtn.classList.add('hidden');
+                }
+
+                // --- Fungsi memuat iframe ---
+                function loadIframe(url) {
+                    if (!url) {
+                        showError('URL tidak valid.');
+                        return;
+                    }
+                    loading.classList.remove('hidden');
+                    iframe.src = url;
+                    iframe.onload = function () {
+                        loading.classList.add('hidden');
+                    };
+                    // fallback timeout
+                    setTimeout(function () {
+                        loading.classList.add('hidden');
+                    }, 15000);
+                }
+
+                // --- Tampilkan error ---
+                function showError(message) {
+                    const wrapper = document.querySelector('.iframe-wrapper');
+                    wrapper.innerHTML = `
+                    <div class="error-page">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <h2>Oops!</h2>
+                        <p>${message}</p>
+                        <button class="btn-back" id="errorBackBtn">Kembali</button>
+                    </div>
+                `;
+                    document.getElementById('errorBackBtn').addEventListener('click', function () {
+                        handleBack();
+                    });
+                    // sembunyikan loading
+                    loading.classList.add('hidden');
+                }
+
+                // --- Handle back ---
+                function handleBack() {
+                    if (from === 'materi') {
+                        window.location.href = 'materi.html';
+                    } else if (from === 'materi-tersedia') {
+                        window.location.href = 'materi-tersedia.html';
+                    } else {
+                        // fallback history
+                        if (window.history.length > 1) {
+                            window.history.back();
+                        } else {
+                            window.location.href = 'index.html';
+                        }
+                    }
+                }
+
+                // --- Event listeners ---
+                backBtn.addEventListener('click', handleBack);
+
+                refreshBtn.addEventListener('click', function () {
+                    // reload iframe dengan cache busting
+                    if (validCheckoutUrl) {
+                        const separator = validCheckoutUrl.includes('?') ? '&' : '?';
+                        const urlWithCache = validCheckoutUrl + separator + '_t=' + Date.now();
+                        loadIframe(urlWithCache);
+                    } else {
+                        alert('Tidak ada URL checkout yang valid untuk di-refresh.');
+                    }
+                });
+
+                reviewBtn.addEventListener('click', function () {
+                    if (reviewUrl && reviewUrl.startsWith('http')) {
+                        const separator = reviewUrl.includes('?') ? '&' : '?';
+                        const urlWithCache = reviewUrl + separator + '_t=' + Date.now();
+                        loadIframe(urlWithCache);
+                    }
+                });
+
+                // --- Muat iframe ---
+                if (validCheckoutUrl) {
+                    loadIframe(validCheckoutUrl);
+                } else {
+                    showError('Link checkout tidak valid. Silakan kembali dan coba lagi.');
+                }
+
+            })();
+    </script>
+
+</body>
+
+</html>
