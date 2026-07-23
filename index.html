@@ -1,4 +1,4 @@
-<!-- index.html (lengkap dengan popup WhatsApp + tombol Materi Tersedia dengan pulse animasi + teks panduan di bawah FAB) -->
+<!-- index.html (lengkap dengan popup WhatsApp + tombol Materi Tersedia dengan pulse animasi) -->
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 
@@ -1091,23 +1091,12 @@
 
         /* ============================================================
            FLOATING ACTION BUTTON (MATERI TERSEDIA) - MOBILE
-           dengan z-index di bawah sidebar (35) agar tidak menutupi modal/sidebar
         ============================================================ */
-        .fab-materi-tersedia-wrapper {
+        .fab-materi-tersedia {
             position: fixed;
-            bottom: 90px;
-            left: 16px;
-            z-index: 35;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            pointer-events: none;
-            /* wrapper tidak menerima klik, biar tombol & teks yang menerima */
-        }
-
-        .fab-materi-tersedia-wrapper .fab-materi-tersedia {
-            pointer-events: auto;
+            bottom: 100px;
+            left: 24px;
+            z-index: 999;
             display: flex;
             align-items: center;
             gap: 8px;
@@ -1122,104 +1111,74 @@
             cursor: pointer;
             border: none;
             text-decoration: none;
-            animation: pulse-nuqthah 2.8s ease-in-out infinite;
-            position: relative;
-            z-index: 1;
         }
 
-        .fab-materi-tersedia-wrapper .fab-materi-tersedia i {
+        .fab-materi-tersedia i {
             font-size: 1.2rem;
         }
 
-        .fab-materi-tersedia-wrapper .fab-materi-tersedia:hover {
+        .fab-materi-tersedia:hover {
             transform: scale(1.05);
             background: #0b3d30;
         }
 
-        .fab-materi-tersedia-wrapper .fab-materi-tersedia:active {
+        .fab-materi-tersedia:active {
             transform: scale(0.95);
         }
 
-        /* Efek pulse ring hanya untuk tombol */
-        .fab-materi-tersedia-wrapper .fab-materi-tersedia::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: inherit;
-            background: rgba(201, 162, 39, 0.15);
-            z-index: -1;
-            opacity: 0;
-            transform: scale(0.92);
-            animation: pulse-ring-nuqthah 2.8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        /* Teks panduan di bawah tombol */
-        .fab-materi-tersedia-wrapper .fab-hint {
-            pointer-events: auto;
-            font-size: 10px;
-            color: #9ca3af;
-            font-weight: 400;
-            letter-spacing: 0.03em;
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            background: rgba(255, 255, 255, 0.7);
-            backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
-            padding: 4px 10px;
-            border-radius: 30px;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
-            white-space: nowrap;
-            transition: opacity 0.3s;
-        }
-
-        .fab-materi-tersedia-wrapper .fab-hint i {
-            font-size: 8px;
-            color: #6b7280;
-        }
-
-        /* Responsif untuk FAB */
         @media (min-width: 769px) {
-            .fab-materi-tersedia-wrapper {
+            .fab-materi-tersedia {
                 display: none !important;
             }
         }
 
         @media (max-width: 768px) {
-            .fab-materi-tersedia-wrapper {
+            .fab-materi-tersedia {
+                display: flex;
+            }
+        }
+
+        /* Menyesuaikan posisi dengan chatbase (biasanya di kanan bawah) */
+        @media (max-width: 768px) {
+            .fab-materi-tersedia {
                 bottom: 90px;
                 left: 16px;
             }
         }
 
-        @media (max-width: 480px) {
-            .fab-materi-tersedia-wrapper {
-                bottom: 80px;
-                left: 12px;
-            }
-
-            .fab-materi-tersedia-wrapper .fab-materi-tersedia {
-                padding: 10px 14px;
-                font-size: 0.75rem;
-            }
-
-            .fab-materi-tersedia-wrapper .fab-materi-tersedia i {
-                font-size: 1rem;
-            }
-
-            .fab-materi-tersedia-wrapper .fab-hint {
-                font-size: 8px;
-                padding: 2px 8px;
-                gap: 3px;
-            }
-
-            .fab-materi-tersedia-wrapper .fab-hint i {
-                font-size: 7px;
-            }
+        /* ============================================================
+           ANIMASI PULSE UNTUK TOMBOL MATERI TERSEDIA
+           (Desktop header & Mobile FAB)
+        ============================================================ */
+        /* Pulse dengan warna emas transparan untuk header dan FAB */
+        #materi-tersedia-header-btn,
+        .fab-materi-tersedia {
+            position: relative;
+            /* animasi pulse akan berjalan terus */
+            animation: pulse-nuqthah 2.8s ease-in-out infinite;
+            /* transisi untuk hover & active */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
         }
 
-        /* Animasi pulse */
+        /* Efek pulse menggunakan pseudo-element ::before */
+        #materi-tersedia-header-btn::before,
+        .fab-materi-tersedia::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: inherit;
+            background: rgba(201, 162, 39, 0.15);
+            /* emas transparan */
+            z-index: -1;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: none;
+            /* animasi dikendalikan oleh keyframes */
+            animation: pulse-ring-nuqthah 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Keyframes untuk pulse ring (shadow yang mengembang) */
         @keyframes pulse-ring-nuqthah {
             0% {
                 transform: scale(0.92);
@@ -1240,6 +1199,7 @@
             }
         }
 
+        /* Keyframes untuk pulse pada tombol itu sendiri (perubahan shadow) */
         @keyframes pulse-nuqthah {
             0% {
                 box-shadow: 0 4px 14px rgba(15, 74, 58, 0.15);
@@ -1254,51 +1214,58 @@
             }
         }
 
-        @media (prefers-reduced-motion: reduce) {
-
-            .fab-materi-tersedia-wrapper .fab-materi-tersedia,
-            #materi-tersedia-header-btn {
-                animation: none;
-                box-shadow: 0 4px 14px rgba(15, 74, 58, 0.15);
-            }
-
-            .fab-materi-tersedia-wrapper .fab-materi-tersedia::before,
-            #materi-tersedia-header-btn::before {
-                animation: none;
-                display: none;
-            }
-        }
-
-        /* Header button pulse (desktop) */
-        #materi-tersedia-header-btn {
-            position: relative;
-            animation: pulse-nuqthah 2.8s ease-in-out infinite;
-            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-            z-index: 41;
-        }
-
-        #materi-tersedia-header-btn::before {
-            content: '';
-            position: absolute;
-            inset: -4px;
-            border-radius: inherit;
-            background: rgba(201, 162, 39, 0.15);
-            z-index: -1;
-            opacity: 0;
-            transform: scale(0.92);
-            animation: pulse-ring-nuqthah 2.8s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        #materi-tersedia-header-btn:hover {
+        /* Hover: tombol membesar dan shadow lebih kuat */
+        #materi-tersedia-header-btn:hover,
+        .fab-materi-tersedia:hover {
             transform: scale(1.05);
             box-shadow: 0 6px 28px rgba(15, 74, 58, 0.30), 0 0 0 6px rgba(201, 162, 39, 0.08);
             background: var(--primary);
         }
 
-        #materi-tersedia-header-btn:active {
+        /* Active: tombol mengecil */
+        #materi-tersedia-header-btn:active,
+        .fab-materi-tersedia:active {
             transform: scale(0.95);
             transition-duration: 0.05s;
+        }
+
+        /* Menghentikan animasi jika user mengaktifkan prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+
+            #materi-tersedia-header-btn,
+            .fab-materi-tersedia {
+                animation: none;
+                box-shadow: 0 4px 14px rgba(15, 74, 58, 0.15);
+            }
+
+            #materi-tersedia-header-btn::before,
+            .fab-materi-tersedia::before {
+                animation: none;
+                display: none;
+            }
+
+            #materi-tersedia-header-btn:hover,
+            .fab-materi-tersedia:hover {
+                transform: scale(1.05);
+                box-shadow: 0 6px 28px rgba(15, 74, 58, 0.30);
+            }
+        }
+
+        /* Perbaiki z-index agar pulse tidak menutupi konten */
+        #materi-tersedia-header-btn {
+            z-index: 41;
+        }
+
+        #materi-tersedia-header-btn::before {
+            z-index: -1;
+        }
+
+        .fab-materi-tersedia {
+            z-index: 999;
+        }
+
+        .fab-materi-tersedia::before {
+            z-index: -1;
         }
     </style>
 </head>
@@ -1857,18 +1824,11 @@
 
     <!-- ============================================================
     FLOATING ACTION BUTTON (MATERI TERSEDIA) - MOBILE
-    dengan teks panduan di bawahnya
     ============================================================ -->
-    <div class="fab-materi-tersedia-wrapper">
-        <button id="fab-materi-tersedia" class="fab-materi-tersedia">
-            <i class="fas fa-book-open"></i>
-            <span>Materi Tersedia</span>
-        </button>
-        <span class="fab-hint">
-            <i class="fas fa-mouse-pointer"></i>
-            klik untuk melihat materi yang tersedia
-        </span>
-    </div>
+    <button id="fab-materi-tersedia" class="fab-materi-tersedia">
+        <i class="fas fa-book-open"></i>
+        <span>Materi Tersedia</span>
+    </button>
 
     <!-- ============================================================
     SUPABASE LIBRARY
@@ -3760,8 +3720,7 @@
         console.log('%c✅ WhatsApp Popup has been added.', 'color: #25D366; font-weight: bold;');
         console.log('%c✅ Click the WhatsApp icon to open the popup.', 'color: #25D366;');
         console.log('%c✅ Popup contains: Admin WhatsApp & Channel WhatsApp.', 'color: #25D366;');
-        console.log('%c✅ Materi Tersedia button added (desktop header + mobile FAB with hint text).', 'color: #0F4A3A; font-weight: bold;');
-        console.log('%c✅ FAB z-index set to 35 (below sidebar & modal).', 'color: #0F4A3A;');
+        console.log('%c✅ Materi Tersedia button added (desktop header + mobile FAB).', 'color: #0F4A3A; font-weight: bold;');
 
         /* ============================================================
            INIT
