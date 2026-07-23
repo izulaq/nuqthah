@@ -3649,6 +3649,9 @@
         </div>
     </div>
 
+    <!-- ============================================================
+    UNAVAILABLE MODAL (Materi Belum Dibuka) - dengan tombol tambahan
+    ============================================================ -->
     <div id="unavailable-modal" class="fixed inset-0 flex items-center justify-center p-4 modal-container hidden">
         <div id="unavailable-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm modal-overlay"></div>
         <div class="relative bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl modal-fade-in p-8 text-center"
@@ -3661,10 +3664,16 @@
             <p class="text-sm text-gray-500 mb-6">Materi untuk program ini sedang dalam tahap penyusunan dan penyesuaian
                 kurikulum. Pendaftaran akan dibuka setelah proses persiapan selesai. Silakan cek halaman ini secara
                 berkala atau hubungi admin untuk informasi terbaru.</p>
-            <button id="close-unavailable-btn"
-                class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-opacity-90 transition-all">
-                Baiklah
-            </button>
+            <div class="space-y-3">
+                <a href="materi-tersedia.html"
+                    class="w-full py-3 bg-primary text-white font-bold rounded-xl hover:bg-opacity-90 transition-all inline-block">
+                    Lihat Materi Tersedia
+                </a>
+                <button id="close-unavailable-btn"
+                    class="w-full py-3 bg-white text-primary border border-primary/20 font-bold rounded-xl hover:bg-gray-50 transition-all">
+                    Kembali
+                </button>
+            </div>
         </div>
     </div>
 
