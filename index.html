@@ -1,4 +1,4 @@
-<!-- index.html (lengkap dengan popup WhatsApp + tombol Materi Tersedia) -->
+<!-- index.html (lengkap dengan popup WhatsApp + tombol Materi Tersedia dengan pulse animasi) -->
 <!DOCTYPE html>
 <html lang="id" class="h-full">
 
@@ -306,7 +306,6 @@
 
         /* ============================================================
            CUSTOM POPUP (FIXED) - LAYER TERTINGGI
-           z-index: 999999 -> PALING DEPAN
         ============================================================ */
         #customPopup {
             position: fixed;
@@ -448,7 +447,7 @@
         }
 
         /* ============================================================
-           WHATSAPP POPUP KHUSUS - LAYER DI BAWAH CUSTOM POPUP
+           WHATSAPP POPUP KHUSUS
         ============================================================ */
         #whatsappPopup {
             position: fixed;
@@ -583,7 +582,7 @@
         }
 
         /* ============================================================
-           MATERIMU POPUP - LAYER KEDUA
+           MATERIMU POPUP
         ============================================================ */
         #materimuPopup {
             position: fixed;
@@ -1147,6 +1146,128 @@
                 left: 16px;
             }
         }
+
+        /* ============================================================
+           ANIMASI PULSE UNTUK TOMBOL MATERI TERSEDIA
+           (Desktop header & Mobile FAB)
+        ============================================================ */
+        /* Pulse dengan warna emas transparan untuk header dan FAB */
+        #materi-tersedia-header-btn,
+        .fab-materi-tersedia {
+            position: relative;
+            /* animasi pulse akan berjalan terus */
+            animation: pulse-nuqthah 2.8s ease-in-out infinite;
+            /* transisi untuk hover & active */
+            transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
+        }
+
+        /* Efek pulse menggunakan pseudo-element ::before */
+        #materi-tersedia-header-btn::before,
+        .fab-materi-tersedia::before {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: inherit;
+            background: rgba(201, 162, 39, 0.15);
+            /* emas transparan */
+            z-index: -1;
+            opacity: 0;
+            transform: scale(0.92);
+            transition: none;
+            /* animasi dikendalikan oleh keyframes */
+            animation: pulse-ring-nuqthah 2.8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        /* Keyframes untuk pulse ring (shadow yang mengembang) */
+        @keyframes pulse-ring-nuqthah {
+            0% {
+                transform: scale(0.92);
+                opacity: 0.7;
+                box-shadow: 0 0 0 0 rgba(201, 162, 39, 0.2);
+            }
+
+            70% {
+                transform: scale(1.25);
+                opacity: 0;
+                box-shadow: 0 0 0 20px rgba(201, 162, 39, 0);
+            }
+
+            100% {
+                transform: scale(1.25);
+                opacity: 0;
+                box-shadow: 0 0 0 0 rgba(201, 162, 39, 0);
+            }
+        }
+
+        /* Keyframes untuk pulse pada tombol itu sendiri (perubahan shadow) */
+        @keyframes pulse-nuqthah {
+            0% {
+                box-shadow: 0 4px 14px rgba(15, 74, 58, 0.15);
+            }
+
+            50% {
+                box-shadow: 0 4px 24px rgba(15, 74, 58, 0.30), 0 0 0 4px rgba(201, 162, 39, 0.05);
+            }
+
+            100% {
+                box-shadow: 0 4px 14px rgba(15, 74, 58, 0.15);
+            }
+        }
+
+        /* Hover: tombol membesar dan shadow lebih kuat */
+        #materi-tersedia-header-btn:hover,
+        .fab-materi-tersedia:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 28px rgba(15, 74, 58, 0.30), 0 0 0 6px rgba(201, 162, 39, 0.08);
+            background: var(--primary);
+        }
+
+        /* Active: tombol mengecil */
+        #materi-tersedia-header-btn:active,
+        .fab-materi-tersedia:active {
+            transform: scale(0.95);
+            transition-duration: 0.05s;
+        }
+
+        /* Menghentikan animasi jika user mengaktifkan prefers-reduced-motion */
+        @media (prefers-reduced-motion: reduce) {
+
+            #materi-tersedia-header-btn,
+            .fab-materi-tersedia {
+                animation: none;
+                box-shadow: 0 4px 14px rgba(15, 74, 58, 0.15);
+            }
+
+            #materi-tersedia-header-btn::before,
+            .fab-materi-tersedia::before {
+                animation: none;
+                display: none;
+            }
+
+            #materi-tersedia-header-btn:hover,
+            .fab-materi-tersedia:hover {
+                transform: scale(1.05);
+                box-shadow: 0 6px 28px rgba(15, 74, 58, 0.30);
+            }
+        }
+
+        /* Perbaiki z-index agar pulse tidak menutupi konten */
+        #materi-tersedia-header-btn {
+            z-index: 41;
+        }
+
+        #materi-tersedia-header-btn::before {
+            z-index: -1;
+        }
+
+        .fab-materi-tersedia {
+            z-index: 999;
+        }
+
+        .fab-materi-tersedia::before {
+            z-index: -1;
+        }
     </style>
 </head>
 
@@ -1265,7 +1386,7 @@
                 <i class="fa-solid fa-users"></i> Afiliate
             </button>
 
-            <!-- TOMBOL MATERI TERSEDIA (Desktop) -->
+            <!-- TOMBOL MATERI TERSEDIA (Desktop) - dengan pulse animasi -->
             <button id="materi-tersedia-header-btn"
                 class="header-btn bg-primary text-white px-4 rounded-full font-bold text-sm md:text-base shadow-lg hover:opacity-90 transition-all whitespace-nowrap flex items-center gap-1">
                 <i class="fas fa-book-open text-xs"></i>
@@ -1346,13 +1467,13 @@
                     <span class="text-base font-semibold">Profil Asaatidz</span>
                 </a>
 
-                <a href="tentangprogram.html"
+                <a href="materi-tersedia.html"
                     class="flex items-center gap-4 py-3 px-5 rounded-card hover:bg-primary/5 transition-all duration-300 group">
                     <div
                         class="w-8 h-8 flex items-center justify-center rounded-full bg-primary/5 text-secondary group-hover:bg-primary group-hover:text-cream transition-all duration-300">
                         <i class="fa-solid fa-book-open"></i>
                     </div>
-                    <span class="text-base font-semibold">Tentang Program</span>
+                    <span class="text-base font-semibold">Materi Tersedia</span>
                 </a>
 
                 <a href="knowledge/knowledge.html"
@@ -2875,13 +2996,8 @@
                     window.location.href = "materi-tersedia.html";
                 } else {
                     // Belum login, tampilkan modal login
-                    // Gunakan openLoginModal yang sudah ada
                     openLoginModal();
-                    // Setelah login, redirect akan otomatis? Kita perlu tangani di event auth.
-                    // Untuk saat ini, kita simpan redirect setelah login.
-                    // Karena kita sudah punya mekanisme di handleLogin yang redirect ke materi.html,
-                    // kita ubah sedikit.
-                    // Kita akan set flag untuk redirect ke materi-tersedia setelah login.
+                    // Set flag untuk redirect setelah login
                     window._redirectAfterLogin = "materi-tersedia.html";
                 }
             } catch (err) {
