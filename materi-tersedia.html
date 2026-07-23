@@ -228,9 +228,10 @@
             }
         }
 
+        /* FAB container */
         .fab-container {
             position: fixed;
-            bottom: 80px;
+            bottom: 24px;
             left: 24px;
             z-index: 999;
             display: flex;
@@ -259,10 +260,6 @@
 
         .fab-btn.wa {
             background: #25D366;
-        }
-
-        .fab-btn.materi-tersedia {
-            background: #2E5E4E;
         }
 
         #debug-info {
@@ -303,9 +300,10 @@
             <span class="font-bold text-sm sm:hidden">Nuqthah Learning</span>
         </a>
         <div class="flex items-center gap-2 md:gap-3">
-            <button onclick="openLoginModal()"
+            <!-- Tombol Login dengan onclick yang jelas -->
+            <button id="loginNavBtn"
                 class="bg-accent text-white px-4 py-1.5 rounded-lg font-bold text-xs md:text-sm hover:bg-opacity-90 transition-all">
-                Portal
+                Login
             </button>
             <a href="materi.html"
                 class="bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-lg transition-colors text-sm font-medium">
@@ -352,6 +350,7 @@
         </div>
     </main>
 
+    <!-- Floating WhatsApp -->
     <div class="fab-container">
         <a href="https://wa.me/6285185409887" target="_blank" class="fab-btn wa" aria-label="WhatsApp">
             <i class="fab fa-whatsapp"></i>
@@ -474,6 +473,17 @@
             const SB_KEY = 'sb_publishable_N96gYsm_jeSntalN3qMVCA_TpXloD4u';
             const sbClient = supabase.createClient(SB_URL, SB_KEY);
 
+            // --- PROGRAM LABEL MAPPING ---
+            const programLabels = {
+                syariah: 'Bimbel Syariah',
+                ushul: 'Bimbel Ushuluddin',
+                // tambahkan mapping lain jika diperlukan
+            };
+
+            function getProgramLabel(category) {
+                return programLabels[category] || category.charAt(0).toUpperCase() + category.slice(1);
+            }
+
             // --- GLOBAL STATE ---
             let allCourses = [];
             let currentUser = null;
@@ -507,6 +517,7 @@
             const regProgram = document.getElementById('regProgram');
             const regPass = document.getElementById('regPass');
             const regConfirm = document.getElementById('regConfirm');
+            const loginNavBtn = document.getElementById('loginNavBtn');
 
             // --- SESSION CHECK ---
             async function checkSession() {
@@ -611,7 +622,7 @@
                 showLoginTab();
             }
 
-            // --- MODAL ---
+            // --- MODAL FUNCTIONS ---
             function openLoginModal() {
                 loginModal.classList.remove('hidden');
                 document.body.style.overflow = 'hidden';
@@ -690,7 +701,7 @@
                     console.log(`📦 Ditemukan ${cards.length} course cards.`);
                     const courses = [];
 
-                    cards.forEach((card, index) => {
+                    cards.forEach((card) => {
                         const id = card.getAttribute('data-id') || '';
                         const category = card.getAttribute('data-category') || '';
                         const subfilter = card.getAttribute('data-subfilter') || '';
@@ -753,21 +764,10 @@
                             available,
                             badge,
                         });
-
-                        if (index < 3) {
-                            console.log(`   Card ${index + 1}: "${title}" => aksesUrl: "${aksesUrl}" (available: ${available})`);
-                        }
                     });
 
                     const availableCourses = courses.filter(c => c.available);
                     console.log(`✅ Total cards: ${courses.length}, Tersedia: ${availableCourses.length}`);
-                    if (availableCourses.length > 0) {
-                        console.log('📋 Daftar materi tersedia:');
-                        availableCourses.forEach(c => console.log(`   - ${c.title} (${c.category} / ${c.subfilter}) => ${c.aksesUrl}`));
-                    } else {
-                        console.warn('⚠️ Tidak ada materi yang tersedia. Pastikan ada link akses yang valid di materi.html.');
-                    }
-
                     return courses;
                 } catch (err) {
                     console.error('❌ Error fetching materi.html:', err);
@@ -854,7 +854,6 @@
                     return true;
                 });
                 renderCards(filtered);
-                updateSubFilterOptions();
             }
 
             function updateProgramOptions() {
@@ -864,7 +863,7 @@
                 categories.forEach(cat => {
                     const opt = document.createElement('option');
                     opt.value = cat;
-                    opt.textContent = cat.charAt(0).toUpperCase() + cat.slice(1);
+                    opt.textContent = getProgramLabel(cat);
                     programFilter.appendChild(opt);
                 });
                 subFilter.innerHTML = '<option value="all">Semua Sub</option>';
@@ -879,6 +878,7 @@
                 } else {
                     subs = [...new Set(available.filter(c => c.category === selectedProgram).map(c => c.subfilter))].sort();
                 }
+                const currentSub = subFilter.value;
                 subFilter.innerHTML = '<option value="all">Semua Sub</option>';
                 subs.forEach(s => {
                     const opt = document.createElement('option');
@@ -886,9 +886,14 @@
                     opt.textContent = s || 'Tanpa Sub';
                     subFilter.appendChild(opt);
                 });
+                if (subs.includes(currentSub)) {
+                    subFilter.value = currentSub;
+                } else {
+                    subFilter.value = 'all';
+                }
             }
 
-            // --- HANDLE DAFTAR (BARU) - REDIRECT KE CHECKOUT.HTML ---
+            // --- HANDLE DAFTAR ---
             window.handleDaftar = function (e, url) {
                 if (e) e.preventDefault();
 
@@ -902,7 +907,7 @@
                 let reviewUrl = card ? card.getAttribute('data-review') : '';
 
                 const params = new URLSearchParams();
-                params.set('checkout', url); // TANPA encodeURIComponent
+                params.set('checkout', url);
                 if (courseId) params.set('course', courseId);
                 if (reviewUrl && reviewUrl !== '#' && reviewUrl !== '') params.set('review', reviewUrl);
                 params.set('from', 'materi-tersedia');
@@ -963,12 +968,12 @@
             async function loadDataAndRender() {
                 const loggedIn = await checkSession();
                 if (!loggedIn) {
-                    openLoginModal();
+                    // Tampilkan pesan login tanpa membuka modal secara otomatis
                     grid.innerHTML = '';
                     emptyState.classList.add('hidden');
                     resultCount.textContent = '0 materi';
                     debugInfo.classList.remove('hidden');
-                    debugInfo.innerHTML = `<span class="error">⚠️ Silakan login untuk melihat materi tersedia.</span>`;
+                    debugInfo.innerHTML = `<span class="error">⚠️ Silakan login untuk melihat materi yang tersedia.</span>`;
                     return;
                 }
 
@@ -985,9 +990,9 @@
                     `;
                 } else {
                     debugInfo.innerHTML = `
-                        <span class="success">✅ ${available.length} materi tersedia</span>
-                        dari total ${courses.length} course cards.
-                        <br><small>Kategori: ${[...new Set(available.map(c => c.category))].join(', ')}</small>
+                        <span class="success">✅ ${available.length} materi yang tersedia</span>
+                        dari total ${courses.length} materi.
+                        <br><small>Kategori: ${[...new Set(available.map(c => getProgramLabel(c.category)))].join(', ')}</small>
                     `;
                 }
 
@@ -1003,17 +1008,30 @@
             document.addEventListener('DOMContentLoaded', function () {
                 initPasswordToggles();
 
+                // Event listener untuk tombol Login di navbar
+                loginNavBtn.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    openLoginModal();
+                });
+
+                // Event listener untuk overlay modal (klik di luar modal menutup)
+                loginModalOverlay.addEventListener('click', function (e) {
+                    if (e.target === loginModalOverlay) {
+                        closeLoginModal();
+                    }
+                });
+
                 loginForm.addEventListener('submit', handleLogin);
                 registerForm.addEventListener('submit', handleRegister);
                 tabLogin.addEventListener('click', showLoginTab);
                 tabRegister.addEventListener('click', showRegisterTab);
                 switchToRegister.addEventListener('click', showRegisterTab);
                 switchToLogin.addEventListener('click', showLoginTab);
-                loginModalOverlay.addEventListener('click', function (e) {
-                    if (e.target === loginModalOverlay) closeLoginModal();
-                });
 
-                programFilter.addEventListener('change', applyFilters);
+                programFilter.addEventListener('change', function () {
+                    applyFilters();
+                    updateSubFilterOptions();
+                });
                 subFilter.addEventListener('change', applyFilters);
                 searchInput.addEventListener('input', applyFilters);
 
@@ -1031,7 +1049,6 @@
                         grid.innerHTML = '';
                         emptyState.classList.add('hidden');
                         resultCount.textContent = '0 materi';
-                        openLoginModal();
                         debugInfo.classList.remove('hidden');
                         debugInfo.innerHTML = `<span class="error">⚠️ Anda telah logout.</span>`;
                     }
