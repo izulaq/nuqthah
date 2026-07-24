@@ -3,8 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Checkout - Nuqthah Learning Center</title>
     <meta name="theme-color" content="#2E5E4E">
     <link rel="icon" type="image/png" href="assets/logofix.png">
@@ -15,8 +14,7 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@600;700&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com">
-    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <script>
@@ -33,49 +31,131 @@
     </script>
 
     <style>
-        /* Reset & base */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
-        html,
         body {
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-            overflow: hidden;
-            background: #ffffff;
             font-family: 'Inter', sans-serif;
+            background: #fff;
+            overflow: hidden;
+            height: 100dvh;
+        }
+
+        .navbar {
+            height: 56px;
+            background: #2E5E4E;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            color: white;
+            flex-shrink: 0;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        @media (min-width: 768px) {
+            .navbar {
+                height: 64px;
+                padding: 0 24px;
+            }
+        }
+
+        .navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .brand img {
+            height: 32px;
+            width: auto;
+            border-radius: 50%;
+        }
+
+        .navbar .brand span {
+            font-weight: 700;
+            font-size: 1rem;
+        }
+
+        .navbar .actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .actions button,
+        .navbar .actions a {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: white;
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .navbar .actions button:hover,
+        .navbar .actions a:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .navbar .actions .icon-btn {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            padding: 0;
+            justify-content: center;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .navbar .actions .icon-btn i {
+            font-size: 1rem;
+        }
+
+        .navbar .back-btn {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            border-radius: 8px;
+        }
+
+        .navbar .back-btn:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .iframe-wrapper {
+            height: calc(100dvh - 56px);
+            width: 100%;
             position: relative;
         }
 
-        /* IFRAIN FULLSCREEN */
-        .iframe-wrapper {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            height: 100dvh;
-            z-index: 1;
-            background: #ffffff;
+        @media (min-width: 768px) {
+            .iframe-wrapper {
+                height: calc(100dvh - 64px);
+            }
         }
 
         .iframe-wrapper iframe {
             width: 100%;
             height: 100%;
-            height: 100dvh;
             border: none;
             display: block;
-            background: #ffffff;
-            /* Bantu compositing layer */
-            will-change: transform;
-            transform: translateZ(0);
         }
 
-        /* LOADING OVERLAY */
         .loading-overlay {
             position: absolute;
             inset: 0;
@@ -83,7 +163,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            z-index: 10;
+            z-index: 5;
             transition: opacity 0.3s ease;
         }
 
@@ -107,7 +187,6 @@
             }
         }
 
-        /* ERROR PAGE (inside iframe wrapper) */
         .error-page {
             display: flex;
             flex-direction: column;
@@ -117,7 +196,6 @@
             padding: 2rem;
             text-align: center;
             color: #374151;
-            background: #fff;
         }
 
         .error-page i {
@@ -152,276 +230,40 @@
         .error-page .btn-back:hover {
             background: #1f4a3e;
         }
-
-        /* ─── FLOATING CONTROLS ─── */
-        .floating-controls {
-            position: fixed;
-            top: max(12px, env(safe-area-inset-top, 12px));
-            left: 12px;
-            right: 12px;
-            z-index: 9999;
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            pointer-events: none;
-            gap: 8px;
-        }
-
-        /* Kiri */
-        .floating-left {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            pointer-events: auto;
-        }
-
-        /* Kanan */
-        .floating-right {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            pointer-events: auto;
-            flex-wrap: wrap;
-            justify-content: flex-end;
-        }
-
-        /* Tombol dasar */
-        .float-btn {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.72);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
-            border-radius: 999px;
-            padding: 8px 14px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: #1f2937;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-            white-space: nowrap;
-            min-height: 40px;
-            line-height: 1;
-            letter-spacing: 0.01em;
-            user-select: none;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .float-btn i {
-            font-size: 1rem;
-            color: #2E5E4E;
-            flex-shrink: 0;
-        }
-
-        .float-btn:hover {
-            background: rgba(255, 255, 255, 0.9);
-            border-color: rgba(255, 255, 255, 0.8);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12);
-        }
-
-        .float-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* Tombol khusus: Logo / Back */
-        .float-btn-brand {
-            background: rgba(46, 94, 78, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-color: rgba(255, 255, 255, 0.25);
-            color: #ffffff;
-            padding: 6px 14px 6px 10px;
-            gap: 8px;
-        }
-
-        .float-btn-brand i {
-            color: #ffffff;
-            font-size: 1rem;
-        }
-
-        .float-btn-brand:hover {
-            background: rgba(46, 94, 78, 0.95);
-            border-color: rgba(255, 255, 255, 0.4);
-        }
-
-        .float-btn-brand .brand-text {
-            font-weight: 700;
-            font-size: 0.8rem;
-            letter-spacing: 0.02em;
-        }
-
-        .float-btn-brand .brand-text .highlight {
-            color: #C9A227;
-        }
-
-        /* Icon-only */
-        .float-btn-icon {
-            width: 40px;
-            height: 40px;
-            padding: 0;
-            border-radius: 999px;
-            flex-shrink: 0;
-        }
-
-        .float-btn-icon i {
-            font-size: 1.05rem;
-        }
-
-        /* Review button (with text) */
-        .float-btn-review {
-            gap: 4px;
-            padding: 8px 14px;
-        }
-
-        .float-btn-review i {
-            font-size: 0.9rem;
-        }
-
-        /* WA button */
-        .float-btn-wa {
-            background: rgba(37, 211, 102, 0.2);
-            border-color: rgba(37, 211, 102, 0.25);
-        }
-
-        .float-btn-wa i {
-            color: #25D366;
-        }
-
-        .float-btn-wa:hover {
-            background: rgba(37, 211, 102, 0.3);
-        }
-
-        /* Responsive: layar sangat kecil, tumpuk vertikal di kanan */
-        @media (max-width: 480px) {
-            .floating-controls {
-                top: max(8px, env(safe-area-inset-top, 8px));
-                left: 8px;
-                right: 8px;
-                gap: 6px;
-            }
-
-            .floating-right {
-                gap: 6px;
-            }
-
-            .float-btn {
-                padding: 6px 10px;
-                font-size: 0.7rem;
-                min-height: 34px;
-            }
-
-            .float-btn-icon {
-                width: 34px;
-                height: 34px;
-            }
-
-            .float-btn-brand {
-                padding: 4px 10px 4px 8px;
-                font-size: 0.7rem;
-            }
-
-            .float-btn-brand .brand-text {
-                font-size: 0.7rem;
-            }
-
-            .float-btn-review {
-                padding: 6px 10px;
-            }
-
-            .float-btn-review span {
-                display: none;
-            }
-
-            .float-btn-review i {
-                font-size: 1rem;
-            }
-        }
-
-        /* Layar sedang: review tetap tampil teks */
-        @media (min-width: 481px) and (max-width: 768px) {
-            .floating-controls {
-                top: max(10px, env(safe-area-inset-top, 10px));
-                left: 10px;
-                right: 10px;
-            }
-
-            .float-btn {
-                padding: 7px 12px;
-                font-size: 0.75rem;
-                min-height: 36px;
-            }
-
-            .float-btn-icon {
-                width: 36px;
-                height: 36px;
-            }
-        }
-
-        /* Sembunyikan review jika tidak ada */
-        .float-btn-review.hidden {
-            display: none !important;
-        }
-
-        /* Tombol back di dalam brand */
-        .float-btn-brand .back-only {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .float-btn-brand .back-only i {
-            font-size: 0.9rem;
-        }
-
-        /* Pastikan tidak ada scroll */
-        ::-webkit-scrollbar {
-            display: none;
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- IFRAME FULLSCREEN -->
-    <div class="iframe-wrapper" id="iframeWrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar">
+        <div class="brand">
+            <button class="back-btn" id="backBtn" aria-label="Kembali">
+                <i class="fas fa-arrow-left"></i>
+            </button>
+            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
+                alt="Nuqthah">
+            <span class="hidden sm:inline">Nuqthah Learning</span>
+        </div>
+
+        <div class="actions">
+            <button id="refreshBtn" class="icon-btn" title="Refresh halaman checkout">
+                <i class="fas fa-sync-alt"></i>
+            </button>
+            <button id="reviewBtn" class="hidden" title="Beri Ulasan">Review</button>
+            <a href="https://wa.me/6285185409887" target="_blank" class="icon-btn" title="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+            </a>
+        </div>
+    </nav>
+
+    <!-- IFRAME WRAPPER -->
+    <div class="iframe-wrapper">
         <div class="loading-overlay" id="loadingOverlay">
             <div class="spinner"></div>
         </div>
         <iframe id="checkoutIframe" allow="payment *; clipboard-write"
             sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-modals" loading="lazy"></iframe>
-    </div>
-
-    <!-- FLOATING CONTROLS -->
-    <div class="floating-controls">
-        <!-- KIRI: Back + Logo -->
-        <div class="floating-left">
-            <button class="float-btn float-btn-brand" id="backBtn" aria-label="Kembali">
-                <span class="back-only">
-                    <i class="fas fa-arrow-left"></i>
-                    <span class="brand-text hidden sm:inline">Nuqthah <span class="highlight">Learning</span></span>
-                </span>
-            </button>
-        </div>
-
-        <!-- KANAN: Refresh, Review, WhatsApp -->
-        <div class="floating-right">
-            <button class="float-btn float-btn-icon" id="refreshBtn" title="Refresh halaman checkout">
-                <i class="fas fa-sync-alt"></i>
-            </button>
-            <button class="float-btn float-btn-review" id="reviewBtn" title="Beri Ulasan">
-                <i class="fas fa-star" style="color:#C9A227;"></i>
-                <span>Review</span>
-            </button>
-            <a href="https://wa.me/6285185409887" target="_blank" class="float-btn float-btn-icon float-btn-wa"
-                title="WhatsApp">
-                <i class="fab fa-whatsapp"></i>
-            </a>
-        </div>
     </div>
 
     <script>
@@ -446,7 +288,9 @@
                 let validCheckoutUrl = null;
                 if (checkoutParam) {
                     try {
+                        // Coba parsing sebagai URL
                         const parsed = new URL(checkoutParam);
+                        // Hanya izinkan http atau https
                         if (parsed.protocol === 'https:' || parsed.protocol === 'http:') {
                             validCheckoutUrl = checkoutParam;
                             console.log('✅ Checkout URL valid:', validCheckoutUrl);
@@ -467,37 +311,6 @@
                     reviewBtn.classList.add('hidden');
                 }
 
-                // --- Fungsi memaksa reflow/repaint pada iframe ---
-                function forceReflow() {
-                    // Beberapa teknik untuk memicu reflow/repaint di dalam iframe
-                    // 1. Ubah ukuran iframe secara mikro
-                    const originalHeight = iframe.style.height;
-                    iframe.style.height = '99.9%';
-                    // Trigger reflow dengan membaca offsetHeight
-                    void iframe.offsetHeight;
-                    // Kembalikan
-                    iframe.style.height = '100%';
-                    void iframe.offsetHeight;
-
-                    // 2. Kirim event resize ke window (mungkin mempengaruhi iframe)
-                    window.dispatchEvent(new Event('resize'));
-
-                    // 3. Gunakan requestAnimationFrame untuk memastikan repaint
-                    requestAnimationFrame(function () {
-                        // Tambahkan class sementara untuk trigger repaint
-                        iframe.style.transform = 'translateZ(0)';
-                        void iframe.offsetHeight;
-                        // Tidak perlu mengubah kembali
-                    });
-
-                    // 4. Trigger event pada iframe (jika didukung)
-                    try {
-                        iframe.contentWindow.dispatchEvent(new Event('resize'));
-                    } catch (e) {
-                        // Jika cross-origin, abaikan
-                    }
-                }
-
                 // --- Fungsi memuat iframe ---
                 function loadIframe(url) {
                     if (!url) {
@@ -507,26 +320,17 @@
                     loading.classList.remove('hidden');
                     iframe.src = url;
                     iframe.onload = function () {
-                        // Sembunyikan loading
                         loading.classList.add('hidden');
-                        // Tunggu sebentar lalu paksa reflow
-                        setTimeout(function () {
-                            forceReflow();
-                        }, 400); // 400ms memberi waktu iframe untuk rendering awal
                     };
                     // fallback timeout
                     setTimeout(function () {
                         loading.classList.add('hidden');
-                        // Jika onload tidak terpanggil, tetap coba reflow
-                        if (iframe.src) {
-                            setTimeout(forceReflow, 500);
-                        }
                     }, 15000);
                 }
 
                 // --- Tampilkan error ---
                 function showError(message) {
-                    const wrapper = document.getElementById('iframeWrapper');
+                    const wrapper = document.querySelector('.iframe-wrapper');
                     wrapper.innerHTML = `
                     <div class="error-page">
                         <i class="fas fa-exclamation-circle"></i>
@@ -538,6 +342,7 @@
                     document.getElementById('errorBackBtn').addEventListener('click', function () {
                         handleBack();
                     });
+                    // sembunyikan loading
                     loading.classList.add('hidden');
                 }
 
@@ -548,6 +353,7 @@
                     } else if (from === 'materi-tersedia') {
                         window.location.href = 'materi-tersedia.html';
                     } else {
+                        // fallback history
                         if (window.history.length > 1) {
                             window.history.back();
                         } else {
@@ -560,6 +366,7 @@
                 backBtn.addEventListener('click', handleBack);
 
                 refreshBtn.addEventListener('click', function () {
+                    // reload iframe dengan cache busting
                     if (validCheckoutUrl) {
                         const separator = validCheckoutUrl.includes('?') ? '&' : '?';
                         const urlWithCache = validCheckoutUrl + separator + '_t=' + Date.now();
