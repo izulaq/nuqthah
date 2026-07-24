@@ -998,6 +998,9 @@
         /* Tombol Materi Tersedia di header - tampil di desktop */
         #materi-tersedia-header-btn {
             display: inline-flex;
+            /* z-index diset agar di bawah sidebar dan popup */
+            z-index: auto;
+            /* tidak override dari container */
         }
 
         /* ============================================================
@@ -1091,12 +1094,14 @@
 
         /* ============================================================
            FLOATING ACTION BUTTON (MATERI TERSEDIA) - MOBILE
+           z-index diturunkan agar berada di bawah sidebar dan popup
         ============================================================ */
         .fab-materi-tersedia {
             position: fixed;
             bottom: 100px;
             left: 24px;
-            z-index: 999;
+            z-index: 45;
+            /* di bawah sidebar (50) dan popup (> 90000) */
             display: flex;
             align-items: center;
             gap: 8px;
@@ -1253,7 +1258,8 @@
 
         /* Perbaiki z-index agar pulse tidak menutupi konten */
         #materi-tersedia-header-btn {
-            z-index: 41;
+            z-index: auto;
+            /* ikut container header z-40 */
         }
 
         #materi-tersedia-header-btn::before {
@@ -1261,7 +1267,8 @@
         }
 
         .fab-materi-tersedia {
-            z-index: 999;
+            z-index: 45;
+            /* di bawah sidebar (50) dan popup */
         }
 
         .fab-materi-tersedia::before {
