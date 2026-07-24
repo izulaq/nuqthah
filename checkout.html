@@ -70,6 +70,9 @@
             border: none;
             display: block;
             background: #ffffff;
+            /* Bantu compositing layer */
+            will-change: transform;
+            transform: translateZ(0);
         }
 
         /* LOADING OVERLAY */
@@ -161,7 +164,6 @@
             align-items: flex-start;
             justify-content: space-between;
             pointer-events: none;
-            /* agar tidak menghalangi interaksi dengan iframe di area kosong */
             gap: 8px;
         }
 
@@ -465,6 +467,37 @@
                     reviewBtn.classList.add('hidden');
                 }
 
+                // --- Fungsi memaksa reflow/repaint pada iframe ---
+                function forceReflow() {
+                    // Beberapa teknik untuk memicu reflow/repaint di dalam iframe
+                    // 1. Ubah ukuran iframe secara mikro
+                    const originalHeight = iframe.style.height;
+                    iframe.style.height = '99.9%';
+                    // Trigger reflow dengan membaca offsetHeight
+                    void iframe.offsetHeight;
+                    // Kembalikan
+                    iframe.style.height = '100%';
+                    void iframe.offsetHeight;
+
+                    // 2. Kirim event resize ke window (mungkin mempengaruhi iframe)
+                    window.dispatchEvent(new Event('resize'));
+
+                    // 3. Gunakan requestAnimationFrame untuk memastikan repaint
+                    requestAnimationFrame(function () {
+                        // Tambahkan class sementara untuk trigger repaint
+                        iframe.style.transform = 'translateZ(0)';
+                        void iframe.offsetHeight;
+                        // Tidak perlu mengubah kembali
+                    });
+
+                    // 4. Trigger event pada iframe (jika didukung)
+                    try {
+                        iframe.contentWindow.dispatchEvent(new Event('resize'));
+                    } catch (e) {
+                        // Jika cross-origin, abaikan
+                    }
+                }
+
                 // --- Fungsi memuat iframe ---
                 function loadIframe(url) {
                     if (!url) {
@@ -474,18 +507,26 @@
                     loading.classList.remove('hidden');
                     iframe.src = url;
                     iframe.onload = function () {
+                        // Sembunyikan loading
                         loading.classList.add('hidden');
+                        // Tunggu sebentar lalu paksa reflow
+                        setTimeout(function () {
+                            forceReflow();
+                        }, 400); // 400ms memberi waktu iframe untuk rendering awal
                     };
                     // fallback timeout
                     setTimeout(function () {
                         loading.classList.add('hidden');
+                        // Jika onload tidak terpanggil, tetap coba reflow
+                        if (iframe.src) {
+                            setTimeout(forceReflow, 500);
+                        }
                     }, 15000);
                 }
 
                 // --- Tampilkan error ---
                 function showError(message) {
                     const wrapper = document.getElementById('iframeWrapper');
-                    // Hapus iframe & loading, tampilkan error
                     wrapper.innerHTML = `
                     <div class="error-page">
                         <i class="fas fa-exclamation-circle"></i>
