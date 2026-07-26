@@ -1,0 +1,1372 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuqthah Learning Center</title>
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet" />
+
+    <!-- Font Awesome 6 (free) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+
+    <style>
+        /* ===== RESET & BASE ===== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: #ffffff;
+            color: #1e293b;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ===== UTILITY ===== */
+        .section-padding {
+            padding: 80px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 640px;
+            margin-bottom: 48px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mx-auto {
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: #0f4a3a;
+            color: #ffffff;
+            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: 60px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(15, 74, 58, 0.20);
+            letter-spacing: 0.3px;
+        }
+
+        .btn-primary:hover {
+            background: #0a3a2e;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 74, 58, 0.30);
+        }
+
+        .btn-outline {
+            display: inline-block;
+            background: transparent;
+            color: #0f4a3a;
+            font-weight: 600;
+            padding: 14px 36px;
+            border-radius: 60px;
+            border: 1.5px solid #0f4a3a;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-outline:hover {
+            background: #0f4a3a;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(15, 74, 58, 0.15);
+        }
+
+        .btn-white {
+            display: inline-block;
+            background: #ffffff;
+            color: #0f4a3a;
+            font-weight: 600;
+            padding: 14px 40px;
+            border-radius: 60px;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        .btn-white:hover {
+            background: #f1f5f9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .badge-light {
+            background: #f1f5f9;
+            color: #0f4a3a;
+            padding: 6px 18px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        /* ===== ANIMATIONS (fade-up) ===== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94), transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fade-up.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== NAVBAR ===== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 16px 0;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid transparent;
+        }
+
+        .navbar.scrolled {
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid #e5e7eb;
+            padding: 12px 0;
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #0f4a3a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .navbar .logo i {
+            font-size: 1.6rem;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar .nav-links a {
+            font-weight: 500;
+            color: #334155;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #0f4a3a;
+        }
+
+        .navbar .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .navbar .btn-nav {
+            background: #0f4a3a;
+            color: #fff;
+            padding: 10px 28px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .navbar .btn-nav:hover {
+            background: #0a3a2e;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(15, 74, 58, 0.25);
+        }
+
+        /* Mobile hamburger */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 26px;
+            height: 2.5px;
+            background: #0f4a3a;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding: 140px 0 80px;
+            background: #ffffff;
+        }
+
+        .hero .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: #0f172a;
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 span {
+            color: #0f4a3a;
+        }
+
+        .hero-content p {
+            font-size: 1.1rem;
+            color: #475569;
+            max-width: 520px;
+            margin-bottom: 32px;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+        }
+
+        .hero-stats .stat-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stats .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: #0f4a3a;
+        }
+
+        .hero-stats .stat-label {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .hero-image {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .hero-image .illustration {
+            background: #f1f5f9;
+            width: 100%;
+            max-width: 520px;
+            aspect-ratio: 4/3;
+            border-radius: 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            text-align: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image .illustration i {
+            font-size: 5rem;
+            color: #0f4a3a;
+            opacity: 0.6;
+            margin-bottom: 16px;
+        }
+
+        .hero-image .illustration .decor {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(15, 74, 58, 0.05);
+        }
+
+        .hero-image .illustration .decor:nth-child(1) {
+            width: 200px;
+            height: 200px;
+            top: -60px;
+            right: -60px;
+        }
+
+        .hero-image .illustration .decor:nth-child(2) {
+            width: 120px;
+            height: 120px;
+            bottom: -40px;
+            left: -40px;
+        }
+
+        .hero-image .illustration p {
+            font-weight: 500;
+            color: #1e293b;
+            font-size: 1.1rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-image .illustration .sub {
+            font-size: 0.9rem;
+            color: #64748b;
+            font-weight: 400;
+        }
+
+        /* ===== TENTANG ===== */
+        .tentang {
+            background: #f8fafc;
+        }
+
+        .tentang .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .tentang-image {
+            background: #e9edf2;
+            border-radius: 32px;
+            aspect-ratio: 4/3;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+            font-size: 4rem;
+            color: #0f4a3a;
+            opacity: 0.7;
+        }
+
+        .tentang-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: #0f172a;
+        }
+
+        .tentang-content p {
+            color: #475569;
+            margin-bottom: 24px;
+            font-size: 1.05rem;
+        }
+
+        /* ===== KEUNGGULAN ===== */
+        .keunggulan {
+            background: #f8fafc;
+        }
+
+        .keunggulan-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .keunggulan-card {
+            background: #ffffff;
+            padding: 32px 28px;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .keunggulan-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            border-color: #cbd5e1;
+        }
+
+        .keunggulan-card .icon {
+            width: 52px;
+            height: 52px;
+            background: #ecfdf5;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #0f4a3a;
+            margin-bottom: 18px;
+        }
+
+        .keunggulan-card h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .keunggulan-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* ===== PROGRAM ===== */
+        .program {
+            background: #ffffff;
+        }
+
+        .program-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .program-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            padding: 32px 28px;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .program-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.06);
+            border-color: #cbd5e1;
+        }
+
+        .program-card .icon {
+            width: 56px;
+            height: 56px;
+            background: #ecfdf5;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            color: #0f4a3a;
+            margin-bottom: 20px;
+        }
+
+        .program-card h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #0f172a;
+        }
+
+        .program-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            flex-grow: 1;
+            margin-bottom: 20px;
+        }
+
+        .program-card .btn-card {
+            align-self: flex-start;
+            background: transparent;
+            border: 1px solid #0f4a3a;
+            color: #0f4a3a;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .program-card .btn-card:hover {
+            background: #0f4a3a;
+            color: #fff;
+        }
+
+        /* ===== ALUR BELAJAR ===== */
+        .alur {
+            background: #ffffff;
+        }
+
+        .alur-timeline {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+            margin-top: 32px;
+            position: relative;
+        }
+
+        .alur-timeline::before {
+            content: '';
+            position: absolute;
+            top: 40px;
+            left: 10%;
+            right: 10%;
+            height: 2px;
+            background: #e5e7eb;
+            z-index: 0;
+        }
+
+        .alur-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .alur-step .step-number {
+            width: 56px;
+            height: 56px;
+            background: #0f4a3a;
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 0 auto 16px;
+            box-shadow: 0 4px 12px rgba(15, 74, 58, 0.15);
+        }
+
+        .alur-step h4 {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+
+        .alur-step p {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        /* ===== SIAPA COCOK ===== */
+        .cocok {
+            background: #f8fafc;
+        }
+
+        .cocok-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            margin-top: 16px;
+        }
+
+        .cocok-card {
+            background: #ffffff;
+            border-radius: 20px;
+            border: 1px solid #e5e7eb;
+            padding: 32px 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+        }
+
+        .cocok-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+        }
+
+        .cocok-card .icon {
+            font-size: 2.2rem;
+            color: #0f4a3a;
+            margin-bottom: 12px;
+        }
+
+        .cocok-card h4 {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #0f172a;
+        }
+
+        /* ===== FAQ ===== */
+        .faq {
+            background: #ffffff;
+        }
+
+        .faq-list {
+            max-width: 800px;
+            margin: 16px auto 0;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            border: 1px solid #e5e7eb;
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.2s ease;
+            background: #ffffff;
+        }
+
+        .faq-item:hover {
+            border-color: #cbd5e1;
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 20px 24px;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #0f172a;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            text-align: left;
+            gap: 16px;
+            transition: background 0.2s;
+        }
+
+        .faq-question:hover {
+            background: #f8fafc;
+        }
+
+        .faq-question i {
+            font-size: 1.2rem;
+            color: #0f4a3a;
+            transition: transform 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .faq-item.open .faq-question i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 24px;
+            color: #475569;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 300px;
+            padding: 0 24px 24px;
+        }
+
+        /* ===== CTA ===== */
+        .cta {
+            background: #0f4a3a;
+            padding: 80px 0;
+            color: #ffffff;
+        }
+
+        .cta .container {
+            text-align: center;
+        }
+
+        .cta h2 {
+            font-size: 2.6rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .cta p {
+            font-size: 1.1rem;
+            opacity: 0.85;
+            max-width: 520px;
+            margin: 0 auto 32px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 48px 0 32px;
+        }
+
+        .footer .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .footer .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #0f4a3a;
+        }
+
+        .footer .footer-brand i {
+            font-size: 1.4rem;
+        }
+
+        .footer .footer-links {
+            display: flex;
+            gap: 32px;
+            flex-wrap: wrap;
+        }
+
+        .footer .footer-links a {
+            color: #475569;
+            font-weight: 500;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .footer .footer-links a:hover {
+            color: #0f4a3a;
+        }
+
+        .footer .footer-copy {
+            color: #94a3b8;
+            font-size: 0.9rem;
+            width: 100%;
+            text-align: center;
+            margin-top: 24px;
+            border-top: 1px solid #e5e7eb;
+            padding-top: 24px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+
+            .hero-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+            }
+
+            .tentang .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .tentang-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .keunggulan-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .program-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .cocok-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .alur-timeline {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .alur-timeline::before {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                background: rgba(255, 255, 255, 0.98);
+                backdrop-filter: blur(12px);
+                position: absolute;
+                top: 72px;
+                left: 0;
+                width: 100%;
+                padding: 24px 32px;
+                border-bottom: 1px solid #e5e7eb;
+                gap: 20px;
+                align-items: flex-start;
+                box-shadow: 0 12px 32px rgba(0, 0, 0, 0.06);
+            }
+
+            .navbar .nav-links.open {
+                display: flex;
+            }
+
+            .navbar .nav-actions .btn-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .hero-content h1 {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .keunggulan-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .program-grid {
+                grid-template-columns: 1fr;
+                max-width: 480px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .cocok-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .alur-timeline {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .footer .footer-links {
+                justify-content: center;
+            }
+
+            .cta h2 {
+                font-size: 2rem;
+            }
+
+            .hero-stats {
+                gap: 24px;
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+
+            .hero-content h1 {
+                font-size: 1.8rem;
+            }
+
+            .hero-buttons .btn-primary,
+            .hero-buttons .btn-outline {
+                width: 100%;
+                text-align: center;
+            }
+
+            .cocok-grid {
+                grid-template-columns: 1fr;
+                max-width: 320px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .program-card .btn-card {
+                align-self: center;
+            }
+
+            .section-padding {
+                padding: 56px 0;
+            }
+
+            .hero {
+                padding: 120px 0 56px;
+            }
+        }
+
+        /* scroll margin for fixed navbar */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===== NAVBAR ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-graduation-cap"></i> Nuqthah
+            </a>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#program">Program</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+            </ul>
+            <div class="nav-actions">
+                <a href="#" class="btn-nav">Mulai Belajar</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ===== HERO ===== -->
+    <section class="hero" id="hero">
+        <div class="container">
+            <div class="hero-content fade-up">
+                <div class="badge-light"><i class="fas fa-star" style="margin-right:6px;"></i> Platform Pembelajaran
+                    Terpercaya</div>
+                <h1>Belajar Muqarrar Al-Azhar <br /><span>Lebih Terarah</span> Bersama Nuqthah</h1>
+                <p>Platform pembelajaran yang membantu mahasiswa Indonesia di Universitas Al-Azhar Mesir memahami
+                    muqarrar secara lebih mudah melalui video pembelajaran, kelas pendamping, dan materi yang disusun
+                    secara sistematis.</p>
+                <div class="hero-buttons">
+                    <a href="#" class="btn-primary">Mulai Belajar</a>
+                    <a href="#program" class="btn-outline">Lihat Program</a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">100+</span>
+                        <span class="stat-label">Materi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5</span>
+                        <span class="stat-label">Program</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number"><i class="fas fa-clock" style="font-weight:400;"></i></span>
+                        <span class="stat-label">Belajar Fleksibel</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image fade-up">
+                <div class="illustration">
+                    <div class="decor"></div>
+                    <div class="decor"></div>
+                    <i class="fas fa-user-graduate"></i>
+                    <p>Mahasiswa Belajar <br /> dengan Kitab & Laptop</p>
+                    <span class="sub"><i class="fas fa-mosque" style="margin-right:6px;"></i> Nuansa Islami</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== TENTANG ===== -->
+    <section class="tentang section-padding" id="tentang">
+        <div class="container">
+            <div class="tentang-image fade-up">
+                <i class="fas fa-landmark" style="font-size:5rem; opacity:0.5;"></i>
+            </div>
+            <div class="tentang-content fade-up">
+                <span class="badge-light">Tentang Kami</span>
+                <h2>Nuqthah Learning Center</h2>
+                <p>Nuqthah Learning Center merupakan platform pembelajaran yang dirancang untuk membantu mahasiswa
+                    Indonesia di Universitas Al-Azhar Mesir memahami muqarrar perkuliahan secara lebih terstruktur.</p>
+                <p>Kami menghadirkan materi berdasarkan kurikulum Al-Azhar, disampaikan secara sistematis agar lebih
+                    mudah dipahami dan dipelajari kembali kapan saja.</p>
+                <a href="#" class="btn-primary" style="margin-top:8px;">Pelajari Lebih Lanjut</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== KEUNGGULAN ===== -->
+    <section class="keunggulan section-padding" id="keunggulan">
+        <div class="container">
+            <div class="text-center fade-up">
+                <span class="badge-light">Keunggulan</span>
+                <h2 class="section-title">Mengapa Memilih Nuqthah Learning Center?</h2>
+            </div>
+            <div class="keunggulan-grid">
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Materi Terstruktur</h3>
+                    <p>Materi mengikuti kurikulum Al-Azhar secara sistematis.</p>
+                </div>
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-video"></i></div>
+                    <h3>Video Pembelajaran</h3>
+                    <p>Belajar kapan saja melalui video yang dapat diputar ulang.</p>
+                </div>
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
+                    <h3>Pengajar Berpengalaman</h3>
+                    <p>Disusun oleh pengajar yang memahami sistem pembelajaran Al-Azhar.</p>
+                </div>
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-mobile-alt"></i></div>
+                    <h3>Belajar Fleksibel</h3>
+                    <p>Belajar dari mana saja melalui HP maupun laptop.</p>
+                </div>
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-book-open"></i></div>
+                    <h3>Materi Berkualitas</h3>
+                    <p>Disusun dengan tampilan yang rapi dan mudah dipahami.</p>
+                </div>
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-wifi"></i></div>
+                    <h3>Akses Mudah</h3>
+                    <p>Website cepat, ringan, dan responsif.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROGRAM ===== -->
+    <section class="program section-padding" id="program">
+        <div class="container">
+            <div class="text-center fade-up">
+                <span class="badge-light">Program Kami</span>
+                <h2 class="section-title">Program Kami</h2>
+            </div>
+            <div class="program-grid">
+                <div class="program-card fade-up">
+                    <div class="icon"><i class="fas fa- book"></i></div>
+                    <h3>Muqarrar Al-Azhar</h3>
+                    <p>Pendampingan memahami materi kuliah berdasarkan kurikulum resmi Al-Azhar.</p>
+                    <a href="#" class="btn-card">Lihat Program</a>
+                </div>
+                <div class="program-card fade-up">
+                    <div class="icon"><i class="fas fa-user-tie"></i></div>
+                    <h3>Private Class</h3>
+                    <p>Belajar secara personal dengan jadwal yang fleksibel.</p>
+                    <a href="#" class="btn-card">Lihat Program</a>
+                </div>
+                <div class="program-card fade-up">
+                    <div class="icon"><i class="fas fa-mosque"></i></div>
+                    <h3>Tafaqquh</h3>
+                    <p>Pendalaman ilmu syar'i melalui kajian kitab.</p>
+                    <a href="#" class="btn-card">Lihat Program</a>
+                </div>
+                <div class="program-card fade-up">
+                    <div class="icon"><i class="fas fa-pen-fancy"></i></div>
+                    <h3>Ta'shil</h3>
+                    <p>Program ilmu alat seperti Nahwu, Sharaf, Balaghah, dan Mantiq.</p>
+                    <a href="#" class="btn-card">Lihat Program</a>
+                </div>
+                <div class="program-card fade-up">
+                    <div class="icon"><i class="fas fa-comment-dots"></i></div>
+                    <h3>'Amiyah Mesir</h3>
+                    <p>Belajar percakapan bahasa Arab dialek Mesir.</p>
+                    <a href="#" class="btn-card">Lihat Program</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== ALUR BELAJAR ===== -->
+    <section class="alur section-padding" id="alur">
+        <div class="container">
+            <div class="text-center fade-up">
+                <span class="badge-light">Panduan</span>
+                <h2 class="section-title">Bagaimana Cara Memulai?</h2>
+            </div>
+            <div class="alur-timeline">
+                <div class="alur-step fade-up">
+                    <div class="step-number">1</div>
+                    <h4>Pilih Program</h4>
+                    <p>Temukan program yang sesuai</p>
+                </div>
+                <div class="alur-step fade-up">
+                    <div class="step-number">2</div>
+                    <h4>Daftar</h4>
+                    <p>Registrasi dengan mudah</p>
+                </div>
+                <div class="alur-step fade-up">
+                    <div class="step-number">3</div>
+                    <h4>Mulai Belajar</h4>
+                    <p>Akses materi langsung</p>
+                </div>
+                <div class="alur-step fade-up">
+                    <div class="step-number">4</div>
+                    <h4>Pelajari Kapan Saja</h4>
+                    <p>Fleksibel & berkelanjutan</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SIAPA COCOK ===== -->
+    <section class="cocok section-padding" id="cocok">
+        <div class="container">
+            <div class="text-center fade-up">
+                <span class="badge-light">Target</span>
+                <h2 class="section-title">Program Ini Cocok Untuk</h2>
+            </div>
+            <div class="cocok-grid">
+                <div class="cocok-card fade-up">
+                    <div class="icon"><i class="fas fa-user-graduate"></i></div>
+                    <h4>Mahasiswa Baru Al-Azhar</h4>
+                </div>
+                <div class="cocok-card fade-up">
+                    <div class="icon"><i class="fas fa-user-tie"></i></div>
+                    <h4>Mahasiswa Tingkat Lanjut</h4>
+                </div>
+                <div class="cocok-card fade-up">
+                    <div class="icon"><i class="fas fa-hand-holding-heart"></i></div>
+                    <h4>Pencari Ilmu Syar'i</h4>
+                </div>
+                <div class="cocok-card fade-up">
+                    <div class="icon"><i class="fas fa-globe-asia"></i></div>
+                    <h4>Pelajar Indonesia di Mesir</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FAQ ===== -->
+    <section class="faq section-padding" id="faq">
+        <div class="container">
+            <div class="text-center fade-up">
+                <span class="badge-light">Pertanyaan</span>
+                <h2 class="section-title">FAQ</h2>
+            </div>
+            <div class="faq-list">
+                <div class="faq-item fade-up">
+                    <button class="faq-question">
+                        Apakah materi bisa diakses kapan saja?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja melalui platform kami, selama 24
+                        jam penuh, sesuai dengan kebutuhan belajar Anda.</div>
+                </div>
+                <div class="faq-item fade-up">
+                    <button class="faq-question">
+                        Bagaimana cara membeli materi?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">Anda dapat membeli materi melalui halaman program dengan memilih paket yang
+                        diinginkan, kemudian ikuti proses pembayaran yang tersedia.</div>
+                </div>
+                <div class="faq-item fade-up">
+                    <button class="faq-question">
+                        Apakah tersedia private class?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">Tersedia, Anda dapat memilih program Private Class untuk belajar secara
+                        personal dengan jadwal yang fleksibel sesuai kesepakatan.</div>
+                </div>
+                <div class="faq-item fade-up">
+                    <button class="faq-question">
+                        Apakah bisa belajar melalui HP?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">Tentu, platform kami responsif dan dapat diakses melalui HP, tablet, maupun
+                        laptop dengan nyaman.</div>
+                </div>
+                <div class="faq-item fade-up">
+                    <button class="faq-question">
+                        Apakah materi mengikuti kurikulum Al-Azhar?
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="faq-answer">Ya, seluruh materi disusun berdasarkan kurikulum resmi Al-Azhar dan
+                        disesuaikan dengan kebutuhan mahasiswa Indonesia.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== CTA ===== -->
+    <section class="cta" id="kontak">
+        <div class="container fade-up">
+            <h2>Siap Memulai Perjalanan Belajar Anda?</h2>
+            <p>Bergabunglah dengan ribuan mahasiswa lainnya dan raih pemahaman muqarrar yang lebih mendalam bersama
+                Nuqthah Learning Center.</p>
+            <a href="#program" class="btn-white">Lihat Program</a>
+        </div>
+    </section>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-brand">
+                <i class="fas fa-graduation-cap"></i> Nuqthah Learning Center
+            </div>
+            <div class="footer-links">
+                <a href="#tentang">Tentang</a>
+                <a href="#program">Program</a>
+                <a href="#faq">FAQ</a>
+                <a href="#kontak">Kontak</a>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 Nuqthah Learning Center. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ===== JAVASCRIPT ===== -->
+    <script>
+        // ---- Navbar scroll effect ----
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 20) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // ---- Mobile hamburger ----
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('navLinks');
+
+        hamburger.addEventListener('click', function () {
+            navLinks.classList.toggle('open');
+        });
+
+        // Close menu when a link is clicked (on mobile)
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+            });
+        });
+
+        // ---- FAQ accordion ----
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', function () {
+                const isOpen = item.classList.contains('open');
+                // Close all
+                faqItems.forEach(i => i.classList.remove('open'));
+                if (!isOpen) {
+                    item.classList.add('open');
+                }
+            });
+        });
+
+        // ---- Fade-up on scroll (Intersection Observer) ----
+        const fadeElements = document.querySelectorAll('.fade-up');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -40px 0px'
+        });
+
+        fadeElements.forEach(el => observer.observe(el));
+
+        // ---- Smooth scroll for anchor links ----
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+</body>
+
+</html>
