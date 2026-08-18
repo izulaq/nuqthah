@@ -3105,7 +3105,7 @@
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
-                        <a href="#"
+                        <a href="https://nuqthah.myr.id/course/kitab-bughyatul-bahits-mandzumah-arrahabiyyah"
                             onclick="handleDaftar(event, 'https://nuqthah.myr.id/course/kitab-bughyatul-bahits-mandzumah-arrahabiyyah')"
                             class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
@@ -3148,7 +3148,7 @@
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
-                        <a href="#"
+                        <a href="https://nuqthah.myr.id/course/daurah-kitab-syarhu-al-rahabiyyah-karya-sibth-al-mardiiny"
                             onclick="handleDaftar(event, 'https://nuqthah.myr.id/course/daurah-kitab-syarhu-al-rahabiyyah-karya-sibth-al-mardiiny')"
                             class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
@@ -4335,35 +4335,6 @@
             overlay.classList.toggle('pointer-events-none');
         };
 
-        // ================================================================
-        // 17. HANDLE DAFTAR (BARU) - REDIRECT KE CHECKOUT.HTML
-        // ================================================================
-        window.handleDaftar = function (e, url) {
-            if (e) e.preventDefault();
-
-            // Jika URL tidak valid, tampilkan modal tidak tersedia
-            if (!url || url === '#' || url === '' || url === 'javascript:void(0)') {
-                showModal('unavailable-modal');
-                return;
-            }
-
-            // Cari card terdekat untuk mendapatkan data-id dan data-review
-            const card = e ? e.target.closest('.course-card') : null;
-            let courseId = card ? card.getAttribute('data-id') : '';
-            let reviewUrl = card ? card.getAttribute('data-review') : '';
-
-            // Build URL parameter
-            const params = new URLSearchParams();
-            params.set('checkout', url); // TANPA encodeURIComponent
-            if (courseId) params.set('course', courseId);
-            if (reviewUrl && reviewUrl !== '#' && reviewUrl !== '') params.set('review', reviewUrl);
-            params.set('from', 'materi');
-
-            const checkoutUrl = 'checkout.html?' + params.toString();
-
-            // Redirect ke halaman checkout
-            window.location.href = checkoutUrl;
-        };
 
         // --- 18. FUNGSI LAINNYA (EXISTING) ---
         window.saveToMaterimu = saveToMaterimu;
@@ -4475,7 +4446,7 @@
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
         console.log('✅ Manual materials (course_id prefix "manual-") TIDAK mempengaruhi shortcut.');
         console.log('✅ Shortcut materials (course_id prefix "shortcut-") mempengaruhi tombol di index.html.');
-        console.log('✅ Sistem checkout lama telah dihapus dan diganti dengan redirect ke checkout.html');
+
     </script>
 
     <script>
