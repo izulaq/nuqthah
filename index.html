@@ -102,8 +102,8 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #eef7f4;
-            color: #0f4a3a;
+            background: #c9a227;
+            color: #ffffff;
             padding: 6px 18px;
             border-radius: 60px;
             font-size: 0.78rem;
@@ -397,7 +397,7 @@
         }
 
         /* ============================================================
-                   HERO
+                   HERO — TEKS LEBIH RAPIH, TIDAK TERLALU BESAR & TEBAL
                 ============================================================ */
         .hero {
             padding: 140px 0 88px;
@@ -439,44 +439,49 @@
             z-index: 2;
         }
 
+        /* --- Hero kiri: teks lebih rapi --- */
         .hero-content h1 {
-            font-size: 3.2rem;
-            font-weight: 800;
-            line-height: 1.08;
-            letter-spacing: -0.04em;
+            font-size: 2.6rem;
+            /* lebih kecil dari 3.2rem */
+            font-weight: 700;
+            /* tidak terlalu tebal (800 → 700) */
+            line-height: 1.2;
+            letter-spacing: -0.02em;
             color: #0b1a17;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
         }
 
         .hero-content h1 span {
-            color: #0f4a3a;
+            color: #c9a227;
             position: relative;
         }
 
         .hero-content h1 span::after {
             content: '';
             position: absolute;
-            bottom: 4px;
+            bottom: 2px;
             left: 0;
             width: 100%;
-            height: 6px;
+            height: 4px;
             background: rgba(15, 74, 58, 0.12);
             border-radius: 4px;
         }
 
-        .hero-content p {
-            font-size: 1.1rem;
+        .hero-content .hero-desc {
+            font-size: 1.05rem;
             color: #4a5a57;
             max-width: 480px;
             margin-bottom: 28px;
             line-height: 1.7;
+            font-weight: 400;
+            /* regular */
         }
 
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 12px;
-            margin-bottom: 40px;
+            margin-bottom: 36px;
         }
 
         .hero-stats {
@@ -491,7 +496,7 @@
         }
 
         .hero-stats .stat-number {
-            font-size: 1.6rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: #0f4a3a;
             letter-spacing: -0.02em;
@@ -504,7 +509,7 @@
             font-weight: 500;
         }
 
-        /* Hero visual */
+        /* --- Hero kanan: YouTube embed --- */
         .hero-visual {
             display: flex;
             justify-content: center;
@@ -514,100 +519,47 @@
 
         .hero-mockup {
             width: 100%;
-            max-width: 520px;
-            aspect-ratio: 4/3;
-            background: linear-gradient(145deg, #ffffff, #f5faf8);
-            border-radius: 32px;
-            border: 1px solid rgba(15, 74, 58, 0.08);
-            box-shadow: 0 20px 60px rgba(15, 74, 58, 0.06);
+            max-width: 560px;
+            aspect-ratio: 16 / 9;
+            background: #0b1a17;
+            border-radius: 28px;
+            border: 1px solid rgba(15, 74, 58, 0.10);
+            box-shadow: 0 20px 60px rgba(15, 74, 58, 0.08);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-mockup iframe {
+            width: 100%;
+            height: 100%;
+            display: block;
+            border: none;
+        }
+
+        /* fallback jika iframe tidak bisa dimuat */
+        .hero-mockup .mockup-fallback {
+            position: absolute;
+            inset: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            padding: 40px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-mockup .deco-ring {
-            position: absolute;
-            border-radius: 50%;
-            border: 1px solid rgba(15, 74, 58, 0.05);
-        }
-
-        .hero-mockup .deco-ring:nth-child(1) {
-            width: 220px;
-            height: 220px;
-            top: -70px;
-            right: -70px;
-        }
-
-        .hero-mockup .deco-ring:nth-child(2) {
-            width: 140px;
-            height: 140px;
-            bottom: -50px;
-            left: -50px;
-        }
-
-        .hero-mockup .deco-ring:nth-child(3) {
-            width: 80px;
-            height: 80px;
-            top: 30%;
-            right: -20px;
-            border-color: rgba(15, 74, 58, 0.03);
-        }
-
-        /* Mockup media container — fallback icon */
-        .mockup-media {
-            width: 100%;
-            height: 100%;
-            border-radius: 20px;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #eaf2ef, #dce8e3);
-            position: relative;
-            z-index: 2;
-        }
-
-        .mockup-media img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .mockup-media .mockup-icon {
-            font-size: 4rem;
-            color: #0f4a3a;
-            opacity: 0.5;
-        }
-
-        .mockup-media .mockup-text {
-            position: absolute;
-            bottom: 20px;
-            left: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 10px 16px;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: #0b1a17;
+            background: #eaf2ef;
+            color: #4a5a57;
+            font-weight: 500;
+            font-size: 1rem;
+            padding: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .mockup-media .mockup-text small {
-            display: block;
-            font-weight: 400;
-            color: #6a7a77;
-            font-size: 0.8rem;
-            margin-top: 2px;
+        .hero-mockup .mockup-fallback i {
+            font-size: 3rem;
+            color: #0f4a3a;
+            opacity: 0.4;
+            margin-bottom: 12px;
         }
 
+        /* badge float tetap ada */
         .float-badge {
             position: absolute;
             bottom: 20px;
@@ -624,6 +576,7 @@
             gap: 8px;
             border: 1px solid rgba(15, 74, 58, 0.06);
             z-index: 3;
+            pointer-events: none;
         }
 
         .float-badge i {
@@ -687,17 +640,17 @@
         }
 
         .tentang-content h2 {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 700;
-            margin-bottom: 16px;
+            margin-bottom: 14px;
             color: #0b1a17;
             letter-spacing: -0.03em;
         }
 
         .tentang-content p {
             color: #4a5a57;
-            margin-bottom: 18px;
-            font-size: 1.05rem;
+            margin-bottom: 16px;
+            font-size: 1.02rem;
             line-height: 1.7;
         }
 
@@ -1176,7 +1129,7 @@
         }
 
         .cta h2 {
-            font-size: 3rem;
+            font-size: 2.8rem;
             font-weight: 700;
             margin-bottom: 12px;
             letter-spacing: -0.03em;
@@ -1263,7 +1216,7 @@
                 ============================================================ */
         @media (max-width: 1200px) {
             .hero-content h1 {
-                font-size: 2.8rem;
+                font-size: 2.3rem;
             }
 
             .keunggulan-grid {
@@ -1278,7 +1231,7 @@
                 text-align: center;
             }
 
-            .hero-content p {
+            .hero-content .hero-desc {
                 margin-left: auto;
                 margin-right: auto;
             }
@@ -1326,6 +1279,11 @@
             .alur-timeline::before {
                 display: none;
             }
+
+            .hero-mockup {
+                max-width: 100%;
+                aspect-ratio: 16/9;
+            }
         }
 
         @media (max-width: 768px) {
@@ -1369,7 +1327,7 @@
             }
 
             .hero-content h1 {
-                font-size: 2.2rem;
+                font-size: 2rem;
             }
 
             .section-title {
@@ -1429,21 +1387,13 @@
                 padding: 64px 0;
             }
 
-            .hero-mockup {
-                max-width: 100%;
-            }
-
             .float-badge {
                 display: none;
             }
 
-            .mockup-media .mockup-text {
-                font-size: 0.8rem;
-                padding: 8px 12px;
-            }
-
-            .mockup-media .mockup-icon {
-                font-size: 3rem;
+            .hero-mockup {
+                max-width: 100%;
+                aspect-ratio: 16/9;
             }
         }
 
@@ -1453,7 +1403,11 @@
             }
 
             .hero-content h1 {
-                font-size: 1.8rem;
+                font-size: 1.65rem;
+            }
+
+            .hero-content .hero-desc {
+                font-size: 0.95rem;
             }
 
             .hero-buttons .btn-primary-sm,
@@ -1521,11 +1475,15 @@
             .navbar .logo {
                 font-size: 0.95rem;
             }
+
+            .hero-mockup {
+                border-radius: 18px;
+            }
         }
 
         @media (max-width: 360px) {
             .hero-content h1 {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
 
             .hero-buttons .btn-primary-sm,
@@ -1590,7 +1548,6 @@
         <div class="container">
             <a href="index.html" class="logo">
                 <span class="logo-img">
-                    <!-- Logo: gambar jika ada, fallback icon -->
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
                         alt="Nuqthah Logo"
                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
@@ -1627,6 +1584,10 @@
                     <i class="fas fa-star"></i> Platform Pembelajaran Online
                 </div>
                 <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span> <br />Bersama Nuqthah</h1>
+                <p class="hero-desc">
+                    Akses materi pembelajaran kapan saja, di mana saja.
+                    Video, modul, dan bimbingan dari pengajar berpengalaman.
+                </p>
                 <div class="hero-buttons">
                     <a href="materi.html" class="btn-primary-sm">
                         <i class="fas fa-rocket"></i> Mulai Belajar
@@ -1647,19 +1608,28 @@
                 </div>
             </div>
 
+            <!-- ===== Hero kanan: YouTube embed ===== -->
             <div class="hero-visual fade-up fade-up-delay-1">
                 <div class="hero-mockup">
-
-
-
-                    <div class="mockup-media">
-                        <!-- Gambar jika ada, fallback icon -->
-                        <img src="assets/logofix.png" alt="Mahasiswa belajar"
-                            onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-user-graduate mockup-icon\'></i><div class=\'mockup-text\'>Mahasiswa Belajar<small>dengan Kitab &amp; Laptop</small></div>'" />
+                    <!--
+                    ============================================================
+                    GANTI VIDEO_ID di bawah dengan ID video YouTube Anda.
+                    Contoh: https://www.youtube.com/embed/5MgBikgcWnY
+                    ============================================================
+                    -->
+                    <iframe src="https://www.youtube.com/embed/hg-iFc01_tw?si=GnGHXCXoeWP1Doc7"
+                        title="Preview Materi Nuqthah"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                    <!-- fallback jika iframe tidak dimuat -->
+                    <div class="mockup-fallback" style="display:none;">
+                        <i class="fas fa-video"></i>
+                        <span>Video tidak dapat dimuat. <br />Silakan coba lagi.</span>
                     </div>
-
+                    <!-- Badge tetap muncul di atas video -->
                     <div class="float-badge">
-                        <i class="fas fa-play-circle"></i> 12+ Video
+                        <i class="fas fa-play-circle"></i> preview materi
                     </div>
                 </div>
             </div>
@@ -1670,9 +1640,7 @@
     <section class="tentang section-padding" id="tentang">
         <div class="container">
             <div class="tentang-visual fade-up">
-                <!-- Gambar jika ada, fallback icon -->
-                <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=800&h=600&fit=crop&crop=center&auto=format"
-                    alt="Nuqthah Learning Center"
+                <img src="assets/materi.png" alt="Nuqthah Learning Center"
                     onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-landmark fallback-icon\'></i>'" />
             </div>
             <div class="tentang-content fade-up fade-up-delay-1">
@@ -1902,7 +1870,8 @@
             <h2>Siap Memulai Perjalanan Belajar Anda?</h2>
             <p>Bergabunglah dengan ribuan mahasiswa lainnya dan raih pemahaman muqarrar yang lebih mendalam bersama
                 Nuqthah Learning Center.</p>
-            <a href="wa.me/628518509887" class="btn-white-sm"><i class="fas fa-arrow-right"></i> hubungi kami</a>
+            <a href="https://wa.me/6285185409887" class="btn-white-sm"><i class="fas fa-arrow-right"></i> hubungi
+                kami</a>
         </div>
     </section>
 
@@ -1924,7 +1893,7 @@
         </div>
     </footer>
 
-    <!-- ===== JAVASCRIPT (tetap sama seperti sebelumnya) ===== -->
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
         // ---- Navbar scroll effect ----
         const navbar = document.getElementById('navbar');
@@ -1995,6 +1964,23 @@
                 }
             });
         });
+
+        // ---- Fallback if iframe fails ----
+        const iframe = document.querySelector('.hero-mockup iframe');
+        const fallback = document.querySelector('.hero-mockup .mockup-fallback');
+        if (iframe && fallback) {
+            iframe.addEventListener('error', function () {
+                iframe.style.display = 'none';
+                fallback.style.display = 'flex';
+            });
+            // Jika iframe gagal dimuat karena alasan lain
+            setTimeout(function () {
+                if (!iframe.contentWindow) {
+                    iframe.style.display = 'none';
+                    fallback.style.display = 'flex';
+                }
+            }, 5000);
+        }
     </script>
 
 </body>

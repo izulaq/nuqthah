@@ -1,5 +1,5 @@
-<!-- materi.html (tanpa overlay checkout) -->
 <!DOCTYPE html>
+<!-- materi.html (tanpa overlay checkout) -->
 <html lang="id">
 
 <head>
@@ -23,11 +23,14 @@
         rel="stylesheet">
 
     <!-- CDNs -->
-    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
+    <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js">
+    </script>
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts">
+    </script>
 
     <script>
         tailwind.config = {
@@ -296,18 +299,19 @@
         <div class="max-w-screen-xl mx-auto px-6">
             <div class="flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar gap-4 py-4"
                 id="category-tabs">
+                <button onclick="changeCategory('tafaqquh')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    data-category="tafaqquh">Tafaqquh</button>
                 <button onclick="changeCategory('syariah')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium bg-primary text-white"
                     data-category="syariah">Bimbel Syariah</button>
                 <button onclick="changeCategory('ushul')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="ushul">Bimbel Ushuludin</button>
-                <button onclick="changeCategory('tafaqquh')"
-                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
-                    data-category="tafaqquh">Tafaqquh</button>
+
                 <button onclick="changeCategory('tashil')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
-                    data-category="tashil">Ta'shil</button>
+                    data-category="tashil">Ilmu Alat</button>
                 <button onclick="changeCategory('amiyah')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="amiyah">Amiyah Mesir</button>
@@ -3248,12 +3252,15 @@
             =================================================================================================
             =================================================================================================-->
 
+
+
             <!-- =============================================================================================
             ==================================================================================================
             TA'SHIL: NAHWU 
             =================================================================================================
             =================================================================================================-->
 
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-ts-nahwu-jurumiyah" data-category="tashil" data-subfilter="Nahwu"
                 data-review="https://nuqthah.myr.id/review/nlc-ts-nahwu-jurumiyah" style="display: none;">
@@ -3297,6 +3304,7 @@
             =================================================================================================
             =================================================================================================-->
 
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-ts-sharaf-jurumiyah" data-category="tashil" data-subfilter="Sharaf"
                 data-review="https://nuqthah.myr.id/review/nlc-ts-sharaf-jurumiyah" style="display: none;">
@@ -3341,6 +3349,7 @@
             =================================================================================================
             =================================================================================================-->
 
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-ts-balaghah-jurumiyah" data-category="tashil" data-subfilter="Balaghah"
                 data-review="https://nuqthah.myr.id/review/nlc-ts-balaghah-jurumiyah" style="display: none;">
@@ -3385,6 +3394,8 @@
             =================================================================================================
             =================================================================================================-->
 
+
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-ts-mantiq-jurumiyah" data-category="tashil" data-subfilter="Mantiq"
                 data-review="https://nuqthah.myr.id/review/nlc-ts-mantiq-jurumiyah" style="display: none;">
@@ -3435,6 +3446,8 @@
             =================================================================================================
             =================================================================================================-->
 
+
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-am-dasar-safina" data-category="amiyah" data-subfilter="Dasar"
                 data-review="https://nuqthah.myr.id/review/nlc-am-dasar-safina" style="display: none;">
@@ -3479,6 +3492,8 @@
             =================================================================================================
             =================================================================================================-->
 
+
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-am-menengah-safina" data-category="amiyah" data-subfilter="Menengah"
                 data-review="https://nuqthah.myr.id/review/nlc-am-menengah-safina" style="display: none;">
@@ -3523,6 +3538,8 @@
             =================================================================================================
             =================================================================================================-->
 
+
+            <!--
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-am-lanjut-safina" data-category="amiyah" data-subfilter="Lanjut"
                 data-review="https://nuqthah.myr.id/review/nlc-am-lanjut-safina" style="display: none;">
@@ -3559,7 +3576,7 @@
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
         </div>
         <!-- #course-grid end -->
@@ -3752,21 +3769,41 @@
     </script>
 
     <script>
-        // --- 1. SUPABASE CONFIG ---
+        // ================================================================
+        // 1. FUNGSI HANDLE DAFTAR (DIPANGGIL SAAT TOMBOL AKSES DIKLIK)
+        // ================================================================
+        function handleDaftar(event, link) {
+            if (event) event.preventDefault();
+
+            // Jika link adalah '#' atau kosong, tampilkan modal UNAVAILABLE
+            if (!link || link === '#' || link.trim() === '') {
+                showModal('unavailable-modal');
+                return;
+            }
+
+            // Jika link valid, arahkan ke link tersebut
+            window.location.href = link;
+        }
+
+        // ================================================================
+        // 2. SUPABASE CONFIG
+        // ================================================================
         const SUPABASE_URL = 'https://idwrkzekykarxnuoaysu.supabase.co';
         const SUPABASE_KEY = 'sb_publishable_N96gYsm_jeSntalN3qMVCA_TpXloD4u';
         const { createClient } = supabase;
         const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- 2. BROADCAST CHANNEL (sinkronisasi dengan index.html) ---
+        // --- BROADCAST CHANNEL (sinkronisasi dengan index.html) ---
         const nuqthahChannel = new BroadcastChannel('nuqthah_sync');
 
-        // --- 3. GLOBAL STATE ---
+        // --- GLOBAL STATE ---
         let currentUser = null;
         let savedItems = [];
         let isLoggedIn = false;
 
-        // --- 4. SESSION MANAGEMENT ---
+        // ================================================================
+        // 3. SESSION MANAGEMENT
+        // ================================================================
         async function checkSession() {
             try {
                 const { data: { session }, error } = await supabaseClient.auth.getSession();
@@ -3790,7 +3827,9 @@
             }
         }
 
-        // --- 5. LOAD SAVED MATERIALS ---
+        // ================================================================
+        // 4. LOAD SAVED MATERIALS
+        // ================================================================
         async function loadSavedMaterials() {
             if (!isLoggedIn || !currentUser) {
                 savedItems = [];
@@ -3821,7 +3860,6 @@
                         url = cardData.url || '#';
                     }
 
-                    // Identifikasi jenis berdasarkan course_id prefix
                     let source = 'course';
                     if (item.course_id && item.course_id.startsWith('shortcut-')) {
                         source = 'shortcut';
@@ -3842,7 +3880,6 @@
                 console.log('✅ Loaded saved items:', savedItems);
 
                 updateMaterimuUI();
-                // Broadcast count
                 nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
             } catch (err) {
                 console.error('Load saved materials error:', err);
@@ -3851,7 +3888,9 @@
             }
         }
 
-        // --- 6. SAVE MATERIAL (from course card + button) ---
+        // ================================================================
+        // 5. SAVE MATERIAL
+        // ================================================================
         async function saveToMaterimu(courseId) {
             const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
             if (userError || !user) {
@@ -3860,7 +3899,6 @@
                 return;
             }
 
-            // Cek apakah sudah ada
             if (savedItems.find(m => m.course_id === courseId)) {
                 toggleDrawer();
                 return;
@@ -3880,7 +3918,6 @@
             }
 
             try {
-                // Untuk course, tidak menggunakan field source
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .insert({
@@ -3907,7 +3944,6 @@
                 await loadSavedMaterials();
                 toggleDrawer();
 
-                // Notify index.html
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_ADDED',
                     item: {
@@ -3924,14 +3960,15 @@
             }
         }
 
-        // --- 7. REMOVE MATERIAL ---
+        // ================================================================
+        // 6. REMOVE MATERIAL
+        // ================================================================
         async function removeFromMaterimu(recordId) {
             if (!isLoggedIn || !currentUser) {
                 alert('Silakan login terlebih dahulu.');
                 return;
             }
 
-            // Cek apakah item yang dihapus adalah shortcut (course_id dimulai dengan 'shortcut-')
             const itemToDelete = savedItems.find(item => item.id === recordId);
             const isShortcut = itemToDelete?.source === 'shortcut';
 
@@ -3950,7 +3987,6 @@
 
                 console.log('✅ Delete success');
 
-                // Jika yang dihapus adalah shortcut, beri tahu index.html
                 if (isShortcut) {
                     console.log('🗑️ Shortcut deleted, notifying index.html');
                     nuqthahChannel.postMessage({
@@ -3961,7 +3997,6 @@
 
                 await loadSavedMaterials();
 
-                // Notify index.html
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_DELETED',
                     recordId: recordId
@@ -3973,7 +4008,9 @@
             }
         }
 
-        // --- 8. CLEAR ALL MATERIALS ---
+        // ================================================================
+        // 7. CLEAR ALL MATERIALS
+        // ================================================================
         async function clearAllMaterials() {
             if (!isLoggedIn || !currentUser) {
                 alert('Silakan login terlebih dahulu.');
@@ -3981,7 +4018,6 @@
             }
             if (!confirm('Kosongkan daftar materi Anda?')) return;
 
-            // Cek apakah ada shortcut yang akan dihapus
             const hasShortcut = savedItems.some(item => item.source === 'shortcut');
 
             try {
@@ -3998,7 +4034,6 @@
 
                 console.log('✅ Clear all success');
 
-                // Jika ada shortcut yang dihapus, beri tahu index.html
                 if (hasShortcut) {
                     console.log('🗑️ Shortcut deleted (clear all), notifying index.html');
                     nuqthahChannel.postMessage({
@@ -4009,7 +4044,6 @@
 
                 await loadSavedMaterials();
 
-                // Notify index.html
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_DELETED',
                     recordId: 'all'
@@ -4021,8 +4055,9 @@
             }
         }
 
-        // --- 9. MANUAL ADD MATERIAL (dari fitur Tambah Materi dari Link) ---
-        // Menggunakan course_id prefix 'manual-' - TIDAK mempengaruhi shortcut
+        // ================================================================
+        // 8. MANUAL ADD MATERIAL
+        // ================================================================
         async function saveManualMaterial() {
             console.log('📝 saveManualMaterial called');
 
@@ -4052,7 +4087,6 @@
             const courseId = 'manual-' + Date.now();
 
             try {
-                // Gunakan course_id prefix 'manual-' - TIDAK mempengaruhi shortcut
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .insert({
@@ -4077,8 +4111,6 @@
                 urlInput.value = '';
                 document.getElementById('manual-form-container').classList.add('hidden');
 
-                // Kirim pesan ke index.html - TAPI TIDAK mengubah shortcut
-                // Hanya kirim notifikasi bahwa ada item ditambahkan (tanpa mempengaruhi shortcut)
                 nuqthahChannel.postMessage({
                     type: 'MANUAL_ITEM_ADDED',
                     item: {
@@ -4089,7 +4121,6 @@
                     }
                 });
 
-                // Tetap kirim count update
                 const count = savedItems.length;
                 nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
 
@@ -4099,7 +4130,9 @@
             }
         }
 
-        // --- 10. UPDATE MATERIAL ---
+        // ================================================================
+        // 9. UPDATE MATERIAL
+        // ================================================================
         async function updateMaterial(recordId, newTitle, newLink) {
             if (!isLoggedIn || !currentUser) {
                 alert('Silakan login terlebih dahulu.');
@@ -4131,7 +4164,9 @@
             }
         }
 
-        // --- 11. GET CARD DATA ---
+        // ================================================================
+        // 10. GET CARD DATA
+        // ================================================================
         function getCardData(courseId) {
             const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
             if (card) {
@@ -4148,7 +4183,9 @@
             };
         }
 
-        // --- 12. UPDATE UI ---
+        // ================================================================
+        // 11. UPDATE UI
+        // ================================================================
         function updateMaterimuUI() {
             const drawerBadge = document.getElementById('materimu-badge');
             const drawerCountBadge = document.getElementById('drawer-count-badge');
@@ -4165,7 +4202,6 @@
 
                 savedItems.forEach(item => {
                     const isManual = item.course_id.startsWith('manual-');
-                    // Cek apakah ini shortcut (course_id dimulai dengan 'shortcut-')
                     const isShortcut = item.source === 'shortcut';
                     const itemDiv = document.createElement('div');
                     itemDiv.className =
@@ -4173,7 +4209,6 @@
                     const thumbSrc = item.image ||
                         'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
 
-                    // Tampilkan badge shortcut jika ini adalah shortcut
                     const shortcutBadge = isShortcut ?
                         `<span class="absolute top-1 right-1 text-[8px] bg-accent text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wide">Shortcut</span>` :
                         '';
@@ -4199,7 +4234,9 @@
             }
         }
 
-        // --- 13. EDIT MODAL ---
+        // ================================================================
+        // 12. EDIT MODAL
+        // ================================================================
         let editRecordId = null;
 
         function openEditModal(recordId, title, link) {
@@ -4231,11 +4268,14 @@
             }
         }
 
-        // --- 14. NAVIGATION & FILTER ---
+        // ================================================================
+        // 13. NAVIGATION & FILTER
+        // ================================================================
         const PROGRAMS = {
+            tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'], prefix: 'tf' },
             syariah: { label: 'Bimbel Syariah', subs: ['Tingkat 1', 'Tingkat 2', 'Tingkat 3'], prefix: 'bs' },
             ushul: { label: 'Bimbel Ushul', subs: ['Tingkat 1', 'Tingkat 2', 'Tingkat 3'], prefix: 'us' },
-            tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'], prefix: 'tf' },
+
             tashil: { label: "Ta'shil", subs: ['Nahwu', 'Sharaf', 'Balaghah', 'Mantiq'], prefix: 'ts' },
             amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'], prefix: 'am' }
         };
@@ -4308,7 +4348,9 @@
             });
         }
 
-        // --- 15. MODAL HELPERS ---
+        // ================================================================
+        // 14. MODAL HELPERS
+        // ================================================================
         window.showModal = function (id) {
             const m = document.getElementById(id);
             if (m) {
@@ -4325,7 +4367,9 @@
             }
         };
 
-        // --- 16. DRAWER ---
+        // ================================================================
+        // 15. DRAWER
+        // ================================================================
         window.toggleDrawer = function () {
             const drawer = document.getElementById('materimu-drawer');
             const overlay = document.getElementById('drawer-overlay');
@@ -4335,8 +4379,9 @@
             overlay.classList.toggle('pointer-events-none');
         };
 
-
-        // --- 18. FUNGSI LAINNYA (EXISTING) ---
+        // ================================================================
+        // 16. EXPOSE FUNCTIONS TO GLOBAL SCOPE
+        // ================================================================
         window.saveToMaterimu = saveToMaterimu;
         window.removeFromMaterimu = removeFromMaterimu;
         window.updateMaterimuUI = updateMaterimuUI;
@@ -4347,8 +4392,11 @@
         window.closeEditModal = closeEditModal;
         window.saveEdit = saveEdit;
         window.updateMaterial = updateMaterial;
+        window.handleDaftar = handleDaftar;
 
-        // --- 19. INIT ---
+        // ================================================================
+        // 17. INIT
+        // ================================================================
         document.addEventListener('DOMContentLoaded', async () => {
             await checkSession();
 
@@ -4369,6 +4417,7 @@
             document.getElementById('close-guide-modal').onclick = () => hideModal('guide-modal');
             document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
             document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
+            document.getElementById('unavailable-overlay').onclick = () => hideModal('unavailable-modal');
             document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
 
             document.getElementById('edit-modal-overlay').onclick = closeEditModal;
@@ -4446,7 +4495,6 @@
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
         console.log('✅ Manual materials (course_id prefix "manual-") TIDAK mempengaruhi shortcut.');
         console.log('✅ Shortcut materials (course_id prefix "shortcut-") mempengaruhi tombol di index.html.');
-
     </script>
 
     <script>
