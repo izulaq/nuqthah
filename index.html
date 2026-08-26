@@ -43,7 +43,6 @@
             color: #0b1a17;
             line-height: 1.6;
             overflow-x: hidden;
-            /* === PERBAIKAN: hilangkan tap highlight biru di semua elemen === */
             -webkit-tap-highlight-color: transparent;
         }
 
@@ -67,41 +66,8 @@
             padding: 0 24px;
         }
 
-        /* === PERBAIKAN: hilangkan outline biru pada tombol dan link di semua peramban === */
-        a,
-        button,
-        .btn-primary-sm,
-        .btn-outline-sm,
-        .btn-white-sm,
-        .btn-card,
-        .btn-nav,
-        .hamburger,
-        .faq-question {
-            outline: none !important;
-            /* hilangkan outline default */
-            -webkit-tap-highlight-color: transparent !important;
-            /* khusus iOS/Android */
-            -webkit-touch-callout: none;
-            -webkit-user-select: none;
-            user-select: none;
-        }
-
-        /* Tetap tampilkan outline untuk aksesibilitas keyboard (fokus) */
-        a:focus-visible,
-        button:focus-visible,
-        .btn-primary-sm:focus-visible,
-        .btn-outline-sm:focus-visible,
-        .btn-white-sm:focus-visible,
-        .btn-card:focus-visible,
-        .btn-nav:focus-visible,
-        .hamburger:focus-visible,
-        .faq-question:focus-visible {
-            outline: 2px solid #c9a227 !important;
-            outline-offset: 2px !important;
-        }
-
         /* ============================================================
-                   UTILITY
+                   UTILITY & BUTTONS
                 ============================================================ */
         .section-padding {
             padding: 96px 0;
@@ -153,7 +119,6 @@
             font-size: 0.7rem;
         }
 
-        /* Buttons — ukuran lebih kecil */
         .btn-primary-sm {
             display: inline-flex;
             align-items: center;
@@ -228,66 +193,39 @@
         }
 
         /* ============================================================
-                   ANIMATIONS
+                   FADE-UP ANIMATION (diperbaiki)
                 ============================================================ */
         .fade-up {
             opacity: 0;
-            transform: translateY(36px);
+            transform: translateY(50px);
             transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
                 transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+            will-change: opacity, transform;
         }
 
         .fade-up.visible {
-            opacity: 1;
-            transform: translateY(0);
+            opacity: 1 !important;
+            transform: translateY(0) !important;
         }
 
         .fade-up-delay-1 {
-            transition-delay: 0.08s;
+            transition-delay: 0.1s;
         }
 
         .fade-up-delay-2 {
-            transition-delay: 0.16s;
+            transition-delay: 0.2s;
         }
 
         .fade-up-delay-3 {
-            transition-delay: 0.24s;
+            transition-delay: 0.3s;
         }
 
         .fade-up-delay-4 {
-            transition-delay: 0.32s;
-        }
-
-        @keyframes floatY {
-            0%,
-            100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-8px);
-            }
-        }
-
-        .float-badge {
-            animation: floatY 3.5s ease-in-out infinite;
-        }
-
-        @keyframes pulseGlow {
-            0%,
-            100% {
-                opacity: 0.4;
-            }
-            50% {
-                opacity: 0.7;
-            }
-        }
-
-        .pulse-glow {
-            animation: pulseGlow 4s ease-in-out infinite;
+            transition-delay: 0.4s;
         }
 
         /* ============================================================
-                   NAVBAR (konsisten dengan materi.html)
+                   NAVBAR
                 ============================================================ */
         .navbar {
             position: fixed;
@@ -428,7 +366,7 @@
         }
 
         /* ============================================================
-                   HERO — TEKS LEBIH RAPIH, TIDAK TERLALU BESAR & TEBAL
+                   HERO
                 ============================================================ */
         .hero {
             padding: 140px 0 88px;
@@ -1235,6 +1173,140 @@
         }
 
         /* ============================================================
+                   FLOATING ACTION BUTTON (FAB)
+                ============================================================ */
+        .fab-container {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .fab-main {
+            width: 62px;
+            height: 62px;
+            border-radius: 50%;
+            background: #0f4a3a;
+            color: #fff;
+            border: none;
+            font-size: 2rem;
+            box-shadow: 0 6px 24px rgba(15, 74, 58, 0.35);
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .fab-main:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 32px rgba(15, 74, 58, 0.45);
+        }
+
+        .fab-main:active {
+            transform: scale(0.92);
+        }
+
+        .fab-main i {
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fab-main.open i {
+            transform: rotate(135deg);
+        }
+
+        .fab-sub {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            opacity: 0;
+            transform: translateY(30px) scale(0.7);
+            pointer-events: none;
+            transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .fab-sub.open {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            pointer-events: auto;
+        }
+
+        .fab-sub .btn {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            background: #ffffff;
+            color: #0f4a3a;
+            border: none;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+            font-size: 1.4rem;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            outline: none;
+            -webkit-tap-highlight-color: transparent;
+            position: relative;
+        }
+
+        .fab-sub .btn:hover {
+            transform: translateY(-3px) scale(1.04);
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.12);
+        }
+
+        .fab-sub .btn:active {
+            transform: scale(0.92);
+        }
+
+        .fab-sub .btn-wa {
+            background: #25D366;
+            color: #fff;
+        }
+
+        .fab-sub .btn-ig {
+            background: #E4405F;
+            color: #fff;
+        }
+
+        .fab-sub .btn-yt {
+            background: #FF0000;
+            color: #fff;
+        }
+
+        .fab-sub .btn-email {
+            background: #0f4a3a;
+            color: #fff;
+        }
+
+        .fab-sub .btn .tooltip {
+            position: absolute;
+            right: calc(100% + 12px);
+            background: rgba(0, 0, 0, 0.75);
+            color: #fff;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+
+        .fab-sub .btn:hover .tooltip {
+            opacity: 1;
+        }
+
+        /* ============================================================
                    RESPONSIVE
                 ============================================================ */
         @media (max-width: 1200px) {
@@ -1419,12 +1491,27 @@
                 aspect-ratio: 16/9;
             }
 
-            /* === PERBAIKAN: tombol di mobile full width? tidak, tetap proporsional === */
             .hero-buttons .btn-primary-sm,
             .hero-buttons .btn-outline-sm {
                 width: auto;
                 min-width: 160px;
                 justify-content: center;
+            }
+
+            .fab-main {
+                width: 56px;
+                height: 56px;
+                font-size: 1.6rem;
+            }
+
+            .fab-sub .btn {
+                width: 46px;
+                height: 46px;
+                font-size: 1.2rem;
+            }
+
+            .fab-sub .btn .tooltip {
+                display: none;
             }
         }
 
@@ -1510,6 +1597,23 @@
             .hero-mockup {
                 border-radius: 18px;
             }
+
+            .fab-container {
+                bottom: 20px;
+                right: 20px;
+            }
+
+            .fab-main {
+                width: 52px;
+                height: 52px;
+                font-size: 1.4rem;
+            }
+
+            .fab-sub .btn {
+                width: 42px;
+                height: 42px;
+                font-size: 1.1rem;
+            }
         }
 
         @media (max-width: 360px) {
@@ -1535,7 +1639,6 @@
             }
         }
 
-        /* scroll margin */
         section[id] {
             scroll-margin-top: 80px;
         }
@@ -1600,7 +1703,6 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
-        <!-- Decorative blobs -->
         <div class="blob-deco green" style="width:500px;height:500px;top:-20%;right:-5%;"></div>
         <div class="blob-deco gold" style="width:300px;height:300px;bottom:-10%;left:-5%;"></div>
 
@@ -1626,10 +1728,21 @@
                         <span class="stat-number">300+</span>
                         <span class="stat-label">Pendaftar</span>
                     </div>
+                    <div class="stat-item">
+                        <span class="stat-number">05</span>
+                        <span class="stat-label">Program</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">50+</span>
+                        <span class="stat-label">Materi</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">9.5/10</span>
+                        <span class="stat-label">Rating</span>
+                    </div>
                 </div>
             </div>
 
-            <!-- Hero kanan: YouTube embed -->
             <div class="hero-visual fade-up fade-up-delay-1">
                 <div class="hero-mockup">
                     <iframe src="https://www.youtube.com/embed/hg-iFc01_tw?si=GnGHXCXoeWP1Doc7"
@@ -1913,93 +2026,170 @@
         </div>
     </footer>
 
+    <!-- ============================================================
+               FLOATING ACTION BUTTON (FAB)
+            ============================================================ -->
+    <div class="fab-container" id="fabContainer">
+        <!-- Sub tombol -->
+        <div class="fab-sub" id="fabSub">
+            <a href="https://wa.me/6285185409887" target="_blank" rel="noopener" class="btn btn-wa"
+                aria-label="WhatsApp">
+                <i class="fab fa-whatsapp"></i>
+                <span class="tooltip">WhatsApp</span>
+            </a>
+            <a href="https://instagram.com/nuqthahlearning" target="_blank" rel="noopener" class="btn btn-ig"
+                aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+                <span class="tooltip">Instagram</span>
+            </a>
+            <a href="https://youtube.com/@nuqthahlearning" target="_blank" rel="noopener" class="btn btn-yt"
+                aria-label="YouTube">
+                <i class="fab fa-youtube"></i>
+                <span class="tooltip">YouTube</span>
+            </a>
+            <a href="mailto:info@nuqthahlearning.my.id" class="btn btn-email" aria-label="Email">
+                <i class="fas fa-envelope"></i>
+                <span class="tooltip">Email</span>
+            </a>
+        </div>
+
+        <!-- Tombol utama -->
+        <button class="fab-main" id="fabMain" aria-label="Buka menu sosial">
+            <i class="fas fa-plus" id="fabIcon"></i>
+        </button>
+    </div>
+
     <!-- ===== JAVASCRIPT ===== -->
     <script>
-        // ---- Navbar scroll effect ----
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', function () {
-            if (window.scrollY > 20) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
+        document.addEventListener('DOMContentLoaded', function () {
 
-        // ---- Mobile hamburger ----
-        const hamburger = document.getElementById('hamburger');
-        const navLinks = document.getElementById('navLinks');
-
-        hamburger.addEventListener('click', function () {
-            navLinks.classList.toggle('open');
-        });
-
-        navLinks.querySelectorAll('a').forEach(function (link) {
-            link.addEventListener('click', function () {
-                navLinks.classList.remove('open');
+            // ---- Navbar scroll effect ----
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 20) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
             });
-        });
 
-        // ---- FAQ accordion ----
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(function (item) {
-            const question = item.querySelector('.faq-question');
-            question.addEventListener('click', function () {
-                var isOpen = item.classList.contains('open');
-                faqItems.forEach(function (i) {
-                    i.classList.remove('open');
+            // ---- Mobile hamburger ----
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('open');
+            });
+
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('open');
                 });
-                if (!isOpen) {
-                    item.classList.add('open');
-                }
             });
-        });
 
-        // ---- Fade-up on scroll (Intersection Observer) ----
-        var fadeElements = document.querySelectorAll('.fade-up');
-
-        var observer = new IntersectionObserver(function (entries) {
-            entries.forEach(function (entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
+            // ---- FAQ accordion ----
+            const faqItems = document.querySelectorAll('.faq-item');
+            faqItems.forEach(function (item) {
+                const question = item.querySelector('.faq-question');
+                question.addEventListener('click', function () {
+                    var isOpen = item.classList.contains('open');
+                    faqItems.forEach(function (i) {
+                        i.classList.remove('open');
+                    });
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
+                });
             });
-        }, {
-            threshold: 0.15,
-            rootMargin: '0px 0px -40px 0px'
-        });
 
-        fadeElements.forEach(function (el) {
-            observer.observe(el);
-        });
+            // ---- Fade-up on scroll (Intersection Observer) ----
+            const fadeElements = document.querySelectorAll('.fade-up');
 
-        // ---- Smooth scroll for anchor links ----
-        document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
-            anchor.addEventListener('click', function (e) {
-                var targetId = this.getAttribute('href');
-                if (targetId === '#') return;
-                var target = document.querySelector(targetId);
-                if (target) {
-                    e.preventDefault();
-                    target.scrollIntoView({ behavior: 'smooth' });
-                }
+            const observer = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: stop observing after animation to improve performance
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
             });
-        });
 
-        // ---- Fallback if iframe fails ----
-        const iframe = document.querySelector('.hero-mockup iframe');
-        const fallback = document.querySelector('.hero-mockup .mockup-fallback');
-        if (iframe && fallback) {
-            iframe.addEventListener('error', function () {
-                iframe.style.display = 'none';
-                fallback.style.display = 'flex';
+            fadeElements.forEach(function (el) {
+                observer.observe(el);
             });
-            setTimeout(function () {
-                if (!iframe.contentWindow) {
+
+            // ---- Smooth scroll for anchor links ----
+            document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+                anchor.addEventListener('click', function (e) {
+                    var targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    var target = document.querySelector(targetId);
+                    if (target) {
+                        e.preventDefault();
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+
+            // ---- Fallback if iframe fails ----
+            const iframe = document.querySelector('.hero-mockup iframe');
+            const fallback = document.querySelector('.hero-mockup .mockup-fallback');
+            if (iframe && fallback) {
+                iframe.addEventListener('error', function () {
                     iframe.style.display = 'none';
                     fallback.style.display = 'flex';
+                });
+                setTimeout(function () {
+                    if (!iframe.contentWindow) {
+                        iframe.style.display = 'none';
+                        fallback.style.display = 'flex';
+                    }
+                }, 5000);
+            }
+
+            // ---- FLOATING ACTION BUTTON TOGGLE ----
+            const fabMain = document.getElementById('fabMain');
+            const fabSub = document.getElementById('fabSub');
+            const fabIcon = document.getElementById('fabIcon');
+
+            fabMain.addEventListener('click', function (e) {
+                e.stopPropagation();
+                const isOpen = fabSub.classList.contains('open');
+                if (isOpen) {
+                    fabSub.classList.remove('open');
+                    fabMain.classList.remove('open');
+                    fabIcon.className = 'fas fa-plus';
+                } else {
+                    fabSub.classList.add('open');
+                    fabMain.classList.add('open');
+                    fabIcon.className = 'fas fa-times';
                 }
-            }, 5000);
-        }
+            });
+
+            // Tutup FAB jika klik di luar
+            document.addEventListener('click', function (e) {
+                const container = document.getElementById('fabContainer');
+                if (!container.contains(e.target)) {
+                    fabSub.classList.remove('open');
+                    fabMain.classList.remove('open');
+                    fabIcon.className = 'fas fa-plus';
+                }
+            });
+
+            // Tutup FAB dengan tombol Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && fabSub.classList.contains('open')) {
+                    fabSub.classList.remove('open');
+                    fabMain.classList.remove('open');
+                    fabIcon.className = 'fas fa-plus';
+                }
+            });
+
+        });
     </script>
 
 </body>
