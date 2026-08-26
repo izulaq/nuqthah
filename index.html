@@ -43,6 +43,8 @@
             color: #0b1a17;
             line-height: 1.6;
             overflow-x: hidden;
+            /* === PERBAIKAN: hilangkan tap highlight biru di semua elemen === */
+            -webkit-tap-highlight-color: transparent;
         }
 
         a {
@@ -63,6 +65,39 @@
             max-width: 1200px;
             margin: 0 auto;
             padding: 0 24px;
+        }
+
+        /* === PERBAIKAN: hilangkan outline biru pada tombol dan link di semua peramban === */
+        a,
+        button,
+        .btn-primary-sm,
+        .btn-outline-sm,
+        .btn-white-sm,
+        .btn-card,
+        .btn-nav,
+        .hamburger,
+        .faq-question {
+            outline: none !important;
+            /* hilangkan outline default */
+            -webkit-tap-highlight-color: transparent !important;
+            /* khusus iOS/Android */
+            -webkit-touch-callout: none;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        /* Tetap tampilkan outline untuk aksesibilitas keyboard (fokus) */
+        a:focus-visible,
+        button:focus-visible,
+        .btn-primary-sm:focus-visible,
+        .btn-outline-sm:focus-visible,
+        .btn-white-sm:focus-visible,
+        .btn-card:focus-visible,
+        .btn-nav:focus-visible,
+        .hamburger:focus-visible,
+        .faq-question:focus-visible {
+            outline: 2px solid #c9a227 !important;
+            outline-offset: 2px !important;
         }
 
         /* ============================================================
@@ -224,12 +259,10 @@
         }
 
         @keyframes floatY {
-
             0%,
             100% {
                 transform: translateY(0);
             }
-
             50% {
                 transform: translateY(-8px);
             }
@@ -240,12 +273,10 @@
         }
 
         @keyframes pulseGlow {
-
             0%,
             100% {
                 opacity: 0.4;
             }
-
             50% {
                 opacity: 0.7;
             }
@@ -439,12 +470,9 @@
             z-index: 2;
         }
 
-        /* --- Hero kiri: teks lebih rapi --- */
         .hero-content h1 {
             font-size: 2.6rem;
-            /* lebih kecil dari 3.2rem */
             font-weight: 700;
-            /* tidak terlalu tebal (800 → 700) */
             line-height: 1.2;
             letter-spacing: -0.02em;
             color: #0b1a17;
@@ -474,7 +502,6 @@
             margin-bottom: 28px;
             line-height: 1.7;
             font-weight: 400;
-            /* regular */
         }
 
         .hero-buttons {
@@ -509,7 +536,6 @@
             font-weight: 500;
         }
 
-        /* --- Hero kanan: YouTube embed --- */
         .hero-visual {
             display: flex;
             justify-content: center;
@@ -536,7 +562,6 @@
             border: none;
         }
 
-        /* fallback jika iframe tidak bisa dimuat */
         .hero-mockup .mockup-fallback {
             position: absolute;
             inset: 0;
@@ -559,7 +584,6 @@
             margin-bottom: 12px;
         }
 
-        /* badge float tetap ada */
         .float-badge {
             position: absolute;
             bottom: 20px;
@@ -721,7 +745,7 @@
         }
 
         .keunggulan-card:hover .icon {
-            background: #dcece6;
+            background: #0a3a2e;
         }
 
         .keunggulan-card h3 {
@@ -818,7 +842,7 @@
         }
 
         .program-card:hover .icon {
-            background: #dcece6;
+            background: #0a3a2e;
         }
 
         .program-card h3 {
@@ -851,8 +875,7 @@
         }
 
         .program-card .btn-card:hover {
-            background: #0f4a3a;
-            color: #ffffff;
+            background: #0a3a2e;
             transform: translateY(-1px);
             box-shadow: 0 4px 16px rgba(15, 74, 58, 0.20);
         }
@@ -1395,6 +1418,14 @@
                 max-width: 100%;
                 aspect-ratio: 16/9;
             }
+
+            /* === PERBAIKAN: tombol di mobile full width? tidak, tetap proporsional === */
+            .hero-buttons .btn-primary-sm,
+            .hero-buttons .btn-outline-sm {
+                width: auto;
+                min-width: 160px;
+                justify-content: center;
+            }
         }
 
         @media (max-width: 480px) {
@@ -1509,13 +1540,6 @@
             scroll-margin-top: 80px;
         }
 
-        /* focus states */
-        a:focus-visible,
-        button:focus-visible {
-            outline: 2px solid #c9a227;
-            outline-offset: 3px;
-        }
-
         /* ============================================================
                    BLOBS & DECORATIONS
                 ============================================================ */
@@ -1543,7 +1567,7 @@
 
 <body>
 
-    <!-- ===== NAVBAR (konsisten dengan materi.html) ===== -->
+    <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="logo">
@@ -1598,10 +1622,6 @@
                     </a>
                 </div>
                 <div class="hero-stats">
-                    <!--<div class="stat-item">
-                        <span class="stat-number">75</span>
-                        <span class="stat-label">Materi</span>
-                    </div>-->
                     <div class="stat-item">
                         <span class="stat-number">300+</span>
                         <span class="stat-label">Pendaftar</span>
@@ -1609,26 +1629,18 @@
                 </div>
             </div>
 
-            <!-- ===== Hero kanan: YouTube embed ===== -->
+            <!-- Hero kanan: YouTube embed -->
             <div class="hero-visual fade-up fade-up-delay-1">
                 <div class="hero-mockup">
-                    <!--
-                    ============================================================
-                    GANTI VIDEO_ID di bawah dengan ID video YouTube Anda.
-                    Contoh: https://www.youtube.com/embed/5MgBikgcWnY
-                    ============================================================
-                    -->
                     <iframe src="https://www.youtube.com/embed/hg-iFc01_tw?si=GnGHXCXoeWP1Doc7"
                         title="Preview Materi Nuqthah"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                     </iframe>
-                    <!-- fallback jika iframe tidak dimuat -->
                     <div class="mockup-fallback" style="display:none;">
                         <i class="fas fa-video"></i>
                         <span>Video tidak dapat dimuat. <br />Silakan coba lagi.</span>
                     </div>
-                    <!-- Badge tetap muncul di atas video -->
                     <div class="float-badge">
                         <i class="fas fa-play-circle"></i> preview materi
                     </div>
@@ -1849,16 +1861,6 @@
                     <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24
                         jam penuh, sesuai dengan kebutuhan belajar Anda.</div>
                 </div>
-
-
-                <!--<div class="faq-item fade-up fade-up-delay-2">
-                    <button class="faq-question">
-                        Apakah tersedia private class?
-                        <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="faq-answer">Tersedia, Anda dapat memilih program Private Class untuk belajar secara
-                        personal dengan jadwal yang fleksibel sesuai kesepakatan.</div>
-                </div>-->
                 <div class="faq-item fade-up fade-up-delay-3">
                     <button class="faq-question">
                         Apakah bisa belajar melalui HP?
@@ -1991,7 +1993,6 @@
                 iframe.style.display = 'none';
                 fallback.style.display = 'flex';
             });
-            // Jika iframe gagal dimuat karena alasan lain
             setTimeout(function () {
                 if (!iframe.contentWindow) {
                     iframe.style.display = 'none';
