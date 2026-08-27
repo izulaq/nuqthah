@@ -34,27 +34,6 @@
         <priority>0.8</priority>
     </url>
 
-    <url>
-        <loc>https://nuqthahlearning.my.id/tentangnuqthah.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/tentangprogram.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/profil.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.5</priority>
-    </url>
-
     <!-- ==================== PROGRAM PAGES ==================== -->
     <url>
         <loc>https://nuqthahlearning.my.id/afiliator.html</loc>
@@ -69,14 +48,6 @@
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/checkout.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.6</priority>
-    </url>
-
     <!-- ==================== KATEGORI MATERI ==================== -->
     <url>
         <loc>https://nuqthahlearning.my.id/materi.html?cat=syariah</loc>
@@ -120,29 +91,5 @@
         <changefreq>monthly</changefreq>
         <priority>0.6</priority>
     </url>
-
-    <!-- ==================== ADDITIONAL / EXPERIMENTAL (jika ingin diindex) ==================== -->
-    <!--
-    <url>
-        <loc>https://nuqthahlearning.my.id/coba-materi.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/coba-materi-tersedia.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/coba-index.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.3</priority>
-    </url>
-    -->
 
 </urlset>
