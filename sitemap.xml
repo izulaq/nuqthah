@@ -48,41 +48,7 @@
         <changefreq>monthly</changefreq>
         <priority>0.7</priority>
     </url>
-    <!-- ==================== KATEGORI MATERI ==================== -->
-    <url>
-        <loc>https://nuqthahlearning.my.id/materi.html?cat=syariah</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/materi.html?cat=ushul</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/materi.html?cat=tafaqquh</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/materi.html?cat=tashil</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
-
-    <url>
-        <loc>https://nuqthahlearning.my.id/materi.html?cat=amiyah</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>weekly</changefreq>
-        <priority>0.8</priority>
-    </url>
+    
 
     <!-- ==================== KNOWLEDGE BASE ==================== -->
     <url>
