@@ -193,7 +193,7 @@
         }
 
         /* ============================================================
-                   FADE-UP ANIMATION (diperbaiki)
+                   FADE-UP ANIMATION
                 ============================================================ */
         .fade-up {
             opacity: 0;
@@ -225,7 +225,7 @@
         }
 
         /* ============================================================
-                   NAVBAR
+                   NAVBAR — LIGHT VERSION
                 ============================================================ */
         .navbar {
             position: fixed;
@@ -233,10 +233,11 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: #0f4a3a;
-            padding: 12px 0;
+            background: #ffffff;
+            padding: 10px 0;
             transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
         }
 
         .navbar .container {
@@ -252,7 +253,7 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 1.1rem;
-            color: #ffffff;
+            color: #0b1a17;
             letter-spacing: -0.3px;
         }
 
@@ -260,7 +261,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: #ffffff;
+            background: #0f4a3a;
             overflow: hidden;
             flex-shrink: 0;
             display: flex;
@@ -276,7 +277,7 @@
 
         .navbar .logo .logo-img i {
             font-size: 1.2rem;
-            color: #0f4a3a;
+            color: #ffffff;
         }
 
         .navbar .logo .logo-text {
@@ -295,7 +296,7 @@
 
         .navbar .nav-links a {
             font-weight: 500;
-            color: rgba(255, 255, 255, 0.75);
+            color: #3a4a47;
             transition: color 0.2s;
             font-size: 0.88rem;
             letter-spacing: 0.1px;
@@ -314,7 +315,7 @@
         }
 
         .navbar .nav-links a:hover {
-            color: #ffffff;
+            color: #0b1a17;
         }
 
         .navbar .nav-links a:hover::after {
@@ -330,7 +331,7 @@
         .navbar .btn-nav {
             background: #c9a227;
             color: #ffffff;
-            padding: 8px 22px;
+            padding: 8px 24px;
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.82rem;
@@ -339,12 +340,13 @@
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             letter-spacing: 0.2px;
+            box-shadow: 0 2px 8px rgba(15, 74, 58, 0.15);
         }
 
         .navbar .btn-nav:hover {
-            background: #b8921f;
+            background: #a18320;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(201, 162, 39, 0.30);
+            box-shadow: 0 6px 20px rgba(15, 74, 58, 0.25);
         }
 
         .hamburger {
@@ -360,7 +362,7 @@
         .hamburger span {
             width: 24px;
             height: 2.5px;
-            background: #ffffff;
+            background: #0b1a17;
             border-radius: 4px;
             transition: all 0.3s ease;
         }
@@ -481,69 +483,80 @@
             position: relative;
         }
 
-        .hero-mockup {
+        /* ===== STACK TESTIMONIAL SLIDER ===== */
+        .stack-slider {
             width: 100%;
-            max-width: 560px;
-            aspect-ratio: 16 / 9;
-            background: #0b1a17;
-            border-radius: 28px;
-            border: 1px solid rgba(15, 74, 58, 0.10);
-            box-shadow: 0 20px 60px rgba(15, 74, 58, 0.08);
-            overflow: hidden;
+            max-width: 500px;
+            aspect-ratio: 4 / 3;
             position: relative;
+            border-radius: 28px;
+            background: rgb(255 255 255 / 0%);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            border: 1px solid rgb(255 255 255 / 0%);
+            box-shadow: 0 20px 60px rgb(15 74 58 / 0%);
+            overflow: hidden;
         }
 
-        .hero-mockup iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: none;
-        }
-
-        .hero-mockup .mockup-fallback {
+        .stack-slide {
             position: absolute;
-            inset: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            background: #eaf2ef;
-            color: #4a5a57;
-            font-weight: 500;
-            font-size: 1rem;
-            padding: 20px;
+            top: 50%;
+            left: 50%;
+            width: 80%;
+            max-width: 360px;
+            padding: 28px 24px;
+            background: #ffffff;
+            border-radius: 20px;
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(15, 74, 58, 0.04);
+            transform: translate(-50%, -50%) scale(0.7) translateY(40px);
+            opacity: 0;
+            filter: blur(6px);
+            transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1),
+                opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.6s ease;
+            will-change: transform, opacity, filter;
+            pointer-events: none;
             text-align: center;
         }
 
-        .hero-mockup .mockup-fallback i {
-            font-size: 3rem;
-            color: #0f4a3a;
-            opacity: 0.4;
-            margin-bottom: 12px;
+        .stack-slide.active {
+            transform: translate(-50%, -50%) scale(1) translateY(0);
+            opacity: 1;
+            filter: blur(0);
+            pointer-events: auto;
+            z-index: 10;
         }
 
-        .float-badge {
-            position: absolute;
-            bottom: 20px;
-            right: 20px;
-            background: #ffffff;
-            padding: 10px 18px;
-            border-radius: 60px;
-            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
-            font-size: 0.78rem;
-            font-weight: 600;
-            color: #0f4a3a;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            border: 1px solid rgba(15, 74, 58, 0.06);
-            z-index: 3;
+        .stack-slide.above {
+            transform: translate(-50%, -50%) scale(0.75) translateY(-40%);
+            opacity: 0.6;
+            filter: blur(4px);
+            z-index: 5;
             pointer-events: none;
         }
 
-        .float-badge i {
-            font-size: 0.9rem;
-            color: #c9a227;
+        .stack-slide.below {
+            transform: translate(-50%, -50%) scale(0.75) translateY(60%);
+            opacity: 0.4;
+            filter: blur(5px);
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .stack-slide .slide-name {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #0b1a17;
+            margin-bottom: 8px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .stack-slide .slide-message {
+            font-size: 0.95rem;
+            color: #4a5a57;
+            line-height: 1.6;
+            font-family: 'Inter', sans-serif;
         }
 
         /* ============================================================
@@ -868,7 +881,7 @@
         .alur-step .step-number {
             width: 60px;
             height: 60px;
-            background: #0f4a3a;
+            background: #c9a227;
             color: #fff;
             border-radius: 50%;
             display: flex;
@@ -1375,9 +1388,9 @@
                 display: none;
             }
 
-            .hero-mockup {
+            .stack-slider {
                 max-width: 100%;
-                aspect-ratio: 16/9;
+                aspect-ratio: 4/3;
             }
         }
 
@@ -1385,16 +1398,16 @@
             .navbar .nav-links {
                 display: none;
                 flex-direction: column;
-                background: #0f4a3a;
+                background: #ffffff;
                 position: absolute;
                 top: 64px;
                 left: 0;
                 width: 100%;
                 padding: 28px 32px;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
                 gap: 18px;
                 align-items: flex-start;
-                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
             }
 
             .navbar .nav-links.open {
@@ -1482,13 +1495,9 @@
                 padding: 64px 0;
             }
 
-            .float-badge {
-                display: none;
-            }
-
-            .hero-mockup {
+            .stack-slider {
                 max-width: 100%;
-                aspect-ratio: 16/9;
+                aspect-ratio: 4/3;
             }
 
             .hero-buttons .btn-primary-sm,
@@ -1512,6 +1521,11 @@
 
             .fab-sub .btn .tooltip {
                 display: none;
+            }
+
+            .stack-slide {
+                width: 85%;
+                padding: 20px 18px;
             }
         }
 
@@ -1594,7 +1608,7 @@
                 font-size: 0.95rem;
             }
 
-            .hero-mockup {
+            .stack-slider {
                 border-radius: 18px;
             }
 
@@ -1613,6 +1627,19 @@
                 width: 42px;
                 height: 42px;
                 font-size: 1.1rem;
+            }
+
+            .stack-slide {
+                width: 90%;
+                padding: 16px 14px;
+            }
+
+            .stack-slide .slide-name {
+                font-size: 0.95rem;
+            }
+
+            .stack-slide .slide-message {
+                font-size: 0.85rem;
             }
         }
 
@@ -1670,7 +1697,7 @@
 
 <body>
 
-    <!-- ===== NAVBAR ===== -->
+    <!-- ===== NAVBAR — LIGHT ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="logo">
@@ -1679,8 +1706,8 @@
                         alt="Nuqthah Logo"
                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
                 </span>
-                <span class="logo-text">Nuqthah</span>
-                <span class="logo-text-sm">Nuqthah</span>
+                <span class="logo-text">Nuqthah Learning Center</span>
+                <span class="logo-text-sm">Nuqthah Learning Center</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -1688,7 +1715,7 @@
                 <li><a href="#program">Program</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#kontak">Kontak</a></li>
-                <li><a href="formpengajar.html">Pendaftaran Pengajar</a></li>
+                <li><a href="formpengajar.html">Pengajar</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -1709,9 +1736,9 @@
         <div class="container">
             <div class="hero-content fade-up">
                 <div class="badge-light">
-                    <i class="fas fa-star"></i> Platform Pembelajaran Online
+                    <i class="fas fa-star"></i> platform Bimbel Muqoror & Kitab Turats
                 </div>
-                <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span> <br />Bersama Nuqthah</h1>
+                <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span></h1>
                 <p class="hero-desc">
                     Akses materi pembelajaran kapan saja dan di mana saja.
                 </p>
@@ -1720,7 +1747,7 @@
                         <i class="fas fa-rocket"></i> Mulai Belajar
                     </a>
                     <a href="materi-tersedia.html" class="btn-outline-sm">
-                        <i class="fas fa-compass"></i> Materi Tersedia
+                        <i class="fas fa-compass"></i> Maddah Tersedia
                     </a>
                 </div>
                 <div class="hero-stats">
@@ -1738,24 +1765,37 @@
                     </div>
                     <div class="stat-item">
                         <span class="stat-number">9.5/10</span>
-                        <span class="stat-label">Rating</span>
+                        <span class="stat-label">Rating Peserta</span>
                     </div>
                 </div>
             </div>
 
+            <!-- ===== STACK TESTIMONIAL SLIDER ===== -->
             <div class="hero-visual fade-up fade-up-delay-1">
-                <div class="hero-mockup">
-                    <iframe src="https://www.youtube.com/embed/hg-iFc01_tw?si=GnGHXCXoeWP1Doc7"
-                        title="Preview Materi Nuqthah"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                    </iframe>
-                    <div class="mockup-fallback" style="display:none;">
-                        <i class="fas fa-video"></i>
-                        <span>Video tidak dapat dimuat. <br />Silakan coba lagi.</span>
+                <div class="stack-slider" id="stackSlider">
+                    <!-- Slide 1 -->
+                    <div class="stack-slide" data-index="0">
+                        <div class="slide-name">Belajar Fleksibel</div>
+                        <div class="slide-message">Akses materi kapan saja, ulang video, dan latihan soal. Semua dalam
+                            genggaman!</div>
                     </div>
-                    <div class="float-badge">
-                        <i class="fas fa-play-circle"></i> preview materi
+                    <!-- Slide 2 -->
+                    <div class="stack-slide" data-index="1">
+                        <div class="slide-name">Tanpa Batas Waktu</div>
+                        <div class="slide-message">Sesuaikan jadwal belajarmu sendiri. Tidak perlu khawatir ketinggalan
+                            kuliah.</div>
+                    </div>
+                    <!-- Slide 3 -->
+                    <div class="stack-slide" data-index="2">
+                        <div class="slide-name">Bimbingan Kompeten</div>
+                        <div class="slide-message">Pengajar berpengalaman dan materi terstruktur untuk meraih nilai
+                            terbaik.</div>
+                    </div>
+                    <!-- Slide 4 -->
+                    <div class="stack-slide" data-index="3">
+                        <div class="slide-name">Gabung Sekarang</div>
+                        <div class="slide-message">Rasakan kemudahan memahami muqarrar dengan metode belajar modern.
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1791,8 +1831,7 @@
                 <span class="badge-light"><i class="fas fa-bolt"></i> Keunggulan</span>
                 <h2 class="section-title">Mengapa Memilih Nuqthah?</h2>
                 <p class="section-subtitle mx-auto">Kami hadir untuk membuat perjalanan belajarmu di Al-Azhar lebih
-                    terarah, mudah,
-                    dan bermakna.</p>
+                    terarah, mudah, dan bermakna.</p>
             </div>
             <div class="keunggulan-grid">
                 <div class="keunggulan-card fade-up">
@@ -1808,7 +1847,7 @@
                 <div class="keunggulan-card fade-up fade-up-delay-2">
                     <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <h3>Pengajar Berpengalaman</h3>
-                    <p>Disusun oleh pengajar yang memahami sistem Al-Azhar.</p>
+                    <p>Disusun oleh pengajar yang memahami manhaj Al-Azhar.</p>
                 </div>
                 <div class="keunggulan-card fade-up fade-up-delay-3">
                     <div class="icon"><i class="fas fa-mobile-alt"></i></div>
@@ -1823,7 +1862,7 @@
                 <div class="keunggulan-card fade-up fade-up-delay-2">
                     <div class="icon"><i class="fas fa-wifi"></i></div>
                     <h3>Akses Mudah</h3>
-                    <p>Website cepat, ringan, dan responsif.</p>
+                    <p>Website cepat, ringan, dan mudah difahami.</p>
                 </div>
             </div>
         </div>
@@ -1963,16 +2002,16 @@
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="faq-answer">Materi yang sudah dibeli dapat diakses melalui link dashboard pengguna yang
-                        dikirimkan secara otomatis ke email
-                        yang Anda gunakan saat pembelian setelah pembelian berhasil.</div>
+                        dikirimkan secara otomatis ke email yang Anda gunakan saat pembelian setelah pembelian berhasil.
+                    </div>
                 </div>
                 <div class="faq-item fade-up">
                     <button class="faq-question">
                         Apakah materi bisa diakses kapan saja?
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24
-                        jam penuh, sesuai dengan kebutuhan belajar Anda.</div>
+                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24 jam penuh, sesuai dengan
+                        kebutuhan belajar Anda.</div>
                 </div>
                 <div class="faq-item fade-up fade-up-delay-3">
                     <button class="faq-question">
@@ -1989,9 +2028,8 @@
                     </button>
                     <div class="faq-answer">Ya, seluruh materi disusun berdasarkan kurikulum resmi Al-Azhar dan
                         disesuaikan dengan kebutuhan mahasiswa Indonesia, tapi perlu di ingat bahwa program ini tidak
-                        dirancang untuk
-                        menggantikan pendidikan formal di universitas atau talaqqi, antum tetap harus mengikuti talaqqi
-                        dengan para masyaikh dan pembelajaran formal di universitas Al-Azhar.</div>
+                        dirancang untuk menggantikan pendidikan formal di universitas atau talaqqi, antum tetap harus
+                        mengikuti talaqqi dengan para masyaikh dan pembelajaran formal di universitas Al-Azhar.</div>
                 </div>
             </div>
         </div>
@@ -2027,10 +2065,9 @@
     </footer>
 
     <!-- ============================================================
-               FLOATING ACTION BUTTON (FAB)
-            ============================================================ -->
+                   FLOATING ACTION BUTTON (FAB)
+                ============================================================ -->
     <div class="fab-container" id="fabContainer">
-        <!-- Sub tombol -->
         <div class="fab-sub" id="fabSub">
             <a href="https://wa.me/6285185409887" target="_blank" rel="noopener" class="btn btn-wa"
                 aria-label="WhatsApp">
@@ -2053,7 +2090,6 @@
             </a>
         </div>
 
-        <!-- Tombol utama -->
         <button class="fab-main" id="fabMain" aria-label="Buka menu sosial">
             <i class="fas fa-plus" id="fabIcon"></i>
         </button>
@@ -2067,20 +2103,18 @@
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function () {
                 if (window.scrollY > 20) {
-                    navbar.classList.add('scrolled');
+                    navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
                 } else {
-                    navbar.classList.remove('scrolled');
+                    navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.06)';
                 }
             });
 
             // ---- Mobile hamburger ----
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('navLinks');
-
             hamburger.addEventListener('click', function () {
                 navLinks.classList.toggle('open');
             });
-
             navLinks.querySelectorAll('a').forEach(function (link) {
                 link.addEventListener('click', function () {
                     navLinks.classList.remove('open');
@@ -2093,36 +2127,21 @@
                 const question = item.querySelector('.faq-question');
                 question.addEventListener('click', function () {
                     var isOpen = item.classList.contains('open');
-                    faqItems.forEach(function (i) {
-                        i.classList.remove('open');
-                    });
-                    if (!isOpen) {
-                        item.classList.add('open');
-                    }
+                    faqItems.forEach(function (i) { i.classList.remove('open'); });
+                    if (!isOpen) item.classList.add('open');
                 });
             });
 
-            // ---- Fade-up on scroll (Intersection Observer) ----
+            // ---- Fade-up on scroll ----
             const fadeElements = document.querySelectorAll('.fade-up');
-
             const observer = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        // Optional: stop observing after animation to improve performance
-                        // observer.unobserve(entry.target);
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
-            }, {
-                threshold: 0.15,
-                rootMargin: '0px 0px -40px 0px'
-            });
+            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+            fadeElements.forEach(function (el) { observer.observe(el); });
 
-            fadeElements.forEach(function (el) {
-                observer.observe(el);
-            });
-
-            // ---- Smooth scroll for anchor links ----
+            // ---- Smooth scroll ----
             document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
                 anchor.addEventListener('click', function (e) {
                     var targetId = this.getAttribute('href');
@@ -2135,23 +2154,7 @@
                 });
             });
 
-            // ---- Fallback if iframe fails ----
-            const iframe = document.querySelector('.hero-mockup iframe');
-            const fallback = document.querySelector('.hero-mockup .mockup-fallback');
-            if (iframe && fallback) {
-                iframe.addEventListener('error', function () {
-                    iframe.style.display = 'none';
-                    fallback.style.display = 'flex';
-                });
-                setTimeout(function () {
-                    if (!iframe.contentWindow) {
-                        iframe.style.display = 'none';
-                        fallback.style.display = 'flex';
-                    }
-                }, 5000);
-            }
-
-            // ---- FLOATING ACTION BUTTON TOGGLE ----
+            // ---- FAB ----
             const fabMain = document.getElementById('fabMain');
             const fabSub = document.getElementById('fabSub');
             const fabIcon = document.getElementById('fabIcon');
@@ -2170,7 +2173,6 @@
                 }
             });
 
-            // Tutup FAB jika klik di luar
             document.addEventListener('click', function (e) {
                 const container = document.getElementById('fabContainer');
                 if (!container.contains(e.target)) {
@@ -2180,7 +2182,6 @@
                 }
             });
 
-            // Tutup FAB dengan tombol Escape
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && fabSub.classList.contains('open')) {
                     fabSub.classList.remove('open');
@@ -2188,6 +2189,60 @@
                     fabIcon.className = 'fas fa-plus';
                 }
             });
+
+            // ---- Stack Testimonial Slider ----
+            const slides = document.querySelectorAll('.stack-slide');
+            const total = slides.length;
+            let current = 0;
+            let autoplayInterval;
+
+            function updateSlider(index) {
+                // Reset semua
+                slides.forEach(slide => {
+                    slide.classList.remove('active', 'above', 'below');
+                });
+
+                // Aktif
+                const active = slides[index];
+                active.classList.add('active');
+
+                // Slide sebelumnya (above) - jika ada
+                const prevIndex = (index - 1 + total) % total;
+                const prev = slides[prevIndex];
+                prev.classList.add('above');
+
+                // Slide berikutnya (below) - jika ada
+                const nextIndex = (index + 1) % total;
+                const next = slides[nextIndex];
+                next.classList.add('below');
+            }
+
+            function nextSlide() {
+                current = (current + 1) % total;
+                updateSlider(current);
+            }
+
+            function startAutoplay() {
+                stopAutoplay();
+                autoplayInterval = setInterval(nextSlide, 4000);
+            }
+
+            function stopAutoplay() {
+                if (autoplayInterval) {
+                    clearInterval(autoplayInterval);
+                    autoplayInterval = null;
+                }
+            }
+
+            // Initial
+            updateSlider(0);
+
+            // Hover pause
+            const sliderContainer = document.getElementById('stackSlider');
+            sliderContainer.addEventListener('mouseenter', stopAutoplay);
+            sliderContainer.addEventListener('mouseleave', startAutoplay);
+
+            startAutoplay();
 
         });
     </script>
