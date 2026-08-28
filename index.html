@@ -103,7 +103,7 @@
             display: inline-flex;
             align-items: center;
             gap: 6px;
-            background: #0f4a3a;
+            background: #c9a227;
             color: #ffffff;
             padding: 6px 18px;
             border-radius: 60px;
@@ -193,7 +193,7 @@
         }
 
         /* ============================================================
-                   FADE-UP ANIMATION
+                   FADE-UP ANIMATION (diperbaiki)
                 ============================================================ */
         .fade-up {
             opacity: 0;
@@ -225,7 +225,7 @@
         }
 
         /* ============================================================
-                   NAVBAR — LIGHT VERSION
+                   NAVBAR
                 ============================================================ */
         .navbar {
             position: fixed;
@@ -233,11 +233,10 @@
             left: 0;
             width: 100%;
             z-index: 1000;
-            background: #ffffff;
-            padding: 10px 0;
+            background: #0f4a3a;
+            padding: 12px 0;
             transition: all 0.3s ease;
-            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .navbar .container {
@@ -253,7 +252,7 @@
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
             font-size: 1.1rem;
-            color: #0b1a17;
+            color: #ffffff;
             letter-spacing: -0.3px;
         }
 
@@ -261,7 +260,7 @@
             width: 36px;
             height: 36px;
             border-radius: 50%;
-            background: #0f4a3a;
+            background: #ffffff;
             overflow: hidden;
             flex-shrink: 0;
             display: flex;
@@ -277,7 +276,7 @@
 
         .navbar .logo .logo-img i {
             font-size: 1.2rem;
-            color: #ffffff;
+            color: #0f4a3a;
         }
 
         .navbar .logo .logo-text {
@@ -296,7 +295,7 @@
 
         .navbar .nav-links a {
             font-weight: 500;
-            color: #3a4a47;
+            color: rgba(255, 255, 255, 0.75);
             transition: color 0.2s;
             font-size: 0.88rem;
             letter-spacing: 0.1px;
@@ -315,7 +314,7 @@
         }
 
         .navbar .nav-links a:hover {
-            color: #0b1a17;
+            color: #ffffff;
         }
 
         .navbar .nav-links a:hover::after {
@@ -331,7 +330,7 @@
         .navbar .btn-nav {
             background: #c9a227;
             color: #ffffff;
-            padding: 8px 24px;
+            padding: 8px 22px;
             border-radius: 60px;
             font-weight: 600;
             font-size: 0.82rem;
@@ -340,13 +339,12 @@
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             letter-spacing: 0.2px;
-            box-shadow: 0 2px 8px rgba(15, 74, 58, 0.15);
         }
 
         .navbar .btn-nav:hover {
-            background: #a18320;
+            background: #b8921f;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(15, 74, 58, 0.25);
+            box-shadow: 0 6px 20px rgba(201, 162, 39, 0.30);
         }
 
         .hamburger {
@@ -362,7 +360,7 @@
         .hamburger span {
             width: 24px;
             height: 2.5px;
-            background: #0b1a17;
+            background: #ffffff;
             border-radius: 4px;
             transition: all 0.3s ease;
         }
@@ -483,184 +481,69 @@
             position: relative;
         }
 
-        /* ===== SCATTERED PHOTO GALLERY — 4:3 ===== */
         .hero-mockup {
             width: 100%;
             max-width: 560px;
-            aspect-ratio: 4 / 3;
-            background: transparent;
+            aspect-ratio: 16 / 9;
+            background: #0b1a17;
             border-radius: 28px;
+            border: 1px solid rgba(15, 74, 58, 0.10);
+            box-shadow: 0 20px 60px rgba(15, 74, 58, 0.08);
+            overflow: hidden;
             position: relative;
-            overflow: visible;
         }
 
-        .scattered-gallery {
-            position: relative;
+        .hero-mockup iframe {
             width: 100%;
             height: 100%;
-            border-radius: 28px;
-            background: rgba(255, 255, 255, 0.30);
-            backdrop-filter: blur(2px);
-            -webkit-backdrop-filter: blur(2px);
-            border: 1px solid rgba(255, 255, 255, 0.40);
-            box-shadow: 0 20px 60px rgba(15, 74, 58, 0.06);
-            overflow: hidden;
-        }
-
-        .photo-card {
-            position: absolute;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.10);
-            transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
-                box-shadow 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: default;
-            border: 2px solid rgba(255, 255, 255, 0.80);
-            background: #ffffff;
-        }
-
-        .photo-card:hover {
-            transform: scale(1.04) !important;
-            box-shadow: 0 16px 48px rgba(0, 0, 0, 0.18);
-            z-index: 10;
-        }
-
-        .photo-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
             display: block;
-            transition: transform 0.5s ease;
+            border: none;
         }
 
-        .photo-card:hover img {
-            transform: scale(1.02);
-        }
-
-        .photo-card .card-label {
-            position: absolute;
-            bottom: 8px;
-            left: 10px;
-            right: 10px;
-            color: #fff;
-            font-size: 0.6rem;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-            opacity: 0;
-            transform: translateY(6px);
-            transition: opacity 0.35s ease, transform 0.35s ease;
-            pointer-events: none;
-            text-shadow: 0 2px 12px rgba(0, 0, 0, 0.50);
-            font-family: 'Inter', sans-serif;
-        }
-
-        .photo-card:hover .card-label {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .photo-card .card-overlay {
+        .hero-mockup .mockup-fallback {
             position: absolute;
             inset: 0;
-            background: linear-gradient(transparent 55%, rgba(0, 0, 0, 0.35) 100%);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            pointer-events: none;
-            border-radius: 14px;
-        }
-
-        .photo-card:hover .card-overlay {
-            opacity: 1;
-        }
-
-        /* --- Individual card positions & sizes --- */
-
-        /* Card 1: Large landscape (top-left) */
-        .photo-card--1 {
-            width: 52%;
-            height: 42%;
-            top: 6%;
-            left: 5%;
-            transform: rotate(-2deg);
-            z-index: 3;
-        }
-
-        /* Card 2: Tall portrait (right side) */
-        .photo-card--2 {
-            width: 30%;
-            height: 52%;
-            top: 4%;
-            right: 6%;
-            transform: rotate(3deg);
-            z-index: 4;
-        }
-
-        /* Card 3: Small square (middle-left) */
-        .photo-card--3 {
-            width: 26%;
-            height: 28%;
-            bottom: 30%;
-            left: 8%;
-            transform: rotate(4deg);
-            z-index: 2;
-        }
-
-        /* Card 4: Wide landscape (bottom-right) */
-        .photo-card--4 {
-            width: 44%;
-            height: 28%;
-            bottom: 8%;
-            right: 8%;
-            transform: rotate(-1.5deg);
-            z-index: 3;
-        }
-
-        /* Card 5: Medium portrait (center) */
-        .photo-card--5 {
-            width: 28%;
-            height: 36%;
-            bottom: 22%;
-            left: 38%;
-            transform: rotate(-3deg);
-            z-index: 5;
-        }
-
-        /* Card 6: Small square (bottom-left area) */
-        .photo-card--6 {
-            width: 22%;
-            height: 22%;
-            bottom: 6%;
-            left: 32%;
-            transform: rotate(2.5deg);
-            z-index: 1;
-        }
-
-        /* Decorative "glimpse" text */
-        .gallery-caption {
-            position: absolute;
-            bottom: 16px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            padding: 6px 20px;
-            border-radius: 60px;
-            font-size: 0.7rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #eaf2ef;
+            color: #4a5a57;
             font-weight: 500;
-            color: #0b1a17;
-            letter-spacing: 0.3px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.60);
-            white-space: nowrap;
-            z-index: 6;
+            font-size: 1rem;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .hero-mockup .mockup-fallback i {
+            font-size: 3rem;
+            color: #0f4a3a;
+            opacity: 0.4;
+            margin-bottom: 12px;
+        }
+
+        .float-badge {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #ffffff;
+            padding: 10px 18px;
+            border-radius: 60px;
+            box-shadow: 0 8px 28px rgba(0, 0, 0, 0.06);
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: #0f4a3a;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border: 1px solid rgba(15, 74, 58, 0.06);
+            z-index: 3;
             pointer-events: none;
         }
 
-        .gallery-caption i {
-            margin-right: 6px;
+        .float-badge i {
+            font-size: 0.9rem;
             color: #c9a227;
-            font-size: 0.65rem;
         }
 
         /* ============================================================
@@ -1494,7 +1377,7 @@
 
             .hero-mockup {
                 max-width: 100%;
-                aspect-ratio: 4/3;
+                aspect-ratio: 16/9;
             }
         }
 
@@ -1502,16 +1385,16 @@
             .navbar .nav-links {
                 display: none;
                 flex-direction: column;
-                background: #ffffff;
+                background: #0f4a3a;
                 position: absolute;
                 top: 64px;
                 left: 0;
                 width: 100%;
                 padding: 28px 32px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.06);
                 gap: 18px;
                 align-items: flex-start;
-                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
             }
 
             .navbar .nav-links.open {
@@ -1599,9 +1482,13 @@
                 padding: 64px 0;
             }
 
+            .float-badge {
+                display: none;
+            }
+
             .hero-mockup {
                 max-width: 100%;
-                aspect-ratio: 4/3;
+                aspect-ratio: 16/9;
             }
 
             .hero-buttons .btn-primary-sm,
@@ -1625,19 +1512,6 @@
 
             .fab-sub .btn .tooltip {
                 display: none;
-            }
-
-            .photo-card .card-label {
-                font-size: 0.5rem;
-                bottom: 5px;
-                left: 6px;
-                right: 6px;
-            }
-
-            .gallery-caption {
-                font-size: 0.6rem;
-                padding: 4px 14px;
-                bottom: 10px;
             }
         }
 
@@ -1740,66 +1614,6 @@
                 height: 42px;
                 font-size: 1.1rem;
             }
-
-            /* smaller cards on mobile */
-            .photo-card--1 {
-                width: 48%;
-                height: 38%;
-                top: 6%;
-                left: 4%;
-            }
-
-            .photo-card--2 {
-                width: 34%;
-                height: 44%;
-                top: 4%;
-                right: 4%;
-            }
-
-            .photo-card--3 {
-                width: 28%;
-                height: 24%;
-                bottom: 32%;
-                left: 5%;
-            }
-
-            .photo-card--4 {
-                width: 42%;
-                height: 24%;
-                bottom: 6%;
-                right: 5%;
-            }
-
-            .photo-card--5 {
-                width: 30%;
-                height: 30%;
-                bottom: 22%;
-                left: 36%;
-            }
-
-            .photo-card--6 {
-                width: 24%;
-                height: 20%;
-                bottom: 5%;
-                left: 30%;
-            }
-
-            .photo-card .card-label {
-                font-size: 0.45rem;
-                bottom: 4px;
-                left: 5px;
-                right: 5px;
-            }
-
-            .gallery-caption {
-                font-size: 0.5rem;
-                padding: 3px 12px;
-                bottom: 8px;
-            }
-
-            .gallery-caption i {
-                font-size: 0.5rem;
-            }
         }
 
         @media (max-width: 360px) {
@@ -1822,48 +1636,6 @@
 
             .section-title {
                 font-size: 1.3rem;
-            }
-
-            .photo-card--1 {
-                width: 46%;
-                height: 35%;
-                top: 5%;
-                left: 3%;
-            }
-
-            .photo-card--2 {
-                width: 36%;
-                height: 42%;
-                top: 3%;
-                right: 3%;
-            }
-
-            .photo-card--3 {
-                width: 26%;
-                height: 22%;
-                bottom: 34%;
-                left: 4%;
-            }
-
-            .photo-card--4 {
-                width: 40%;
-                height: 22%;
-                bottom: 5%;
-                right: 4%;
-            }
-
-            .photo-card--5 {
-                width: 28%;
-                height: 28%;
-                bottom: 24%;
-                left: 36%;
-            }
-
-            .photo-card--6 {
-                width: 22%;
-                height: 18%;
-                bottom: 4%;
-                left: 30%;
             }
         }
 
@@ -1898,7 +1670,7 @@
 
 <body>
 
-    <!-- ===== NAVBAR — LIGHT ===== -->
+    <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="logo">
@@ -1907,8 +1679,8 @@
                         alt="Nuqthah Logo"
                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
                 </span>
-                <span class="logo-text">Nuqthah Learning Center</span>
-                <span class="logo-text-sm">Nuqthah Learning Center</span>
+                <span class="logo-text">Nuqthah</span>
+                <span class="logo-text-sm">Nuqthah</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -1916,7 +1688,7 @@
                 <li><a href="#program">Program</a></li>
                 <li><a href="#faq">FAQ</a></li>
                 <li><a href="#kontak">Kontak</a></li>
-                <li><a href="formpengajar.html">Pengajar</a></li>
+                <li><a href="formpengajar.html">Pendaftaran Pengajar</a></li>
             </ul>
 
             <div class="nav-actions">
@@ -1937,11 +1709,9 @@
         <div class="container">
             <div class="hero-content fade-up">
                 <div class="badge-light">
-                    <i class="fas fa-star"></i> platform Bimbel Muqoror & Kitab Turats
+                    <i class="fas fa-star"></i> Platform Pembelajaran Online
                 </div>
-                <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span> <br />Bersama
-                    Nuqthah
-                </h1>
+                <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span> <br />Bersama Nuqthah</h1>
                 <p class="hero-desc">
                     Akses materi pembelajaran kapan saja dan di mana saja.
                 </p>
@@ -1973,64 +1743,19 @@
                 </div>
             </div>
 
-            <!-- ===== SCATTERED PHOTO GALLERY ===== -->
             <div class="hero-visual fade-up fade-up-delay-1">
                 <div class="hero-mockup">
-                    <div class="scattered-gallery">
-
-                        <!-- Card 1: Large landscape -->
-                        <div class="photo-card photo-card--1">
-                            <img src="assets/hatam5.jpg" alt="Nuqthah Logo"
-                                onerror="this.src='https://picsum.photos/seed/nuqthah1/600/400'" />
-                            <div class="card-overlay"></div>
-                            <!--<div class="card-label">✨ Nuqthah</div>-->
-                        </div>
-
-                        <!-- Card 2: Tall portrait -->
-                        <div class="photo-card photo-card--2">
-                            <img src="assets/hatam1.jpeg" alt="Al-Azhar Mosque"
-                                onerror="this.src='https://picsum.photos/seed/nuqthah4/400/600'" />
-                            <div class="card-overlay"></div>
-                            <!--<div class="card-label">🕌 Al-Azhar</div>-->
-                        </div>
-
-                        <!-- Card 3: Small square -->
-                        <div class="photo-card photo-card--3">
-                            <img src="assets/hatam2.jpg" alt="Fiqh Muqoronah"
-                                onerror="this.src='https://picsum.photos/seed/nuqthah2/300/300'" />
-                            <div class="card-overlay"></div>
-                            <!--<div class="card-label">📖 Fiqih</div>-->
-                        </div>
-
-                        <!-- Card 4: Wide landscape -->
-                        <div class="photo-card photo-card--4">
-                            <img src="assets/pengajar.jpeg" alt="Library Study"
-                                onerror="this.src='https://picsum.photos/seed/nuqthah3/600/300'" />
-                            <div class="card-overlay"></div>
-                            <!-- <div class="card-label">📚 Belajar</div>-->
-                        </div>
-
-                        <!-- Card 5: Medium portrait -->
-                        <div class="photo-card photo-card--5">
-                            <img src="assets/hatam6.jpeg" alt="Students"
-                                onerror="this.src='https://picsum.photos/seed/nuqthah5/400/500'" />
-                            <div class="card-overlay"></div>
-                            <!--<div class="card-label">👨‍🎓 Santri</div>-->
-                        </div>
-
-                        <!-- Card 6: Small square -->
-                        <div class="photo-card photo-card--6">
-                            <img src="assets/hatam7.jpg" alt="Calligraphy"
-                                onerror="this.src='https://picsum.photos/seed/nuqthah6/300/300'" />
-                            <div class="card-overlay"></div>
-                            <!--<div class="card-label">✍️ Turats</div>-->
-                        </div>
-
-                        <!-- Caption -->
-                        <div class="gallery-caption">
-                            <i class="fas fa-th"></i>Dokumentasi Nuqthah Learning Center
-                        </div>
-
+                    <iframe src="https://www.youtube.com/embed/hg-iFc01_tw?si=GnGHXCXoeWP1Doc7"
+                        title="Preview Materi Nuqthah"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen>
+                    </iframe>
+                    <div class="mockup-fallback" style="display:none;">
+                        <i class="fas fa-video"></i>
+                        <span>Video tidak dapat dimuat. <br />Silakan coba lagi.</span>
+                    </div>
+                    <div class="float-badge">
+                        <i class="fas fa-play-circle"></i> preview materi
                     </div>
                 </div>
             </div>
@@ -2066,7 +1791,8 @@
                 <span class="badge-light"><i class="fas fa-bolt"></i> Keunggulan</span>
                 <h2 class="section-title">Mengapa Memilih Nuqthah?</h2>
                 <p class="section-subtitle mx-auto">Kami hadir untuk membuat perjalanan belajarmu di Al-Azhar lebih
-                    terarah, mudah, dan bermakna.</p>
+                    terarah, mudah,
+                    dan bermakna.</p>
             </div>
             <div class="keunggulan-grid">
                 <div class="keunggulan-card fade-up">
@@ -2082,7 +1808,7 @@
                 <div class="keunggulan-card fade-up fade-up-delay-2">
                     <div class="icon"><i class="fas fa-chalkboard-teacher"></i></div>
                     <h3>Pengajar Berpengalaman</h3>
-                    <p>Disusun oleh pengajar yang memahami manhaj Al-Azhar.</p>
+                    <p>Disusun oleh pengajar yang memahami sistem Al-Azhar.</p>
                 </div>
                 <div class="keunggulan-card fade-up fade-up-delay-3">
                     <div class="icon"><i class="fas fa-mobile-alt"></i></div>
@@ -2097,7 +1823,7 @@
                 <div class="keunggulan-card fade-up fade-up-delay-2">
                     <div class="icon"><i class="fas fa-wifi"></i></div>
                     <h3>Akses Mudah</h3>
-                    <p>Website cepat, ringan, dan mudah difahami.</p>
+                    <p>Website cepat, ringan, dan responsif.</p>
                 </div>
             </div>
         </div>
@@ -2237,16 +1963,16 @@
                         <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="faq-answer">Materi yang sudah dibeli dapat diakses melalui link dashboard pengguna yang
-                        dikirimkan secara otomatis ke email yang Anda gunakan saat pembelian setelah pembelian berhasil.
-                    </div>
+                        dikirimkan secara otomatis ke email
+                        yang Anda gunakan saat pembelian setelah pembelian berhasil.</div>
                 </div>
                 <div class="faq-item fade-up">
                     <button class="faq-question">
                         Apakah materi bisa diakses kapan saja?
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24 jam penuh, sesuai dengan
-                        kebutuhan belajar Anda.</div>
+                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24
+                        jam penuh, sesuai dengan kebutuhan belajar Anda.</div>
                 </div>
                 <div class="faq-item fade-up fade-up-delay-3">
                     <button class="faq-question">
@@ -2263,8 +1989,9 @@
                     </button>
                     <div class="faq-answer">Ya, seluruh materi disusun berdasarkan kurikulum resmi Al-Azhar dan
                         disesuaikan dengan kebutuhan mahasiswa Indonesia, tapi perlu di ingat bahwa program ini tidak
-                        dirancang untuk menggantikan pendidikan formal di universitas atau talaqqi, antum tetap harus
-                        mengikuti talaqqi dengan para masyaikh dan pembelajaran formal di universitas Al-Azhar.</div>
+                        dirancang untuk
+                        menggantikan pendidikan formal di universitas atau talaqqi, antum tetap harus mengikuti talaqqi
+                        dengan para masyaikh dan pembelajaran formal di universitas Al-Azhar.</div>
                 </div>
             </div>
         </div>
@@ -2300,9 +2027,10 @@
     </footer>
 
     <!-- ============================================================
-                   FLOATING ACTION BUTTON (FAB)
-                ============================================================ -->
+               FLOATING ACTION BUTTON (FAB)
+            ============================================================ -->
     <div class="fab-container" id="fabContainer">
+        <!-- Sub tombol -->
         <div class="fab-sub" id="fabSub">
             <a href="https://wa.me/6285185409887" target="_blank" rel="noopener" class="btn btn-wa"
                 aria-label="WhatsApp">
@@ -2325,6 +2053,7 @@
             </a>
         </div>
 
+        <!-- Tombol utama -->
         <button class="fab-main" id="fabMain" aria-label="Buka menu sosial">
             <i class="fas fa-plus" id="fabIcon"></i>
         </button>
@@ -2338,18 +2067,20 @@
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function () {
                 if (window.scrollY > 20) {
-                    navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+                    navbar.classList.add('scrolled');
                 } else {
-                    navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.06)';
+                    navbar.classList.remove('scrolled');
                 }
             });
 
             // ---- Mobile hamburger ----
             const hamburger = document.getElementById('hamburger');
             const navLinks = document.getElementById('navLinks');
+
             hamburger.addEventListener('click', function () {
                 navLinks.classList.toggle('open');
             });
+
             navLinks.querySelectorAll('a').forEach(function (link) {
                 link.addEventListener('click', function () {
                     navLinks.classList.remove('open');
@@ -2362,21 +2093,36 @@
                 const question = item.querySelector('.faq-question');
                 question.addEventListener('click', function () {
                     var isOpen = item.classList.contains('open');
-                    faqItems.forEach(function (i) { i.classList.remove('open'); });
-                    if (!isOpen) item.classList.add('open');
+                    faqItems.forEach(function (i) {
+                        i.classList.remove('open');
+                    });
+                    if (!isOpen) {
+                        item.classList.add('open');
+                    }
                 });
             });
 
-            // ---- Fade-up on scroll ----
+            // ---- Fade-up on scroll (Intersection Observer) ----
             const fadeElements = document.querySelectorAll('.fade-up');
+
             const observer = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
-                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Optional: stop observing after animation to improve performance
+                        // observer.unobserve(entry.target);
+                    }
                 });
-            }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-            fadeElements.forEach(function (el) { observer.observe(el); });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -40px 0px'
+            });
 
-            // ---- Smooth scroll ----
+            fadeElements.forEach(function (el) {
+                observer.observe(el);
+            });
+
+            // ---- Smooth scroll for anchor links ----
             document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
                 anchor.addEventListener('click', function (e) {
                     var targetId = this.getAttribute('href');
@@ -2389,7 +2135,23 @@
                 });
             });
 
-            // ---- FAB ----
+            // ---- Fallback if iframe fails ----
+            const iframe = document.querySelector('.hero-mockup iframe');
+            const fallback = document.querySelector('.hero-mockup .mockup-fallback');
+            if (iframe && fallback) {
+                iframe.addEventListener('error', function () {
+                    iframe.style.display = 'none';
+                    fallback.style.display = 'flex';
+                });
+                setTimeout(function () {
+                    if (!iframe.contentWindow) {
+                        iframe.style.display = 'none';
+                        fallback.style.display = 'flex';
+                    }
+                }, 5000);
+            }
+
+            // ---- FLOATING ACTION BUTTON TOGGLE ----
             const fabMain = document.getElementById('fabMain');
             const fabSub = document.getElementById('fabSub');
             const fabIcon = document.getElementById('fabIcon');
@@ -2408,6 +2170,7 @@
                 }
             });
 
+            // Tutup FAB jika klik di luar
             document.addEventListener('click', function (e) {
                 const container = document.getElementById('fabContainer');
                 if (!container.contains(e.target)) {
@@ -2417,19 +2180,13 @@
                 }
             });
 
+            // Tutup FAB dengan tombol Escape
             document.addEventListener('keydown', function (e) {
                 if (e.key === 'Escape' && fabSub.classList.contains('open')) {
                     fabSub.classList.remove('open');
                     fabMain.classList.remove('open');
                     fabIcon.className = 'fas fa-plus';
                 }
-            });
-
-            // ---- image error fallback ----
-            document.querySelectorAll('.photo-card img').forEach(function (img) {
-                img.addEventListener('error', function () {
-                    // fallback already set via onerror attribute
-                });
             });
 
         });
