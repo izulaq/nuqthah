@@ -468,6 +468,7 @@
             color: #0f4a3a;
             letter-spacing: -0.02em;
             line-height: 1.2;
+            font-variant-numeric: tabular-nums;
         }
 
         .hero-stats .stat-label {
@@ -1444,7 +1445,6 @@
             .hero .container {
                 grid-template-columns: 1fr;
                 gap: 24px;
-                /* <<< jarak lebih rapat di mobile */
                 text-align: center;
             }
 
@@ -1477,7 +1477,6 @@
 
             .hero-visual {
                 margin-top: 4px;
-                /* minimal space above slider */
             }
 
             .stack-slider {
@@ -1612,7 +1611,6 @@
 
             .hero .container {
                 gap: 16px;
-                /* lebih rapat lagi */
             }
 
             .hero-content h1 {
@@ -1891,21 +1889,21 @@
                         <i class="fas fa-compass"></i> Maddah Tersedia
                     </a>
                 </div>
-                <div class="hero-stats">
+                <div class="hero-stats" id="heroStats">
                     <div class="stat-item">
-                        <span class="stat-number">300+</span>
+                        <span id="stat-pendaftar" class="stat-number" data-target="300">0</span>
                         <span class="stat-label">Pendaftar</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">05</span>
+                        <span id="stat-program" class="stat-number" data-target="5">0</span>
                         <span class="stat-label">Program</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">50+</span>
+                        <span id="stat-materi" class="stat-number" data-target="50">0</span>
                         <span class="stat-label">Materi</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">9.5/10</span>
+                        <span id="stat-rating" class="stat-number" data-target="9.5">0</span>
                         <span class="stat-label">Rating Peserta</span>
                     </div>
                 </div>
@@ -2041,7 +2039,7 @@
                     <a href="https://nuqthahlearning.my.id/materi.html?cat=tashil" class="btn-card">Lihat Program</a>
                 </div>
                 <div class="program-card fade-up fade-up-delay-1">
-                    <span class="card-badge">Percakapan</span>
+                    <span class="card-badge">Coming soon</span>
                     <div class="icon"><i class="fas fa-pen-fancy"></i></div>
                     <h3>Amiyah Mesir</h3>
                     <p>Belajar percakapan bahasa Arab dialek Mesir.</p>
@@ -2275,12 +2273,12 @@
 
             // ---- Fade-up on scroll ----
             const fadeElements = document.querySelectorAll('.fade-up');
-            const observer = new IntersectionObserver(function (entries) {
+            const observerFade = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) entry.target.classList.add('visible');
                 });
             }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
-            fadeElements.forEach(function (el) { observer.observe(el); });
+            fadeElements.forEach(function (el) { observerFade.observe(el); });
 
             // ---- Smooth scroll ----
             document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
@@ -2378,6 +2376,147 @@
             sliderContainer.addEventListener('mouseleave', startAutoplay);
 
             startAutoplay();
+
+            // ============================================================
+            // COUNTER ANIMATION — mulai dari 0 setiap kali hero terlihat
+            // ============================================================
+
+            const statElements = [
+                { id: 'stat-pendaftar', target: 300, format: 'plus' },
+                { id: 'stat-program', target: 5, format: 'two-digit' },
+                { id: 'stat-materi', target: 50, format: 'plus' },
+                { id: 'stat-rating', target: 9.5, format: 'rating' }
+            ];
+
+            // Siapkan referensi elemen dan nilai awal
+            const counters = statElements.map(function (cfg) {
+                const el = document.getElementById(cfg.id);
+                return {
+                    element: el,
+                    target: cfg.target,
+                    format: cfg.format,
+                    current: 0,
+                    animating: false,
+                    done: false
+                };
+            });
+
+            // Fungsi format angka sesuai tipe
+            function formatCounter(value, format) {
+                if (format === 'plus') {
+                    return Math.round(value) + '+';
+                } else if (format === 'two-digit') {
+                    return String(Math.round(value)).padStart(2, '0');
+                } else if (format === 'rating') {
+                    return (Math.round(value * 10) / 10).toFixed(1) + '/10';
+                }
+                return String(Math.round(value));
+            }
+
+            // Fungsi reset semua counter ke 0
+            function resetAllCounters() {
+                counters.forEach(function (c) {
+                    c.current = 0;
+                    c.animating = false;
+                    c.done = false;
+                    c.element.textContent = formatCounter(0, c.format);
+                });
+            }
+
+            // Animasi satu counter
+            function animateCounter(counter, duration) {
+                if (counter.animating) return;
+                if (counter.done) return;
+
+                counter.animating = true;
+                const startTime = performance.now();
+                const startValue = 0;
+                const targetValue = counter.target;
+
+                function update(currentTime) {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    // easeOutCubic
+                    const eased = 1 - Math.pow(1 - progress, 3);
+                    const currentVal = startValue + (targetValue - startValue) * eased;
+
+                    counter.current = currentVal;
+                    counter.element.textContent = formatCounter(currentVal, counter.format);
+
+                    if (progress < 1) {
+                        requestAnimationFrame(update);
+                    } else {
+                        counter.current = targetValue;
+                        counter.element.textContent = formatCounter(targetValue, counter.format);
+                        counter.animating = false;
+                        counter.done = true;
+                    }
+                }
+
+                requestAnimationFrame(update);
+            }
+
+            // Mulai semua animasi
+            function startAllCounters() {
+                counters.forEach(function (c) {
+                    c.current = 0;
+                    c.done = false;
+                    c.animating = false;
+                    c.element.textContent = formatCounter(0, c.format);
+                    animateCounter(c, 2000);
+                });
+            }
+
+            // Observer untuk hero stats — reset & mulai ulang saat masuk viewport
+            const heroStatsEl = document.getElementById('heroStats');
+            let heroVisible = false;
+
+            const observerHero = new IntersectionObserver(function (entries) {
+                entries.forEach(function (entry) {
+                    if (entry.isIntersecting) {
+                        // Hero masuk viewport
+                        if (!heroVisible) {
+                            heroVisible = true;
+                            // Reset semua ke 0 dulu
+                            resetAllCounters();
+                            // Mulai animasi (dengan jeda kecil agar visual reset terlihat)
+                            requestAnimationFrame(function () {
+                                startAllCounters();
+                            });
+                        }
+                    } else {
+                        // Hero keluar viewport — reset agar siap untuk next time
+                        if (heroVisible) {
+                            heroVisible = false;
+                            resetAllCounters();
+                        }
+                    }
+                });
+            }, { threshold: 0.2 });
+
+            observerHero.observe(heroStatsEl);
+
+            // Jika halaman dimuat dan hero sudah terlihat (misal di atas fold),
+            // observer akan tetap memicu, tapi kadang IntersectionObserver
+            // butuh waktu. Kita panggil manual sekali setelah load.
+            // Tapi karena observer sudah di-set, kita cukup tunggu.
+            // Namun untuk kasus di mana hero langsung terlihat saat load,
+            // observer akan memicu entry.isIntersecting = true.
+            // Tapi ada kasus di mana observer belum sempat trigger saat DOMContentLoaded,
+            // maka kita cek sekali setelah 200ms.
+            setTimeout(function () {
+                // Cek apakah hero sedang terlihat
+                const rect = heroStatsEl.getBoundingClientRect();
+                const winHeight = window.innerHeight || document.documentElement.clientHeight;
+                const isVisible = rect.top < winHeight - 100 && rect.bottom > 100;
+                if (isVisible && !heroVisible) {
+                    heroVisible = true;
+                    resetAllCounters();
+                    setTimeout(function () {
+                        startAllCounters();
+                    }, 150);
+                }
+            }, 300);
 
         });
     </script>
