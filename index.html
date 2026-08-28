@@ -490,11 +490,11 @@
             aspect-ratio: 4 / 3;
             position: relative;
             border-radius: 28px;
-            background: rgb(255 255 255 / 0%);
+            background: rgba(255, 255, 255, 0%);
             backdrop-filter: blur(4px);
             -webkit-backdrop-filter: blur(4px);
-            border: 1px solid rgb(255 255 255 / 0%);
-            box-shadow: 0 20px 60px rgb(15 74 58 / 0%);
+            border: 1px solid rgba(255, 255, 255, 0%);
+            box-shadow: 0 20px 60px rgba(15, 74, 58, 0%);
             overflow: hidden;
         }
 
@@ -1320,55 +1320,66 @@
         }
 
         /* ============================================================
-                   RESPONSIVE
+                   RESPONSIVE — UPDATED
                 ============================================================ */
-        @media (max-width: 1200px) {
+
+        /* --- Tablet (768px – 1024px) --- */
+        @media (max-width: 1024px) {
+            .hero .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
             .hero-content h1 {
-                font-size: 2.3rem;
+                font-size: 2.2rem;
+            }
+
+            .hero-content .hero-desc {
+                font-size: 0.98rem;
+                max-width: 100%;
+            }
+
+            .hero-stats {
+                gap: 28px;
+            }
+
+            .hero-stats .stat-number {
+                font-size: 1.35rem;
+            }
+
+            .stack-slider {
+                max-width: 420px;
+                aspect-ratio: 4 / 3;
+            }
+
+            .stack-slide {
+                padding: 22px 20px;
+                max-width: 310px;
+            }
+
+            .stack-slide .slide-name {
+                font-size: 1rem;
+            }
+
+            .stack-slide .slide-message {
+                font-size: 0.88rem;
+            }
+
+            .tentang .container {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+
+            .tentang-content h2 {
+                font-size: 1.9rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
             }
 
             .keunggulan-grid {
                 grid-template-columns: 1fr 1fr;
-            }
-        }
-
-        @media (max-width: 1024px) {
-            .hero .container {
-                grid-template-columns: 1fr;
-                gap: 48px;
-                text-align: center;
-            }
-
-            .hero-content .hero-desc {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .hero-buttons {
-                justify-content: center;
-            }
-
-            .hero-stats {
-                justify-content: center;
-            }
-
-            .hero-content h1 span::after {
-                display: none;
-            }
-
-            .tentang .container {
-                grid-template-columns: 1fr;
-                text-align: center;
-                gap: 40px;
-            }
-
-            .tentang-content p {
-                margin-left: auto;
-                margin-right: auto;
-            }
-
-            .tentang-content .btn-primary-sm {
-                margin: 0 auto;
             }
 
             .program-grid {
@@ -1387,13 +1398,9 @@
             .alur-timeline::before {
                 display: none;
             }
-
-            .stack-slider {
-                max-width: 100%;
-                aspect-ratio: 4/3;
-            }
         }
 
+        /* --- Mobile (below 768px) --- */
         @media (max-width: 768px) {
             .navbar .nav-links {
                 display: none;
@@ -1431,19 +1438,101 @@
             }
 
             .hero {
-                padding: 90px 0 64px;
+                padding: 100px 0 56px;
+            }
+
+            .hero .container {
+                grid-template-columns: 1fr;
+                gap: 24px;
+                /* <<< jarak lebih rapat di mobile */
+                text-align: center;
             }
 
             .hero-content h1 {
                 font-size: 2rem;
             }
 
+            .hero-content .hero-desc {
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 480px;
+            }
+
+            .hero-content h1 span::after {
+                display: none;
+            }
+
+            .hero-buttons {
+                justify-content: center;
+            }
+
+            .hero-stats {
+                justify-content: center;
+                gap: 24px;
+            }
+
+            .hero-stats .stat-number {
+                font-size: 1.4rem;
+            }
+
+            .hero-visual {
+                margin-top: 4px;
+                /* minimal space above slider */
+            }
+
+            .stack-slider {
+                max-width: 100%;
+                aspect-ratio: 4 / 3;
+                border-radius: 20px;
+            }
+
+            .stack-slide {
+                width: 85%;
+                max-width: 340px;
+                padding: 20px 18px;
+            }
+
+            .stack-slide .slide-name {
+                font-size: 1rem;
+            }
+
+            .stack-slide .slide-message {
+                font-size: 0.9rem;
+            }
+
+            .tentang .container {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 32px;
+            }
+
+            .tentang-content p {
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            .tentang-content .btn-primary-sm {
+                margin: 0 auto;
+            }
+
+            .tentang-content h2 {
+                font-size: 1.8rem;
+            }
+
             .section-title {
                 font-size: 2rem;
             }
 
+            .section-padding {
+                padding: 64px 0;
+            }
+
             .cta h2 {
                 font-size: 2.2rem;
+            }
+
+            .cta {
+                padding: 64px 0;
             }
 
             .keunggulan-grid {
@@ -1483,23 +1572,6 @@
                 justify-content: center;
             }
 
-            .hero-stats {
-                gap: 24px;
-            }
-
-            .section-padding {
-                padding: 64px 0;
-            }
-
-            .cta {
-                padding: 64px 0;
-            }
-
-            .stack-slider {
-                max-width: 100%;
-                aspect-ratio: 4/3;
-            }
-
             .hero-buttons .btn-primary-sm,
             .hero-buttons .btn-outline-sm {
                 width: auto;
@@ -1523,15 +1595,24 @@
                 display: none;
             }
 
-            .stack-slide {
-                width: 85%;
-                padding: 20px 18px;
+            section[id] {
+                scroll-margin-top: 80px;
             }
         }
 
+        /* --- Small Mobile (below 480px) --- */
         @media (max-width: 480px) {
             .container {
                 padding: 0 16px;
+            }
+
+            .hero {
+                padding: 84px 0 40px;
+            }
+
+            .hero .container {
+                gap: 16px;
+                /* lebih rapat lagi */
             }
 
             .hero-content h1 {
@@ -1540,12 +1621,88 @@
 
             .hero-content .hero-desc {
                 font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .hero-buttons {
+                gap: 10px;
+                margin-bottom: 24px;
             }
 
             .hero-buttons .btn-primary-sm,
             .hero-buttons .btn-outline-sm {
-                width: 90%;
+                width: 70%;
                 justify-content: center;
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+
+            .hero-stats {
+                gap: 16px;
+            }
+
+            .hero-stats .stat-number {
+                font-size: 1.25rem;
+            }
+
+            .hero-stats .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .stack-slider {
+                aspect-ratio: 3 / 2;
+                border-radius: 16px;
+            }
+
+            .stack-slide {
+                width: 88%;
+                max-width: 300px;
+                padding: 16px 14px;
+                border-radius: 16px;
+            }
+
+            .stack-slide .slide-name {
+                font-size: 0.92rem;
+                margin-bottom: 4px;
+            }
+
+            .stack-slide .slide-message {
+                font-size: 0.82rem;
+                line-height: 1.5;
+            }
+
+            .section-title {
+                font-size: 1.7rem;
+            }
+
+            .section-subtitle {
+                font-size: 1rem;
+                margin-bottom: 32px;
+            }
+
+            .section-padding {
+                padding: 48px 0;
+            }
+
+            .cta {
+                padding: 48px 0;
+            }
+
+            .cta h2 {
+                font-size: 1.8rem;
+            }
+
+            .cta p {
+                font-size: 1rem;
+                padding: 0 8px;
+            }
+
+            .tentang-content h2 {
+                font-size: 1.6rem;
+            }
+
+            .tentang-content p {
+                font-size: 0.95rem;
             }
 
             .keunggulan-grid {
@@ -1567,34 +1724,6 @@
                 max-width: 360px;
             }
 
-            .section-title {
-                font-size: 1.7rem;
-            }
-
-            .cta h2 {
-                font-size: 1.8rem;
-            }
-
-            .hero-stats .stat-number {
-                font-size: 1.4rem;
-            }
-
-            .hero-stats {
-                gap: 16px;
-            }
-
-            .section-padding {
-                padding: 48px 0;
-            }
-
-            .cta {
-                padding: 48px 0;
-            }
-
-            .tentang-content h2 {
-                font-size: 1.8rem;
-            }
-
             .program-card .btn-card {
                 align-self: center;
             }
@@ -1606,10 +1735,6 @@
 
             .navbar .logo {
                 font-size: 0.95rem;
-            }
-
-            .stack-slider {
-                border-radius: 18px;
             }
 
             .fab-container {
@@ -1629,20 +1754,22 @@
                 font-size: 1.1rem;
             }
 
-            .stack-slide {
-                width: 90%;
-                padding: 16px 14px;
+            .faq-question {
+                padding: 16px 18px;
+                font-size: 0.92rem;
             }
 
-            .stack-slide .slide-name {
-                font-size: 0.95rem;
+            .faq-answer {
+                font-size: 0.88rem;
+                padding: 0 18px;
             }
 
-            .stack-slide .slide-message {
-                font-size: 0.85rem;
+            .faq-item.open .faq-answer {
+                padding: 0 18px 18px;
             }
         }
 
+        /* --- Very Small (below 360px) --- */
         @media (max-width: 360px) {
             .hero-content h1 {
                 font-size: 1.4rem;
@@ -1650,22 +1777,36 @@
 
             .hero-buttons .btn-primary-sm,
             .hero-buttons .btn-outline-sm {
-                padding: 10px 20px;
-                font-size: 0.8rem;
+                padding: 8px 16px;
+                font-size: 0.78rem;
+                min-width: 130px;
             }
 
             .btn-primary-sm,
             .btn-outline-sm,
             .btn-white-sm {
-                padding: 10px 20px;
-                font-size: 0.8rem;
+                padding: 8px 16px;
+                font-size: 0.78rem;
             }
 
             .section-title {
                 font-size: 1.3rem;
             }
+
+            .hero .container {
+                gap: 12px;
+            }
+
+            .stack-slide {
+                padding: 14px 12px;
+            }
+
+            .stack-slide .slide-message {
+                font-size: 0.75rem;
+            }
         }
 
+        /* --- Scroll margin for fixed nav --- */
         section[id] {
             scroll-margin-top: 80px;
         }
@@ -2197,21 +2338,17 @@
             let autoplayInterval;
 
             function updateSlider(index) {
-                // Reset semua
                 slides.forEach(slide => {
                     slide.classList.remove('active', 'above', 'below');
                 });
 
-                // Aktif
                 const active = slides[index];
                 active.classList.add('active');
 
-                // Slide sebelumnya (above) - jika ada
                 const prevIndex = (index - 1 + total) % total;
                 const prev = slides[prevIndex];
                 prev.classList.add('above');
 
-                // Slide berikutnya (below) - jika ada
                 const nextIndex = (index + 1) % total;
                 const next = slides[nextIndex];
                 next.classList.add('below');
@@ -2234,10 +2371,8 @@
                 }
             }
 
-            // Initial
             updateSlider(0);
 
-            // Hover pause
             const sliderContainer = document.getElementById('stackSlider');
             sliderContainer.addEventListener('mouseenter', stopAutoplay);
             sliderContainer.addEventListener('mouseleave', startAutoplay);
