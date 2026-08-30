@@ -225,6 +225,149 @@
         }
 
         /* ============================================================
+                   NAVBAR — LIGHT VERSION
+                ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: #ffffff;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b1a17;
+            letter-spacing: -0.3px;
+        }
+
+        .navbar .logo .logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #0f4a3a;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar .logo .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .navbar .logo .logo-img i {
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        .navbar .logo .logo-text {
+            display: inline-block;
+        }
+
+        .navbar .logo .logo-text-sm {
+            display: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar .nav-links a {
+            font-weight: 500;
+            color: #3a4a47;
+            transition: color 0.2s;
+            font-size: 0.88rem;
+            letter-spacing: 0.1px;
+            position: relative;
+        }
+
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c9a227;
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #0b1a17;
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar .btn-nav {
+            background: #c9a227;
+            color: #ffffff;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 8px rgba(15, 74, 58, 0.15);
+        }
+
+        .navbar .btn-nav:hover {
+            background: #a18320;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(15, 74, 58, 0.25);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2.5px;
+            background: #0b1a17;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* ============================================================
                    HERO
                 ============================================================ */
         .hero {
@@ -1260,8 +1403,41 @@
 
         /* --- Mobile (below 768px) --- */
         @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #ffffff;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                padding: 28px 32px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                gap: 18px;
+                align-items: flex-start;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+            }
 
-            /* Navbar responsiveness sekarang diatur oleh navbar.html */
+            .navbar .nav-links.open {
+                display: flex;
+            }
+
+            .navbar .nav-actions .btn-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar .logo .logo-text {
+                display: none;
+            }
+
+            .navbar .logo .logo-text-sm {
+                display: inline-block;
+            }
+
             .hero {
                 padding: 100px 0 56px;
             }
@@ -1550,6 +1726,15 @@
                 align-self: center;
             }
 
+            .navbar .logo .logo-img {
+                width: 30px;
+                height: 30px;
+            }
+
+            .navbar .logo {
+                font-size: 0.95rem;
+            }
+
             .fab-container {
                 bottom: 20px;
                 right: 20px;
@@ -1651,8 +1836,36 @@
 
 <body>
 
-    <!-- ===== NAVBAR PLACEHOLDER (akan dimuat dari navbar.html) ===== -->
-    <div id="navbar-placeholder"></div>
+    <!-- ===== NAVBAR — LIGHT ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-img">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
+                        alt="Nuqthah Logo"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
+                </span>
+                <span class="logo-text">Nuqthah Learning Center</span>
+                <span class="logo-text-sm">Nuqthah Learning Center</span>
+            </a>
+
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#tentang">Tentang</a></li>
+                <li><a href="#program">Program</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+                <li><a href="formpengajar.html">Pengajar</a></li>
+            </ul>
+
+            <div class="nav-actions">
+                <a href="materi.html" class="btn-nav">Mulai Belajar</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
+            </div>
+
+        </div>
+    </nav>
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
@@ -1992,8 +2205,8 @@
     </footer>
 
     <!-- ============================================================
-               FLOATING ACTION BUTTON (FAB)
-            ============================================================ -->
+                   FLOATING ACTION BUTTON (FAB)
+                ============================================================ -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-sub" id="fabSub">
             <a href="https://wa.me/6285185409887" target="_blank" rel="noopener" class="btn btn-wa"
@@ -2022,56 +2235,31 @@
         </button>
     </div>
 
-    <!-- ============================================================
-               SCRIPT PEMUAT NAVBAR
-            ============================================================ -->
+    <!-- ===== JAVASCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const placeholder = document.getElementById('navbar-placeholder');
-            if (!placeholder) return;
 
-            fetch('navbar.html')
-                .then(response => {
-                    if (!response.ok) throw new Error('Gagal memuat navbar');
-                    return response.text();
-                })
-                .then(html => {
-                    placeholder.innerHTML = html;
-                    // Script di dalam navbar.html akan otomatis dijalankan
-                })
-                .catch(err => {
-                    console.warn('Navbar fallback:', err);
-                    placeholder.innerHTML = `
-                        <nav class="navbar" id="navbar">
-                            <div class="container">
-                                <a href="index.html" class="logo">
-                                    <span class="logo-img"><i class="fas fa-graduation-cap"></i></span>
-                                    <span class="logo-text">Nuqthah Learning Center</span>
-                                </a>
-                                <div class="nav-actions">
-                                    <a href="materi.html" class="btn-nav">Mulai Belajar</a>
-                                </div>
-                            </div>
-                        </nav>
-                    `;
-                    // Jika fallback digunakan, inisialisasi hamburger jika ada
-                    const fallbackNav = document.getElementById('navbar');
-                    if (fallbackNav) {
-                        const h = fallbackNav.querySelector('.hamburger');
-                        const links = fallbackNav.querySelector('.nav-links');
-                        if (h && links) {
-                            h.addEventListener('click', function () {
-                                links.classList.toggle('open');
-                            });
-                        }
-                    }
+            // ---- Navbar scroll effect ----
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 20) {
+                    navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+                } else {
+                    navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.06)';
+                }
+            });
+
+            // ---- Mobile hamburger ----
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('open');
                 });
-        });
-    </script>
-
-    <!-- ===== JAVASCRIPT UTAMA (SLIDER, COUNTER, FAQ, FAB, DSB) ===== -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
+            });
 
             // ---- FAQ accordion ----
             const faqItems = document.querySelectorAll('.faq-item');
@@ -2312,6 +2500,11 @@
             // Jika halaman dimuat dan hero sudah terlihat (misal di atas fold),
             // observer akan tetap memicu, tapi kadang IntersectionObserver
             // butuh waktu. Kita panggil manual sekali setelah load.
+            // Tapi karena observer sudah di-set, kita cukup tunggu.
+            // Namun untuk kasus di mana hero langsung terlihat saat load,
+            // observer akan memicu entry.isIntersecting = true.
+            // Tapi ada kasus di mana observer belum sempat trigger saat DOMContentLoaded,
+            // maka kita cek sekali setelah 200ms.
             setTimeout(function () {
                 // Cek apakah hero sedang terlihat
                 const rect = heroStatsEl.getBoundingClientRect();
