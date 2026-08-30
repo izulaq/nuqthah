@@ -8,7 +8,6 @@
 
     <meta name="theme-color" content="#0F4A3A">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Favicon -->
@@ -31,11 +30,200 @@
     <!-- Grid.js CSS -->
     <link href="https://unpkg.com/gridjs/dist/theme/mermaid.min.css" rel="stylesheet">
 
-    
-
     <style>
+        /* ============================================================
+                   NAVBAR — LIGHT VERSION (dari index.html)
+                ============================================================ */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: #ffffff;
+            padding: 10px 0;
+            transition: all 0.3s ease;
+            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            color: #0b1a17;
+            letter-spacing: -0.3px;
+        }
+
+        .navbar .logo .logo-img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #0f4a3a;
+            overflow: hidden;
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .navbar .logo .logo-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .navbar .logo .logo-img i {
+            font-size: 1.2rem;
+            color: #ffffff;
+        }
+
+        .navbar .logo .logo-text {
+            display: inline-block;
+        }
+
+        .navbar .logo .logo-text-sm {
+            display: none;
+        }
+
+        .navbar .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .navbar .nav-links a {
+            font-weight: 500;
+            color: #3a4a47;
+            transition: color 0.2s;
+            font-size: 0.88rem;
+            letter-spacing: 0.1px;
+            position: relative;
+        }
+
+        .navbar .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #c9a227;
+            transition: width 0.3s ease;
+        }
+
+        .navbar .nav-links a:hover {
+            color: #0b1a17;
+        }
+
+        .navbar .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .navbar .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .navbar .btn-nav {
+            background: #c9a227;
+            color: #ffffff;
+            padding: 8px 24px;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.2px;
+            box-shadow: 0 2px 8px rgba(15, 74, 58, 0.15);
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .navbar .btn-nav:hover {
+            background: #a18320;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 20px rgba(15, 74, 58, 0.25);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            background: none;
+            border: none;
+            padding: 4px;
+        }
+
+        .hamburger span {
+            width: 24px;
+            height: 2.5px;
+            background: #0b1a17;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        /* Responsive Navbar */
+        @media (max-width: 768px) {
+            .navbar .nav-links {
+                display: none;
+                flex-direction: column;
+                background: #ffffff;
+                position: absolute;
+                top: 64px;
+                left: 0;
+                width: 100%;
+                padding: 28px 32px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+                gap: 18px;
+                align-items: flex-start;
+                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+            }
+
+            .navbar .nav-links.open {
+                display: flex;
+            }
+
+            .navbar .nav-actions .btn-nav {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .navbar .logo .logo-text {
+                display: none;
+            }
+
+            .navbar .logo .logo-text-sm {
+                display: inline-block;
+            }
+        }
+
+        /* ============================================================
+                   KONTEN FORM PENGAJAR (tetap)
+                ============================================================ */
         body {
             font-family: 'Poppins', sans-serif;
+            background: #f9fafb;
+            color: #1f2937;
         }
 
         .bg-primary {
@@ -88,58 +276,69 @@
         button:disabled {
             cursor: not-allowed;
         }
+
+        /* Scroll margin untuk fixed navbar */
+        section[id] {
+            scroll-margin-top: 80px;
+        }
     </style>
 </head>
 
-<body class="bg-gray-50 text-gray-800 overflow-x-hidden">
+<body>
 
+    <!-- ===== NAVBAR — SAMA DENGAN INDEX.HTML ===== -->
+    <nav class="navbar" id="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="logo-img">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
+                        alt="Nuqthah Logo"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
+                </span>
+                <span class="logo-text">Nuqthah Learning Center</span>
+                <span class="logo-text-sm">Nuqthah Learning Center</span>
+            </a>
 
-    <!-- Navigation -->
-    <nav class="fixed w-full z-50 bg-white/90 backdrop-blur-md shadow-sm border-b border-gray-100">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex items-center">
-                    <a href="index.html" class="flex items-center space-x-2 text-primary hover:opacity-80 transition"
-                        aria-label="Kembali ke Beranda">
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Beranda</a></li>
+                <li><a href="materi.html">Katalog</a></li>
+                <li><a href="knowledges.html">Tentang</a></li>
+                <li><a href="#faq">FAQ</a></li>
+                <li><a href="#kontak">Kontak</a></li>
+                <li><a href="formpengajar.html">Pengajar</a></li>
+            </ul>
 
-                        <div class="w-10 h-10 rounded-lg flex items-center justify-center">
-                            <i class="fas fa-chevron-left"></i>
-                        </div>
-
-                        <span class="text-xl font-bold tracking-tight">
-                            Pendaftaran Pengajar
-                        </span>
-                    </a>
-                </div>
-                <div class="hidden md:flex space-x-8 items-center">
-                    <a href="#hero" class="text-sm font-medium hover:text-primary transition">Beranda</a>
-                    <a href="#benefits" class="text-sm font-medium hover:text-primary transition">Keuntungan</a>
-                    <a href="#flow" class="text-sm font-medium hover:text-primary transition">Alur</a>
-                    <a href="#registration"
-                        class="px-5 py-2 bg-primary text-white text-sm font-medium rounded-full hover:bg-opacity-90 transition shadow-lg shadow-green-900/20">Daftar
-                        Sekarang</a>
-                </div>
-                <div class="md:hidden flex items-center">
-                    <button id="mobile-menu-button" class="text-primary p-2">
-                        <i class="fas fa-bars text-xl"></i>
-                    </button>
-                </div>
+            <div class="nav-actions">
+                <a href="materi.html" class="btn-nav">Mulai Belajar</a>
+                <button class="hamburger" id="hamburger" aria-label="Toggle menu">
+                    <span></span><span></span><span></span>
+                </button>
             </div>
-        </div>
-        <!-- Mobile Menu -->
-        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-100 p-4 space-y-4 shadow-xl">
-            <a href="#hero" class="block text-sm font-medium py-2">Beranda</a>
-            <a href="#benefits" class="block text-sm font-medium py-2">Keuntungan</a>
-            <a href="#flow" class="block text-sm font-medium py-2">Alur</a>
-            <a href="#registration"
-                class="block px-5 py-3 bg-primary text-white text-center rounded-lg font-medium">Daftar Sekarang</a>
         </div>
     </nav>
 
+    <!-- ===== HERO SECTION (tetap) ===== -->
+    <section id="hero" class="relative pt-28 pb-20 md:pt-32 md:pb-28 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <h1 class="text-3xl md:text-5xl font-bold text-primary leading-tight mb-4">
+                Bergabung sebagai <br class="hidden sm:block">Pengajar Nuqthah
+            </h1>
+            <p class="text-gray-600 max-w-2xl mx-auto text-base md:text-lg">
+                Bagikan ilmu Anda, tingkatkan pengalaman mengajar, dan berkontribusi untuk kemajuan pendidikan Islam.
+            </p>
+            <div class="mt-8 flex flex-wrap justify-center gap-4">
+                <a href="#registration"
+                    class="px-8 py-3 bg-primary text-white font-semibold rounded-full shadow-lg hover:bg-opacity-90 transition-all-300">Daftar
+                    Sekarang</a>
+                <a href="#benefits"
+                    class="px-8 py-3 border border-primary text-primary font-semibold rounded-full hover:bg-primary hover:text-white transition-all-300">Pelajari
+                    Lebih Lanjut</a>
+            </div>
+        </div>
+    </section>
 
-
-    <!-- Why Join Section -->
-    <section id="benefits" class="py-24 bg-white">
+    <!-- ===== WHY JOIN ===== -->
+    <section id="benefits" class="py-20 bg-white">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Mengapa Mengajar di Nuqthah?</h2>
@@ -186,8 +385,8 @@
         </div>
     </section>
 
-    <!-- Recruitment Flow -->
-    <section id="flow" class="py-24 bg-gray-50">
+    <!-- ===== RECRUITMENT FLOW ===== -->
+    <section id="flow" class="py-20 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl md:text-4xl font-bold text-primary mb-4">Alur Pendaftaran</h2>
@@ -232,8 +431,8 @@
         </div>
     </section>
 
-    <!-- Qualifications -->
-    <section id="qualifications" class="py-24 bg-white overflow-hidden">
+    <!-- ===== QUALIFICATIONS ===== -->
+    <section id="qualifications" class="py-20 bg-white overflow-hidden">
         <div class="max-w-3xl mx-auto px-4 md:px-0">
             <div
                 class="bg-gray-50 p-6 sm:p-8 md:p-12 rounded-[2rem] border-2 border-dashed border-green-200 mx-auto w-full">
@@ -296,9 +495,9 @@
         </div>
     </section>
 
-    <!-- Registration Form Section -->
+    <!-- ===== REGISTRATION FORM ===== -->
     <section id="registration"
-        class="py-24 bg-gray-50 transition-all duration-500 opacity-50 pointer-events-none filter grayscale">
+        class="py-20 bg-gray-50 transition-all duration-500 opacity-50 pointer-events-none filter grayscale">
         <div class="max-w-4xl mx-auto px-4">
             <div class="bg-white rounded-[2rem] md:rounded-[2.5rem] shadow-2xl overflow-hidden border border-gray-100">
                 <!-- Progress Bar -->
@@ -577,8 +776,8 @@
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section class="py-24 bg-white">
+    <!-- ===== FAQ ===== -->
+    <section class="py-20 bg-white">
         <div class="max-w-4xl mx-auto px-4">
             <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-primary mb-4">Pertanyaan Umum (FAQ)</h2>
@@ -626,20 +825,28 @@
         </div>
     </section>
 
-    <!-- Footer -->
-
-
-    <div
-        class="pt-8 border-t border-green/10 flex flex-col md:flex-row justify-between items-center text-[10px] text-gray-400">
-        <p>&copy; 2026 Nuqthah Learning Center. All rights reserved.</p>
-        <div class="mt-4 md:mt-0 flex items-center space-x-4">
-            <a href="#" class="hover:text-white">Privacy Policy</a>
-            <a href="#" class="hover:text-white">Terms</a>
+    <!-- ===== FOOTER (tetap) ===== -->
+    <footer class="bg-gray-900 text-gray-300 py-12">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl font-bold text-white">Nuqthah Learning Center</span>
+                </div>
+                <div class="flex flex-wrap justify-center gap-6 text-sm">
+                    <a href="index.html" class="hover:text-white transition">Beranda</a>
+                    <a href="index.html#tentang" class="hover:text-white transition">Tentang</a>
+                    <a href="index.html#program" class="hover:text-white transition">Program</a>
+                    <a href="index.html#faq" class="hover:text-white transition">FAQ</a>
+                    <a href="index.html#kontak" class="hover:text-white transition">Kontak</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-800 text-center text-xs text-gray-500">
+                &copy; 2026 Nuqthah Learning Center. All rights reserved.
+            </div>
         </div>
-    </div>
+    </footer>
 
-
-    <!-- Success Modal -->
+    <!-- ===== SUCCESS MODAL ===== -->
     <div id="success-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
         <div class="absolute inset-0 bg-black/60 backdrop-blur-sm"></div>
         <div class="relative bg-white rounded-3xl p-8 max-w-md w-full text-center shadow-2xl animate-fade-in">
@@ -656,7 +863,7 @@
         </div>
     </div>
 
-    <!-- Floating Action Button -->
+    <!-- ===== FLOATING WHATSAPP ===== -->
     <a href="https://wa.me/6285185409887"
         class="fixed bottom-4 left-6 bg-[#25D366] text-white w-14 h-14 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all z-40 group">
         <i class="fab fa-whatsapp text-2xl"></i>
@@ -665,31 +872,48 @@
             Admin</span>
     </a>
 
-    <!-- Scripts -->
+    <!-- ===== SCRIPTS ===== -->
     <script src="https://unpkg.com/gridjs/dist/gridjs.umd.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Mobile Menu Toggle
-            const mobileMenuBtn = document.getElementById('mobile-menu-button');
-            const mobileMenu = document.getElementById('mobile-menu');
-
-            mobileMenuBtn.addEventListener('click', () => {
-                mobileMenu.classList.toggle('hidden');
+        document.addEventListener('DOMContentLoaded', function () {
+            // ============================================================
+            // NAVBAR — SCROLL EFFECT & HAMBURGER (dari index.html)
+            // ============================================================
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > 20) {
+                    navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+                } else {
+                    navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.06)';
+                }
             });
 
-            // FAQ Toggles
+            const hamburger = document.getElementById('hamburger');
+            const navLinks = document.getElementById('navLinks');
+            hamburger.addEventListener('click', function () {
+                navLinks.classList.toggle('open');
+            });
+            navLinks.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    navLinks.classList.remove('open');
+                });
+            });
+
+            // ============================================================
+            // FAQ TOGGLES (tetap)
+            // ============================================================
             const faqItems = document.querySelectorAll('.faq-item');
-            faqItems.forEach(item => {
+            faqItems.forEach(function (item) {
                 const btn = item.querySelector('button');
                 const content = item.querySelector('.faq-content');
                 const icon = item.querySelector('i');
 
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', function () {
                     const isOpen = !content.classList.contains('hidden');
-                    document.querySelectorAll('.faq-content').forEach(c => c.classList.add('hidden'));
-                    document.querySelectorAll('.faq-item i').forEach(i => i.classList.remove('rotate-180'));
+                    document.querySelectorAll('.faq-content').forEach(function (c) { c.classList.add('hidden'); });
+                    document.querySelectorAll('.faq-item i').forEach(function (i) { i.classList.remove('rotate-180'); });
 
                     if (!isOpen) {
                         content.classList.remove('hidden');
@@ -698,7 +922,9 @@
                 });
             });
 
-            // --- Form & Validation Logic ---
+            // ============================================================
+            // FORM LOGIC (tetap)
+            // ============================================================
             const agreeTerms = document.getElementById('agree-terms');
             const registrationSection = document.getElementById('registration');
             const form = document.getElementById('teacher-form');
@@ -717,10 +943,10 @@
             const submitBtn = document.getElementById('submit-btn');
 
             // Toggle Registration Activation
-            agreeTerms.addEventListener('change', () => {
+            agreeTerms.addEventListener('change', function () {
                 if (agreeTerms.checked) {
                     registrationSection.classList.remove('opacity-50', 'pointer-events-none', 'grayscale');
-                    validateCurrentStep(); // Run initial validation check
+                    validateCurrentStep();
                 } else {
                     registrationSection.classList.add('opacity-50', 'pointer-events-none', 'grayscale');
                 }
@@ -730,9 +956,9 @@
             const mainProgram = document.getElementById('main-program');
             const subFieldGroups = document.querySelectorAll('.sub-field-group');
 
-            mainProgram.addEventListener('change', () => {
+            mainProgram.addEventListener('change', function () {
                 const value = mainProgram.value;
-                subFieldGroups.forEach(group => group.classList.add('hidden'));
+                subFieldGroups.forEach(function (group) { group.classList.add('hidden'); });
 
                 if (value === 'bimbel') document.getElementById('bimbel-fields').classList.remove('hidden');
                 if (value === 'tafaqquh') document.getElementById('tafaqquh-fields').classList.remove('hidden');
@@ -741,12 +967,10 @@
                 validateCurrentStep();
             });
 
-            // Helper to Check Validity of a Step
             function validateCurrentStep() {
                 const step = steps[currentStep];
                 let isValid = true;
 
-                // 1. Check all direct required inputs/selects in the step
                 const requiredInputs = Array.from(step.querySelectorAll('input[required], select[required]'));
                 for (const input of requiredInputs) {
                     if (!input.value.trim()) {
@@ -755,7 +979,6 @@
                     }
                 }
 
-                // 2. Step 2 specific: Check visible sub-fields
                 if (currentStep === 1 && isValid) {
                     const activeSubGroup = step.querySelector('.sub-field-group:not(.hidden)');
                     if (activeSubGroup) {
@@ -767,11 +990,10 @@
                             }
                         }
                     } else {
-                        isValid = false; // Program must be selected
+                        isValid = false;
                     }
                 }
 
-                // 3. Step 3 specific: Check Checkboxes
                 if (currentStep === 2 && isValid) {
                     const skillsChecked = step.querySelectorAll('input[name="skills"]:checked').length > 0;
                     const daysChecked = step.querySelectorAll('input[name="days"]:checked').length > 0;
@@ -782,7 +1004,6 @@
                     }
                 }
 
-                // Update Button States
                 if (currentStep === steps.length - 1) {
                     submitBtn.disabled = !isValid;
                     submitBtn.classList.toggle('opacity-50', !isValid);
@@ -794,14 +1015,13 @@
                 }
             }
 
-            // Real-time Event Listeners for all inputs
-            form.querySelectorAll('input, select, textarea').forEach(el => {
+            form.querySelectorAll('input, select, textarea').forEach(function (el) {
                 el.addEventListener('input', validateCurrentStep);
                 el.addEventListener('change', validateCurrentStep);
             });
 
             function updateStepUI() {
-                steps.forEach((step, idx) => {
+                steps.forEach(function (step, idx) {
                     step.classList.toggle('hidden', idx !== currentStep);
                 });
 
@@ -810,13 +1030,13 @@
                 submitBtn.classList.toggle('hidden', currentStep !== steps.length - 1);
 
                 const progress = ((currentStep + 1) / steps.length) * 100;
-                progressBar.style.width = `${progress}%`;
+                progressBar.style.width = progress + '%';
                 currentStepDisplay.textContent = currentStep + 1;
 
                 validateCurrentStep();
             }
 
-            nextBtn.addEventListener('click', () => {
+            nextBtn.addEventListener('click', function () {
                 if (currentStep < steps.length - 1) {
                     currentStep++;
                     updateStepUI();
@@ -824,15 +1044,14 @@
                 }
             });
 
-            prevBtn.addEventListener('click', () => {
+            prevBtn.addEventListener('click', function () {
                 if (currentStep > 0) {
                     currentStep--;
                     updateStepUI();
                 }
             });
 
-            // Form Submission
-            form.addEventListener('submit', (e) => {
+            form.addEventListener('submit', function (e) {
                 e.preventDefault();
                 const formData = new FormData(form);
                 const data = Object.fromEntries(formData.entries());
@@ -841,48 +1060,47 @@
                 const days = Array.from(formData.getAll('days'));
                 const times = Array.from(formData.getAll('times'));
 
-                // Construct WA Message
-                let message = `*PENDAFTARAN PENGAJAR NUQTHAH*\n\n`;
-                message += `*Data Pribadi:*\n`;
-                message += `• Nama: ${data.name}\n`;
-                message += `• WA: ${data.whatsapp}\n`;
-                message += `• Email: ${data.email}\n`;
-                message += `• Fak/Smtr: ${data.faculty} / ${data.semester}\n`;
-                message += `• Domisili: ${data.domicile}\n\n`;
+                let message = '*PENDAFTARAN PENGAJAR NUQTHAH*\n\n';
+                message += '*Data Pribadi:*\n';
+                message += '• Nama: ' + data.name + '\n';
+                message += '• WA: ' + data.whatsapp + '\n';
+                message += '• Email: ' + data.email + '\n';
+                message += '• Fak/Smtr: ' + data.faculty + ' / ' + data.semester + '\n';
+                message += '• Domisili: ' + data.domicile + '\n\n';
 
-                message += `*Pilihan Program:*\n`;
+                message += '*Pilihan Program:*\n';
                 if (data.main_program === 'bimbel') {
-                    message += `• Program: Bimbel Fakultas\n`;
-                    message += `• Fak: ${data.bimbel_fakultas} | Lvl: ${data.bimbel_level}\n`;
-                    message += `• Materi: ${data.bimbel_materi}\n`;
+                    message += '• Program: Bimbel Fakultas\n';
+                    message += '• Fak: ' + data.bimbel_fakultas + ' | Lvl: ' + data.bimbel_level + '\n';
+                    message += '• Materi: ' + data.bimbel_materi + '\n';
                 } else if (data.main_program === 'tafaqquh') {
-                    message += `• Program: Tafaqquh/Ta'shil\n`;
-                    message += `• Kategori: ${data.tafaqquh_category}\n`;
-                    message += `• Materi: ${data.tafaqquh_material}\n`;
+                    message += '• Program: Tafaqquh/Ta\'shil\n';
+                    message += '• Kategori: ' + data.tafaqquh_category + '\n';
+                    message += '• Materi: ' + data.tafaqquh_material + '\n';
                 } else {
-                    message += `• Program: Amiyah Mesir\n`;
-                    message += `• Fokus: ${data.amiyah_focus}\n`;
+                    message += '• Program: Amiyah Mesir\n';
+                    message += '• Fokus: ' + data.amiyah_focus + '\n';
                 }
 
-                message += `\n*Keahlian & Waktu:*\n`;
-                message += `• Pengalaman: ${data.experience} tahun\n`;
-                message += `• Metode Pengajaran : ${skills.join(', ')}\n`;
-                message += `• Hari: ${days.join(', ')}\n`;
-                message += `• Waktu: ${times.join(', ')}\n`;
-                if (data.portfolio) message += `• Portfolio: ${data.portfolio}\n`;
+                message += '\n*Keahlian & Waktu:*\n';
+                message += '• Pengalaman: ' + data.experience + ' tahun\n';
+                message += '• Metode Pengajaran : ' + skills.join(', ') + '\n';
+                message += '• Hari: ' + days.join(', ') + '\n';
+                message += '• Waktu: ' + times.join(', ') + '\n';
+                if (data.portfolio) message += '• Portfolio: ' + data.portfolio + '\n';
 
-                const waUrl = `https://api.whatsapp.com/send?phone=6285185409887&text=${encodeURIComponent(message)}`;
+                const waUrl = 'https://api.whatsapp.com/send?phone=6285185409887&text=' + encodeURIComponent(message);
 
-                // Show Success Modal
                 document.getElementById('success-modal').classList.remove('hidden');
 
-                document.getElementById('close-modal').onclick = () => {
+                document.getElementById('close-modal').onclick = function () {
                     window.open(waUrl, '_blank');
                     document.getElementById('success-modal').classList.add('hidden');
                 };
             });
         });
     </script>
+
 </body>
 
 </html>
