@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- materi.html (tanpa overlay checkout) -->
+<!-- materi.html - Dengan default Tafaqquh & empty state -->
 <html lang="id">
 
 <head>
@@ -9,7 +9,6 @@
 
     <meta name="theme-color" content="#0F4A3A">
     <meta name="apple-mobile-web-app-capable" content="yes">
-
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
     <!-- Favicon -->
@@ -181,8 +180,34 @@
             box-shadow: 0 0 0 4px rgba(15, 74, 58, .08);
         }
 
-        /* Floating Action Button - Bottom Left (WhatsApp) tetap */
-        /* Tidak ada lagi overlay checkout */
+        /* ===== EMPTY STATE UNTUK MATERI KOSONG ===== */
+        #empty-materi-state {
+            transition: opacity 0.3s ease;
+        }
+
+        #empty-materi-state.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #empty-materi-state .empty-icon {
+            font-size: 3.5rem;
+            color: rgba(46, 94, 78, 0.15);
+        }
+
+        #empty-materi-state .empty-title {
+            color: #2E5E4E;
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        #empty-materi-state .empty-desc {
+            color: #6b7280;
+            font-size: 0.9rem;
+            max-width: 360px;
+            margin-left: auto;
+            margin-right: auto;
+        }
     </style>
 </head>
 
@@ -284,7 +309,7 @@
         <div class="fade-in relative z-10 max-w-screen-md mx-auto">
             <h1 class="text-2xl md:text-4xl font-bold text-primary tracking-tight mb-2">Berfikir • Berdzikir • Berhasil
             </h1>
-            <p class="text-accent text-base md:text-lg tracking-[0.2em] font-bold uppercase opacity-90">#SemuaBisaMumtaz
+            <p class="text-accent text-base md:text-lg tracking-[0.2em] font-bold uppercase opacity-90">#raihmumtazmu
             </p>
             <div class="flex justify-center mt-2">
                 <div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-accent/20 to-transparent rounded-full">
@@ -300,15 +325,14 @@
             <div class="flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar gap-4 py-4"
                 id="category-tabs">
                 <button onclick="changeCategory('tafaqquh')"
-                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium bg-primary text-white"
                     data-category="tafaqquh">Tafaqquh</button>
                 <button onclick="changeCategory('syariah')"
-                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium bg-primary text-white"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="syariah">Bimbel Syariah</button>
                 <button onclick="changeCategory('ushul')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="ushul">Bimbel Ushuludin</button>
-
                 <button onclick="changeCategory('tashil')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="tashil">Ilmu Alat</button>
@@ -331,7 +355,30 @@
     <main class="max-w-screen-xl mx-auto px-4 md:px-6 py-8 min-h-[60vh] overflow-hidden">
         <!-- #course-grid begin -->
         <div id="course-grid"
-            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-24 overflow-hidden">
+            class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6 mb-24 overflow-hidden relative">
+
+            <!-- ===== EMPTY STATE (muncul ketika tidak ada card yang tampil) ===== -->
+            <div id="empty-materi-state"
+                class="col-span-full flex flex-col items-center justify-center py-16 px-4 text-center hidden">
+                <div class="empty-icon mb-4">
+                    <i class="fas fa-book-open"></i>
+                </div>
+                <h3 class="empty-title mb-2">Materi Belum Tersedia</h3>
+                <p class="empty-desc">
+                    Materi untuk program ini sedang dalam tahap penyusunan kurikulum.
+                    Silakan cek secara berkala atau hubungi admin untuk informasi terbaru.
+                </p>
+                <div class="mt-6 flex flex-wrap gap-3 justify-center">
+                    <a href="https://wa.me/6285185409887" target="_blank"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white text-sm font-bold rounded-xl hover:bg-green-600 transition-all shadow-md">
+                        <i class="fab fa-whatsapp"></i> Hubungi Admin
+                    </a>
+                    <button onclick="changeCategory('syariah')"
+                        class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary text-sm font-bold rounded-xl hover:bg-primary/20 transition-all">
+                        <i class="fas fa-arrow-left"></i> Lihat Program Lain
+                    </button>
+                </div>
+            </div>
 
             <!-- =============================================================================================
             ==================================================================================================
@@ -347,7 +394,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-tarikh-tasyri" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-tarikh-tasyri" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-tarikh-tasyri" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ea49614b_tarikh%20tasyri'%20s%20tk1.png"
                         alt="Tarikh Tasyri'"
@@ -391,7 +438,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-tafsir-tk1" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-tafsir-tk1" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-tafsir-tk1" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/9be2046f_tafsirtk1.png"
                         alt="Tafsir Ayat Ahkam TK1"
@@ -436,7 +483,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-ulumul-hadits-tk1" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ulumul-hadits-tk1" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ulumul-hadits-tk1" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f195fee1_ulumulhaditstk1.png"
                         alt="'Ulumul Hadits TK1"
@@ -484,7 +531,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-qoul-sadid" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-qoul-sadid" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-qoul-sadid" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ad6de1d3_tauhid s tk 1.png"
                         alt="Qoul Sadid Tk 1"
@@ -527,7 +574,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-qodoya" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-qodoya" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-qodoya" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/abeab27a_qodoya s tk1.png"
                         alt="Qodoya Fiqhiyah"
@@ -571,7 +618,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-ushul-maudhui" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ushul-maudhui" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ushul-maudhui" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/cfebeba0_ushulfiqihmauduitk1.png"
                         alt="Ushul Fiqih Maudhu'i TK1"
@@ -615,7 +662,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-ushul-nashi" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ushul-nashi" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ushul-nashi" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/90868b24_ushulfiqihnashi%20tk1.png"
                         alt="Ushul Nashi TK1"
@@ -660,7 +707,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-fiqih-syafii-maudhui" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-fiqih-syafii-maudhui" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-fiqih-syafii-maudhui" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d51372c8_fiqih sayafii maudhu'i s tk1.png"
                         alt="Fiqih Syafi'i Maudhu'i"
@@ -704,7 +751,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-fiqih-syafii-nashi" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-fiqih-syafii-nashi" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-fiqih-syafii-nashi" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/98d356cd_fiqih sayfii nashi s tk1.png"
                         alt="Fiqih Syafi'i Nashi"
@@ -748,7 +795,7 @@
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-fiqih-muqoron" data-category="syariah" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-fiqih-muqoron" style="display: flex;">
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-fiqih-muqoron" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/92c39c5e_fiqih muqoron s tk1.png"
                         alt="Fiqih Muqoron"
@@ -3934,9 +3981,7 @@
         </div>
     </div>
 
-    <!-- ============================================================
-    UNAVAILABLE MODAL (Materi Belum Dibuka) - dengan tombol tambahan
-    ============================================================ -->
+    <!-- UNAVAILABLE MODAL -->
     <div id="unavailable-modal" class="fixed inset-0 flex items-center justify-center p-4 modal-container hidden">
         <div id="unavailable-overlay" class="absolute inset-0 bg-black/70 backdrop-blur-sm modal-overlay"></div>
         <div class="relative bg-white w-full max-w-sm rounded-3xl overflow-hidden shadow-2xl modal-fade-in p-8 text-center"
@@ -4040,14 +4085,10 @@
         // ================================================================
         function handleDaftar(event, link) {
             if (event) event.preventDefault();
-
-            // Jika link adalah '#' atau kosong, tampilkan modal UNAVAILABLE
             if (!link || link === '#' || link.trim() === '') {
                 showModal('unavailable-modal');
                 return;
             }
-
-            // Jika link valid, arahkan ke link tersebut
             window.location.href = link;
         }
 
@@ -4059,7 +4100,7 @@
         const { createClient } = supabase;
         const supabaseClient = createClient(SUPABASE_URL, SUPABASE_KEY);
 
-        // --- BROADCAST CHANNEL (sinkronisasi dengan index.html) ---
+        // --- BROADCAST CHANNEL ---
         const nuqthahChannel = new BroadcastChannel('nuqthah_sync');
 
         // --- GLOBAL STATE ---
@@ -4144,7 +4185,6 @@
                 });
 
                 console.log('✅ Loaded saved items:', savedItems);
-
                 updateMaterimuUI();
                 nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
             } catch (err) {
@@ -4206,10 +4246,8 @@
                 }
 
                 console.log('✅ Insert success:', data);
-
                 await loadSavedMaterials();
                 toggleDrawer();
-
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_ADDED',
                     item: {
@@ -4262,7 +4300,6 @@
                 }
 
                 await loadSavedMaterials();
-
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_DELETED',
                     recordId: recordId
@@ -4309,7 +4346,6 @@
                 }
 
                 await loadSavedMaterials();
-
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_DELETED',
                     recordId: 'all'
@@ -4371,7 +4407,6 @@
                 }
 
                 console.log('✅ Manual insert success:', data);
-
                 await loadSavedMaterials();
                 nameInput.value = '';
                 urlInput.value = '';
@@ -4541,12 +4576,11 @@
             tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'], prefix: 'tf' },
             syariah: { label: 'Bimbel Syariah', subs: ['Tingkat 1', 'Tingkat 2', 'Tingkat 3'], prefix: 'bs' },
             ushul: { label: 'Bimbel Ushul', subs: ['Tingkat 1', 'Tingkat 2', 'Tingkat 3'], prefix: 'us' },
-
             tashil: { label: "Ta'shil", subs: ['Nahwu', 'Sharaf', 'Balaghah', 'Mantiq'], prefix: 'ts' },
             amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'], prefix: 'am' }
         };
 
-        let currentCategory = 'syariah';
+        let currentCategory = 'tafaqquh'; // ✅ default Tafaqquh
         let currentSubFilter = 'Semua';
 
         window.openLoginModal = function (event) {
@@ -4606,12 +4640,28 @@
 
         function applyFilters() {
             const cards = document.querySelectorAll('.course-card');
+            let visibleCount = 0;
+
             cards.forEach(card => {
                 const matchesCat = card.getAttribute('data-category') === currentCategory;
                 const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') ===
                     currentSubFilter;
-                card.style.display = (matchesCat && matchesSub) ? 'flex' : 'none';
+                const shouldShow = matchesCat && matchesSub;
+                card.style.display = shouldShow ? 'flex' : 'none';
+                if (shouldShow) visibleCount++;
             });
+
+            // Tampilkan/sembunyikan empty state
+            const emptyState = document.getElementById('empty-materi-state');
+            if (emptyState) {
+                if (visibleCount === 0) {
+                    emptyState.classList.remove('hidden');
+                    emptyState.style.display = 'flex';
+                } else {
+                    emptyState.classList.add('hidden');
+                    emptyState.style.display = 'none';
+                }
+            }
         }
 
         // ================================================================
@@ -4671,7 +4721,7 @@
             const catParam = params.get('cat');
             const loginParam = params.get('login');
 
-            let initialCat = 'syariah';
+            let initialCat = 'tafaqquh'; // ✅ default Tafaqquh
             if (catParam && PROGRAMS[catParam]) initialCat = catParam;
 
             changeCategory(initialCat);
@@ -4736,7 +4786,7 @@
                 }
             });
 
-            // --- LISTENER UNTUK PESAN DARI INDEX.HTML ---
+            // Broadcast listener
             nuqthahChannel.addEventListener('message', async function (event) {
                 console.log('📨 Received message from index.html:', event.data);
                 if (event.data?.type === 'MATERIMU_ITEM_ADDED') {
@@ -4757,10 +4807,8 @@
         // Broadcast ready
         nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: 0 });
 
-        console.log('✅ Nuqthah Materi — Fully integrated with Supabase for Materimu.');
+        console.log('✅ Nuqthah Materi — Default kategori Tafaqquh & empty state aktif.');
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
-        console.log('✅ Manual materials (course_id prefix "manual-") TIDAK mempengaruhi shortcut.');
-        console.log('✅ Shortcut materials (course_id prefix "shortcut-") mempengaruhi tombol di index.html.');
     </script>
 
     <script>
