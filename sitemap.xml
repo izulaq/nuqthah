@@ -6,7 +6,7 @@
 
     <!-- ==================== HOME ==================== -->
     <url>
-        <loc>https://nuqthahlearning.my.id/</loc>
+        <loc>https://nuqthahlearning.my.id</loc>
         <lastmod>2026-08-26</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
@@ -18,14 +18,6 @@
         <lastmod>2026-08-26</lastmod>
         <changefreq>daily</changefreq>
         <priority>0.9</priority>
-    </url>
-
-    <!-- ==================== PROGRAM PAGES ==================== -->
-    <url>
-        <loc>https://nuqthahlearning.my.id/afiliator.html</loc>
-        <lastmod>2026-08-26</lastmod>
-        <changefreq>monthly</changefreq>
-        <priority>0.7</priority>
     </url>
 
     <!-- ==================== KNOWLEDGE BASE ==================== -->
