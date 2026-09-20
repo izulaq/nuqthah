@@ -442,7 +442,8 @@
             margin-bottom: 28px;
             line-height: 1.7;
             font-weight: 400;
-            text-align: justify;  /* tambahan untuk rata kanan-kiri */
+            text-align: justify;
+            /* tambahan untuk rata kanan-kiri */
         }
 
         .hero-buttons {
@@ -480,8 +481,11 @@
 
         .hero-visual {
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
+            gap: 30px;
+            width: 100%;
             position: relative;
         }
 
@@ -562,6 +566,118 @@
         }
 
         /* ============================================================
+                   WHATSAPP CHANNEL BUTTON (di bawah slider)
+                ============================================================ */
+        .channel-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            width: fit-content;
+            max-width: 100%;
+            padding: 10px 20px 10px 12px;
+            background: #ffffff;
+            border-radius: 60px;
+            border: 1px solid rgba(37, 211, 102, 0.30);
+            box-shadow: 0 6px 22px rgba(37, 211, 102, 0.14);
+            position: relative;
+            overflow: hidden;
+            isolation: isolate;
+            transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+        }
+
+        .channel-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(37, 211, 102, 0.10), rgba(15, 74, 58, 0.06));
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            z-index: -1;
+        }
+
+        .channel-btn:hover {
+            transform: translateY(-3px);
+            border-color: rgba(37, 211, 102, 0.55);
+            box-shadow: 0 14px 38px rgba(37, 211, 102, 0.26);
+        }
+
+        .channel-btn:hover::before {
+            opacity: 1;
+        }
+
+        .channel-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(37, 211, 102, 0.38);
+        }
+
+        .channel-icon::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid rgba(37, 211, 102, 0.55);
+            animation: channelPulse 2.4s ease-out infinite;
+        }
+
+        @keyframes channelPulse {
+            0% {
+                transform: scale(1);
+                opacity: 0.75;
+            }
+
+            100% {
+                transform: scale(1.75);
+                opacity: 0;
+            }
+        }
+
+        .channel-text {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            min-width: 0;
+        }
+
+        .channel-title {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #0b1a17;
+            line-height: 1.25;
+            letter-spacing: -0.1px;
+        }
+
+        .channel-sub {
+            font-size: 0.73rem;
+            font-weight: 500;
+            color: #6a7a77;
+            line-height: 1.3;
+        }
+
+        .channel-arrow {
+            font-size: 0.82rem;
+            color: #128C7E;
+            margin-left: 2px;
+            flex-shrink: 0;
+            transition: transform 0.3s ease;
+        }
+
+        .channel-btn:hover .channel-arrow {
+            transform: translateX(4px);
+        }
+
+        /* ============================================================
                    TENTANG
                 ============================================================ */
         .tentang {
@@ -629,7 +745,8 @@
             margin-bottom: 16px;
             font-size: 1.02rem;
             line-height: 1.7;
-            text-align: justify;  /* tambahan untuk rata kanan-kiri */
+            text-align: justify;
+            /* tambahan untuk rata kanan-kiri */
         }
 
         .tentang-content p:last-of-type {
@@ -1350,6 +1467,10 @@
                 font-size: 1.35rem;
             }
 
+            .hero-visual {
+                gap: 26px;
+            }
+
             .stack-slider {
                 max-width: 420px;
                 aspect-ratio: 4 / 3;
@@ -1479,6 +1600,7 @@
 
             .hero-visual {
                 margin-top: 4px;
+                gap: 22px;
             }
 
             .stack-slider {
@@ -1649,6 +1771,10 @@
                 font-size: 0.75rem;
             }
 
+            .hero-visual {
+                gap: 18px;
+            }
+
             .stack-slider {
                 aspect-ratio: 3 / 2;
                 border-radius: 16px;
@@ -1669,6 +1795,30 @@
             .stack-slide .slide-message {
                 font-size: 0.82rem;
                 line-height: 1.5;
+            }
+
+            /* Channel button — small mobile */
+            .channel-btn {
+                gap: 10px;
+                padding: 8px 16px 8px 10px;
+            }
+
+            .channel-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 1rem;
+            }
+
+            .channel-title {
+                font-size: 0.82rem;
+            }
+
+            .channel-sub {
+                font-size: 0.68rem;
+            }
+
+            .channel-arrow {
+                font-size: 0.75rem;
             }
 
             .section-title {
@@ -1804,6 +1954,30 @@
             .stack-slide .slide-message {
                 font-size: 0.75rem;
             }
+
+            /* Channel button — very small */
+            .channel-btn {
+                padding: 7px 14px 7px 8px;
+                gap: 8px;
+            }
+
+            .channel-icon {
+                width: 30px;
+                height: 30px;
+                font-size: 0.9rem;
+            }
+
+            .channel-title {
+                font-size: 0.76rem;
+            }
+
+            .channel-sub {
+                display: none;
+            }
+
+            .channel-arrow {
+                display: none;
+            }
         }
 
         /* --- Scroll margin for fixed nav --- */
@@ -1879,13 +2053,13 @@
         <div class="container">
             <div class="hero-content fade-up">
                 <div class="badge-light">
-                    <i class="fas fa-star"></i> Bimbel Muqoror & kajian Kitab Turats
+                    <i class="fas fa-star"></i> Bimbel Muqarrar & kajian Kitab Turats
                 </div>
                 <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span></h1>
                 <p class="hero-desc">
-                    kamu dapat dengan mudah mengikuti bimbel Muqoror Al-Azhar dan Kajian Kitab Turats kapan saja dan
+                    kamu dapat dengan mudah mengakses seluruh materi pembelajaran yang telah disediakan kapan saja dan
                     di
-                    mana saja bersama Nuqtoh🤩.
+                    mana saja bersama Nuqthah🤩.
                 </p>
                 <div class="hero-buttons">
                     <a href="materi.html" class="btn-primary-sm">
@@ -1915,7 +2089,7 @@
                 </div>
             </div>
 
-            <!-- ===== STACK TESTIMONIAL SLIDER ===== -->
+            <!-- ===== STACK TESTIMONIAL SLIDER + CHANNEL BUTTON ===== -->
             <div class="hero-visual fade-up fade-up-delay-1">
                 <div class="stack-slider" id="stackSlider">
                     <!-- Slide 1 -->
@@ -1943,6 +2117,21 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- ===== TOMBOL SALURAN WHATSAPP ===== -->
+                <a href="https://whatsapp.com/channel/0029Vb7wuKJJENy5U07kAP0y" target="_blank" rel="noopener"
+                    class="channel-btn" aria-label="Ikuti Saluran WhatsApp Nuqthah Learning Center">
+                    <span class="channel-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </span>
+                    <span class="channel-text">
+                        <span class="channel-title">Ikuti Saluran WhatsApp</span>
+                        <span class="channel-sub">Info materi &amp; program terbaru</span>
+                    </span>
+                    <span class="channel-arrow">
+                        <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
@@ -1951,7 +2140,7 @@
     <section class="tentang section-padding" id="tentang">
         <div class="container">
             <div class="tentang-visual fade-up">
-                <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/3fe032b3_fiqih%20muqurontk3.png"
+                <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-incredible-kingdom-7517/919a7101_WhatsApp%20Image%202026-09-20%20at%2023.22.13.jpeg"
                     alt="Nuqthah Learning Center"
                     onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-landmark fallback-icon\'></i>'" />
             </div>
@@ -1980,11 +2169,7 @@
                     terarah, mudah, dan bermakna.</p>
             </div>
             <div class="keunggulan-grid">
-                <div class="keunggulan-card fade-up">
-                    <div class="icon"><i class="fas fa-layer-group"></i></div>
-                    <h3>Materi Terstruktur</h3>
-                    <p>Mengikuti kurikulum Al-Azhar secara sistematis.</p>
-                </div>
+
                 <div class="keunggulan-card fade-up fade-up-delay-1">
                     <div class="icon"><i class="fas fa-video"></i></div>
                     <h3>Video Pembelajaran</h3>
@@ -2009,6 +2194,11 @@
                     <div class="icon"><i class="fas fa-wifi"></i></div>
                     <h3>Akses Mudah</h3>
                     <p>Website cepat, ringan, dan mudah difahami.</p>
+                </div>
+                <div class="keunggulan-card fade-up">
+                    <div class="icon"><i class="fas fa-layer-group"></i></div>
+                    <h3>Gabung Sekarang</h3>
+                    <p>Rasakan kemudahan memahami muqarrar & kitab turats</p>
                 </div>
             </div>
         </div>
@@ -2230,7 +2420,7 @@
                 <i class="fab fa-youtube"></i>
                 <span class="tooltip">YouTube</span>
             </a>
-            <a href="nuqthahlearningcenter@gmail.coom" class="btn btn-email" aria-label="Email">
+            <a href="mailto:nuqthahlearningcenter@gmail.com" class="btn btn-email" aria-label="Email">
                 <i class="fas fa-envelope"></i>
                 <span class="tooltip">Email</span>
             </a>
