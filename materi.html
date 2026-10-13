@@ -269,7 +269,7 @@
             <div id="manual-form-container" class="px-5 pb-5 space-y-3 hidden">
                 <input type="text" id="manual-name" placeholder="Nama Materi"
                     class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
-                <input type="url" id="manual-link" placeholder="Link Produk / Akses"
+                <input type="url" id="manual-link" placeholder="Link Produk / Daftar"
                     class="w-full px-3 py-2 text-sm border border-gray-200 rounded-lg focus:outline-none focus:border-primary">
                 <button id="save-manual-btn"
                     class="w-full py-2.5 bg-primary text-white text-xs font-bold rounded-lg shadow-sm">Simpan ke
@@ -378,8 +378,55 @@
             =================================================================================================-->
 
             <!-- =============================================================================================
-            TERMIN 1 
+            TERMIN 1 (online)
             =================================================================================================-->
+
+
+            <!--BUNDLING-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-bundling-tk1" data-category="syariah" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-bundling-tk1" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f195fee1_ulumulhaditstk1.png"
+                        alt="BUNDLING SYARIA'AH TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        SYARIAH Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-bundling-tk1')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">BUNDLING SYARI'AH
+                        TK1 (Online)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Pengajar
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>Paket 4
+                                Maddah</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 325.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
 
             <!--TARIKH TASYRI'-->
 
@@ -398,7 +445,8 @@
                             class="fas fa-plus"></i></button>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
-                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tarikh Tasyri'
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tarikh Tasyri' TK1
+                        (Online)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -414,12 +462,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -443,7 +491,7 @@
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
                     <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tafsir Ayat Ahkam
-                        TK1
+                        (Online)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -459,12 +507,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -487,7 +535,8 @@
                             class="fas fa-plus"></i></button>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
-                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">'Ulumul Hadits TK1
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Mustolah Hadits TK1
+                        (Online)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -503,22 +552,255 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
+            <!--NAHWU SHOROF-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-nahwu-shorof-tk1" data-category="syariah" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-nahwu-shorof-tk1" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f195fee1_ulumulhaditstk1.png"
+                        alt="Nahwu Shorof TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        SYARIAH Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-nahwu-shorof-tk1')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Nahwu Shorof TK1
+                        (Online)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- =============================================================================================
+            TERMIN 1 (offline)
+            =================================================================================================-->
+
+            <!--TARIKH TASYRI'-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-tarikh-tasyri" data-category="syariah" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-tarikh-tasyri" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ea49614b_tarikh%20tasyri'%20s%20tk1.png"
+                        alt="Tarikh Tasyri'"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        SYARIAH Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-tarikh-tasyri')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tarikh Tasyri' TK1
+                        (Offline)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--TAFSIR AYAT AHKAM'-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-tafsir-tk1" data-category="syariah" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-tafsir-tk1" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/9be2046f_tafsirtk1.png"
+                        alt="Tafsir Ayat Ahkam TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        SYARIAH Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-tafsir-tk1')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tafsir Ayat Ahkam
+                        TK1 (Offline)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--ULUMUL HADITS-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-ulumul-hadits-tk1" data-category="syariah" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-ulumul-hadits-tk1" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f195fee1_ulumulhaditstk1.png"
+                        alt="'Ulumul Hadits TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        SYARIAH Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-ulumul-hadits-tk1')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Mustolah Hadits TK1
+                        (Offline)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--NAHWU SHOROF-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-bs-tk1-nahwu-shorof-tk1" data-category="syariah" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-bs-tk1-nahwu-shorof-tk1" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f195fee1_ulumulhaditstk1.png"
+                        alt="Nahwu Shorof TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        SYARIAH Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-bs-tk1-nahwu-shorof-tk1')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Nahwu Shorof TK1
+                        (Offline)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
             <!-- =============================================================================================
             TERMIN 2 
             =================================================================================================-->
 
-            <!--QOUL SADID-->
+            <!--QOUL SADID
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-qoul-sadid" data-category="syariah" data-subfilter="Tingkat 1"
@@ -550,18 +832,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--QODOYA FIQHIYAH-->
+            <!--QODOYA FIQHIYAH
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-qodoya" data-category="syariah" data-subfilter="Tingkat 1"
@@ -594,18 +876,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL FIQIH MAUDHUI-->
+            <!--USHUL FIQIH MAUDHUI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-ushul-maudhui" data-category="syariah" data-subfilter="Tingkat 1"
@@ -638,18 +920,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL FIQIH NASHI-->
+            <!--USHUL FIQIH NASHI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-ushul-nashi" data-category="syariah" data-subfilter="Tingkat 1"
@@ -683,18 +965,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH SYAFI'I MAUDHUI-->
+            <!--FIQIH SYAFI'I MAUDHUI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-fiqih-syafii-maudhui" data-category="syariah" data-subfilter="Tingkat 1"
@@ -727,18 +1009,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH SYAFI'I NASHI-->
+            <!--FIQIH SYAFI'I NASHI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-fiqih-syafii-nashi" data-category="syariah" data-subfilter="Tingkat 1"
@@ -771,18 +1053,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH MUQORON-->
+            <!--FIQIH MUQORON
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk1-fiqih-muqoron" data-category="syariah" data-subfilter="Tingkat 1"
@@ -814,12 +1096,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -835,7 +1117,7 @@
             TERMIN 1
             =================================================================================================-->
 
-            <!--QOUL SADID-->
+            <!--QOUL SADID-
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-qoul-sadid" data-category="syariah" data-subfilter="Tingkat 2"
@@ -867,18 +1149,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--QODOYA FIQHIYAH-->
+            <!--QODOYA FIQHIYAH
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-qadaya-fiqhiyyah" data-category="syariah" data-subfilter="Tingkat 2"
@@ -911,18 +1193,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--TAFSIR AYAT AHKAM-->
+            <!--TAFSIR AYAT AHKAM
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-tafsir-ayat-ahkam" data-category="syariah" data-subfilter="Tingkat 2"
@@ -955,12 +1237,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -970,7 +1252,7 @@
             TERMIN 2
             =================================================================================================-->
 
-            <!--HADITS AHKAM-->
+            <!--HADITS AHKAM
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-hadits-ahkam" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1002,18 +1284,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH MUQORON-->
+            <!--FIQIH MUQORON
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-fiqh-muqaran" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1045,18 +1327,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL FIQIH MAUDHUI-->
+            <!--USHUL FIQIH MAUDHUI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-ushul-fiqh-maudhui" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1089,18 +1371,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL FIQIH NASHI-->
+            <!--USHUL FIQIH NASHI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-ushul-fiqh-nashi" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1133,18 +1415,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH SYAFI'I MAUDHUI-->
+            <!--FIQIH SYAFI'I MAUDHUI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-fiqh-syafii-tk2" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1177,18 +1459,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH SYAFI'I NASHI-->
+            <!--FIQIH SYAFI'I NASHI
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-fiqh-syafii-nashi-tk2" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1221,18 +1503,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--AHWAL SYAKHSIYAH-->
+            <!--AHWAL SYAKHSIYAH
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk2-ahwal-syakhsiyyah" data-category="syariah" data-subfilter="Tingkat 2"
@@ -1265,12 +1547,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -1286,7 +1568,7 @@
             TERMIN 1
             =================================================================================================-->
 
-            <!--AHWAL SYAKHSIYAH -->
+            <!--AHWAL SYAKHSIYAH 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-ahwal-syakhsiyyah" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1319,18 +1601,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--ADAB WAL BALAGHAH -->
+            <!--ADAB WAL BALAGHAH 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-adab-balaghah" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1363,18 +1645,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--TAFSIR AYAT AHKAM -->
+            <!--TAFSIR AYAT AHKAM 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-tafsir" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1407,18 +1689,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--MANHAJ DA'WAH -->
+            <!--MANHAJ DA'WAH 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-manhaj-dawah" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1451,12 +1733,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -1466,7 +1748,7 @@
             TERMIN 2
             =================================================================================================-->
 
-            <!--HADITS AHKAM -->
+            <!--HADITS AHKAM 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-hadits-ahkam" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1499,18 +1781,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--QODOYA FIQHIYAH -->
+            <!--QODOYA FIQHIYAH 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-qadaya-fiqhiyyah" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1543,18 +1825,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL FIQIH MAUDHUI -->
+            <!--USHUL FIQIH MAUDHUI 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-ushul-fiqh-maudhui" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1587,18 +1869,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL FIQIH NASHI -->
+            <!--USHUL FIQIH NASHI 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-ushul-fiqh-nashi" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1631,18 +1913,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH SYAFII MAUDHUI -->
+            <!--FIQIH SYAFII MAUDHUI 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-fiqh-syafii-maudhui" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1675,18 +1957,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH SYAFII NASHI -->
+            <!--FIQIH SYAFII NASHI 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-fiqh-syafii-nashi" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1719,18 +2001,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--FIQIH MUQORON -->
+            <!--FIQIH MUQORON 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-bs-tk3-fiqh-muqaran" data-category="syariah" data-subfilter="Tingkat 3"
@@ -1763,12 +2045,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -1781,8 +2063,55 @@
             =================================================================================================-->
 
             <!-- =============================================================================================
-            TINGKAT 1 TERMIN 1
+            TINGKAT 1 TERMIN 1 (ONLINE)
             =================================================================================================-->
+
+            <!--BUNDLING-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-bundling-ushul" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-bundling-ushul" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ac2d3750_ulumqurantk1.png"
+                        alt="'bundling ushul TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-bundling-ushul')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Bundling Ushuluddin
+                        TK1 (ONLINE)
+                        TK1
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Pengajar
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>Paket 5
+                                Maddah</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 405.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
 
             <!--FIQIH -->
 
@@ -1802,6 +2131,7 @@
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
                     <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Fiqih Syafi'i TK1
+                        (ONLINE)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -1817,12 +2147,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -1845,7 +2175,7 @@
                             class="fas fa-plus"></i></button>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
-                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Mantiq TK1
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Mantiq TK1 (ONLINE)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -1861,35 +2191,36 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--TARIKH SUNNAH -->
+            <!--NUZHUM ISLAMIYAH -->
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
-                data-id="nlc-us-tk1-tarikh-sunnah" data-category="ushul" data-subfilter="Tingkat 1"
-                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-tarikh-sunnah" style="display: none;">
+                data-id="nlc-ni-tk1-nuzhum-islamiyah" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-ni-tk1-nuzhum-islamiyah" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
-                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/beb26ceb_tarikhsunnahtk1.png"
-                        alt="Tarikh Sunnah TK1"
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/c63bbe88_mantiqutk1.png"
+                        alt="Nuzhum Islamiyah TK1"
                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     <div
                         class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
                         ushul Tk 1</div>
-                    <button onclick="saveToMaterimu('nlc-us-tk1-tarikh-sunnah')"
+                    <button onclick="saveToMaterimu('nlc-ni-tk1-nuzhum-islamiyah')"
                         class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
                             class="fas fa-plus"></i></button>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
-                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Tarikh Sunnah TK1
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Nuzhum Islamiyah TK1
+                        (ONLINE)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -1905,12 +2236,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -1934,6 +2265,7 @@
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
                     <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">'Ulumul Qur'an TK1
+                        (ONLINE)
                     </h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -1949,22 +2281,297 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
+            <!--NAHWU-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-nahwu-ushul" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-nahwu-ushul" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ac2d3750_ulumqurantk1.png"
+                        alt="'Nahwu TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-nahwu-ushul')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Nahwu Shorof TK1
+                        (ONLINE)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- =============================================================================================
+            TINGKAT 1 TERMIN 1 (OFFLINE)
+            =================================================================================================-->
+
+            <!--FIQIH -->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-fiqih" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-fiqih" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/3ce3e83e_fiqihsyafiiutk1.png"
+                        alt="Fiqih Syafi'i TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-fiqih')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Fiqih Syafi'i TK1
+                        (OFFLINE)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--MANTIQ -->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-mantiq" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-mantiq" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/c63bbe88_mantiqutk1.png"
+                        alt="Mantiq TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-mantiq')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Mantiq TK1 (OFFLINE)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--NUZHUM ISLAMIYAH -->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-ni-tk1-nuzhum-islamiyah" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-ni-tk1-nuzhum-islamiyah" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/c63bbe88_mantiqutk1.png"
+                        alt="Nuzhum Islamiyah TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-ni-tk1-nuzhum-islamiyah')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Nuzhum Islamiyah TK1
+                        (OFFLINE)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--ULUMUL QURAN -->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-ulumul-quran" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-ulumul-quran" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ac2d3750_ulumqurantk1.png"
+                        alt="'Ulumul Qur'an TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-ulumul-quran')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">'Ulumul Qur'an TK1
+                        (OFFLINE)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!--NAHWU-->
+
+            <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
+                data-id="nlc-us-tk1-nahwu-ushul" data-category="ushul" data-subfilter="Tingkat 1"
+                data-review="https://nuqthah.myr.id/review/nlc-us-tk1-nahwu-ushul" style="display: none;">
+                <div class="relative overflow-hidden group aspect-[4/3]">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/ac2d3750_ulumqurantk1.png"
+                        alt="'Nahwu TK1"
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
+                    <div
+                        class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
+                        ushul Tk 1</div>
+                    <button onclick="saveToMaterimu('nlc-us-tk1-nahwu-ushul')"
+                        class="absolute top-2 right-2 z-20 w-8 h-8 bg-white text-primary rounded-md flex items-center justify-center shadow-md hover:bg-gray-100 transition-colors font-bold text-lg"><i
+                            class="fas fa-plus"></i></button>
+                </div>
+                <div class="p-4 flex flex-col flex-grow">
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Nahwu shorof TK1
+                        (OFFLINE)
+                    </h3>
+                    <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
+                        <div class="flex items-center"><i
+                                class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i><span>Asatidzah
+                                Nuqthah</span></div>
+                        <div class="flex items-center"><i
+                                class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i><span>12 Sesi</span>
+                        </div>
+                        <div class="flex items-center"><i
+                                class="fas fa-book-open mr-2 text-primary w-3 text-center"></i><span>Termin
+                                1</span>
+                        </div>
+                    </div>
+                    <div class="mt-auto">
+                        <div class="flex flex-col mb-2">
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
+                            <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
+                                Mayar</span>
+                        </div>
+                        <a href="#" onclick="handleDaftar(event, '#')"
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
+                            <i class="fas fa-arrow-right text-[8px]"></i></a>
+                    </div>
+                </div>
+            </div>
+
+
             <!-- =============================================================================================
             TINGKAT 1 TERMIN 2
             =================================================================================================-->
 
-            <!--QOUL SADID -->
+            <!--QOUL SADID 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-qoul-sadid" data-category="ushul" data-subfilter="Tingkat 1"
@@ -1997,18 +2604,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--HADITS TAHLILY -->
+            <!--HADITS TAHLILY 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-hadits-tahlili" data-category="ushul" data-subfilter="Tingkat 1"
@@ -2041,18 +2648,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--TASAWUF -->
+            <!--TASAWUF 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-tasawuf" data-category="ushul" data-subfilter="Tingkat 1"
@@ -2084,18 +2691,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--MILAL WA NIHAL -->
+            <!--MILAL WA NIHAL 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-milal-wa-nihal" data-category="ushul" data-subfilter="Tingkat 1"
@@ -2128,18 +2735,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--USHUL DA'WAH -->
+            <!--USHUL DA'WAH 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-ushul-dawah" data-category="ushul" data-subfilter="Tingkat 1"
@@ -2172,18 +2779,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--QISOS QURAN -->
+            <!--QISOS QURAN 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-qisos-quran" data-category="ushul" data-subfilter="Tingkat 1"
@@ -2216,18 +2823,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!--ULUMUL HADITS -->
+            <!--ULUMUL HADITS 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk1-ulumul-hadits" data-category="ushul" data-subfilter="Tingkat 1"
@@ -2260,12 +2867,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -2281,7 +2888,7 @@
             TINGKAT 2 TERMIN 1
             =================================================================================================-->
 
-            <!--FALSAFAH AMMAH TK2-->
+            <!--FALSAFAH AMMAH TK2
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-falsafah-amah" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2314,18 +2921,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- FIQIH SYAFII TK2 -->
+            <!-- FIQIH SYAFII TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-fiqih-syafii" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2358,18 +2965,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- MANTIQ TK2 -->
+            <!-- MANTIQ TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-mantiq" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2402,18 +3009,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- SYUBUHAT HAULAL HADITS TK2 -->
+            <!-- SYUBUHAT HAULAL HADITS TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-syubuhat-hadits" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2447,18 +3054,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- ULUMUL QURAN TK2 -->
+            <!-- ULUMUL QURAN TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-ulumul-quran" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2491,18 +3098,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- ADAB WAL BALAGHAH TK2 -->
+            <!-- ADAB WAL BALAGHAH TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-adab-wa-albalaghah" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2535,18 +3142,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- TAFSIR TAHLILY TK2 -->
+            <!-- TAFSIR TAHLILY TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-tafsir-tahlily" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2579,18 +3186,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- QOUL SADID TK2 -->
+            <!-- QOUL SADID TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-qoul-sadid" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2622,18 +3229,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- AKHLAK ISLAMIYAH TK2 -->
+            <!-- AKHLAK ISLAMIYAH TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-akhlak" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2666,18 +3273,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- ULUMUL HADITS TK2 -->
+            <!-- ULUMUL HADITS TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-ulumul-hadits" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2710,18 +3317,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- TAYYARAT FIKRIYAH TK2 -->
+            <!-- TAYYARAT FIKRIYAH TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-tayyar-fikriyah" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2755,18 +3362,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- SYUBUHAT HAULAL QURAN TK2 -->
+            <!-- SYUBUHAT HAULAL QURAN TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-syubuhat-quran" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2800,18 +3407,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- HADITS TAHLILY TK2 -->
+            <!-- HADITS TAHLILY TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-hadits-tahlily" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2844,18 +3451,18 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
             </div>
 
-            <!-- NUZUM ISLAMIYAH TK2 -->
+            <!-- NUZUM ISLAMIYAH TK2 
 
             <div class="course-card card-hover bg-white rounded-2xl overflow-hidden border border-gray-100 flex flex-col h-full fade-in"
                 data-id="nlc-us-tk2-nuzum-islamiyah" data-category="ushul" data-subfilter="Tingkat 2"
@@ -2888,12 +3495,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -2935,12 +3542,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -2978,12 +3585,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3019,12 +3626,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3061,12 +3668,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3102,12 +3709,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3144,12 +3751,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3186,12 +3793,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3228,12 +3835,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3270,12 +3877,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3312,12 +3919,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3354,12 +3961,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3419,7 +4026,7 @@
                         </div>
                         <a href="https://nuqthahlearning.myr.id/course/kitab-bughyatul-bahits-mandzumah-arrahabiyyah"
                             onclick="handleDaftar(event, 'https://nuqthahlearning.myr.id/course/kitab-bughyatul-bahits-mandzumah-arrahabiyyah')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3467,7 +4074,7 @@
                         </div>
                         <a href="https://nuqthahlearning.myr.id/course/daurah-kitab-syarhu-al-rahabiyyah-karya-sibth-al-mardiiny"
                             onclick="handleDaftar(event, 'https://nuqthahlearning.myr.id/course/daurah-kitab-syarhu-al-rahabiyyah-karya-sibth-al-mardiiny')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3510,7 +4117,7 @@
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3553,7 +4160,7 @@
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3605,7 +4212,7 @@
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3650,7 +4257,7 @@
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3695,7 +4302,7 @@
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3741,7 +4348,7 @@
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3788,12 +4395,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3834,12 +4441,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3880,12 +4487,12 @@
                     </div>
                     <div class="mt-auto">
                         <div class="flex flex-col mb-2">
-                            <span class="text-primary font-bold text-base">Rp 95.000</span>
+                            <span class="text-primary font-bold text-base">Rp 90.000</span>
                             <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via
                                 Mayar</span>
                         </div>
                         <a href="#" onclick="handleDaftar(event, '#')"
-                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Akses
+                            class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">Daftar
                             <i class="fas fa-arrow-right text-[8px]"></i></a>
                     </div>
                 </div>
@@ -3967,7 +4574,7 @@
                         3</div>
                     <div>
                         <h4 class="text-sm font-bold text-gray-800">Daftar &amp; Belajar</h4>
-                        <p class="text-xs text-gray-500 mt-0.5">Selesaikan pendaftaran melalui Mayar untuk akses instan
+                        <p class="text-xs text-gray-500 mt-0.5">Selesaikan pendaftaran melalui Mayar untuk Daftar instan
                             via Aplikasi.</p>
                     </div>
                 </div>
@@ -4016,17 +4623,17 @@
                     <i class="fas fa-circle-info text-3xl text-accent"></i>
                 </div>
                 <h2 class="text-xl font-bold">Sebelum Login</h2>
-                <p class="text-xs opacity-80 mt-1 uppercase tracking-widest font-medium">Informasi Penting Akses Materi
+                <p class="text-xs opacity-80 mt-1 uppercase tracking-widest font-medium">Informasi Penting Daftar Materi
                 </p>
             </div>
             <div class="p-6">
                 <p class="text-sm text-gray-600 leading-relaxed text-center mb-6">
                     Sebelum login, pastikan kamu sudah membeli materi atau produk yang ingin dipelajari. Jika pembelian
                     sudah berhasil, silakan login menggunakan akun yang digunakan saat melakukan pembelian. Setelah
-                    login, sistem akan mengirimkan link akses materi ke email yang terdaftar. Selanjutnya, salin (copy)
+                    login, sistem akan mengirimkan link Daftar materi ke email yang terdaftar. Selanjutnya, salin (copy)
                     link tersebut, lalu buka menu Materimu dan gunakan fitur "Tambah Materi dari Link" untuk menambahkan
                     materi ke akunmu. Dengan begitu, semua materi yang telah dibeli akan tersimpan dan lebih mudah
-                    diakses kapan saja. Selamat belajar dan semoga sukses! 📚✨
+                    diDaftar kapan saja. Selamat belajar dan semoga sukses! 📚✨
                 </p>
                 <div class="space-y-3">
                     <a href="https://nuqthahlearning.myr.id/portal"
@@ -4081,7 +4688,7 @@
 
     <script>
         // ================================================================
-        // 1. FUNGSI HANDLE DAFTAR (DIPANGGIL SAAT TOMBOL AKSES DIKLIK)
+        // 1. FUNGSI HANDLE DAFTAR (DIPANGGIL SAAT TOMBOL Daftar DIKLIK)
         // ================================================================
         function handleDaftar(event, link) {
             if (event) event.preventDefault();
