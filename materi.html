@@ -208,6 +208,11 @@
             margin-left: auto;
             margin-right: auto;
         }
+
+        /* ===== ONLINE/OFFLINE FILTER BAR ===== */
+        #online-offline-filter {
+            -webkit-overflow-scrolling: touch;
+        }
     </style>
 </head>
 
@@ -339,6 +344,14 @@
         <div class="max-w-screen-xl mx-auto px-6 overflow-x-auto hide-scrollbar flex items-center justify-start md:justify-center gap-3"
             id="sub-filter-container">
             <!-- Sub-filters are injected by JS -->
+        </div>
+    </div>
+
+    <!-- Online/Offline Filter Bar (Non-Sticky) -->
+    <div class="bg-primary/5 border-b border-gray-100 py-3 z-[48]">
+        <div class="max-w-screen-xl mx-auto px-6 overflow-x-auto hide-scrollbar flex items-center justify-start md:justify-center gap-3"
+            id="online-offline-filter">
+            <!-- Online/Offline filters are injected by JS -->
         </div>
     </div>
 
@@ -5189,6 +5202,7 @@
 
         let currentCategory = 'tafaqquh'; // ✅ default Tafaqquh
         let currentSubFilter = 'Semua';
+        let currentMode = 'Semua'; // ✅ 'Semua' | 'Online' | 'Offline'
 
         window.openLoginModal = function (event) {
             if (event) event.preventDefault();
@@ -5200,6 +5214,7 @@
 
             currentCategory = categoryKey;
             currentSubFilter = 'Semua';
+            currentMode = 'Semua'; // ✅ reset mode saat ganti kategori
 
             document.querySelectorAll('.nav-tab').forEach(tab => {
                 const isActive = tab.getAttribute('data-category') === categoryKey;
@@ -5208,6 +5223,7 @@
             });
 
             renderSubFilters();
+            renderOnlineOfflineFilter();
             applyFilters();
 
             const activeTab = document.querySelector(`.nav-tab[data-category="${categoryKey}"]`);
@@ -5245,6 +5261,38 @@
             });
         }
 
+        // ================================================================
+        // 13b. RENDER ONLINE/OFFLINE FILTER
+        // ================================================================
+        function renderOnlineOfflineFilter() {
+            const container = document.getElementById('online-offline-filter');
+            if (!container) return;
+
+            const modes = [
+                { key: 'Semua', icon: 'fas fa-globe' },
+                { key: 'Online', icon: 'fas fa-wifi' },
+                { key: 'Offline', icon: 'fas fa-building' }
+            ];
+
+            container.innerHTML = '';
+            modes.forEach(mode => {
+                const btn = document.createElement('button');
+                btn.innerHTML = `<i class="${mode.icon} mr-1.5 text-[10px]"></i><span>${mode.key}</span>`;
+                btn.className =
+                    `px-4 py-1.5 rounded-full text-[11px] font-semibold whitespace-nowrap border transition-all inline-flex items-center ${currentMode === mode.key ? 'bg-primary text-white border-primary' : 'bg-white text-gray-600 border-gray-200 hover:border-primary/40'}`;
+                btn.onclick = (e) => {
+                    e.preventDefault();
+                    currentMode = mode.key;
+                    renderOnlineOfflineFilter();
+                    applyFilters();
+                };
+                container.appendChild(btn);
+            });
+        }
+
+        // ================================================================
+        // 13c. APPLY FILTERS (kategori + subfilter + mode Online/Offline)
+        // ================================================================
         function applyFilters() {
             const cards = document.querySelectorAll('.course-card');
             let visibleCount = 0;
@@ -5253,7 +5301,20 @@
                 const matchesCat = card.getAttribute('data-category') === currentCategory;
                 const matchesSub = currentSubFilter === 'Semua' || card.getAttribute('data-subfilter') ===
                     currentSubFilter;
-                const shouldShow = matchesCat && matchesSub;
+
+                // Deteksi mode dari judul h3 (tanpa mengubah HTML kartu)
+                const title = (card.querySelector('h3')?.innerText || '').trim();
+                const isOnline = /\(online\)/i.test(title);
+                const isOffline = /\(offline\)/i.test(title);
+
+                let matchesMode = true;
+                if (currentMode === 'Online') {
+                    matchesMode = isOnline;
+                } else if (currentMode === 'Offline') {
+                    matchesMode = isOffline;
+                }
+
+                const shouldShow = matchesCat && matchesSub && matchesMode;
                 card.style.display = shouldShow ? 'flex' : 'none';
                 if (shouldShow) visibleCount++;
             });
@@ -5331,7 +5392,7 @@
             let initialCat = 'tafaqquh'; // ✅ default Tafaqquh
             if (catParam && PROGRAMS[catParam]) initialCat = catParam;
 
-            changeCategory(initialCat);
+            changeCategory(initialCat); // otomatis render subfilter + online/offline + applyFilters
 
             // Event bindings
             document.getElementById('materimu-toggle-btn').onclick = toggleDrawer;
@@ -5416,6 +5477,7 @@
 
         console.log('✅ Nuqthah Materi — Default kategori Tafaqquh & empty state aktif.');
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
+        console.log('✅ Filter Online/Offline aktif di bawah sub-filter.');
     </script>
 
     <script>
