@@ -34,7 +34,7 @@
 
     <style>
         /* ============================================================
-           RESET & BASE (dari index.html)
+           RESET & BASE
            ============================================================ */
         *,
         *::before,
@@ -80,7 +80,7 @@
         }
 
         /* ============================================================
-           NAVBAR — LIGHT VERSION (dari index.html)
+           NAVBAR
            ============================================================ */
         .navbar {
             position: fixed;
@@ -222,9 +222,6 @@
             transition: all 0.3s ease;
         }
 
-        /* ============================================================
-           RESPONSIVE NAVBAR
-           ============================================================ */
         @media (max-width: 768px) {
             .navbar .nav-links {
                 display: none;
@@ -263,7 +260,248 @@
         }
 
         /* ============================================================
-           KONTEN UTAMA (dari materi-tersedia.html lama)
+           FILTER CARD
+           ============================================================ */
+        .filter-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f7faf9 100%);
+            border: 1px solid rgba(46, 94, 78, 0.08);
+            border-radius: 20px;
+            padding: 18px 20px;
+            box-shadow: 0 8px 30px -12px rgba(46, 94, 78, 0.15),
+                0 2px 6px -2px rgba(46, 94, 78, 0.06);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #2E5E4E 0%, #C9A227 50%, #2E5E4E 100%);
+            opacity: 0.85;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
+            align-items: end;
+        }
+
+        @media (min-width: 640px) {
+            .filter-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .filter-grid {
+                grid-template-columns: 2.2fr 2.2fr 2.8fr 3fr;
+            }
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            min-width: 0;
+        }
+
+        .filter-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.09em;
+            color: #2E5E4E;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding-left: 2px;
+        }
+
+        .filter-label i {
+            color: #C9A227;
+            font-size: 0.72rem;
+        }
+
+        .filter-select {
+            border: 1.5px solid rgba(46, 94, 78, 0.14);
+            border-radius: 12px;
+            padding: 10px 38px 10px 14px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            background-color: #ffffff;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232E5E4E' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            background-size: 14px;
+            appearance: none;
+            -webkit-appearance: none;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            color: #0b1a17;
+            width: 100%;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-select:hover {
+            border-color: rgba(46, 94, 78, 0.35);
+            background-color: #fbfdfc;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: #2E5E4E;
+            box-shadow: 0 0 0 4px rgba(46, 94, 78, 0.1);
+            background-color: #ffffff;
+        }
+
+        /* Mode Pills */
+        .mode-pills {
+            display: flex;
+            gap: 4px;
+            background: #eef3f1;
+            padding: 4px;
+            border-radius: 12px;
+            border: 1.5px solid rgba(46, 94, 78, 0.08);
+            overflow: hidden;
+        }
+
+        .mode-pill {
+            flex: 1;
+            padding: 8px 8px;
+            border-radius: 9px;
+            font-size: 0.72rem;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            background: transparent;
+            color: #6b7280;
+            transition: all 0.22s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            white-space: nowrap;
+            font-family: 'Inter', sans-serif;
+            letter-spacing: 0.01em;
+        }
+
+        .mode-pill i {
+            font-size: 0.68rem;
+        }
+
+        .mode-pill:hover {
+            color: #2E5E4E;
+            background: rgba(255, 255, 255, 0.7);
+        }
+
+        .mode-pill.active {
+            background: linear-gradient(135deg, #2E5E4E 0%, #0F4A3A 100%);
+            color: #ffffff;
+            box-shadow: 0 3px 10px rgba(46, 94, 78, 0.3);
+        }
+
+        .mode-pill.active i {
+            color: #C9A227;
+        }
+
+        /* Search input */
+        .search-input-wrap {
+            position: relative;
+        }
+
+        .search-input-wrap>i {
+            position: absolute;
+            left: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #C9A227;
+            font-size: 0.82rem;
+            pointer-events: none;
+        }
+
+        .search-input {
+            border: 1.5px solid rgba(46, 94, 78, 0.14);
+            border-radius: 12px;
+            padding: 10px 14px 10px 38px;
+            font-size: 0.85rem;
+            width: 100%;
+            background: #ffffff;
+            transition: all 0.2s ease;
+            font-family: 'Inter', sans-serif;
+            color: #0b1a17;
+        }
+
+        .search-input::placeholder {
+            color: #9ca3af;
+            font-weight: 400;
+        }
+
+        .search-input:hover {
+            border-color: rgba(46, 94, 78, 0.3);
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #2E5E4E;
+            box-shadow: 0 0 0 4px rgba(46, 94, 78, 0.1);
+        }
+
+        /* Result badge */
+        .filter-footer {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed rgba(46, 94, 78, 0.12);
+        }
+
+        .filter-footer-text {
+            font-size: 0.72rem;
+            color: #6b7280;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .filter-footer-text i {
+            color: #C9A227;
+        }
+
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 7px 14px;
+            background: linear-gradient(135deg, #2E5E4E 0%, #0F4A3A 100%);
+            color: #ffffff;
+            border-radius: 11px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(46, 94, 78, 0.25);
+            letter-spacing: 0.02em;
+        }
+
+        .result-badge i {
+            color: #C9A227;
+            font-size: 0.75rem;
+        }
+
+        .result-badge #resultCount {
+            color: #C9A227;
+            font-weight: 800;
+        }
+
+        /* ============================================================
+           CARD STYLES
            ============================================================ */
         .hide-scrollbar::-webkit-scrollbar {
             display: none;
@@ -311,59 +549,31 @@
             overflow: hidden;
         }
 
-        .filter-bar {
-            background: white;
-            border-bottom: 1px solid #e5e7eb;
-            padding: 0.75rem 1rem;
-            display: flex;
-            flex-wrap: wrap;
-            align-items: center;
-            gap: 0.75rem;
+        /* ============================================================
+           EMPTY STATE
+           ============================================================ */
+        #empty-state .empty-icon {
+            font-size: 3.5rem;
+            color: rgba(46, 94, 78, 0.15);
         }
 
-        .filter-bar select,
-        .filter-bar input {
-            border: 1px solid #e5e7eb;
-            border-radius: 9999px;
-            padding: 0.4rem 1rem;
-            font-size: 0.875rem;
-            background: white;
-            outline: none;
-            transition: border 0.2s;
+        #empty-state .empty-title {
+            color: #2E5E4E;
+            font-weight: 700;
+            font-size: 1.1rem;
         }
 
-        .filter-bar select:focus,
-        .filter-bar input:focus {
-            border-color: #2E5E4E;
+        #empty-state .empty-desc {
+            color: #6b7280;
+            font-size: 0.9rem;
+            max-width: 420px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .filter-bar input {
-            flex: 1;
-            min-width: 180px;
-        }
-
-        .filter-bar label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: #4b5563;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        @media (max-width: 640px) {
-            .filter-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-
-            .filter-bar>div {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.5rem;
-                align-items: center;
-            }
-        }
-
+        /* ============================================================
+           FAB
+           ============================================================ */
         .fab-container {
             position: fixed;
             bottom: 24px;
@@ -397,14 +607,44 @@
             background: #25D366;
         }
 
+        /* ============================================================
+           LOADING / DEBUG
+           ============================================================ */
+        #loading-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 64px 16px;
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        #loading-state .spinner {
+            width: 42px;
+            height: 42px;
+            border: 3px solid rgba(46, 94, 78, 0.15);
+            border-top-color: #2E5E4E;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin-bottom: 16px;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
         #debug-info {
             background: #f8f9fa;
             border: 1px solid #e5e7eb;
-            border-radius: 8px;
+            border-radius: 12px;
             padding: 12px 16px;
             margin-bottom: 16px;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             color: #374151;
+            display: none;
         }
 
         #debug-info strong {
@@ -423,7 +663,7 @@
 
 <body>
 
-    <!-- ===== NAVBAR — SAMA DENGAN INDEX.HTML ===== -->
+    <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
             <a href="index.html" class="logo">
@@ -433,7 +673,7 @@
                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
                 </span>
                 <span class="logo-text">Nuqthah Learning Center</span>
-                <span class="logo-text-sm">Nuqthah Learning Center</span>
+                <span class="logo-text-sm">Nuqthah</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -445,7 +685,7 @@
                 <li><a href="#kontak">Kontak</a></li>
                 <li><a href="formpengajar.html">Pengajar</a></li>
             </ul>
-            
+
             <div class="nav-actions">
                 <a href="materi.html" class="btn-nav">Mulai Belajar</a>
                 <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -460,36 +700,108 @@
 
         <header class="py-4 text-center">
             <h1 class="text-2xl md:text-3xl font-bold text-primary">📚 Materi Tersedia</h1>
-            <p class="text-sm text-gray-500 mt-1">Semua materi yang siap diakses langsung</p>
+            <p class="text-sm text-gray-500 mt-1">Semua materi yang siap didaftar langsung</p>
         </header>
 
-        <div id="debug-info" class="hidden"></div>
+        <div id="debug-info"></div>
 
-        <div class="filter-bar rounded-xl shadow-sm mb-6">
-            <div class="flex items-center gap-2 flex-wrap">
-                <label for="programFilter">Program</label>
-                <select id="programFilter" class="min-w-[140px]">
-                    <option value="all">Semua Program</option>
-                </select>
+        <!-- ===== FILTER CARD ===== -->
+        <div class="filter-card mb-6">
+            <div class="filter-grid">
+
+                <!-- Program -->
+                <div class="filter-group">
+                    <label class="filter-label" for="programFilter">
+                        <i class="fas fa-layer-group"></i>Program
+                    </label>
+                    <select id="programFilter" class="filter-select">
+                        <option value="all">Semua Program</option>
+                    </select>
+                </div>
+
+                <!-- Sub Program -->
+                <div class="filter-group">
+                    <label class="filter-label" for="subFilter">
+                        <i class="fas fa-bookmark"></i>Sub Program
+                    </label>
+                    <select id="subFilter" class="filter-select">
+                        <option value="all">Semua Sub</option>
+                    </select>
+                </div>
+
+                <!-- Mode Online/Offline -->
+                <div class="filter-group">
+                    <label class="filter-label">
+                        <i class="fas fa-wifi"></i>Mode Belajar
+                    </label>
+                    <div class="mode-pills" id="modePills">
+                        <button type="button" class="mode-pill active" data-mode="Semua">
+                            <i class="fas fa-globe"></i><span>Semua</span>
+                        </button>
+                        <button type="button" class="mode-pill" data-mode="Online">
+                            <i class="fas fa-wifi"></i><span>Online</span>
+                        </button>
+                        <button type="button" class="mode-pill" data-mode="Offline">
+                            <i class="fas fa-building"></i><span>Offline</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Search -->
+                <div class="filter-group">
+                    <label class="filter-label" for="searchInput">
+                        <i class="fas fa-search"></i>Cari Materi
+                    </label>
+                    <div class="search-input-wrap">
+                        <i class="fas fa-search"></i>
+                        <input type="text" id="searchInput" placeholder="Cari judul, pengajar, atau program..."
+                            class="search-input" />
+                    </div>
+                </div>
+
             </div>
-            <div class="flex items-center gap-2 flex-wrap">
-                <label for="subFilter">Sub</label>
-                <select id="subFilter" class="min-w-[120px]">
-                    <option value="all">Semua Sub</option>
-                </select>
+
+            <!-- Footer filter -->
+            <div class="filter-footer">
+                <span class="filter-footer-text">
+                    <i class="fas fa-filter"></i>
+                    <span>Menampilkan hasil filter yang sesuai</span>
+                </span>
+                <span class="result-badge">
+                    <i class="fas fa-check-circle"></i>
+                    <span id="resultCount">0</span> materi
+                </span>
             </div>
-            <div class="flex-1 min-w-[180px]">
-                <input type="text" id="searchInput" placeholder="Cari materi..." class="w-full" />
-            </div>
-            <div class="text-sm text-gray-500" id="resultCount">0 materi</div>
         </div>
 
+        <!-- ===== GRID ===== -->
         <div id="course-grid" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6"></div>
 
-        <div id="empty-state" class="hidden flex-col items-center justify-center py-16 text-center">
-            <i class="fas fa-search text-5xl text-gray-300 mb-4"></i>
-            <p class="text-gray-500 text-lg">Tidak ada materi yang sesuai</p>
-            <p class="text-gray-400 text-sm">Coba ubah filter atau cari kata kunci lain</p>
+        <!-- ===== LOADING ===== -->
+        <div id="loading-state">
+            <div class="spinner"></div>
+            <span>Memuat daftar materi...</span>
+        </div>
+
+        <!-- ===== EMPTY STATE ===== -->
+        <div id="empty-state" class="hidden flex-col items-center justify-center py-16 px-4 text-center">
+            <div class="empty-icon mb-4">
+                <i class="fas fa-book-open"></i>
+            </div>
+            <h3 class="empty-title mb-2" id="empty-title">Materi Tidak Ditemukan</h3>
+            <p class="empty-desc" id="empty-desc">
+                Coba ubah filter program, sub program, mode belajar, atau kata kunci pencarian Anda.
+            </p>
+            <div class="mt-6 flex flex-wrap gap-3 justify-center">
+                <a href="https://wa.me/6285185409887" target="_blank"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-green-500 text-white text-sm font-bold rounded-xl hover:bg-green-600 transition-all shadow-md">
+                    <i class="fab fa-whatsapp"></i> Hubungi Admin
+                </a>
+                <a href="materi.html"
+                    class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary/10 text-primary text-sm font-bold rounded-xl hover:bg-primary/20 transition-all">
+                    <i class="fas fa-arrow-left"></i> Lihat Katalog Lengkap
+                </a>
+            </div>
         </div>
     </main>
 
@@ -506,7 +818,7 @@
             'use strict';
 
             // ============================================================
-            // NAVBAR INTERAKSI (dari index.html)
+            // NAVBAR INTERAKSI
             // ============================================================
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function () {
@@ -529,32 +841,46 @@
             });
 
             // ============================================================
-            // FUNGSIONALITAS MATERI (dari materi-tersedia.html lama)
+            // PROGRAM DEFINITIONS (sinkron dengan materi.html)
             // ============================================================
-
-            const programLabels = {
-                syariah: 'Bimbel Syariah',
-                ushul: 'Bimbel Ushuluddin',
+            const PROGRAMS = {
+                syariah: { label: 'Bimbel Syariah', subs: ['Tingkat 1', 'Tingkat 2', 'Tingkat 3'] },
+                ushul: { label: 'Bimbel Ushuludin', subs: ['Tingkat 1', 'Tingkat 2', 'Tingkat 3'] },
+                tafaqquh: { label: 'Tafaqquh', subs: ['Fiqih', 'Ushul Fiqh', 'Tauhid'] },
+                tashil: { label: "Ta'shil (Ilmu Alat)", subs: ['Nahwu', 'Sharaf', 'Balaghah', 'Mantiq'] },
+                amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'] }
             };
 
             function getProgramLabel(category) {
-                return programLabels[category] || category.charAt(0).toUpperCase() + category.slice(1);
+                if (PROGRAMS[category]) return PROGRAMS[category].label;
+                return category ? category.charAt(0).toUpperCase() + category.slice(1) : '';
             }
 
+            // ============================================================
+            // STATE
+            // ============================================================
             let allCourses = [];
+            let currentMode = 'Semua'; // Semua | Online | Offline
 
             const grid = document.getElementById('course-grid');
             const emptyState = document.getElementById('empty-state');
+            const emptyTitle = document.getElementById('empty-title');
+            const emptyDesc = document.getElementById('empty-desc');
             const programFilter = document.getElementById('programFilter');
             const subFilter = document.getElementById('subFilter');
             const searchInput = document.getElementById('searchInput');
             const resultCount = document.getElementById('resultCount');
             const debugInfo = document.getElementById('debug-info');
+            const loadingState = document.getElementById('loading-state');
+            const modePills = document.getElementById('modePills');
 
+            // ============================================================
+            // FETCH COURSE DATA DARI materi.html
+            // ============================================================
             async function fetchCourseData() {
                 try {
                     console.log('🔍 Mengambil materi.html...');
-                    const response = await fetch('materi.html');
+                    const response = await fetch('materi.html', { cache: 'no-cache' });
                     if (!response.ok) throw new Error('HTTP ' + response.status);
                     const html = await response.text();
                     const parser = new DOMParser();
@@ -576,42 +902,64 @@
                         const titleEl = card.querySelector('h3');
                         const title = titleEl ? titleEl.textContent.trim() : '';
 
+                        // Ekstrak semua item info (pengajar, sesi, e-learning, latihan, kuota, dll)
                         const infoItems = card.querySelectorAll('.flex-col.gap-0\\.5 .flex.items-center');
+                        let infoList = [];
                         let pengajar = '';
                         let sesi = '';
+
                         infoItems.forEach((item, idx) => {
-                            const span = item.querySelector('span');
-                            if (span) {
-                                const text = span.textContent.trim();
-                                if (idx === 0) pengajar = text;
-                                else if (idx === 1) sesi = text;
-                            }
+                            const iconEl = item.querySelector('i');
+                            const textEl = item.querySelector('strong') || item.querySelector('span');
+                            const iconHtml = iconEl ? iconEl.outerHTML : '';
+                            const text = textEl ? textEl.textContent.trim() : '';
+                            const isBold = !!item.querySelector('strong');
+
+                            if (idx === 0) pengajar = text;
+                            else if (idx === 1) sesi = text;
+
+                            infoList.push({ icon: iconHtml, text: text, isBold: isBold });
                         });
 
-                        const priceSpan = card.querySelector('.text-primary.font-bold.text-base');
-                        const price = priceSpan ? priceSpan.textContent.trim() : '';
+                        // Ekstrak blok harga secara utuh (termasuk konversi LE dan metode pembayaran)
+                        const metaContainer = card.querySelector('.mt-auto');
+                        let priceHtml = '';
+                        if (metaContainer) {
+                            const cloned = metaContainer.cloneNode(true);
+                            const btn = cloned.querySelector('a');
+                            if (btn) btn.remove(); // Hapus tombol Daftar karena kita akan generate ulang
+                            priceHtml = cloned.innerHTML;
+                        } else {
+                            priceHtml = `<div class="flex flex-col mb-2"><span class="text-primary font-bold text-base">Rp 90.000</span><span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via Mayar</span></div>`;
+                        }
 
-                        const aksesBtn = card.querySelector('a[class*="bg-primary"]');
-                        let aksesUrl = '#';
-                        if (aksesBtn) {
-                            const href = aksesBtn.getAttribute('href');
+                        // Ambil link Daftar
+                        const daftarBtn = card.querySelector('a[class*="bg-primary"]');
+                        let daftarUrl = '#';
+                        if (daftarBtn) {
+                            const href = daftarBtn.getAttribute('href');
                             if (href && href !== '#' && href !== 'javascript:void(0)' && !href.startsWith('javascript:')) {
-                                aksesUrl = href;
+                                daftarUrl = href;
                             } else {
-                                const onclick = aksesBtn.getAttribute('onclick');
+                                const onclick = daftarBtn.getAttribute('onclick');
                                 if (onclick) {
                                     const match = onclick.match(/handleDaftar\s*\(\s*event\s*,\s*['"]([^'"]+)['"]\s*\)/);
                                     if (match && match[1] && match[1] !== '#') {
-                                        aksesUrl = match[1];
+                                        daftarUrl = match[1];
                                     }
                                 }
                             }
                         }
 
-                        const available = aksesUrl && aksesUrl !== '#' && aksesUrl !== '';
+                        const available = daftarUrl && daftarUrl !== '#' && daftarUrl !== '';
 
+                        // Ambil badge (label di kiri atas gambar)
                         const badgeEl = card.querySelector('.absolute.top-2.left-2');
                         const badge = badgeEl ? badgeEl.textContent.trim() : '';
+
+                        // Deteksi mode Online/Offline dari judul
+                        const isOnline = /\(online\)/i.test(title);
+                        const isOffline = /\(offline\)/i.test(title);
 
                         courses.push({
                             id,
@@ -622,15 +970,17 @@
                             title,
                             pengajar,
                             sesi,
-                            price,
-                            aksesUrl,
+                            infoList,
+                            priceHtml,
+                            daftarUrl,
                             available,
                             badge,
+                            isOnline,
+                            isOffline
                         });
                     });
 
-                    const availableCourses = courses.filter(c => c.available);
-                    console.log(`✅ Total cards: ${courses.length}, Tersedia: ${availableCourses.length}`);
+                    console.log(`✅ Total cards: ${courses.length}, Tersedia: ${courses.filter(c => c.available).length}`);
                     return courses;
                 } catch (err) {
                     console.error('❌ Gagal mengambil materi.html:', err);
@@ -638,15 +988,33 @@
                 }
             }
 
+            // ============================================================
+            // RENDER CARDS
+            // ============================================================
             function renderCards(courses) {
                 grid.innerHTML = '';
+                loadingState.style.display = 'none';
+
                 if (courses.length === 0) {
                     emptyState.classList.remove('hidden');
-                    resultCount.textContent = '0 materi';
+                    emptyState.classList.add('flex');
+
+                    const availAll = allCourses.filter(c => c.available);
+                    if (availAll.length === 0) {
+                        emptyTitle.textContent = 'Materi Belum Tersedia';
+                        emptyDesc.textContent = 'Belum ada materi yang siap didaftar saat ini. Silakan cek secara berkala atau hubungi admin untuk informasi terbaru.';
+                    } else {
+                        emptyTitle.textContent = 'Materi Tidak Ditemukan';
+                        emptyDesc.textContent = 'Coba ubah filter program, sub program, mode belajar, atau kata kunci pencarian Anda.';
+                    }
+
+                    resultCount.textContent = '0';
                     return;
                 }
+
                 emptyState.classList.add('hidden');
-                resultCount.textContent = courses.length + ' materi';
+                emptyState.classList.remove('flex');
+                resultCount.textContent = courses.length;
 
                 courses.forEach(course => {
                     const card = document.createElement('div');
@@ -657,37 +1025,70 @@
                     card.setAttribute('data-subfilter', course.subfilter);
                     if (course.review) card.setAttribute('data-review', course.review);
 
+                    const fallbackImg = 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                    const badgeText = course.badge || course.subfilter || '';
+
+                    // Badge mode (Online/Offline) kecil di kanan atas gambar
+                    let modeBadge = '';
+                    if (course.isOnline) {
+                        modeBadge = `<span class="absolute top-2 right-2 z-20 bg-green-500/95 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-[9px] font-bold shadow-sm uppercase tracking-wide"><i class="fas fa-wifi mr-1"></i>Online</span>`;
+                    } else if (course.isOffline) {
+                        modeBadge = `<span class="absolute top-2 right-2 z-20 bg-blue-500/95 backdrop-blur-sm text-white px-2 py-0.5 rounded-full text-[9px] font-bold shadow-sm uppercase tracking-wide"><i class="fas fa-building mr-1"></i>Offline</span>`;
+                    }
+
+                    // Render list informasi (pengajar, sesi, e-learning, dll)
+                    let infoHtml = '';
+                    if (course.infoList && course.infoList.length > 0) {
+                        course.infoList.forEach((info) => {
+                            if (info.isBold) {
+                                infoHtml += `
+                                    <div class="flex items-center">
+                                        ${info.icon}
+                                        <strong>${info.text}</strong>
+                                    </div>`;
+                            } else {
+                                infoHtml += `
+                                    <div class="flex items-center">
+                                        ${info.icon}
+                                        <span>${info.text}</span>
+                                    </div>`;
+                            }
+                        });
+                    } else {
+                        // Fallback jika data info kosong
+                        infoHtml = `
+                            <div class="flex items-center">
+                                <i class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i>
+                                <strong>Asatidzah Nuqthah</strong>
+                            </div>
+                            <div class="flex items-center">
+                                <i class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i>
+                                <span>12 Sesi</span>
+                            </div>`;
+                    }
+
                     card.innerHTML = `
                         <div class="relative overflow-hidden group aspect-[4/3]">
-                            <img src="${course.image || 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png'}"
+                            <img src="${course.image || fallbackImg}"
                                  alt="${course.title}"
                                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                                  loading="lazy"
-                            />
+                                 onerror="this.src='${fallbackImg}'" />
                             <div class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
-                                ${course.badge || course.subfilter || ''}
+                                ${badgeText}
                             </div>
+                            ${modeBadge}
                         </div>
                         <div class="p-4 flex flex-col flex-grow">
                             <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">${course.title}</h3>
                             <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
-                                <div class="flex items-center">
-                                    <i class="fas fa-user-tie mr-2 text-accent w-3 text-center"></i>
-                                    <span>${course.pengajar || 'Asatidzah Nuqthah'}</span>
-                                </div>
-                                <div class="flex items-center">
-                                    <i class="far fa-calendar-check mr-2 text-primary w-3 text-center"></i>
-                                    <span>${course.sesi || '12 Sesi'}</span>
-                                </div>
+                                ${infoHtml}
                             </div>
                             <div class="mt-auto">
-                                <div class="flex flex-col mb-2">
-                                    <span class="text-primary font-bold text-base">${course.price || 'Rp 100.000'}</span>
-                                    <span class="text-[8px] text-gray-400 uppercase tracking-wider font-semibold">Pembayaran via Mayar</span>
-                                </div>
-                                <a href="${course.aksesUrl}" target="_blank" rel="noopener noreferrer"
+                                ${course.priceHtml}
+                                <a href="${course.daftarUrl}" target="_blank" rel="noopener noreferrer"
                                    class="w-full py-2 bg-primary hover:bg-opacity-90 text-white text-[11px] font-bold rounded-lg transition-all flex items-center justify-center gap-1">
-                                    Akses <i class="fas fa-arrow-right text-[8px]"></i>
+                                    Daftar <i class="fas fa-arrow-right text-[8px]"></i>
                                 </a>
                             </div>
                         </div>
@@ -696,6 +1097,9 @@
                 });
             }
 
+            // ============================================================
+            // APPLY FILTERS
+            // ============================================================
             function applyFilters() {
                 const prog = programFilter.value;
                 const sub = subFilter.value;
@@ -705,17 +1109,39 @@
                     if (!c.available) return false;
                     if (prog !== 'all' && c.category !== prog) return false;
                     if (sub !== 'all' && c.subfilter !== sub) return false;
-                    if (query && !c.title.toLowerCase().includes(query) &&
-                        !c.category.toLowerCase().includes(query) &&
-                        !c.subfilter.toLowerCase().includes(query)) return false;
+
+                    // Mode filter (Online/Offline)
+                    if (currentMode === 'Online' && !c.isOnline) return false;
+                    if (currentMode === 'Offline' && !c.isOffline) return false;
+
+                    // Search query
+                    if (query) {
+                        const haystack = [
+                            c.title,
+                            c.category,
+                            c.subfilter,
+                            c.pengajar || '',
+                            getProgramLabel(c.category)
+                        ].join(' ').toLowerCase();
+                        if (!haystack.includes(query)) return false;
+                    }
+
                     return true;
                 });
+
                 renderCards(filtered);
             }
 
+            // ============================================================
+            // UPDATE DROPDOWN PROGRAM
+            // ============================================================
             function updateProgramOptions() {
                 const available = allCourses.filter(c => c.available);
-                const categories = [...new Set(available.map(c => c.category))].sort();
+                const categories = [...new Set(available.map(c => c.category))];
+
+                const order = Object.keys(PROGRAMS);
+                categories.sort((a, b) => order.indexOf(a) - order.indexOf(b));
+
                 programFilter.innerHTML = '<option value="all">Semua Program</option>';
                 categories.forEach(cat => {
                     const opt = document.createElement('option');
@@ -723,18 +1149,28 @@
                     opt.textContent = getProgramLabel(cat);
                     programFilter.appendChild(opt);
                 });
-                subFilter.innerHTML = '<option value="all">Semua Sub</option>';
+
+                programFilter.value = 'all';
             }
 
+            // ============================================================
+            // UPDATE DROPDOWN SUB PROGRAM
+            // ============================================================
             function updateSubFilterOptions() {
                 const selectedProgram = programFilter.value;
                 const available = allCourses.filter(c => c.available);
+
                 let subs = [];
                 if (selectedProgram === 'all') {
-                    subs = [...new Set(available.map(c => c.subfilter))].sort();
+                    const set = new Set();
+                    Object.values(PROGRAMS).forEach(p => p.subs.forEach(s => set.add(s)));
+                    const availSubs = new Set(available.map(c => c.subfilter));
+                    subs = [...set].filter(s => availSubs.has(s));
                 } else {
-                    subs = [...new Set(available.filter(c => c.category === selectedProgram).map(c => c.subfilter))].sort();
+                    const availSubs = new Set(available.map(c => c.subfilter));
+                    subs = (PROGRAMS[selectedProgram]?.subs || []).filter(s => availSubs.has(s));
                 }
+
                 const currentSub = subFilter.value;
                 subFilter.innerHTML = '<option value="all">Semua Sub</option>';
                 subs.forEach(s => {
@@ -743,6 +1179,7 @@
                     opt.textContent = s || 'Tanpa Sub';
                     subFilter.appendChild(opt);
                 });
+
                 if (subs.includes(currentSub)) {
                     subFilter.value = currentSub;
                 } else {
@@ -750,41 +1187,65 @@
                 }
             }
 
+            // ============================================================
+            // LOAD DATA & INITIAL RENDER
+            // ============================================================
             async function loadDataAndRender() {
+                loadingState.style.display = 'flex';
                 const courses = await fetchCourseData();
                 allCourses = courses;
                 const available = courses.filter(c => c.available);
 
-                debugInfo.classList.remove('hidden');
-                if (available.length === 0) {
+                if (courses.length === 0) {
+                    debugInfo.style.display = 'block';
                     debugInfo.innerHTML = `
-                        <span class="error">⚠️ Tidak ada materi tersedia.</span>
-                        Pastikan ada link akses yang valid di <strong>materi.html</strong> (bukan <code>#</code>).
+                        <span class="error">⚠️ Tidak dapat memuat data dari <strong>materi.html</strong>.</span><br>
+                        <small>Jika Anda membuka file ini langsung (file://), jalankan melalui local server, atau pastikan <strong>materi.html</strong> berada di folder yang sama.</small>
+                    `;
+                } else if (available.length === 0) {
+                    debugInfo.style.display = 'block';
+                    debugInfo.innerHTML = `
+                        <span class="error">⚠️ Tidak ada materi yang tersedia.</span>
+                        Pastikan ada link Daftar yang valid di <strong>materi.html</strong> (bukan <code>#</code>).
                         <br><small>Total course cards: ${courses.length} | Tersedia: ${available.length}</small>
                     `;
                 } else {
-                    debugInfo.innerHTML = `
-                        <span class="success">✅ ${available.length} materi yang tersedia</span>
-                        dari total ${courses.length} materi.
-                        <br><small>Kategori: ${[...new Set(available.map(c => getProgramLabel(c.category)))].join(', ')}</small>
-                    `;
+                    debugInfo.style.display = 'none';
                 }
 
                 updateProgramOptions();
                 updateSubFilterOptions();
                 renderCards(available);
-                programFilter.value = 'all';
-                subFilter.value = 'all';
-                searchInput.value = '';
             }
 
+            // ============================================================
+            // EVENT LISTENERS
+            // ============================================================
             document.addEventListener('DOMContentLoaded', function () {
                 programFilter.addEventListener('change', function () {
-                    applyFilters();
                     updateSubFilterOptions();
+                    applyFilters();
                 });
+
                 subFilter.addEventListener('change', applyFilters);
-                searchInput.addEventListener('input', applyFilters);
+
+                let searchTimer = null;
+                searchInput.addEventListener('input', function () {
+                    clearTimeout(searchTimer);
+                    searchTimer = setTimeout(applyFilters, 180);
+                });
+
+                modePills.addEventListener('click', function (e) {
+                    const btn = e.target.closest('.mode-pill');
+                    if (!btn) return;
+                    const mode = btn.getAttribute('data-mode');
+                    if (!mode) return;
+
+                    currentMode = mode;
+                    modePills.querySelectorAll('.mode-pill').forEach(p => p.classList.remove('active'));
+                    btn.classList.add('active');
+                    applyFilters();
+                });
 
                 loadDataAndRender();
             });

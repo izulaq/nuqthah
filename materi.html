@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- materi.html - Dengan default Tafaqquh & empty state -->
+<!-- materi.html - Dengan default Syariah & empty state -->
 <html lang="id">
 
 <head>
@@ -320,15 +320,16 @@
         <div class="max-w-screen-xl mx-auto px-6">
             <div class="flex items-center justify-start md:justify-center overflow-x-auto hide-scrollbar gap-4 py-4"
                 id="category-tabs">
-                <button onclick="changeCategory('tafaqquh')"
-                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium bg-primary text-white"
-                    data-category="tafaqquh">Tafaqquh</button>
+
                 <button onclick="changeCategory('syariah')"
-                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium bg-primary text-white"
                     data-category="syariah">Bimbel Syariah</button>
                 <button onclick="changeCategory('ushul')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="ushul">Bimbel Ushuludin</button>
+                <button onclick="changeCategory('tafaqquh')"
+                    class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
+                    data-category="tafaqquh">Tafaqquh</button>
                 <button onclick="changeCategory('tashil')"
                     class="nav-tab px-6 py-2 rounded-full whitespace-nowrap transition-all font-medium text-gray-600"
                     data-category="tashil">Ilmu Alat</button>
@@ -4957,6 +4958,25 @@
         // --- BROADCAST CHANNEL ---
         const nuqthahChannel = new BroadcastChannel('nuqthah_sync');
 
+        // --- LOCALSTORAGE KEY (untuk user yang belum login) ---
+        const LOCAL_KEY = 'nuqthah_materimu_local';
+
+        function getLocalItems() {
+            try {
+                return JSON.parse(localStorage.getItem(LOCAL_KEY) || '[]');
+            } catch (e) {
+                return [];
+            }
+        }
+
+        function setLocalItems(items) {
+            try {
+                localStorage.setItem(LOCAL_KEY, JSON.stringify(items));
+            } catch (e) {
+                console.error('Failed to save to localStorage:', e);
+            }
+        }
+
         // --- GLOBAL STATE ---
         let currentUser = null;
         let savedItems = [];
@@ -4972,32 +4992,85 @@
                 if (session) {
                     currentUser = session.user;
                     isLoggedIn = true;
+                    // Migrasi item lokal ke Supabase (jika ada)
+                    await migrateLocalToSupabase();
                     await loadSavedMaterials();
                 } else {
                     currentUser = null;
                     isLoggedIn = false;
-                    savedItems = [];
-                    updateMaterimuUI();
+                    // Load dari localStorage
+                    await loadSavedMaterials();
                 }
             } catch (err) {
                 console.error('Session check error:', err);
                 currentUser = null;
                 isLoggedIn = false;
-                savedItems = [];
-                updateMaterimuUI();
+                await loadSavedMaterials();
             }
         }
 
         // ================================================================
-        // 4. LOAD SAVED MATERIALS
+        // 3b. MIGRASI ITEM LOKAL KE SUPABASE (SAAT LOGIN PERTAMA)
+        // ================================================================
+        async function migrateLocalToSupabase() {
+            if (!isLoggedIn || !currentUser) return;
+            const local = getLocalItems();
+            if (!local.length) return;
+
+            console.log('🔄 Migrating', local.length, 'local items to Supabase...');
+
+            for (const item of local) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('saved_materials')
+                        .insert({
+                            user_id: currentUser.id,
+                            course_id: item.course_id,
+                            title: item.title,
+                            link: item.link,
+                            image: item.image
+                        });
+                    // Ignore duplicate (23505)
+                    if (error && error.code !== '23505') {
+                        console.error('Migration error for item:', item.course_id, error);
+                    }
+                } catch (err) {
+                    console.error('Migration exception:', err);
+                }
+            }
+
+            setLocalItems([]);
+            console.log('✅ Migration complete');
+        }
+
+        // ================================================================
+        // 4. LOAD SAVED MATERIALS (DARI SUPABASE ATAU LOCALSTORAGE)
         // ================================================================
         async function loadSavedMaterials() {
+            // Jika tidak login → load dari localStorage
             if (!isLoggedIn || !currentUser) {
-                savedItems = [];
+                const local = getLocalItems();
+                savedItems = local.map(item => {
+                    let source = 'course';
+                    if (item.course_id && item.course_id.startsWith('shortcut-')) source = 'shortcut';
+                    else if (item.course_id && item.course_id.startsWith('manual-')) source = 'manual';
+
+                    return {
+                        id: item.id,
+                        course_id: item.course_id,
+                        title: item.title,
+                        link: item.link,
+                        image: item.image ||
+                            'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png',
+                        source: source
+                    };
+                });
                 updateMaterimuUI();
+                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
                 return;
             }
 
+            // Jika login → load dari Supabase
             try {
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
@@ -5049,21 +5122,16 @@
         }
 
         // ================================================================
-        // 5. SAVE MATERIAL
+        // 5. SAVE MATERIAL (TANPA PERLU LOGIN)
         // ================================================================
         async function saveToMaterimu(courseId) {
-            const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-            if (userError || !user) {
-                alert('Silakan login terlebih dahulu.');
-                openLoginModal();
-                return;
-            }
-
+            // Duplicate check
             if (savedItems.find(m => m.course_id === courseId)) {
                 toggleDrawer();
                 return;
             }
 
+            // Ambil data dari card
             const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
             let title = '';
             let link = '#';
@@ -5077,44 +5145,79 @@
                     'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
             }
 
-            try {
-                const { data, error } = await supabaseClient
-                    .from('saved_materials')
-                    .insert({
-                        user_id: user.id,
-                        course_id: courseId,
-                        title: title,
-                        link: link,
-                        image: image
-                    })
-                    .select();
+            // Cek login state (tanpa memaksa login)
+            const { data: { user } } = await supabaseClient.auth.getUser();
 
-                if (error) {
-                    console.error('❌ Supabase INSERT error:', error);
-                    if (error.code === '23505') {
-                        toggleDrawer();
+            if (user) {
+                // --- Simpan ke Supabase ---
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('saved_materials')
+                        .insert({
+                            user_id: user.id,
+                            course_id: courseId,
+                            title: title,
+                            link: link,
+                            image: image
+                        })
+                        .select();
+
+                    if (error) {
+                        console.error('❌ Supabase INSERT error:', error);
+                        if (error.code === '23505') {
+                            toggleDrawer();
+                            return;
+                        }
+                        alert('Gagal menyimpan materi: ' + error.message);
                         return;
                     }
-                    alert('Gagal menyimpan materi: ' + error.message);
+
+                    console.log('✅ Insert success:', data);
+                    await loadSavedMaterials();
+                    toggleDrawer();
+                    nuqthahChannel.postMessage({
+                        type: 'MATERIMU_ITEM_ADDED',
+                        item: {
+                            id: data[0]?.id,
+                            title: title,
+                            link: link,
+                            course_id: courseId
+                        }
+                    });
+                } catch (err) {
+                    console.error('❌ Save material error:', err);
+                    alert('Gagal menyimpan materi: ' + err.message);
+                }
+            } else {
+                // --- Simpan ke localStorage (tanpa login) ---
+                const local = getLocalItems();
+                if (local.find(m => m.course_id === courseId)) {
+                    toggleDrawer();
                     return;
                 }
 
-                console.log('✅ Insert success:', data);
+                const newItem = {
+                    id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+                    course_id: courseId,
+                    title: title,
+                    link: link,
+                    image: image
+                };
+                local.unshift(newItem);
+                setLocalItems(local);
+
+                console.log('✅ Saved to localStorage (no login):', newItem);
                 await loadSavedMaterials();
                 toggleDrawer();
                 nuqthahChannel.postMessage({
                     type: 'MATERIMU_ITEM_ADDED',
                     item: {
-                        id: data[0]?.id,
+                        id: newItem.id,
                         title: title,
                         link: link,
                         course_id: courseId
                     }
                 });
-
-            } catch (err) {
-                console.error('❌ Save material error:', err);
-                alert('Gagal menyimpan materi: ' + err.message);
             }
         }
 
@@ -5122,11 +5225,21 @@
         // 6. REMOVE MATERIAL
         // ================================================================
         async function removeFromMaterimu(recordId) {
+            // Jika tidak login → hapus dari localStorage
             if (!isLoggedIn || !currentUser) {
-                alert('Silakan login terlebih dahulu.');
+                const local = getLocalItems();
+                const filtered = local.filter(item => item.id !== recordId);
+                setLocalItems(filtered);
+                console.log('✅ Delete from localStorage');
+                await loadSavedMaterials();
+                nuqthahChannel.postMessage({
+                    type: 'MATERIMU_ITEM_DELETED',
+                    recordId: recordId
+                });
                 return;
             }
 
+            // Jika login → hapus dari Supabase
             const itemToDelete = savedItems.find(item => item.id === recordId);
             const isShortcut = itemToDelete?.source === 'shortcut';
 
@@ -5169,12 +5282,21 @@
         // 7. CLEAR ALL MATERIALS
         // ================================================================
         async function clearAllMaterials() {
-            if (!isLoggedIn || !currentUser) {
-                alert('Silakan login terlebih dahulu.');
-                return;
-            }
             if (!confirm('Kosongkan daftar materi Anda?')) return;
 
+            // Jika tidak login → clear localStorage
+            if (!isLoggedIn || !currentUser) {
+                setLocalItems([]);
+                console.log('✅ Clear localStorage');
+                await loadSavedMaterials();
+                nuqthahChannel.postMessage({
+                    type: 'MATERIMU_ITEM_DELETED',
+                    recordId: 'all'
+                });
+                return;
+            }
+
+            // Jika login → clear dari Supabase
             const hasShortcut = savedItems.some(item => item.source === 'shortcut');
 
             try {
@@ -5212,21 +5334,10 @@
         }
 
         // ================================================================
-        // 8. MANUAL ADD MATERIAL
+        // 8. MANUAL ADD MATERIAL (TANPA PERLU LOGIN)
         // ================================================================
         async function saveManualMaterial() {
             console.log('📝 saveManualMaterial called');
-
-            const { data: { session }, error: sessionError } = await supabaseClient.auth.getSession();
-            console.log('🔐 Session check manual:', { hasSession: !!session, sessionError });
-
-            if (sessionError || !session || !session.user) {
-                alert('Silakan login terlebih dahulu.');
-                return;
-            }
-
-            const user = session.user;
-            console.log('👤 User authenticated (manual):', user.id);
 
             const nameInput = document.getElementById('manual-name');
             const urlInput = document.getElementById('manual-link');
@@ -5242,46 +5353,71 @@
 
             const courseId = 'manual-' + Date.now();
 
-            try {
-                const { data, error } = await supabaseClient
-                    .from('saved_materials')
-                    .insert({
-                        user_id: user.id,
-                        course_id: courseId,
-                        title: name,
-                        link: url,
-                        image: null
-                    })
-                    .select();
+            // Cek login state (tanpa memaksa login)
+            const { data: { session } } = await supabaseClient.auth.getSession();
 
-                if (error) {
-                    console.error('❌ Manual insert error:', error);
-                    alert('Gagal menyimpan materi: ' + error.message);
-                    return;
+            if (session && session.user) {
+                // --- Simpan ke Supabase ---
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('saved_materials')
+                        .insert({
+                            user_id: session.user.id,
+                            course_id: courseId,
+                            title: name,
+                            link: url,
+                            image: null
+                        })
+                        .select();
+
+                    if (error) {
+                        console.error('❌ Manual insert error:', error);
+                        alert('Gagal menyimpan materi: ' + error.message);
+                        return;
+                    }
+
+                    console.log('✅ Manual insert success:', data);
+                    await loadSavedMaterials();
+                    nameInput.value = '';
+                    urlInput.value = '';
+                    document.getElementById('manual-form-container').classList.add('hidden');
+
+                    nuqthahChannel.postMessage({
+                        type: 'MANUAL_ITEM_ADDED',
+                        item: {
+                            id: data[0]?.id,
+                            title: name,
+                            link: url,
+                            course_id: courseId
+                        }
+                    });
+
+                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
+
+                } catch (err) {
+                    console.error('❌ Save manual material error:', err);
+                    alert('Gagal menyimpan materi: ' + err.message);
                 }
+            } else {
+                // --- Simpan ke localStorage (tanpa login) ---
+                const local = getLocalItems();
+                const newItem = {
+                    id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+                    course_id: courseId,
+                    title: name,
+                    link: url,
+                    image: null
+                };
+                local.unshift(newItem);
+                setLocalItems(local);
 
-                console.log('✅ Manual insert success:', data);
+                console.log('✅ Manual saved to localStorage (no login):', newItem);
                 await loadSavedMaterials();
                 nameInput.value = '';
                 urlInput.value = '';
                 document.getElementById('manual-form-container').classList.add('hidden');
 
-                nuqthahChannel.postMessage({
-                    type: 'MANUAL_ITEM_ADDED',
-                    item: {
-                        id: data[0]?.id,
-                        title: name,
-                        link: url,
-                        course_id: courseId
-                    }
-                });
-
-                const count = savedItems.length;
-                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: count });
-
-            } catch (err) {
-                console.error('❌ Save manual material error:', err);
-                alert('Gagal menyimpan materi: ' + err.message);
+                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
             }
         }
 
@@ -5289,11 +5425,21 @@
         // 9. UPDATE MATERIAL
         // ================================================================
         async function updateMaterial(recordId, newTitle, newLink) {
+            // Jika tidak login → update di localStorage
             if (!isLoggedIn || !currentUser) {
-                alert('Silakan login terlebih dahulu.');
+                const local = getLocalItems();
+                const idx = local.findIndex(item => item.id === recordId);
+                if (idx > -1) {
+                    local[idx].title = newTitle;
+                    local[idx].link = newLink;
+                    setLocalItems(local);
+                    console.log('✅ Update localStorage success');
+                    await loadSavedMaterials();
+                }
                 return;
             }
 
+            // Jika login → update di Supabase
             try {
                 const { error } = await supabaseClient
                     .from('saved_materials')
@@ -5368,6 +5514,10 @@
                         `<span class="absolute top-1 right-1 text-[8px] bg-accent text-white px-1.5 py-0.5 rounded-full font-bold uppercase tracking-wide">Shortcut</span>` :
                         '';
 
+                    // Escape single quotes untuk atribut onclick
+                    const safeTitle = String(item.title).replace(/'/g, "\\'");
+                    const safeLink = String(item.link).replace(/'/g, "\\'");
+
                     itemDiv.innerHTML = `
                         <div class="w-16 h-16 rounded-lg overflow-hidden flex-shrink-0 bg-gray-50">
                             <img src="${thumbSrc}" class="w-full h-full object-cover" alt="${item.title}">
@@ -5376,8 +5526,8 @@
                             <h4 class="text-[11px] font-bold text-gray-800 line-clamp-2 leading-tight pr-12">${item.title}</h4>
                             ${shortcutBadge}
                             <div class="flex items-center gap-2 mt-2">
-                                <button onclick="handleDaftar(event, '${item.link}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
-                                ${isManual || isShortcut ? `<button onclick="openEditModal('${item.id}', '${item.title.replace(/'/g, "\\'")}', '${item.link.replace(/'/g, "\\'")}')" class="w-6 h-6 text-blue-500 flex items-center justify-center transition-colors hover:text-blue-700"><i class="fas fa-pen"></i></button>` : ''}
+                                <button onclick="handleDaftar(event, '${safeLink}')" class="px-2 py-1 bg-primary text-white text-[10px] font-bold rounded flex-grow">LANJUT</button>
+                                ${isManual || isShortcut ? `<button onclick="openEditModal('${item.id}', '${safeTitle}', '${safeLink}')" class="w-6 h-6 text-blue-500 flex items-center justify-center transition-colors hover:text-blue-700"><i class="fas fa-pen"></i></button>` : ''}
                                 <button onclick="removeFromMaterimu('${item.id}')" class="w-6 h-6 text-red-500 flex items-center justify-center transition-colors hover:text-red-700">
                                     <i class="far fa-trash-can"></i>
                                 </button>
@@ -5434,7 +5584,7 @@
             amiyah: { label: 'Amiyah Mesir', subs: ['Dasar', 'Menengah', 'Lanjut'], prefix: 'am' }
         };
 
-        let currentCategory = 'tafaqquh'; // ✅ default Tafaqquh
+        let currentCategory = 'syariah'; // ✅ default Bimbel Syariah
         let currentSubFilter = 'Semua';
         let currentMode = 'Semua'; // ✅ 'Semua' | 'Online' | 'Offline'
 
@@ -5623,7 +5773,7 @@
             const catParam = params.get('cat');
             const loginParam = params.get('login');
 
-            let initialCat = 'tafaqquh'; // ✅ default Tafaqquh
+            let initialCat = 'syariah'; // ✅ default Bimbel Syariah
             if (catParam && PROGRAMS[catParam]) initialCat = catParam;
 
             changeCategory(initialCat); // otomatis render subfilter + online/offline + applyFilters
@@ -5678,13 +5828,15 @@
                 if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
                     currentUser = session?.user || null;
                     isLoggedIn = !!currentUser;
+                    // Migrasi localStorage ke Supabase saat login
+                    await migrateLocalToSupabase();
                     await loadSavedMaterials();
                 } else if (event === 'SIGNED_OUT') {
                     currentUser = null;
                     isLoggedIn = false;
-                    savedItems = [];
-                    updateMaterimuUI();
-                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: 0 });
+                    // Kembali load dari localStorage (jika ada)
+                    await loadSavedMaterials();
+                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
                 }
             });
 
@@ -5709,9 +5861,10 @@
         // Broadcast ready
         nuqthahChannel.postMessage({ type: 'BRIDGE_READY', count: 0 });
 
-        console.log('✅ Nuqthah Materi — Default kategori Tafaqquh & empty state aktif.');
+        console.log('✅ Nuqthah Materi — Default kategori Bimbel Syariah & empty state aktif.');
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
         console.log('✅ Filter Online/Offline aktif di bawah sub-filter.');
+        console.log('✅ Materimu dapat digunakan tanpa login (localStorage fallback).');
     </script>
 
     <script>
