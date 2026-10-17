@@ -213,10 +213,146 @@
         #online-offline-filter {
             -webkit-overflow-scrolling: touch;
         }
+
+        /* ============================================================
+           LOADING STATES
+           ============================================================ */
+        @keyframes nlc-spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* ===== PAGE LOADING OVERLAY (initial load) ===== */
+        #page-loading-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            z-index: 999999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 16px;
+            transition: opacity 0.35s ease;
+            opacity: 1;
+        }
+
+        #page-loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #page-loading-overlay .page-loading-spinner {
+            width: 48px;
+            height: 48px;
+            border: 3px solid rgba(46, 94, 78, 0.15);
+            border-top-color: #2E5E4E;
+            border-radius: 50%;
+            animation: nlc-spin 0.8s linear infinite;
+        }
+
+        #page-loading-overlay .page-loading-text {
+            color: #2E5E4E;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            opacity: 0.85;
+        }
+
+        /* ===== BUTTON SPINNER (di dalam tombol) ===== */
+        .btn-loading {
+            pointer-events: none !important;
+            opacity: 0.9;
+            cursor: wait !important;
+            position: relative;
+        }
+
+        .btn-spinner {
+            display: inline-block;
+            width: 12px;
+            height: 12px;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-top-color: #ffffff;
+            border-radius: 50%;
+            animation: nlc-spin 0.6s linear infinite;
+            vertical-align: middle;
+            margin-right: 4px;
+        }
+
+        .btn-spinner-dark {
+            border: 2px solid rgba(46, 94, 78, 0.2);
+            border-top-color: #2E5E4E;
+        }
+
+        /* ===== DRAWER LOADING ===== */
+        .drawer-loading-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 40px 16px;
+            animation: fadeIn 0.2s ease;
+        }
+
+        .drawer-loading-item .drawer-spinner {
+            width: 30px;
+            height: 30px;
+            border: 2.5px solid rgba(46, 94, 78, 0.15);
+            border-top-color: #2E5E4E;
+            border-radius: 50%;
+            animation: nlc-spin 0.8s linear infinite;
+        }
+
+        .drawer-loading-item span {
+            font-size: 0.7rem;
+            color: #9ca3af;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        /* ===== ITEM LOADING (saat hapus/edit item) ===== */
+        .item-loading {
+            opacity: 0.5;
+            pointer-events: none;
+            position: relative;
+        }
+
+        .item-loading::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            margin: -10px 0 0 -10px;
+            border: 2px solid rgba(46, 94, 78, 0.2);
+            border-top-color: #2E5E4E;
+            border-radius: 50%;
+            animation: nlc-spin 0.6s linear infinite;
+        }
+
+        /* ===== CARD GRID LOADING ===== */
+        #course-grid.grid-loading {
+            opacity: 0.5;
+            transition: opacity 0.25s ease;
+            pointer-events: none;
+        }
     </style>
 </head>
 
 <body class="bg-white text-gray-900 overflow-x-hidden">
+
+    <!-- ===== PAGE LOADING OVERLAY (muncul saat pertama kali memuat) ===== -->
+    <div id="page-loading-overlay">
+        <div class="page-loading-spinner"></div>
+        <div class="page-loading-text">Memuat Materi...</div>
+    </div>
 
     <!-- Navigation -->
     <nav
@@ -3973,7 +4109,7 @@
                 data-review="https://nuqthah.myr.id/review/nlc-us-tk3-umum-khusus" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
-                        alt="Al-‘Umum wa al-Khusus"
+                        alt="Al-'Umum wa al-Khusus"
                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     <div
                         class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
@@ -3983,7 +4119,7 @@
                             class="fas fa-plus"></i></button>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
-                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Al-‘Umum wa
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Al-'Umum wa
                         al-Khusus</h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -4099,7 +4235,7 @@
                 data-review="https://nuqthah.myr.id/review/nlc-us-tk3-illah-qiyas" style="display: none;">
                 <div class="relative overflow-hidden group aspect-[4/3]">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/0cdea4fc_1745416799_820f4b53a97b6cf9d07d.jpg"
-                        alt="Al-‘Illah wa al-Qiyas"
+                        alt="Al-'Illah wa al-Qiyas"
                         class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105">
                     <div
                         class="absolute top-2 left-2 z-20 bg-white/90 backdrop-blur-sm text-primary px-2 py-0.5 rounded-full text-[10px] font-bold shadow-sm uppercase">
@@ -4109,7 +4245,7 @@
                             class="fas fa-plus"></i></button>
                 </div>
                 <div class="p-4 flex flex-col flex-grow">
-                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Al-‘Illah wa
+                    <h3 class="text-sm font-bold text-gray-800 leading-tight mb-2 card-title-min-h">Al-'Illah wa
                         al-Qiyas</h3>
                     <div class="flex flex-col gap-0.5 mb-3 text-[10px] text-gray-600">
                         <div class="flex items-center"><i
@@ -4936,6 +5072,44 @@
 
     <script>
         // ================================================================
+        // LOADING HELPERS
+        // ================================================================
+        function showPageLoading(text) {
+            const overlay = document.getElementById('page-loading-overlay');
+            if (!overlay) return;
+            const txt = overlay.querySelector('.page-loading-text');
+            if (txt && text) txt.textContent = text;
+            overlay.classList.remove('hidden');
+            overlay.style.display = 'flex';
+        }
+
+        function hidePageLoading() {
+            const overlay = document.getElementById('page-loading-overlay');
+            if (!overlay) return;
+            overlay.classList.add('hidden');
+            setTimeout(() => {
+                overlay.style.display = 'none';
+            }, 400);
+        }
+
+        function showDrawerLoading() {
+            const content = document.getElementById('drawer-content');
+            if (!content) return;
+            const emptyState = document.getElementById('drawer-empty');
+            if (emptyState) emptyState.style.display = 'none';
+            // Hapus loading lama
+            content.querySelectorAll('.drawer-loading-item').forEach(el => el.remove());
+            const loadingEl = document.createElement('div');
+            loadingEl.className = 'drawer-loading-item';
+            loadingEl.innerHTML = '<div class="drawer-spinner"></div><span>Memuat...</span>';
+            content.appendChild(loadingEl);
+        }
+
+        function hideDrawerLoading() {
+            document.querySelectorAll('.drawer-loading-item').forEach(el => el.remove());
+        }
+
+        // ================================================================
         // 1. FUNGSI HANDLE DAFTAR (DIPANGGIL SAAT TOMBOL Daftar DIKLIK)
         // ================================================================
         function handleDaftar(event, link) {
@@ -4944,7 +5118,21 @@
                 showModal('unavailable-modal');
                 return;
             }
-            window.location.href = link;
+
+            const btn = event && event.currentTarget ? event.currentTarget : null;
+            if (btn && !btn.classList.contains('btn-loading')) {
+                // SIMPAN HTML ASLI KE ATRIBUT DATA AGAR BISA DIKEMBALIKAN SAAT KEMBALI (BFCACHE)
+                btn.setAttribute('data-original-html', btn.innerHTML);
+
+                btn.classList.add('btn-loading');
+                btn.innerHTML = '<span class="btn-spinner"></span>Memuat...';
+                // Beri waktu agar loading terlihat, lalu redirect
+                setTimeout(() => {
+                    window.location.href = link;
+                }, 350);
+            } else {
+                window.location.href = link;
+            }
         }
 
         // ================================================================
@@ -5047,31 +5235,34 @@
         // 4. LOAD SAVED MATERIALS (DARI SUPABASE ATAU LOCALSTORAGE)
         // ================================================================
         async function loadSavedMaterials() {
-            // Jika tidak login → load dari localStorage
-            if (!isLoggedIn || !currentUser) {
-                const local = getLocalItems();
-                savedItems = local.map(item => {
-                    let source = 'course';
-                    if (item.course_id && item.course_id.startsWith('shortcut-')) source = 'shortcut';
-                    else if (item.course_id && item.course_id.startsWith('manual-')) source = 'manual';
+            showDrawerLoading();
 
-                    return {
-                        id: item.id,
-                        course_id: item.course_id,
-                        title: item.title,
-                        link: item.link,
-                        image: item.image ||
-                            'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png',
-                        source: source
-                    };
-                });
-                updateMaterimuUI();
-                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
-                return;
-            }
-
-            // Jika login → load dari Supabase
             try {
+                // Jika tidak login → load dari localStorage
+                if (!isLoggedIn || !currentUser) {
+                    const local = getLocalItems();
+                    savedItems = local.map(item => {
+                        let source = 'course';
+                        if (item.course_id && item.course_id.startsWith('shortcut-')) source = 'shortcut';
+                        else if (item.course_id && item.course_id.startsWith('manual-')) source = 'manual';
+
+                        return {
+                            id: item.id,
+                            course_id: item.course_id,
+                            title: item.title,
+                            link: item.link,
+                            image: item.image ||
+                                'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png',
+                            source: source
+                        };
+                    });
+                    hideDrawerLoading();
+                    updateMaterimuUI();
+                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
+                    return;
+                }
+
+                // Jika login → load dari Supabase
                 const { data, error } = await supabaseClient
                     .from('saved_materials')
                     .select('id, course_id, title, link, image')
@@ -5112,10 +5303,12 @@
                 });
 
                 console.log('✅ Loaded saved items:', savedItems);
+                hideDrawerLoading();
                 updateMaterimuUI();
                 nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
             } catch (err) {
                 console.error('Load saved materials error:', err);
+                hideDrawerLoading();
                 savedItems = [];
                 updateMaterimuUI();
             }
@@ -5131,8 +5324,17 @@
                 return;
             }
 
-            // Ambil data dari card
+            // Ambil button untuk loading
             const card = document.querySelector(`.course-card[data-id="${courseId}"]`);
+            const saveBtn = card ? card.querySelector('button[onclick*="saveToMaterimu"]') : null;
+            let originalBtnHtml = '';
+            if (saveBtn) {
+                originalBtnHtml = saveBtn.innerHTML;
+                saveBtn.classList.add('btn-loading');
+                saveBtn.innerHTML = '<span class="btn-spinner btn-spinner-dark"></span>';
+            }
+
+            // Ambil data dari card
             let title = '';
             let link = '#';
             let image = 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
@@ -5145,12 +5347,19 @@
                     'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
             }
 
-            // Cek login state (tanpa memaksa login)
-            const { data: { user } } = await supabaseClient.auth.getUser();
+            const restoreBtn = () => {
+                if (saveBtn) {
+                    saveBtn.classList.remove('btn-loading');
+                    saveBtn.innerHTML = originalBtnHtml;
+                }
+            };
 
-            if (user) {
-                // --- Simpan ke Supabase ---
-                try {
+            try {
+                // Cek login state (tanpa memaksa login)
+                const { data: { user } } = await supabaseClient.auth.getUser();
+
+                if (user) {
+                    // --- Simpan ke Supabase ---
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
                         .insert({
@@ -5165,15 +5374,18 @@
                     if (error) {
                         console.error('❌ Supabase INSERT error:', error);
                         if (error.code === '23505') {
+                            restoreBtn();
                             toggleDrawer();
                             return;
                         }
                         alert('Gagal menyimpan materi: ' + error.message);
+                        restoreBtn();
                         return;
                     }
 
                     console.log('✅ Insert success:', data);
                     await loadSavedMaterials();
+                    restoreBtn();
                     toggleDrawer();
                     nuqthahChannel.postMessage({
                         type: 'MATERIMU_ITEM_ADDED',
@@ -5184,40 +5396,43 @@
                             course_id: courseId
                         }
                     });
-                } catch (err) {
-                    console.error('❌ Save material error:', err);
-                    alert('Gagal menyimpan materi: ' + err.message);
-                }
-            } else {
-                // --- Simpan ke localStorage (tanpa login) ---
-                const local = getLocalItems();
-                if (local.find(m => m.course_id === courseId)) {
-                    toggleDrawer();
-                    return;
-                }
+                } else {
+                    // --- Simpan ke localStorage (tanpa login) ---
+                    const local = getLocalItems();
+                    if (local.find(m => m.course_id === courseId)) {
+                        restoreBtn();
+                        toggleDrawer();
+                        return;
+                    }
 
-                const newItem = {
-                    id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
-                    course_id: courseId,
-                    title: title,
-                    link: link,
-                    image: image
-                };
-                local.unshift(newItem);
-                setLocalItems(local);
-
-                console.log('✅ Saved to localStorage (no login):', newItem);
-                await loadSavedMaterials();
-                toggleDrawer();
-                nuqthahChannel.postMessage({
-                    type: 'MATERIMU_ITEM_ADDED',
-                    item: {
-                        id: newItem.id,
+                    const newItem = {
+                        id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+                        course_id: courseId,
                         title: title,
                         link: link,
-                        course_id: courseId
-                    }
-                });
+                        image: image
+                    };
+                    local.unshift(newItem);
+                    setLocalItems(local);
+
+                    console.log('✅ Saved to localStorage (no login):', newItem);
+                    await loadSavedMaterials();
+                    restoreBtn();
+                    toggleDrawer();
+                    nuqthahChannel.postMessage({
+                        type: 'MATERIMU_ITEM_ADDED',
+                        item: {
+                            id: newItem.id,
+                            title: title,
+                            link: link,
+                            course_id: courseId
+                        }
+                    });
+                }
+            } catch (err) {
+                console.error('❌ Save material error:', err);
+                alert('Gagal menyimpan materi: ' + err.message);
+                restoreBtn();
             }
         }
 
@@ -5225,25 +5440,29 @@
         // 6. REMOVE MATERIAL
         // ================================================================
         async function removeFromMaterimu(recordId) {
-            // Jika tidak login → hapus dari localStorage
-            if (!isLoggedIn || !currentUser) {
-                const local = getLocalItems();
-                const filtered = local.filter(item => item.id !== recordId);
-                setLocalItems(filtered);
-                console.log('✅ Delete from localStorage');
-                await loadSavedMaterials();
-                nuqthahChannel.postMessage({
-                    type: 'MATERIMU_ITEM_DELETED',
-                    recordId: recordId
-                });
-                return;
-            }
-
-            // Jika login → hapus dari Supabase
-            const itemToDelete = savedItems.find(item => item.id === recordId);
-            const isShortcut = itemToDelete?.source === 'shortcut';
+            // Tambah loading pada item
+            const itemEl = document.querySelector(`.saved-item button[onclick*="${recordId}"]`)?.closest('.saved-item');
+            if (itemEl) itemEl.classList.add('item-loading');
 
             try {
+                // Jika tidak login → hapus dari localStorage
+                if (!isLoggedIn || !currentUser) {
+                    const local = getLocalItems();
+                    const filtered = local.filter(item => item.id !== recordId);
+                    setLocalItems(filtered);
+                    console.log('✅ Delete from localStorage');
+                    await loadSavedMaterials();
+                    nuqthahChannel.postMessage({
+                        type: 'MATERIMU_ITEM_DELETED',
+                        recordId: recordId
+                    });
+                    return;
+                }
+
+                // Jika login → hapus dari Supabase
+                const itemToDelete = savedItems.find(item => item.id === recordId);
+                const isShortcut = itemToDelete?.source === 'shortcut';
+
                 const { error } = await supabaseClient
                     .from('saved_materials')
                     .delete()
@@ -5253,6 +5472,7 @@
                 if (error) {
                     console.error('❌ Delete error:', error);
                     alert('Gagal menghapus materi: ' + error.message);
+                    if (itemEl) itemEl.classList.remove('item-loading');
                     return;
                 }
 
@@ -5275,6 +5495,7 @@
             } catch (err) {
                 console.error('❌ Remove material error:', err);
                 alert('Gagal menghapus materi: ' + err.message);
+                if (itemEl) itemEl.classList.remove('item-loading');
             }
         }
 
@@ -5284,22 +5505,33 @@
         async function clearAllMaterials() {
             if (!confirm('Kosongkan daftar materi Anda?')) return;
 
-            // Jika tidak login → clear localStorage
-            if (!isLoggedIn || !currentUser) {
-                setLocalItems([]);
-                console.log('✅ Clear localStorage');
-                await loadSavedMaterials();
-                nuqthahChannel.postMessage({
-                    type: 'MATERIMU_ITEM_DELETED',
-                    recordId: 'all'
-                });
-                return;
+            const btn = document.getElementById('clear-all-btn');
+            const originalHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.classList.add('btn-loading');
+                btn.innerHTML = '<span class="btn-spinner btn-spinner-dark"></span> Menghapus...';
             }
 
-            // Jika login → clear dari Supabase
-            const hasShortcut = savedItems.some(item => item.source === 'shortcut');
-
             try {
+                // Jika tidak login → clear localStorage
+                if (!isLoggedIn || !currentUser) {
+                    setLocalItems([]);
+                    console.log('✅ Clear localStorage');
+                    await loadSavedMaterials();
+                    nuqthahChannel.postMessage({
+                        type: 'MATERIMU_ITEM_DELETED',
+                        recordId: 'all'
+                    });
+                    if (btn) {
+                        btn.classList.remove('btn-loading');
+                        btn.innerHTML = originalHtml;
+                    }
+                    return;
+                }
+
+                // Jika login → clear dari Supabase
+                const hasShortcut = savedItems.some(item => item.source === 'shortcut');
+
                 const { error } = await supabaseClient
                     .from('saved_materials')
                     .delete()
@@ -5308,6 +5540,10 @@
                 if (error) {
                     console.error('❌ Clear all error:', error);
                     alert('Gagal mengosongkan daftar: ' + error.message);
+                    if (btn) {
+                        btn.classList.remove('btn-loading');
+                        btn.innerHTML = originalHtml;
+                    }
                     return;
                 }
 
@@ -5330,6 +5566,11 @@
             } catch (err) {
                 console.error('❌ Clear all materials error:', err);
                 alert('Gagal mengosongkan daftar: ' + err.message);
+            } finally {
+                if (btn) {
+                    btn.classList.remove('btn-loading');
+                    btn.innerHTML = originalHtml;
+                }
             }
         }
 
@@ -5351,14 +5592,21 @@
                 return;
             }
 
+            const btn = document.getElementById('save-manual-btn');
+            const originalHtml = btn ? btn.innerHTML : '';
+            if (btn) {
+                btn.classList.add('btn-loading');
+                btn.innerHTML = '<span class="btn-spinner"></span> Menyimpan...';
+            }
+
             const courseId = 'manual-' + Date.now();
 
-            // Cek login state (tanpa memaksa login)
-            const { data: { session } } = await supabaseClient.auth.getSession();
+            try {
+                // Cek login state (tanpa memaksa login)
+                const { data: { session } } = await supabaseClient.auth.getSession();
 
-            if (session && session.user) {
-                // --- Simpan ke Supabase ---
-                try {
+                if (session && session.user) {
+                    // --- Simpan ke Supabase ---
                     const { data, error } = await supabaseClient
                         .from('saved_materials')
                         .insert({
@@ -5373,6 +5621,10 @@
                     if (error) {
                         console.error('❌ Manual insert error:', error);
                         alert('Gagal menyimpan materi: ' + error.message);
+                        if (btn) {
+                            btn.classList.remove('btn-loading');
+                            btn.innerHTML = originalHtml;
+                        }
                         return;
                     }
 
@@ -5394,30 +5646,35 @@
 
                     nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
 
-                } catch (err) {
-                    console.error('❌ Save manual material error:', err);
-                    alert('Gagal menyimpan materi: ' + err.message);
+                } else {
+                    // --- Simpan ke localStorage (tanpa login) ---
+                    const local = getLocalItems();
+                    const newItem = {
+                        id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
+                        course_id: courseId,
+                        title: name,
+                        link: url,
+                        image: null
+                    };
+                    local.unshift(newItem);
+                    setLocalItems(local);
+
+                    console.log('✅ Manual saved to localStorage (no login):', newItem);
+                    await loadSavedMaterials();
+                    nameInput.value = '';
+                    urlInput.value = '';
+                    document.getElementById('manual-form-container').classList.add('hidden');
+
+                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
                 }
-            } else {
-                // --- Simpan ke localStorage (tanpa login) ---
-                const local = getLocalItems();
-                const newItem = {
-                    id: 'local-' + Date.now() + '-' + Math.random().toString(36).slice(2, 8),
-                    course_id: courseId,
-                    title: name,
-                    link: url,
-                    image: null
-                };
-                local.unshift(newItem);
-                setLocalItems(local);
-
-                console.log('✅ Manual saved to localStorage (no login):', newItem);
-                await loadSavedMaterials();
-                nameInput.value = '';
-                urlInput.value = '';
-                document.getElementById('manual-form-container').classList.add('hidden');
-
-                nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
+            } catch (err) {
+                console.error('❌ Save manual material error:', err);
+                alert('Gagal menyimpan materi: ' + err.message);
+            } finally {
+                if (btn) {
+                    btn.classList.remove('btn-loading');
+                    btn.innerHTML = originalHtml;
+                }
             }
         }
 
@@ -5568,7 +5825,17 @@
             }
 
             if (editRecordId) {
+                const btn = document.getElementById('edit-save-btn');
+                const originalHtml = btn ? btn.innerHTML : '';
+                if (btn) {
+                    btn.classList.add('btn-loading');
+                    btn.innerHTML = '<span class="btn-spinner"></span> Menyimpan...';
+                }
                 await updateMaterial(editRecordId, newTitle, newLink);
+                if (btn) {
+                    btn.classList.remove('btn-loading');
+                    btn.innerHTML = originalHtml;
+                }
                 closeEditModal();
             }
         }
@@ -5763,99 +6030,133 @@
         window.handleDaftar = handleDaftar;
 
         // ================================================================
-        // 17. INIT
+        // 17. BFCACHE HANDLER (Reset Loading Saat Kembali Via Back Button)
+        // ================================================================
+        window.addEventListener('pageshow', function (event) {
+            // 1. Sembunyikan page loading overlay (jika user kembali ke halaman ini)
+            hidePageLoading();
+
+            // 2. Reset semua tombol yang memiliki class 'btn-loading' agar tidak stuck
+            document.querySelectorAll('.btn-loading').forEach(btn => {
+                btn.classList.remove('btn-loading');
+
+                // Kembalikan HTML asli dari atribut data-original-html
+                if (btn.hasAttribute('data-original-html')) {
+                    btn.innerHTML = btn.getAttribute('data-original-html');
+                    btn.removeAttribute('data-original-html');
+                } else {
+                    // Fallback untuk tombol Daftar jika atribut tidak ada
+                    if (btn.classList.contains('bg-primary') && btn.innerHTML.includes('btn-spinner')) {
+                        btn.innerHTML = 'Daftar <i class="fas fa-arrow-right text-[8px]"></i>';
+                    }
+                }
+            });
+
+            // 3. Bersihkan state loading pada list drawer jika ada
+            document.querySelectorAll('.item-loading').forEach(el => el.classList.remove('item-loading'));
+        });
+
+        // ================================================================
+        // 18. INIT
         // ================================================================
         document.addEventListener('DOMContentLoaded', async () => {
-            await checkSession();
+            showPageLoading('Memuat Materi...');
 
-            const params = new URLSearchParams(window.location.search);
-            const sidebarParam = params.get('sidebar');
-            const catParam = params.get('cat');
-            const loginParam = params.get('login');
+            try {
+                await checkSession();
 
-            let initialCat = 'syariah'; // ✅ default Bimbel Syariah
-            if (catParam && PROGRAMS[catParam]) initialCat = catParam;
+                const params = new URLSearchParams(window.location.search);
+                const sidebarParam = params.get('sidebar');
+                const catParam = params.get('cat');
+                const loginParam = params.get('login');
 
-            changeCategory(initialCat); // otomatis render subfilter + online/offline + applyFilters
+                let initialCat = 'syariah'; // ✅ default Bimbel Syariah
+                if (catParam && PROGRAMS[catParam]) initialCat = catParam;
 
-            // Event bindings
-            document.getElementById('materimu-toggle-btn').onclick = toggleDrawer;
-            document.getElementById('close-drawer').onclick = toggleDrawer;
-            document.getElementById('drawer-overlay').onclick = toggleDrawer;
-            document.getElementById('close-guide-modal').onclick = () => hideModal('guide-modal');
-            document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
-            document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
-            document.getElementById('unavailable-overlay').onclick = () => hideModal('unavailable-modal');
-            document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
+                changeCategory(initialCat); // otomatis render subfilter + online/offline + applyFilters
 
-            document.getElementById('edit-modal-overlay').onclick = closeEditModal;
-            document.getElementById('edit-cancel-btn').onclick = closeEditModal;
-            document.getElementById('edit-save-btn').onclick = saveEdit;
+                // Event bindings
+                document.getElementById('materimu-toggle-btn').onclick = toggleDrawer;
+                document.getElementById('close-drawer').onclick = toggleDrawer;
+                document.getElementById('drawer-overlay').onclick = toggleDrawer;
+                document.getElementById('close-guide-modal').onclick = () => hideModal('guide-modal');
+                document.getElementById('open-guide-btn').onclick = () => showModal('guide-modal');
+                document.getElementById('close-unavailable-btn').onclick = () => hideModal('unavailable-modal');
+                document.getElementById('unavailable-overlay').onclick = () => hideModal('unavailable-modal');
+                document.getElementById('login-modal-overlay').onclick = () => hideModal('login-guide-modal');
 
-            const saveManual = document.getElementById('save-manual-btn');
-            if (saveManual) {
-                saveManual.onclick = saveManualMaterial;
-            }
+                document.getElementById('edit-modal-overlay').onclick = closeEditModal;
+                document.getElementById('edit-cancel-btn').onclick = closeEditModal;
+                document.getElementById('edit-save-btn').onclick = saveEdit;
 
-            const toggleManual = document.getElementById('toggle-manual-form');
-            if (toggleManual) {
-                toggleManual.onclick = () => {
-                    document.getElementById('manual-form-container').classList.toggle('hidden');
-                    document.getElementById('manual-chevron').classList.toggle('rotate-180');
-                };
-            }
-
-            const clearAll = document.getElementById('clear-all-btn');
-            if (clearAll) {
-                clearAll.onclick = clearAllMaterials;
-            }
-
-            if (loginParam === 'true') {
-                setTimeout(() => openLoginModal(), 500);
-            }
-
-            if (sidebarParam === 'materimu') {
-                setTimeout(toggleDrawer, 300);
-            }
-
-            if (!localStorage.getItem('guideShown')) {
-                setTimeout(() => showModal('guide-modal'), 1500);
-                localStorage.setItem('guideShown', 'true');
-            }
-
-            // Listen for auth changes
-            supabaseClient.auth.onAuthStateChange(async (event, session) => {
-                if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-                    currentUser = session?.user || null;
-                    isLoggedIn = !!currentUser;
-                    // Migrasi localStorage ke Supabase saat login
-                    await migrateLocalToSupabase();
-                    await loadSavedMaterials();
-                } else if (event === 'SIGNED_OUT') {
-                    currentUser = null;
-                    isLoggedIn = false;
-                    // Kembali load dari localStorage (jika ada)
-                    await loadSavedMaterials();
-                    nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
+                const saveManual = document.getElementById('save-manual-btn');
+                if (saveManual) {
+                    saveManual.onclick = saveManualMaterial;
                 }
-            });
 
-            // Broadcast listener
-            nuqthahChannel.addEventListener('message', async function (event) {
-                console.log('📨 Received message from index.html:', event.data);
-                if (event.data?.type === 'MATERIMU_ITEM_ADDED') {
-                    console.log('📦 Item added from index, reloading...');
-                    await loadSavedMaterials();
+                const toggleManual = document.getElementById('toggle-manual-form');
+                if (toggleManual) {
+                    toggleManual.onclick = () => {
+                        document.getElementById('manual-form-container').classList.toggle('hidden');
+                        document.getElementById('manual-chevron').classList.toggle('rotate-180');
+                    };
                 }
-                if (event.data?.type === 'SHORTCUT_UPDATED') {
-                    console.log('🔄 Shortcut updated, reloading...');
-                    await loadSavedMaterials();
-                }
-                if (event.data?.type === 'MATERIMU_COUNT_UPDATE') {
-                    console.log('📊 Count update received:', event.data.count);
-                }
-            });
 
+                const clearAll = document.getElementById('clear-all-btn');
+                if (clearAll) {
+                    clearAll.onclick = clearAllMaterials;
+                }
+
+                if (loginParam === 'true') {
+                    setTimeout(() => openLoginModal(), 500);
+                }
+
+                if (sidebarParam === 'materimu') {
+                    setTimeout(toggleDrawer, 300);
+                }
+
+                if (!localStorage.getItem('guideShown')) {
+                    setTimeout(() => showModal('guide-modal'), 1500);
+                    localStorage.setItem('guideShown', 'true');
+                }
+
+                // Listen for auth changes
+                supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                    if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
+                        currentUser = session?.user || null;
+                        isLoggedIn = !!currentUser;
+                        // Migrasi localStorage ke Supabase saat login
+                        await migrateLocalToSupabase();
+                        await loadSavedMaterials();
+                    } else if (event === 'SIGNED_OUT') {
+                        currentUser = null;
+                        isLoggedIn = false;
+                        // Kembali load dari localStorage (jika ada)
+                        await loadSavedMaterials();
+                        nuqthahChannel.postMessage({ type: 'MATERIMU_COUNT_UPDATE', count: savedItems.length });
+                    }
+                });
+
+                // Broadcast listener
+                nuqthahChannel.addEventListener('message', async function (event) {
+                    console.log('📨 Received message from index.html:', event.data);
+                    if (event.data?.type === 'MATERIMU_ITEM_ADDED') {
+                        console.log('📦 Item added from index, reloading...');
+                        await loadSavedMaterials();
+                    }
+                    if (event.data?.type === 'SHORTCUT_UPDATED') {
+                        console.log('🔄 Shortcut updated, reloading...');
+                        await loadSavedMaterials();
+                    }
+                    if (event.data?.type === 'MATERIMU_COUNT_UPDATE') {
+                        console.log('📊 Count update received:', event.data.count);
+                    }
+                });
+
+            } finally {
+                // Sembunyikan page loading overlay
+                hidePageLoading();
+            }
         });
 
         // Broadcast ready
@@ -5865,6 +6166,8 @@
         console.log('✅ Sinkronisasi dua arah dengan index.html aktif.');
         console.log('✅ Filter Online/Offline aktif di bawah sub-filter.');
         console.log('✅ Materimu dapat digunakan tanpa login (localStorage fallback).');
+        console.log('✅ Loading states aktif: page load, Daftar, save, remove, clear, manual, drawer.');
+        console.log('✅ BFCache handler aktif: Tombol Daftar akan reset saat pengguna klik tombol Back browser.');
     </script>
 
     <script>
