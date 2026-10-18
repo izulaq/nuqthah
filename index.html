@@ -433,6 +433,31 @@
             transform: scale(1.02);
         }
 
+        /* ===== HERO MOBILE CTA (Hanya Tampil di Mobile) ===== */
+        .hero-mobile-cta {
+            display: none;
+        }
+
+        @keyframes ctaStarPulse {
+            0%, 100% {
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% {
+                transform: scale(1.25);
+                opacity: 0.75;
+            }
+        }
+
+        @keyframes ctaGradientShift {
+            0% {
+                background-position: 0% center;
+            }
+            100% {
+                background-position: 200% center;
+            }
+        }
+
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
@@ -728,7 +753,6 @@
             line-height: 1.7;
             margin-bottom: 24px;
             text-align: justify;
-            /* Rata Kanan-Kiri */
         }
 
         .promo-benefits {
@@ -748,7 +772,6 @@
             font-weight: 500;
             font-size: 0.98rem;
             text-align: left;
-            /* Memastikan teks ceklis rata kiri */
         }
 
         .promo-benefits li i {
@@ -1563,6 +1586,56 @@
                 margin-bottom: 28px;
             }
 
+            /* ===== HERO MOBILE CTA — TAMPIL DI MOBILE ===== */
+            .hero-mobile-cta {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 12px;
+                margin: -10px auto 18px;
+                max-width: 340px;
+                padding: 0 6px;
+            }
+
+            .hero-mobile-cta .cta-line {
+                flex: 1;
+                height: 2px;
+                border-radius: 2px;
+                background: linear-gradient(90deg, transparent, #c9a227);
+            }
+
+            .hero-mobile-cta .cta-line-right {
+                background: linear-gradient(270deg, transparent, #c9a227);
+            }
+
+            .hero-mobile-cta .cta-text {
+                display: inline-flex;
+                align-items: center;
+                gap: 8px;
+                font-weight: 700;
+                font-size: 0.95rem;
+                letter-spacing: 0.2px;
+                white-space: nowrap;
+                line-height: 1.2;
+            }
+
+            .hero-mobile-cta .cta-text i {
+                color: #c9a227;
+                font-size: 0.85rem;
+                flex-shrink: 0;
+                animation: ctaStarPulse 2s ease-in-out infinite;
+            }
+
+            .hero-mobile-cta .cta-gradient {
+                background: linear-gradient(90deg, #0f4a3a 0%, #1a7a5e 45%, #c9a227 100%);
+                background-size: 200% auto;
+                -webkit-background-clip: text;
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                color: #0f4a3a;
+                animation: ctaGradientShift 4s linear infinite;
+            }
+
             .hero-buttons {
                 justify-content: center;
             }
@@ -1616,17 +1689,13 @@
                 text-align: center;
             }
 
-            /* Teks Paragraf dibuat Rata Kanan-Kiri */
             .promo-content p {
                 text-align: justify;
             }
 
-            /* Perbaikan List Ceklis di Mobile */
             .promo-benefits {
                 align-items: flex-start;
-                /* Membuat ikon & teks rata kiri */
                 max-width: 340px;
-                /* Membatasi lebar agar tidak terlalu melebar */
                 margin-left: auto;
                 margin-right: auto;
                 padding-left: 0;
@@ -1749,6 +1818,22 @@
             .hero-banner {
                 border-radius: 16px;
                 margin-bottom: 24px;
+            }
+
+            /* Penyesuaian CTA Mobile di Layar Kecil */
+            .hero-mobile-cta {
+                gap: 10px;
+                margin: -8px auto 16px;
+                max-width: 300px;
+            }
+
+            .hero-mobile-cta .cta-text {
+                font-size: 0.88rem;
+                gap: 6px;
+            }
+
+            .hero-mobile-cta .cta-text i {
+                font-size: 0.78rem;
             }
 
             .hero-buttons {
@@ -1961,6 +2046,21 @@
                 gap: 12px;
             }
 
+            /* Penyesuaian CTA Mobile di Layar Sangat Kecil */
+            .hero-mobile-cta {
+                gap: 8px;
+                margin: -6px auto 14px;
+                max-width: 280px;
+            }
+
+            .hero-mobile-cta .cta-text {
+                font-size: 0.8rem;
+            }
+
+            .hero-mobile-cta .cta-text i {
+                font-size: 0.72rem;
+            }
+
             .stack-slide {
                 padding: 14px 12px;
             }
@@ -2068,6 +2168,16 @@
                 <div class="hero-banner">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/93952dd0_mang%20emul.jpeg"
                         alt="Bimbel Muqoror & Kajian Kitab Turats Nuqthah Learning Center">
+                </div>
+
+                <!-- Teks CTA Khusus Mobile -->
+                <div class="hero-mobile-cta">
+                    <span class="cta-line"></span>
+                    <span class="cta-text">
+                        <i class="fas fa-star"></i>
+                        <span class="cta-gradient">Mulai belajar sekarang!</span>
+                    </span>
+                    <span class="cta-line cta-line-right"></span>
                 </div>
 
                 <div class="hero-buttons">
