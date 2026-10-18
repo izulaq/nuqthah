@@ -410,40 +410,27 @@
             z-index: 2;
         }
 
-        .hero-content h1 {
-            font-size: 2.6rem;
-            font-weight: 700;
-            line-height: 1.2;
-            letter-spacing: -0.02em;
-            color: #0b1a17;
-            margin-bottom: 14px;
-        }
-
-        .hero-content h1 span {
-            color: #c9a227;
-            position: relative;
-        }
-
-        .hero-content h1 span::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 0;
+        /* Styling untuk Gambar Banner Baru di Hero */
+        .hero-banner {
             width: 100%;
-            height: 4px;
-            background: rgba(15, 74, 58, 0.12);
-            border-radius: 4px;
+            max-width: 600px;
+            margin-bottom: 30px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 40px rgba(15, 74, 58, 0.15);
+            border: 1px solid rgba(15, 74, 58, 0.05);
+            background: #ffffff;
         }
 
-        .hero-content .hero-desc {
-            font-size: 1.05rem;
-            color: #4a5a57;
-            max-width: 480px;
-            margin-bottom: 28px;
-            line-height: 1.7;
-            font-weight: 400;
-            text-align: justify;
-            /* tambahan untuk rata kanan-kiri */
+        .hero-banner img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .hero-banner:hover img {
+            transform: scale(1.02);
         }
 
         .hero-buttons {
@@ -566,7 +553,7 @@
         }
 
         /* ============================================================
-                   WHATSAPP CHANNEL BUTTON (di bawah slider)
+                   WHATSAPP CHANNEL BUTTON
                 ============================================================ */
         .channel-btn {
             display: inline-flex;
@@ -678,24 +665,106 @@
         }
 
         /* ============================================================
+                   PROMO BIMBEL MUQOROR (SECTION BARU)
+                ============================================================ */
+        .promo-bimbel {
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .promo-bimbel::before {
+            content: '';
+            position: absolute;
+            top: 10%;
+            left: -5%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .promo-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .promo-image {
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 16px 48px rgba(15, 74, 58, 0.15);
+            border: 1px solid rgba(15, 74, 58, 0.08);
+            background: #f8fbfa;
+        }
+
+        .promo-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .promo-image:hover img {
+            transform: scale(1.03);
+        }
+
+        .promo-content h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: #0b1a17;
+            margin-bottom: 16px;
+            letter-spacing: -0.03em;
+            line-height: 1.2;
+        }
+
+        .promo-content p {
+            color: #4a5a57;
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+            text-align: justify;
+            /* Rata Kanan-Kiri */
+        }
+
+        .promo-benefits {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .promo-benefits li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            color: #0b1a17;
+            font-weight: 500;
+            font-size: 0.98rem;
+            text-align: left;
+            /* Memastikan teks ceklis rata kiri */
+        }
+
+        .promo-benefits li i {
+            color: #c9a227;
+            margin-top: 4px;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        /* ============================================================
                    TENTANG
                 ============================================================ */
         .tentang {
             background: #f8fbfa;
             position: relative;
             overflow: hidden;
-        }
-
-        .tentang::before {
-            content: '';
-            position: absolute;
-            top: -30%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(15, 74, 58, 0.03) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
         }
 
         .tentang .container {
@@ -746,7 +815,6 @@
             font-size: 1.02rem;
             line-height: 1.7;
             text-align: justify;
-            /* tambahan untuk rata kanan-kiri */
         }
 
         .tentang-content p:last-of-type {
@@ -760,18 +828,6 @@
             background: #ffffff;
             position: relative;
             overflow: hidden;
-        }
-
-        .keunggulan::before {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(15, 74, 58, 0.02) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
         }
 
         .keunggulan-grid {
@@ -791,7 +847,6 @@
             transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.01);
             backdrop-filter: blur(4px);
-            -webkit-backdrop-filter: blur(4px);
         }
 
         .keunggulan-card:hover {
@@ -841,18 +896,6 @@
             overflow: hidden;
         }
 
-        .program::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -5%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(201, 162, 39, 0.04) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .program-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -865,7 +908,6 @@
         .program-card {
             background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
             border-radius: 24px;
             border: 1px solid rgba(15, 74, 58, 0.06);
             padding: 32px 28px;
@@ -960,18 +1002,6 @@
             overflow: hidden;
         }
 
-        .alur::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            left: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(15, 74, 58, 0.02) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .alur-timeline {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1039,18 +1069,6 @@
             overflow: hidden;
         }
 
-        .cocok::before {
-            content: '';
-            position: absolute;
-            bottom: -20%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(15, 74, 58, 0.03) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
         .cocok-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -1096,18 +1114,6 @@
             background: #ffffff;
             position: relative;
             overflow: hidden;
-        }
-
-        .faq::before {
-            content: '';
-            position: absolute;
-            top: -20%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(15, 74, 58, 0.02) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
         }
 
         .faq-list {
@@ -1190,30 +1196,6 @@
             color: #ffffff;
             position: relative;
             overflow: hidden;
-        }
-
-        .cta::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.04) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-
-        .cta::after {
-            content: '';
-            position: absolute;
-            bottom: -40%;
-            left: -10%;
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(255, 255, 255, 0.03) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
         }
 
         .cta .container {
@@ -1440,7 +1422,7 @@
         }
 
         /* ============================================================
-                   RESPONSIVE — UPDATED
+                   RESPONSIVE
                 ============================================================ */
 
         /* --- Tablet (768px – 1024px) --- */
@@ -1450,13 +1432,8 @@
                 gap: 40px;
             }
 
-            .hero-content h1 {
-                font-size: 2.2rem;
-            }
-
-            .hero-content .hero-desc {
-                font-size: 0.98rem;
-                max-width: 100%;
+            .hero-banner {
+                margin-bottom: 24px;
             }
 
             .hero-stats {
@@ -1487,6 +1464,15 @@
 
             .stack-slide .slide-message {
                 font-size: 0.88rem;
+            }
+
+            /* Promo Section */
+            .promo-grid {
+                gap: 40px;
+            }
+
+            .promo-content h2 {
+                font-size: 1.8rem;
             }
 
             .tentang .container {
@@ -1571,18 +1557,10 @@
                 text-align: center;
             }
 
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-
-            .hero-content .hero-desc {
+            .hero-banner {
                 margin-left: auto;
                 margin-right: auto;
-                max-width: 480px;
-            }
-
-            .hero-content h1 span::after {
-                display: none;
+                margin-bottom: 28px;
             }
 
             .hero-buttons {
@@ -1621,6 +1599,37 @@
 
             .stack-slide .slide-message {
                 font-size: 0.9rem;
+            }
+
+            /* Promo Section */
+            .promo-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .promo-image {
+                max-width: 500px;
+                margin: 0 auto;
+            }
+
+            .promo-content {
+                text-align: center;
+            }
+
+            /* Teks Paragraf dibuat Rata Kanan-Kiri */
+            .promo-content p {
+                text-align: justify;
+            }
+
+            /* Perbaikan List Ceklis di Mobile */
+            .promo-benefits {
+                align-items: flex-start;
+                /* Membuat ikon & teks rata kiri */
+                max-width: 340px;
+                /* Membatasi lebar agar tidak terlalu melebar */
+                margin-left: auto;
+                margin-right: auto;
+                padding-left: 0;
             }
 
             .tentang .container {
@@ -1737,13 +1746,9 @@
                 gap: 16px;
             }
 
-            .hero-content h1 {
-                font-size: 1.65rem;
-            }
-
-            .hero-content .hero-desc {
-                font-size: 0.95rem;
-                margin-bottom: 20px;
+            .hero-banner {
+                border-radius: 16px;
+                margin-bottom: 24px;
             }
 
             .hero-buttons {
@@ -1797,7 +1802,6 @@
                 line-height: 1.5;
             }
 
-            /* Channel button — small mobile */
             .channel-btn {
                 gap: 10px;
                 padding: 8px 16px 8px 10px;
@@ -1917,13 +1921,23 @@
             .faq-item.open .faq-answer {
                 padding: 0 18px 18px;
             }
+
+            /* Promo Section Mobile */
+            .promo-content h2 {
+                font-size: 1.5rem;
+            }
+
+            .promo-content p {
+                font-size: 0.95rem;
+            }
+
+            .promo-benefits li {
+                font-size: 0.9rem;
+            }
         }
 
         /* --- Very Small (below 360px) --- */
         @media (max-width: 360px) {
-            .hero-content h1 {
-                font-size: 1.4rem;
-            }
 
             .hero-buttons .btn-primary-sm,
             .hero-buttons .btn-outline-sm {
@@ -1955,7 +1969,6 @@
                 font-size: 0.75rem;
             }
 
-            /* Channel button — very small */
             .channel-btn {
                 padding: 7px 14px 7px 8px;
                 gap: 8px;
@@ -1980,7 +1993,6 @@
             }
         }
 
-        /* --- Scroll margin for fixed nav --- */
         section[id] {
             scroll-margin-top: 80px;
         }
@@ -2052,15 +2064,12 @@
 
         <div class="container">
             <div class="hero-content fade-up">
-                <div class="badge-light">
-                    <i class="fas fa-star"></i> Bimbel Muqarrar & kajian Kitab Turats
+                <!-- Gambar Banner Baru Menggantikan Teks Judul & Deskripsi -->
+                <div class="hero-banner">
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/e866ee5e_WhatsApp%20Image%202026-10-18%20at%2004.59.59.jpeg"
+                        alt="Bimbel Muqoror & Kajian Kitab Turats Nuqthah Learning Center">
                 </div>
-                <h1>Jadikan Belajarmu <br /><span>Lebih Mudah &amp; Fleksibel</span></h1>
-                <p class="hero-desc">
-                    kamu dapat dengan mudah mengakses seluruh materi pembelajaran yang telah disediakan kapan saja dan
-                    di
-                    mana saja bersama Nuqthah🤩.
-                </p>
+
                 <div class="hero-buttons">
                     <a href="materi.html" class="btn-primary-sm">
                         <i class="fas fa-rocket"></i> Mulai Belajar
@@ -2132,6 +2141,42 @@
                         <i class="fas fa-arrow-right"></i>
                     </span>
                 </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== SECTION BARU: PROMO BIMBEL MUQOROR ===== -->
+    <section class="promo-bimbel section-padding" id="promo">
+        <div class="container">
+            <div class="promo-grid">
+                <!-- Kolom Kiri: Foto Poster -->
+                <div class="promo-image fade-up">
+                    <!-- Pastikan Anda menyimpan gambar poster dengan nama 'poster-bimbel.jpg' di folder assets -->
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f73c0cf4_WhatsApp%20Image%202026-10-18%20at%2003.43.48.jpeg"
+                        alt="Poster Bimbel Muqoror Nuqthah Learning Center"
+                        onerror="this.src='https://placehold.co/600x800/f0f7f4/0f4a3a?text=Poster+Bimbel+Muqoror';" />
+                </div>
+                <!-- Kolom Kanan: Caption & Benefit -->
+                <div class="promo-content fade-up fade-up-delay-1">
+                    <span class="badge-light"><i class="fas fa-bullhorn"></i> Program Spesial</span>
+                    <h2>Bimbel Muqoror: Ushuluddin & Syari'ah TK. 1</h2>
+                    <p>Persiapkan dirimu menghadapi perkuliahan dengan lebih matang! Nuqthah Learning Center
+                        menghadirkan bimbingan belajar eksklusif (Online & Offline) untuk mahasiswa Fakultas Ushuluddin
+                        dan Syari'ah
+                        tingkat 1.</p>
+
+                    <ul class="promo-benefits">
+                        <li><i class="fas fa-check-circle"></i> Video dengan visual & audio berkualitas</li>
+                        <li><i class="fas fa-check-circle"></i> Talkhisan untuk menghafal Ibaroh</li>
+                        <li><i class="fas fa-check-circle"></i> Quiz untuk memahami karakter soal</li>
+                        <li><i class="fas fa-check-circle"></i> Konsultasi pada tutor bimbel</li>
+                        <li><i class="fas fa-check-circle"></i> Grup diskusi untuk pemahaman lebih</li>
+                    </ul>
+
+                    <a href="materi.html" class="btn-primary-sm" style="margin-top: 8px;">
+                        <i class="fas fa-clipboard-list"></i> Daftar Sekarang
+                    </a>
+                </div>
             </div>
         </div>
     </section>
@@ -2280,8 +2325,8 @@
                 </div>
                 <div class="alur-step fade-up fade-up-delay-3">
                     <div class="step-number">4</div>
-                    <h4>Akses Materi</h4>
-                    <p>Akses materi akan dikirim melalui email</p>
+                    <h4>Daftar Materi</h4>
+                    <p>Daftar materi akan dikirim melalui email</p>
                 </div>
             </div>
         </div>
@@ -2346,7 +2391,8 @@
                         Apakah materi bisa diakses kapan saja?
                         <i class="fas fa-chevron-down"></i>
                     </button>
-                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24 jam penuh, sesuai dengan
+                    <div class="faq-answer">Ya, semua materi dapat diakses kapan saja selama 24 jam penuh, sesuai
+                        dengan
                         kebutuhan belajar Anda.</div>
                 </div>
                 <div class="faq-item fade-up fade-up-delay-3">
@@ -2575,7 +2621,7 @@
             startAutoplay();
 
             // ============================================================
-            // COUNTER ANIMATION — mulai dari 0 setiap kali hero terlihat
+            // COUNTER ANIMATION
             // ============================================================
 
             const statElements = [
@@ -2585,7 +2631,6 @@
                 { id: 'stat-rating', target: 9.5, format: 'rating' }
             ];
 
-            // Siapkan referensi elemen dan nilai awal
             const counters = statElements.map(function (cfg) {
                 const el = document.getElementById(cfg.id);
                 return {
@@ -2598,7 +2643,6 @@
                 };
             });
 
-            // Fungsi format angka sesuai tipe
             function formatCounter(value, format) {
                 if (format === 'plus') {
                     return Math.round(value) + '+';
@@ -2610,7 +2654,6 @@
                 return String(Math.round(value));
             }
 
-            // Fungsi reset semua counter ke 0
             function resetAllCounters() {
                 counters.forEach(function (c) {
                     c.current = 0;
@@ -2620,7 +2663,6 @@
                 });
             }
 
-            // Animasi satu counter
             function animateCounter(counter, duration) {
                 if (counter.animating) return;
                 if (counter.done) return;
@@ -2633,7 +2675,6 @@
                 function update(currentTime) {
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-                    // easeOutCubic
                     const eased = 1 - Math.pow(1 - progress, 3);
                     const currentVal = startValue + (targetValue - startValue) * eased;
 
@@ -2653,7 +2694,6 @@
                 requestAnimationFrame(update);
             }
 
-            // Mulai semua animasi
             function startAllCounters() {
                 counters.forEach(function (c) {
                     c.current = 0;
@@ -2664,25 +2704,20 @@
                 });
             }
 
-            // Observer untuk hero stats — reset & mulai ulang saat masuk viewport
             const heroStatsEl = document.getElementById('heroStats');
             let heroVisible = false;
 
             const observerHero = new IntersectionObserver(function (entries) {
                 entries.forEach(function (entry) {
                     if (entry.isIntersecting) {
-                        // Hero masuk viewport
                         if (!heroVisible) {
                             heroVisible = true;
-                            // Reset semua ke 0 dulu
                             resetAllCounters();
-                            // Mulai animasi (dengan jeda kecil agar visual reset terlihat)
                             requestAnimationFrame(function () {
                                 startAllCounters();
                             });
                         }
                     } else {
-                        // Hero keluar viewport — reset agar siap untuk next time
                         if (heroVisible) {
                             heroVisible = false;
                             resetAllCounters();
@@ -2693,16 +2728,7 @@
 
             observerHero.observe(heroStatsEl);
 
-            // Jika halaman dimuat dan hero sudah terlihat (misal di atas fold),
-            // observer akan tetap memicu, tapi kadang IntersectionObserver
-            // butuh waktu. Kita panggil manual sekali setelah load.
-            // Tapi karena observer sudah di-set, kita cukup tunggu.
-            // Namun untuk kasus di mana hero langsung terlihat saat load,
-            // observer akan memicu entry.isIntersecting = true.
-            // Tapi ada kasus di mana observer belum sempat trigger saat DOMContentLoaded,
-            // maka kita cek sekali setelah 200ms.
             setTimeout(function () {
-                // Cek apakah hero sedang terlihat
                 const rect = heroStatsEl.getBoundingClientRect();
                 const winHeight = window.innerHeight || document.documentElement.clientHeight;
                 const isVisible = rect.top < winHeight - 100 && rect.bottom > 100;
