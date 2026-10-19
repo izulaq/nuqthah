@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Nuqthah Learning Center</title>
+    <title>Markaz Nuqthah</title>
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -16,8 +16,9 @@
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="assets/logofix.png" />
+    <!-- Favicon (Diperbarui menggunakan logo baru) -->
+    <link rel="icon" type="image/png"
+        href="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2ef2247a_file_0000000005ac82469e639ea2dfd71b0e.png" />
 
     <style>
         /* ============================================================
@@ -249,35 +250,36 @@
         .navbar .logo {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: #0b1a17;
             letter-spacing: -0.3px;
         }
 
+        /* Penyesuaian untuk Logo Baru (Persegi Panjang) */
         .navbar .logo .logo-img {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: #0f4a3a;
+            height: 38px;
+            width: auto;
+            border-radius: 6px;
             overflow: hidden;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: transparent;
         }
 
         .navbar .logo .logo-img img {
-            width: 100%;
             height: 100%;
-            object-fit: cover;
+            width: auto;
+            object-fit: contain;
         }
 
         .navbar .logo .logo-img i {
             font-size: 1.2rem;
-            color: #ffffff;
+            color: #0f4a3a;
         }
 
         .navbar .logo .logo-text {
@@ -439,10 +441,13 @@
         }
 
         @keyframes ctaStarPulse {
-            0%, 100% {
+
+            0%,
+            100% {
                 transform: scale(1);
                 opacity: 1;
             }
+
             50% {
                 transform: scale(1.25);
                 opacity: 0.75;
@@ -453,6 +458,7 @@
             0% {
                 background-position: 0% center;
             }
+
             100% {
                 background-position: 200% center;
             }
@@ -1967,13 +1973,13 @@
                 align-self: center;
             }
 
+            /* Penyesuaian ukuran logo baru di mobile */
             .navbar .logo .logo-img {
-                width: 30px;
-                height: 30px;
+                height: 32px;
             }
 
             .navbar .logo {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
 
             .fab-container {
@@ -2129,12 +2135,12 @@
         <div class="container">
             <a href="index.html" class="logo">
                 <span class="logo-img">
-                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
-                        alt="Nuqthah Logo"
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2ef2247a_file_0000000005ac82469e639ea2dfd71b0e.png"
+                        alt="Markaz Nuqthah Logo"
                         onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
                 </span>
-                <span class="logo-text">Nuqthah Learning Center</span>
-                <span class="logo-text-sm">Nuqthah Learning Center</span>
+                <span class="logo-text">Markaz Nuqthah</span>
+                <span class="logo-text-sm">Markaz Nuqthah</span>
             </a>
 
             <ul class="nav-links" id="navLinks">
@@ -2167,7 +2173,7 @@
                 <!-- Gambar Banner Baru Menggantikan Teks Judul & Deskripsi -->
                 <div class="hero-banner">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/93952dd0_mang%20emul.jpeg"
-                        alt="Bimbel Muqoror & Kajian Kitab Turats Nuqthah Learning Center">
+                        alt="Bimbel Muqoror & Kajian Kitab Turats Markaz Nuqthah">
                 </div>
 
                 <!-- Teks CTA Khusus Mobile -->
@@ -2239,7 +2245,7 @@
 
                 <!-- ===== TOMBOL SALURAN WHATSAPP ===== -->
                 <a href="https://whatsapp.com/channel/0029Vb7wuKJJENy5U07kAP0y" target="_blank" rel="noopener"
-                    class="channel-btn" aria-label="Ikuti Saluran WhatsApp Nuqthah Learning Center">
+                    class="channel-btn" aria-label="Ikuti Saluran WhatsApp Markaz Nuqthah">
                     <span class="channel-icon">
                         <i class="fab fa-whatsapp"></i>
                     </span>
@@ -2263,14 +2269,14 @@
                 <div class="promo-image fade-up">
                     <!-- Pastikan Anda menyimpan gambar poster dengan nama 'poster-bimbel.jpg' di folder assets -->
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f73c0cf4_WhatsApp%20Image%202026-10-18%20at%2003.43.48.jpeg"
-                        alt="Poster Bimbel Muqoror Nuqthah Learning Center"
+                        alt="Poster Bimbel Muqoror Markaz Nuqthah"
                         onerror="this.src='https://placehold.co/600x800/f0f7f4/0f4a3a?text=Poster+Bimbel+Muqoror';" />
                 </div>
                 <!-- Kolom Kanan: Caption & Benefit -->
                 <div class="promo-content fade-up fade-up-delay-1">
                     <span class="badge-light"><i class="fas fa-bullhorn"></i> Program Spesial</span>
                     <h2>Bimbel Muqoror: Ushuluddin & Syari'ah TK. 1</h2>
-                    <p>Persiapkan dirimu menghadapi perkuliahan dengan lebih matang! Nuqthah Learning Center
+                    <p>Persiapkan dirimu menghadapi perkuliahan dengan lebih matang! Markaz Nuqthah
                         menghadirkan bimbingan belajar eksklusif (Online & Offline) untuk mahasiswa Fakultas Ushuluddin
                         dan Syari'ah
                         tingkat 1.</p>
@@ -2297,13 +2303,13 @@
         <div class="container">
             <div class="tentang-visual fade-up">
                 <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-incredible-kingdom-7517/919a7101_WhatsApp%20Image%202026-09-20%20at%2023.22.13.jpeg"
-                    alt="Nuqthah Learning Center"
+                    alt="Markaz Nuqthah"
                     onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-landmark fallback-icon\'></i>'" />
             </div>
             <div class="tentang-content fade-up fade-up-delay-1">
                 <span class="badge-light"><i class="fas fa-info-circle"></i> Tentang Kami</span>
-                <h2>Nuqthah Learning Center</h2>
-                <p>Nuqthah Learning Center merupakan platform pembelajaran yang dirancang untuk membantu masisir
+                <h2>Markaz Nuqthah</h2>
+                <p>Markaz Nuqthah merupakan platform pembelajaran yang dirancang untuk membantu masisir
                     (mahasiswa
                     Indonesia di Universitas Al-Azhar Mesir) memahami muqarrar perkuliahan dan kitab kitab turats dengan
                     lebih mudah.</p>
@@ -2320,13 +2326,13 @@
         <div class="container">
             <div class="text-center fade-up">
                 <span class="badge-light"><i class="fas fa-bolt"></i> Keunggulan</span>
-                <h2 class="section-title">Mengapa Memilih Nuqthah?</h2>
+                <h2 class="section-title">Mengapa Memilih Markaz Nuqthah?</h2>
                 <p class="section-subtitle mx-auto">Kami hadir untuk membuat perjalanan belajarmu di Al-Azhar lebih
                     terarah, mudah, dan bermakna.</p>
             </div>
             <div class="keunggulan-grid">
 
-<div class="keunggulan-card fade-up">
+                <div class="keunggulan-card fade-up">
                     <div class="icon"><i class="fa fa-television"></i></div>
                     <h3>Smart Tv</h3>
                     <p>Belajar menggunakan smart tv untuk peserta Offline</p>
@@ -2361,7 +2367,7 @@
                     <h3>Akses Mudah</h3>
                     <p>Website cepat, ringan, dan mudah difahami.</p>
                 </div>
-                
+
             </div>
         </div>
     </section>
@@ -2432,7 +2438,7 @@
                 </div>
                 <div class="alur-step fade-up fade-up-delay-1">
                     <div class="step-number">2</div>
-                    <h4>lakukan pendaftaran</h4>
+                    <h4>Lakukan Pendaftaran</h4>
                     <p>Registrasi data diri dengan mudah</p>
                 </div>
                 <div class="alur-step fade-up fade-up-delay-2">
@@ -2539,7 +2545,7 @@
         <div class="container fade-up">
             <h2>Siap Memulai Perjalanan Belajar Anda?</h2>
             <p>Bergabunglah dengan ratusan masisir lainnya dan raih pemahaman muqarrar yang lebih mendalam bersama
-                Nuqthah Learning Center.</p>
+                Markaz Nuqthah.</p>
             <a href="https://wa.me/6285185409887" class="btn-white-sm"><i class="fab fa-whatsapp text-2xl"></i> hubungi
                 kami</a>
         </div>
@@ -2549,7 +2555,7 @@
     <footer class="footer">
         <div class="container">
             <div class="footer-brand">
-                <i class="fas fa-graduation-cap"></i> Nuqthah Learning Center
+                <i class="fas fa-graduation-cap"></i> Markaz Nuqthah
             </div>
             <div class="footer-links">
                 <a href="#tentang">Tentang</a>
@@ -2558,7 +2564,7 @@
                 <a href="https://wa.me/6285185409887">Kontak</a>
             </div>
             <div class="footer-copy">
-                &copy; 2026 Nuqthah Learning Center. All rights reserved.
+                &copy; 2026 Markaz Nuqthah. All rights reserved.
             </div>
         </div>
     </footer>

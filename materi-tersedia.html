@@ -4,15 +4,16 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Materi Tersedia - Nuqthah Learning Center</title>
+    <title>Materi Tersedia - Markaz Nuqthah</title>
     <meta name="theme-color" content="#0F4A3A" />
-    <link rel="icon" type="image/png" href="assets/logofix.png" />
+    <link rel="icon" type="image/png"
+        href="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2ef2247a_file_0000000005ac82469e639ea2dfd71b0e.png" />
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap"
         rel="stylesheet" />
 
     <!-- CDNs -->
@@ -80,7 +81,7 @@
         }
 
         /* ============================================================
-           NAVBAR
+           NAVBAR (RAPI & MODERN)
            ============================================================ */
         .navbar {
             position: fixed;
@@ -89,173 +90,214 @@
             width: 100%;
             z-index: 1000;
             background: #ffffff;
-            padding: 10px 0;
-            transition: all 0.3s ease;
-            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.06);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 1px 12px rgba(0, 0, 0, 0.05);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            height: 72px;
+            display: flex;
+            align-items: center;
         }
 
         .navbar .container {
             display: flex;
             align-items: center;
             justify-content: space-between;
+            width: 100%;
+            gap: 20px;
         }
 
+        /* Logo Styling */
         .navbar .logo {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 12px;
             font-family: 'Poppins', sans-serif;
             font-weight: 700;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
             color: #0b1a17;
             letter-spacing: -0.3px;
+            text-decoration: none;
+            flex-shrink: 0;
         }
 
         .navbar .logo .logo-img {
-            width: 36px;
-            height: 36px;
+            width: 42px;
+            height: 42px;
             border-radius: 50%;
-            background: #0f4a3a;
             overflow: hidden;
             flex-shrink: 0;
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #f4f6f5;
+            border: 1px solid rgba(46, 94, 78, 0.1);
         }
 
         .navbar .logo .logo-img img {
             width: 100%;
             height: 100%;
-            object-fit: cover;
-        }
-
-        .navbar .logo .logo-img i {
-            font-size: 1.2rem;
-            color: #ffffff;
+            object-fit: contain;
+            padding: 2px;
         }
 
         .navbar .logo .logo-text {
             display: inline-block;
+            font-weight: 700;
+            color: #0b1a17;
+            white-space: nowrap;
         }
 
         .navbar .logo .logo-text-sm {
             display: none;
+            font-weight: 700;
+            color: #0b1a17;
         }
 
+        /* Menu Links */
         .navbar .nav-links {
             display: flex;
             align-items: center;
-            gap: 32px;
+            justify-content: center;
+            gap: 24px;
+            margin: 0 auto;
+        }
+
+        @media (min-width: 1100px) {
+            .navbar .nav-links {
+                gap: 28px;
+            }
         }
 
         .navbar .nav-links a {
             font-weight: 500;
-            color: #3a4a47;
-            transition: color 0.2s;
-            font-size: 0.88rem;
-            letter-spacing: 0.1px;
+            color: #4b5563;
+            transition: color 0.2s ease;
+            font-size: 0.92rem;
+            letter-spacing: -0.1px;
             position: relative;
+            padding: 6px 0;
+            white-space: nowrap;
         }
 
         .navbar .nav-links a::after {
             content: '';
             position: absolute;
-            bottom: -4px;
+            bottom: 0;
             left: 0;
             width: 0;
             height: 2px;
-            background: #c9a227;
-            transition: width 0.3s ease;
+            background: #C9A227;
+            border-radius: 2px;
+            transition: width 0.25s ease;
         }
 
         .navbar .nav-links a:hover {
-            color: #0b1a17;
+            color: #2E5E4E;
         }
 
         .navbar .nav-links a:hover::after {
             width: 100%;
         }
 
+        /* Nav Actions */
         .navbar .nav-actions {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 14px;
+            flex-shrink: 0;
         }
 
         .navbar .btn-nav {
-            background: #c9a227;
+            background: #C9A227;
             color: #ffffff;
-            padding: 8px 24px;
-            border-radius: 60px;
+            padding: 9px 22px;
+            border-radius: 9999px;
             font-weight: 600;
-            font-size: 0.82rem;
-            transition: all 0.3s ease;
+            font-size: 0.85rem;
+            transition: all 0.25s ease;
             border: none;
             cursor: pointer;
             font-family: 'Inter', sans-serif;
             letter-spacing: 0.2px;
-            box-shadow: 0 2px 8px rgba(15, 74, 58, 0.15);
+            box-shadow: 0 4px 14px rgba(201, 162, 39, 0.25);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
         }
 
         .navbar .btn-nav:hover {
-            background: #a18320;
+            background: #b58f1f;
             transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(15, 74, 58, 0.25);
+            box-shadow: 0 6px 18px rgba(201, 162, 39, 0.35);
         }
 
+        /* Hamburger button */
         .hamburger {
             display: none;
             flex-direction: column;
+            justify-content: center;
             gap: 5px;
             cursor: pointer;
             background: none;
             border: none;
-            padding: 4px;
+            padding: 6px;
+            border-radius: 6px;
         }
 
         .hamburger span {
-            width: 24px;
-            height: 2.5px;
+            width: 22px;
+            height: 2.2px;
             background: #0b1a17;
             border-radius: 4px;
             transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 900px) {
             .navbar .nav-links {
                 display: none;
                 flex-direction: column;
                 background: #ffffff;
                 position: absolute;
-                top: 64px;
+                top: 72px;
                 left: 0;
                 width: 100%;
-                padding: 28px 32px;
-                border-bottom: 1px solid rgba(0, 0, 0, 0.06);
-                gap: 18px;
+                padding: 24px 32px;
+                border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+                gap: 16px;
                 align-items: flex-start;
-                box-shadow: 0 16px 40px rgba(0, 0, 0, 0.08);
+                box-shadow: 0 16px 30px rgba(0, 0, 0, 0.08);
             }
 
             .navbar .nav-links.open {
                 display: flex;
             }
 
-            .navbar .nav-actions .btn-nav {
-                display: none;
+            .navbar .nav-links a {
+                font-size: 1rem;
+                padding: 6px 0;
+                width: 100%;
             }
 
             .hamburger {
                 display: flex;
             }
+        }
 
-            .navbar .logo .logo-text {
-                display: none;
+        @media (max-width: 480px) {
+            .navbar .nav-actions .btn-nav {
+                padding: 7px 16px;
+                font-size: 0.78rem;
             }
 
-            .navbar .logo .logo-text-sm {
-                display: inline-block;
+            .navbar .logo {
+                font-size: 1.05rem;
+                gap: 8px;
+            }
+
+            .navbar .logo .logo-img {
+                width: 36px;
+                height: 36px;
             }
         }
 
@@ -666,16 +708,18 @@
     <!-- ===== NAVBAR ===== -->
     <nav class="navbar" id="navbar">
         <div class="container">
+            <!-- Brand / Logo -->
             <a href="index.html" class="logo">
                 <span class="logo-img">
-                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png"
-                        alt="Nuqthah Logo"
-                        onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap\'></i>'" />
+                    <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2ef2247a_file_0000000005ac82469e639ea2dfd71b0e.png"
+                        alt="Markaz Nuqthah Logo"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<i class=\'fas fa-graduation-cap text-primary\'></i>'" />
                 </span>
-                <span class="logo-text">Nuqthah Learning Center</span>
+                <span class="logo-text">Markaz Nuqthah</span>
                 <span class="logo-text-sm">Nuqthah</span>
             </a>
 
+            <!-- Nav Links -->
             <ul class="nav-links" id="navLinks">
                 <li><a href="index.html">Beranda</a></li>
                 <li><a href="materi.html">Katalog</a></li>
@@ -686,6 +730,7 @@
                 <li><a href="formpengajar.html">Pengajar</a></li>
             </ul>
 
+            <!-- Nav Actions & Hamburger -->
             <div class="nav-actions">
                 <a href="materi.html" class="btn-nav">Mulai Belajar</a>
                 <button class="hamburger" id="hamburger" aria-label="Toggle menu">
@@ -696,7 +741,7 @@
     </nav>
 
     <!-- ===== KONTEN UTAMA ===== -->
-    <main class="max-w-screen-xl mx-auto px-4 md:px-6 pt-24 pb-24">
+    <main class="max-w-screen-xl mx-auto px-4 md:px-6 pt-28 pb-24">
 
         <header class="py-4 text-center">
             <h1 class="text-2xl md:text-3xl font-bold text-primary">📚 Materi Tersedia</h1>
@@ -823,9 +868,9 @@
             const navbar = document.getElementById('navbar');
             window.addEventListener('scroll', function () {
                 if (window.scrollY > 20) {
-                    navbar.style.boxShadow = '0 2px 20px rgba(0,0,0,0.08)';
+                    navbar.style.boxShadow = '0 4px 20px rgba(0,0,0,0.08)';
                 } else {
-                    navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.06)';
+                    navbar.style.boxShadow = '0 1px 12px rgba(0,0,0,0.05)';
                 }
             });
 
@@ -1025,7 +1070,7 @@
                     card.setAttribute('data-subfilter', course.subfilter);
                     if (course.review) card.setAttribute('data-review', course.review);
 
-                    const fallbackImg = 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/d50a2464_fdggdd.png';
+                    const fallbackImg = 'https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2ef2247a_file_0000000005ac82469e639ea2dfd71b0e.png';
                     const badgeText = course.badge || course.subfilter || '';
 
                     // Badge mode (Online/Offline) kecil di kanan atas gambar
