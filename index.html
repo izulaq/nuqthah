@@ -16,7 +16,7 @@
     <!-- Font Awesome 6 -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
-    <!-- Favicon (Diperbarui menggunakan logo baru) -->
+    <!-- Favicon -->
     <link rel="icon" type="image/png"
         href="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2ef2247a_file_0000000005ac82469e639ea2dfd71b0e.png" />
 
@@ -258,7 +258,6 @@
             letter-spacing: -0.3px;
         }
 
-        /* Penyesuaian untuk Logo Baru (Persegi Panjang) */
         .navbar .logo .logo-img {
             height: 38px;
             width: auto;
@@ -412,7 +411,6 @@
             z-index: 2;
         }
 
-        /* Styling untuk Gambar Banner Baru di Hero */
         .hero-banner {
             width: 100%;
             max-width: 600px;
@@ -435,7 +433,6 @@
             transform: scale(1.02);
         }
 
-        /* ===== HERO MOBILE CTA (Hanya Tampil di Mobile) ===== */
         .hero-mobile-cta {
             display: none;
         }
@@ -696,7 +693,7 @@
         }
 
         /* ============================================================
-                   PROMO BIMBEL MUQOROR (SECTION BARU)
+                   PROMO BIMBEL MUQOROR
                 ============================================================ */
         .promo-bimbel {
             background: #ffffff;
@@ -848,6 +845,522 @@
 
         .tentang-content p:last-of-type {
             margin-bottom: 28px;
+        }
+
+        /* ============================================================
+                   PENGAJAR SLIDER (FOTO KOTAK KECIL)
+                ============================================================ */
+        .pengajar {
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pengajar::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: -8%;
+            width: 450px;
+            height: 450px;
+            background: radial-gradient(circle, rgba(15, 74, 58, 0.05) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .pengajar-wrapper {
+            position: relative;
+            z-index: 2;
+        }
+
+        .pengajar-slider {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            padding: 8px 4px 24px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .pengajar-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pengajar-card {
+            flex: 0 0 auto;
+            width: 180px;
+            scroll-snap-align: start;
+            background: #ffffff;
+            border-radius: 18px;
+            border: 1px solid rgba(15, 74, 58, 0.08);
+            box-shadow: 0 4px 16px rgba(15, 74, 58, 0.04);
+            overflow: hidden;
+            transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.35s ease,
+                border-color 0.35s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .pengajar-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(15, 74, 58, 0.12);
+            border-color: rgba(15, 74, 58, 0.16);
+        }
+
+        .pengajar-photo {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: linear-gradient(145deg, #eaf2ef, #dce8e3);
+            position: relative;
+        }
+
+        .pengajar-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .pengajar-card:hover .pengajar-photo img {
+            transform: scale(1.08);
+        }
+
+        .pengajar-photo .photo-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.6rem;
+            color: #0f4a3a;
+            opacity: 0.4;
+        }
+
+        .pengajar-photo .photo-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(15, 74, 58, 0.65) 0%, transparent 55%);
+            opacity: 0;
+            transition: opacity 0.35s ease;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        .pengajar-card:hover .pengajar-photo .photo-overlay {
+            opacity: 1;
+        }
+
+        .pengajar-photo .photo-overlay span {
+            color: #ffffff;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            transform: translateY(8px);
+            transition: transform 0.35s ease;
+        }
+
+        .pengajar-card:hover .pengajar-photo .photo-overlay span {
+            transform: translateY(0);
+        }
+
+        .pengajar-info {
+            padding: 12px 12px 14px;
+            text-align: center;
+        }
+
+        .pengajar-info h4 {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0b1a17;
+            margin-bottom: 2px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            letter-spacing: -0.1px;
+        }
+
+        .pengajar-info span {
+            font-size: 0.72rem;
+            color: #6a7a77;
+            font-weight: 500;
+            display: block;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .pengajar-nav {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .pengajar-nav button {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1.5px solid rgba(15, 74, 58, 0.14);
+            background: #ffffff;
+            color: #0f4a3a;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .pengajar-nav button:hover {
+            background: #0f4a3a;
+            color: #ffffff;
+            border-color: #0f4a3a;
+            transform: translateY(-1px);
+            box-shadow: 0 6px 18px rgba(15, 74, 58, 0.22);
+        }
+
+        .pengajar-nav button:active {
+            transform: scale(0.92);
+        }
+
+        .pengajar-nav button:disabled {
+            opacity: 0.35;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .pengajar-nav button:disabled:hover {
+            background: #ffffff;
+            color: #0f4a3a;
+            border-color: rgba(15, 74, 58, 0.14);
+            box-shadow: none;
+        }
+
+        /* ============================================================
+                   MODAL PROFIL PENGAJAR
+                ============================================================ */
+        .pengajar-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.35s ease, visibility 0.35s ease;
+        }
+
+        .pengajar-modal.open {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .pengajar-modal-backdrop {
+            position: absolute;
+            inset: 0;
+            background: rgba(6, 25, 20, 0.65);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .pengajar-modal-card {
+            position: relative;
+            width: 100%;
+            max-width: 460px;
+            max-height: 90vh;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+            transform: translateY(30px) scale(0.95);
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            scrollbar-width: none;
+        }
+
+        .pengajar-modal-card::-webkit-scrollbar {
+            display: none;
+        }
+
+        .pengajar-modal.open .pengajar-modal-card {
+            transform: translateY(0) scale(1);
+        }
+
+        /* Header berwarna dengan foto */
+        .pengajar-modal-header {
+            position: relative;
+            background: linear-gradient(145deg, #0f4a3a 0%, #1a7a5e 55%, #0a3a2e 100%);
+            padding: 40px 24px 70px;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .pengajar-modal-header::before {
+            content: '';
+            position: absolute;
+            top: -40%;
+            right: -20%;
+            width: 220px;
+            height: 220px;
+            background: radial-gradient(circle, rgba(201, 162, 39, 0.30) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .pengajar-modal-header::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -15%;
+            width: 180px;
+            height: 180px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        .pengajar-modal-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 14px;
+            border: 4px solid rgba(255, 255, 255, 0.9);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+            background: #eaf2ef;
+            position: relative;
+            z-index: 2;
+        }
+
+        .pengajar-modal-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .pengajar-modal-avatar .avatar-fallback {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: #0f4a3a;
+            background: linear-gradient(145deg, #eaf2ef, #dce8e3);
+        }
+
+        .pengajar-modal-header .modal-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(255, 255, 255, 0.16);
+            color: #ffffff;
+            padding: 5px 16px;
+            border-radius: 60px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.4px;
+            text-transform: uppercase;
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            position: relative;
+            z-index: 2;
+        }
+
+        .pengajar-modal-header .modal-badge i {
+            font-size: 0.65rem;
+            color: #e9c96b;
+        }
+
+        .pengajar-modal-body {
+            position: relative;
+            margin-top: -42px;
+            padding: 0 28px 32px;
+            z-index: 3;
+        }
+
+        .pengajar-modal-name-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 18px 20px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(15, 74, 58, 0.10);
+            border: 1px solid rgba(15, 74, 58, 0.06);
+            margin-bottom: 22px;
+        }
+
+        .pengajar-modal-name-card h3 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #0b1a17;
+            letter-spacing: -0.3px;
+            line-height: 1.25;
+            margin-bottom: 4px;
+        }
+
+        .pengajar-modal-name-card .modal-role {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #0f4a3a;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .pengajar-modal-name-card .modal-role i {
+            color: #c9a227;
+            font-size: 0.72rem;
+        }
+
+        .pengajar-modal-bio {
+            font-size: 0.92rem;
+            color: #4a5a57;
+            line-height: 1.75;
+            text-align: justify;
+            margin-bottom: 20px;
+        }
+
+        .pengajar-modal-details {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 24px;
+        }
+
+        .pengajar-modal-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            background: #f8fbfa;
+            border: 1px solid rgba(15, 74, 58, 0.06);
+            border-radius: 14px;
+            padding: 12px 16px;
+            transition: all 0.25s ease;
+        }
+
+        .pengajar-modal-detail-item:hover {
+            background: #f0f7f4;
+            border-color: rgba(15, 74, 58, 0.12);
+        }
+
+        .pengajar-modal-detail-item .detail-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: #0f4a3a;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.95rem;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .pengajar-modal-detail-item .detail-text {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .pengajar-modal-detail-item .detail-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            color: #8a9a97;
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            line-height: 1.3;
+            margin-bottom: 2px;
+        }
+
+        .pengajar-modal-detail-item .detail-value {
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: #0b1a17;
+            line-height: 1.45;
+        }
+
+        .pengajar-modal-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .pengajar-modal-actions .btn-modal-close,
+        .pengajar-modal-actions .btn-modal-wa {
+            flex: 1;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px 18px;
+            border-radius: 60px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+            border: none;
+        }
+
+        .btn-modal-close {
+            background: #f0f4f2;
+            color: #0f4a3a;
+            border: 1.5px solid rgba(15, 74, 58, 0.10) !important;
+        }
+
+        .btn-modal-close:hover {
+            background: #e2ebe7;
+            transform: translateY(-1px);
+        }
+
+        .btn-modal-wa {
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: #ffffff;
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.30);
+        }
+
+        .btn-modal-wa:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(37, 211, 102, 0.40);
+        }
+
+        .pengajar-modal-close-x {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #ffffff;
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 5;
+            transition: all 0.25s ease;
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+        }
+
+        .pengajar-modal-close-x:hover {
+            background: rgba(255, 255, 255, 0.30);
+            transform: rotate(90deg);
         }
 
         /* ============================================================
@@ -1451,6 +1964,29 @@
         }
 
         /* ============================================================
+                   BLOBS & DECORATIONS
+                ============================================================ */
+        .blob-deco {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            pointer-events: none;
+            opacity: 0.3;
+        }
+
+        .blob-deco.green {
+            background: rgba(15, 74, 58, 0.10);
+        }
+
+        .blob-deco.gold {
+            background: rgba(201, 162, 39, 0.08);
+        }
+
+        .blob-deco.white {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        /* ============================================================
                    RESPONSIVE
                 ============================================================ */
 
@@ -1495,7 +2031,6 @@
                 font-size: 0.88rem;
             }
 
-            /* Promo Section */
             .promo-grid {
                 gap: 40px;
             }
@@ -1592,7 +2127,6 @@
                 margin-bottom: 28px;
             }
 
-            /* ===== HERO MOBILE CTA — TAMPIL DI MOBILE ===== */
             .hero-mobile-cta {
                 display: flex;
                 align-items: center;
@@ -1680,7 +2214,6 @@
                 font-size: 0.9rem;
             }
 
-            /* Promo Section */
             .promo-grid {
                 grid-template-columns: 1fr;
                 gap: 32px;
@@ -1805,6 +2338,45 @@
             section[id] {
                 scroll-margin-top: 80px;
             }
+
+            /* Pengajar responsive */
+            .pengajar-card {
+                width: 150px;
+            }
+
+            .pengajar-info {
+                padding: 10px 8px 12px;
+            }
+
+            .pengajar-info h4 {
+                font-size: 0.82rem;
+            }
+
+            .pengajar-info span {
+                font-size: 0.68rem;
+            }
+
+            /* Modal responsive */
+            .pengajar-modal {
+                padding: 16px;
+            }
+
+            .pengajar-modal-header {
+                padding: 34px 20px 64px;
+            }
+
+            .pengajar-modal-avatar {
+                width: 104px;
+                height: 104px;
+            }
+
+            .pengajar-modal-body {
+                padding: 0 20px 26px;
+            }
+
+            .pengajar-modal-name-card h3 {
+                font-size: 1.2rem;
+            }
         }
 
         /* --- Small Mobile (below 480px) --- */
@@ -1826,7 +2398,6 @@
                 margin-bottom: 24px;
             }
 
-            /* Penyesuaian CTA Mobile di Layar Kecil */
             .hero-mobile-cta {
                 gap: 10px;
                 margin: -8px auto 16px;
@@ -1973,7 +2544,6 @@
                 align-self: center;
             }
 
-            /* Penyesuaian ukuran logo baru di mobile */
             .navbar .logo .logo-img {
                 height: 32px;
             }
@@ -2013,7 +2583,6 @@
                 padding: 0 18px 18px;
             }
 
-            /* Promo Section Mobile */
             .promo-content h2 {
                 font-size: 1.5rem;
             }
@@ -2024,6 +2593,83 @@
 
             .promo-benefits li {
                 font-size: 0.9rem;
+            }
+
+            /* Pengajar responsive */
+            .pengajar-card {
+                width: 130px;
+                border-radius: 14px;
+            }
+
+            .pengajar-info h4 {
+                font-size: 0.76rem;
+            }
+
+            .pengajar-info span {
+                font-size: 0.64rem;
+            }
+
+            .pengajar-slider {
+                gap: 14px;
+            }
+
+            .pengajar-nav button {
+                width: 34px;
+                height: 34px;
+                font-size: 0.78rem;
+            }
+
+            /* Modal responsive */
+            .pengajar-modal-header {
+                padding: 30px 16px 58px;
+            }
+
+            .pengajar-modal-avatar {
+                width: 92px;
+                height: 92px;
+                border-width: 3px;
+            }
+
+            .pengajar-modal-body {
+                padding: 0 16px 22px;
+            }
+
+            .pengajar-modal-name-card {
+                padding: 14px 16px;
+                margin-bottom: 18px;
+            }
+
+            .pengajar-modal-name-card h3 {
+                font-size: 1.1rem;
+            }
+
+            .pengajar-modal-bio {
+                font-size: 0.86rem;
+            }
+
+            .pengajar-modal-detail-item {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .pengajar-modal-detail-item .detail-icon {
+                width: 34px;
+                height: 34px;
+                font-size: 0.85rem;
+            }
+
+            .pengajar-modal-detail-item .detail-value {
+                font-size: 0.82rem;
+            }
+
+            .pengajar-modal-actions {
+                flex-direction: column;
+            }
+
+            .pengajar-modal-actions .btn-modal-close,
+            .pengajar-modal-actions .btn-modal-wa {
+                padding: 11px 16px;
+                font-size: 0.82rem;
             }
         }
 
@@ -2052,7 +2698,6 @@
                 gap: 12px;
             }
 
-            /* Penyesuaian CTA Mobile di Layar Sangat Kecil */
             .hero-mobile-cta {
                 gap: 8px;
                 margin: -6px auto 14px;
@@ -2102,29 +2747,6 @@
         section[id] {
             scroll-margin-top: 80px;
         }
-
-        /* ============================================================
-                   BLOBS & DECORATIONS
-                ============================================================ */
-        .blob-deco {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            pointer-events: none;
-            opacity: 0.3;
-        }
-
-        .blob-deco.green {
-            background: rgba(15, 74, 58, 0.10);
-        }
-
-        .blob-deco.gold {
-            background: rgba(201, 162, 39, 0.08);
-        }
-
-        .blob-deco.white {
-            background: rgba(255, 255, 255, 0.05);
-        }
     </style>
 </head>
 
@@ -2170,13 +2792,11 @@
 
         <div class="container">
             <div class="hero-content fade-up">
-                <!-- Gambar Banner Baru Menggantikan Teks Judul & Deskripsi -->
                 <div class="hero-banner">
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/93952dd0_mang%20emul.jpeg"
                         alt="Bimbel Muqoror & Kajian Kitab Turats Markaz Nuqthah">
                 </div>
 
-                <!-- Teks CTA Khusus Mobile -->
                 <div class="hero-mobile-cta">
                     <span class="cta-line"></span>
                     <span class="cta-text">
@@ -2214,28 +2834,23 @@
                 </div>
             </div>
 
-            <!-- ===== STACK TESTIMONIAL SLIDER + CHANNEL BUTTON ===== -->
             <div class="hero-visual fade-up fade-up-delay-1">
                 <div class="stack-slider" id="stackSlider">
-                    <!-- Slide 1 -->
                     <div class="stack-slide" data-index="0">
                         <div class="slide-name">Belajar Fleksibel</div>
                         <div class="slide-message">Akses materi kapan saja, ulang video, dan latihan soal. Semua dalam
                             genggaman!</div>
                     </div>
-                    <!-- Slide 2 -->
                     <div class="stack-slide" data-index="1">
                         <div class="slide-name">Tanpa Batas Waktu</div>
                         <div class="slide-message">Sesuaikan jadwal belajarmu sendiri. Tidak perlu khawatir ketinggalan
                             kuliah.</div>
                     </div>
-                    <!-- Slide 3 -->
                     <div class="stack-slide" data-index="2">
                         <div class="slide-name">Bimbingan Kompeten</div>
                         <div class="slide-message">Pengajar berpengalaman dan materi terstruktur untuk meraih nilai
                             terbaik.</div>
                     </div>
-                    <!-- Slide 4 -->
                     <div class="stack-slide" data-index="3">
                         <div class="slide-name">Gabung Sekarang</div>
                         <div class="slide-message">Rasakan kemudahan memahami muqarrar dengan metode belajar modern.
@@ -2243,7 +2858,6 @@
                     </div>
                 </div>
 
-                <!-- ===== TOMBOL SALURAN WHATSAPP ===== -->
                 <a href="https://whatsapp.com/channel/0029Vb7wuKJJENy5U07kAP0y" target="_blank" rel="noopener"
                     class="channel-btn" aria-label="Ikuti Saluran WhatsApp Markaz Nuqthah">
                     <span class="channel-icon">
@@ -2261,18 +2875,15 @@
         </div>
     </section>
 
-    <!-- ===== SECTION BARU: PROMO BIMBEL MUQOROR ===== -->
+    <!-- ===== SECTION: PROMO BIMBEL MUQOROR ===== -->
     <section class="promo-bimbel section-padding" id="promo">
         <div class="container">
             <div class="promo-grid">
-                <!-- Kolom Kiri: Foto Poster -->
                 <div class="promo-image fade-up">
-                    <!-- Pastikan Anda menyimpan gambar poster dengan nama 'poster-bimbel.jpg' di folder assets -->
                     <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f73c0cf4_WhatsApp%20Image%202026-10-18%20at%2003.43.48.jpeg"
                         alt="Poster Bimbel Muqoror Markaz Nuqthah"
                         onerror="this.src='https://placehold.co/600x800/f0f7f4/0f4a3a?text=Poster+Bimbel+Muqoror';" />
                 </div>
-                <!-- Kolom Kanan: Caption & Benefit -->
                 <div class="promo-content fade-up fade-up-delay-1">
                     <span class="badge-light"><i class="fas fa-bullhorn"></i> Program Spesial</span>
                     <h2>Bimbel Muqoror: Ushuluddin & Syari'ah TK. 1</h2>
@@ -2320,6 +2931,211 @@
             </div>
         </div>
     </section>
+
+    <!-- ===== PENGAJAR (FOTO KOTAK KECIL) ===== -->
+    <section class="pengajar section-padding" id="pengajar">
+        <div class="container">
+            <div class="text-center fade-up">
+                <span class="badge-light"><i class="fas fa-chalkboard-teacher"></i> Tim Pengajar</span>
+                <h2 class="section-title">Kenali Pengajar Kami</h2>
+                <p class="section-subtitle mx-auto">Pengajar berpengalaman dan kompeten di bidangnya, siap membimbing
+                    perjalanan belajarmu. Klik foto untuk melihat profil lengkap.</p>
+            </div>
+
+            <div class="pengajar-wrapper fade-up fade-up-delay-1">
+                <div class="pengajar-slider" id="pengajarSlider">
+
+                    <!-- Kartu Pengajar 1 -->
+                    <div class="pengajar-card" data-pengajar-id="0">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/187c81d8_IMG_3183.JPG.jpeg"
+                                alt="Ust. Ernanda Yusril, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Ernanda Yusril, Lc.</h4>
+                            <span>Pengajar Syariah</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 2 -->
+                    <div class="pengajar-card" data-pengajar-id="1">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2de1f028_IMG_3065.JPG.jpeg"
+                                alt="Ust. Aflahuddin Muhajir, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Aflahuddin Muhajir, Lc.</h4>
+                            <span>Pengajar Syariah</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 3 -->
+                    <div class="pengajar-card" data-pengajar-id="2">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/eb3400a2_IMG_2998.JPG.jpeg"
+                                alt="Ust. Mujtaba Hanafi"
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Mujtaba Hanafi</h4>
+                            <span>Pengajar Syariah</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 4 -->
+                    <div class="pengajar-card" data-pengajar-id="3">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/5306039e_IMG_3435.JPG.jpeg"
+                                alt="Ust. Humaini Hamami, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Humaini Hamami, Lc.</h4>
+                            <span>Pengajar Syariah</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 5 -->
+                    <div class="pengajar-card" data-pengajar-id="4">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/65c19aa8_IMG_2994.JPG.jpeg"
+                                alt="Ust. Abdul Basit, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Abdul Basit, Lc.</h4>
+                            <span>Pengajar Ushuluddin</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 6 -->
+                    <div class="pengajar-card" data-pengajar-id="5">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/643886d3_20261016_194754.jpg.jpeg"
+                                alt="Ust. Akrom Mujahid, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Akrom Mujahid, Lc.</h4>
+                            <span>Pengajar Ushuluddin</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 7 -->
+                    <div class="pengajar-card" data-pengajar-id="6">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/eeadf34d_IMG_2832.JPG.jpeg"
+                                alt="Ust. M Kahfi Zamzami, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. M Kahfi Zamzami, Lc.</h4>
+                            <span>Pengajar Ushuluddin</span>
+                        </div>
+                    </div>
+
+                    <!-- Kartu Pengajar 8 -->
+                    <div class="pengajar-card" data-pengajar-id="7">
+                        <div class="pengajar-photo">
+                            <img src="https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f1fcf7a8_IMG_2987.JPG.jpeg"
+                                alt="Ust. Faiz Abdussalam, Lc."
+                                onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'photo-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                            <div class="photo-overlay"><span><i class="fas fa-eye"></i> Lihat Profil</span></div>
+                        </div>
+                        <div class="pengajar-info">
+                            <h4>Ust. Faiz Abdussalam, Lc.</h4>
+                            <span>Pengajar Ushuluddin</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="pengajar-nav">
+                    <button id="pengajarPrev" aria-label="Sebelumnya">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button id="pengajarNext" aria-label="Berikutnya">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== MODAL PROFIL PENGAJAR ===== -->
+    <div class="pengajar-modal" id="pengajarModal" aria-hidden="true" role="dialog" aria-modal="true"
+        aria-labelledby="pengajarModalName">
+        <div class="pengajar-modal-backdrop" id="pengajarModalBackdrop"></div>
+
+        <div class="pengajar-modal-card">
+            <button class="pengajar-modal-close-x" id="pengajarModalCloseX" aria-label="Tutup profil">
+                <i class="fas fa-times"></i>
+            </button>
+
+            <!-- Header berwarna -->
+            <div class="pengajar-modal-header">
+                <div class="pengajar-modal-avatar" id="pengajarModalAvatar">
+                    <img src="" alt="" id="pengajarModalImg"
+                        onerror="this.style.display='none';this.parentElement.innerHTML='<div class=\'avatar-fallback\'><i class=\'fas fa-user-tie\'></i></div>'" />
+                </div>
+                <span class="modal-badge"><i class="fas fa-graduation-cap"></i> <span
+                        id="pengajarModalBadge">Pengajar</span></span>
+            </div>
+
+            <!-- Body -->
+            <div class="pengajar-modal-body">
+                <div class="pengajar-modal-name-card">
+                    <h3 id="pengajarModalName">Nama Pengajar</h3>
+                    <span class="modal-role"><i class="fas fa-briefcase"></i> <span
+                            id="pengajarModalRole">Bidang</span></span>
+                </div>
+
+                <p class="pengajar-modal-bio" id="pengajarModalBio">Deskripsi pengajar akan tampil di sini.</p>
+
+                <div class="pengajar-modal-details">
+                    <div class="pengajar-modal-detail-item">
+                        <div class="detail-icon"><i class="fas fa-book-reader"></i></div>
+                        <div class="detail-text">
+                            <span class="detail-label">Bidang Yang Diampu</span>
+                            <span class="detail-value" id="pengajarModalField">-</span>
+                        </div>
+                    </div>
+                    <div class="pengajar-modal-detail-item">
+                        <div class="detail-icon"><i class="fas fa-university"></i></div>
+                        <div class="detail-text">
+                            <span class="detail-label">Riwayat Pendidikan</span>
+                            <span class="detail-value" id="pengajarModalEducation">-</span>
+                        </div>
+                    </div>
+                    <div class="pengajar-modal-detail-item">
+                        <div class="detail-icon"><i class="fas fa-award"></i></div>
+                        <div class="detail-text">
+                            <span class="detail-label">Pengalaman Mengajar</span>
+                            <span class="detail-value" id="pengajarModalExperience">-</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="pengajar-modal-actions">
+                    <button class="btn-modal-close" id="pengajarModalClose">
+                        <i class="fas fa-times"></i> Tutup
+                    </button>
+                    <a href="https://wa.me/6285185409887" target="_blank" rel="noopener" class="btn-modal-wa">
+                        <i class="fab fa-whatsapp"></i> Tanya Pengajar
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- ===== KEUNGGULAN ===== -->
     <section class="keunggulan section-padding" id="keunggulan">
@@ -2569,9 +3385,7 @@
         </div>
     </footer>
 
-    <!-- ============================================================
-                   FLOATING ACTION BUTTON (FAB)
-                ============================================================ -->
+    <!-- ===== FLOATING ACTION BUTTON (FAB) ===== -->
     <div class="fab-container" id="fabContainer">
         <div class="fab-sub" id="fabSub">
             <a href="https://wa.me/6285185409887" target="_blank" rel="noopener" class="btn btn-wa"
@@ -2603,6 +3417,193 @@
     <!-- ===== JAVASCRIPT ===== -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
+
+            // ============================================================
+            // DATA PROFIL PENGAJAR (Telah disesuaikan dengan gambar)
+            // ============================================================
+            const dataPengajar = [
+                {
+                    nama: "Ust. Ernanda Yusril, Lc.",
+                    bidang: "Syari'ah Islamiyah",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/187c81d8_IMG_3183.JPG.jpeg",
+                    //bio: "Ust. Ernanda Yusril, Lc. merupakan pengajar bimbel Syariah, Tarikh Tasyri', dan Ulumul Hadits. Beliau aktif membimbing mahasiswa dalam memahami muqarrar dengan pendekatan yang mudah dan aplikatif.",
+                    keahlian: "Tarikh Tasyri' & Ulumul Hadist, Syariah Islamiyah TK 1",
+                    pendidikan: "1. MA Al-Ihsan Baleendah<br>2. S1 Universitas Al-Azhar Kairo",
+                    pengalaman: "1. Mengajar di Mediator dan Anak Ma'had"
+                },
+                {
+                    nama: "Ust. Aflahuddin Muhajir, Lc.",
+                    bidang: "Syari'ah Islamiyah",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/2de1f028_IMG_3065.JPG.jpeg",
+                    //bio: "Ust. Aflahuddin Muhajir, Lc. adalah pengajar bidang Syari'ah yang mendalami fikih, ushul fikih, dan bahasa Arab. Beliau dikenal sabar dalam membimbing mahasiswa memahami hukum-hukum syar'i dari sumber aslinya.",
+                    keahlian: "Nahwu, Syariah Islamiyah TK 1",
+                    pendidikan: "1. PP. Darussalam Garut<br>2. S1 Universitas Al-Azhar Kairo",
+                    pengalaman: "1. Pengajar Nahwu Madrasah Ikasada<br>2. Pengajar Shorof Madrasah Ikasada"
+                },
+                {
+                    nama: "Ust. Mujtaba Hanafi",
+                    bidang: "Syari'ah Islamiyah",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/eb3400a2_IMG_2998.JPG.jpeg",
+                    //bio: "Ust. Mujtaba Hanafi merupakan pengajar Bahasa Arab yang fokus pada penguasaan shorof. Beliau membantu mahasiswa membangun fondasi bahasa Arab yang kuat untuk memahami kitab-kitab turats.",
+                    keahlian: "Shorof, Syariah Islamiyah TK 1",
+                    pendidikan: "1. Ma'had al-azhar<br>2. S1 Universitas Al-Azhar Kairo",
+                    pengalaman: "1. Mu'in Mudzakaroh Markaz Nuqthah"
+                },
+                {
+                    nama: "Ust. Humaini Hamami, Lc.",
+                    bidang: "Syari'ah Islamiyah",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/5306039e_IMG_3435.JPG.jpeg",
+                    //bio: "Ust. Humaini Hamami, Lc. mengkhususkan diri pada Tafsir Ayat Ahkam dan Syariah Islamiyah. Beliau aktif membimbing mahasiswa dalam memahami konteks ayat-ayat hukum.",
+                    keahlian: "Tafsir Ayat Ahkam, Syariah Islamiyah TK 1",
+                    pendidikan: "1. Pondok pesantren Madinatunnajah<br>2. S1 Universitas Al Azhar Cairo",
+                    pengalaman: "1. Pengajar bimbel Tarikh Tasyri' di Egypt Malaya Studios<br>2. Pengajar bimbel tauhid Ma'had di Markaz Azhary As-Syarief<br>3. Pengajar persiapan Tahdid Mustawa di IKPDN Center"
+                },
+                {
+                    nama: "Ust. Abdul Basit, Lc.",
+                    bidang: "Ushuluddin",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/65c19aa8_IMG_2994.JPG.jpeg",
+                    //bio: "Ust. Abdul Basit, Lc. aktif dalam pengajaran Mantiq dan ilmu-ilmu Ushuluddin. Beliau membimbing mahasiswa untuk mendalami ilmu alat dan pemahaman yang kontekstual.",
+                    keahlian: "Mantiq & Ulumul Qur'an Ushuluddin TK 1",
+                    pendidikan: "1. SMK Pelita Ynh Sukabumi<br>2. Kelas Bahasa LIPIA Jakarta<br>3. Markaz Lughah Syeikh Zaid<br>4. S1 Universitas Al-Azhar Fakultas Ushuluddin Jurusan Tafsir",
+                    pengalaman: "1. Musyrif Asrama, Arsyad Center<br>2. Musyrif, Ponpes Darussunnah Bogor<br>3. Guru Tafsir dan Bahasa Inggris, Ponpes Darussunnah Parung, Bogor<br>4. Guru Ulumul Qur'an, Ponpes Raudhatul Banat, Sukabumi<br>5. Pengajar Bimbingan Belajar Mantiq di beberapa lembaga<br>6. Pengajar Privat Mantiq"
+                },
+                {
+                    nama: "Ust. Akrom Mujahid, Lc.",
+                    bidang: "Ushuluddin",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/643886d3_20261016_194754.jpg.jpeg",
+                    //bio: "Ust. Akrom Mujahid, Lc. merupakan pengajar Maddah Nuzhum Islamiyah Fakultas Ushuluddin TK 1. Berpengalaman mengajar di Azhary Center dan Alka Egypt.",
+                    keahlian: "Nuzhum Islamiyah, Ushuluddin TK 1",
+                    pendidikan: "1. MANPK 1 Darussalam Ciamis<br>2. S1 Universitas Al Azhar Kairo – Fak. Ushuluddin Jurusan Tafsir dan Ilmu-ilmu Al-Qur'an",
+                    pengalaman: "1. Pengajar Bimbel fak. Ushuluddin TK.1 Azhary Center<br>2. Pengajar Bimbel fak. Ushuluddin tk.1 Alka Egypt"
+                },
+                {
+                    nama: "Ust. M Kahfi Zamzami, Lc.",
+                    bidang: "Ushuluddin",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/eeadf34d_IMG_2832.JPG.jpeg",
+                    //bio: "Ust. M Kahfi Zamzami, Lc. merupakan pengajar Maddah Nahwu Shorof Fakultas Ushuluddin TK 1. Lulusan Universitas Al-Azhar Kairo yang berpengalaman mengajar bimbel.",
+                    keahlian: "Nahwu Shorof, Ushuluddin TK 1",
+                    pendidikan: "1. MA Wali Songo Putra, Ngabar, Ponorogo<br>2. Lembaga Ilmu Pengetahuan Islam dan Arab, Jakarta Selatan<br>3. Jurusan Asy-Syu'bah Al-Ammah, Fakultas Bahasa Arab, Universitas Al-Azhar, Kairo",
+                    pengalaman: "1. Mengajar bimbel di BMI Istiqbal"
+                },
+                {
+                    nama: "Ust. Faiz Abdussalam, Lc.",
+                    bidang: "Ushuluddin",
+                    badge: "Profil Pengajar",
+                    foto: "https://userkv.r2.mayar.id/landing-page/assets/nuqthah-kind-kingdom-2402/f1fcf7a8_IMG_2987.JPG.jpeg",
+                    //bio: "Ust. Faiz Abdussalam, Lc. merupakan pengajar Maddah Fiqih fakultas Ushuluddin TK 1. Beliau memiliki pengalaman sebagai musyrif dan mentor forum diskusi ilmiah.",
+                    keahlian: "Fiqh, Ushuluddin TK 1",
+                    pendidikan: "1. MA Darul Inayah<br>2. S1 Universitas Al-Azhar Fakultas Syariah Islamiyah",
+                    pengalaman: "1. Musyrif Sahah Asy-syinqithi<br>2. Mentor FDIT (Forum Diskusi Ilmiah Tasawuf) LDTQN RAM"
+                }
+            ];
+
+            // ============================================================
+            // MODAL PROFIL PENGAJAR
+            // ============================================================
+            const modal = document.getElementById('pengajarModal');
+            const modalBackdrop = document.getElementById('pengajarModalBackdrop');
+            const modalCloseX = document.getElementById('pengajarModalCloseX');
+            const modalCloseBtn = document.getElementById('pengajarModalClose');
+            const modalImg = document.getElementById('pengajarModalImg');
+            const modalAvatar = document.getElementById('pengajarModalAvatar');
+            const modalName = document.getElementById('pengajarModalName');
+            const modalRole = document.getElementById('pengajarModalRole');
+            const modalBadge = document.getElementById('pengajarModalBadge');
+            const modalBio = document.getElementById('pengajarModalBio');
+            const modalField = document.getElementById('pengajarModalField');
+            const modalEducation = document.getElementById('pengajarModalEducation');
+            const modalExperience = document.getElementById('pengajarModalExperience');
+            const pengajarCards = document.querySelectorAll('.pengajar-card');
+
+            let lastFocusedElement = null;
+
+            function openModal(index) {
+                const data = dataPengajar[index];
+                if (!data) return;
+
+                lastFocusedElement = document.activeElement;
+
+                // Isi konten modal
+                modalName.textContent = data.nama;
+                modalRole.textContent = data.bidang;
+                modalBadge.textContent = data.badge || data.bidang;
+                modalBio.textContent = data.bio;
+                modalField.textContent = data.keahlian;
+
+                // Menggunakan innerHTML agar tag <br> untuk line break berfungsi
+                modalEducation.innerHTML = data.pendidikan;
+                modalExperience.innerHTML = data.pengalaman;
+
+                // Reset avatar terlebih dahulu
+                modalAvatar.innerHTML = '';
+                const newImg = document.createElement('img');
+                newImg.src = data.foto;
+                newImg.alt = data.nama;
+                newImg.id = 'pengajarModalImg';
+                newImg.onerror = function () {
+                    this.style.display = 'none';
+                    this.parentElement.innerHTML = '<div class="avatar-fallback"><i class="fas fa-user-tie"></i></div>';
+                };
+                modalAvatar.appendChild(newImg);
+
+                // Tampilkan modal
+                modal.classList.add('open');
+                modal.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+
+                // Fokus ke tombol close untuk aksesibilitas
+                setTimeout(function () {
+                    modalCloseX.focus();
+                }, 100);
+            }
+
+            function closeModal() {
+                modal.classList.remove('open');
+                modal.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+
+                if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+                    lastFocusedElement.focus();
+                }
+            }
+
+            // Pasang event listener ke setiap kartu pengajar
+            pengajarCards.forEach(function (card) {
+                card.addEventListener('click', function () {
+                    const id = parseInt(this.getAttribute('data-pengajar-id'), 10);
+                    openModal(id);
+                });
+
+                // Dukungan keyboard (Enter / Space)
+                card.setAttribute('tabindex', '0');
+                card.setAttribute('role', 'button');
+                card.addEventListener('keydown', function (e) {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        const id = parseInt(this.getAttribute('data-pengajar-id'), 10);
+                        openModal(id);
+                    }
+                });
+            });
+
+            // Event listener tombol close
+            if (modalCloseX) modalCloseX.addEventListener('click', closeModal);
+            if (modalCloseBtn) modalCloseBtn.addEventListener('click', closeModal);
+            if (modalBackdrop) modalBackdrop.addEventListener('click', closeModal);
+
+            // Tutup dengan tombol Escape
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && modal.classList.contains('open')) {
+                    closeModal();
+                }
+            });
 
             // ---- Navbar scroll effect ----
             const navbar = document.getElementById('navbar');
@@ -2863,6 +3864,34 @@
                     }, 150);
                 }
             }, 300);
+
+            // ============================================================
+            // PENGAJAR SLIDER NAVIGATION
+            // ============================================================
+            const pengajarSlider = document.getElementById('pengajarSlider');
+            const pengajarPrev = document.getElementById('pengajarPrev');
+            const pengajarNext = document.getElementById('pengajarNext');
+
+            if (pengajarSlider && pengajarPrev && pengajarNext) {
+                function updatePengajarNav() {
+                    const scrollLeft = pengajarSlider.scrollLeft;
+                    const maxScroll = pengajarSlider.scrollWidth - pengajarSlider.clientWidth;
+                    pengajarPrev.disabled = scrollLeft <= 4;
+                    pengajarNext.disabled = scrollLeft >= maxScroll - 4;
+                }
+
+                pengajarPrev.addEventListener('click', function () {
+                    pengajarSlider.scrollBy({ left: -200, behavior: 'smooth' });
+                });
+
+                pengajarNext.addEventListener('click', function () {
+                    pengajarSlider.scrollBy({ left: 200, behavior: 'smooth' });
+                });
+
+                pengajarSlider.addEventListener('scroll', updatePengajarNav);
+                window.addEventListener('resize', updatePengajarNav);
+                updatePengajarNav();
+            }
 
         });
     </script>
